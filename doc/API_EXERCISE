@@ -1,0 +1,39 @@
+API EXERCISE
+
+**ViewtoModel**
+
+This external API will possess the methods that will handle the interactions that the View component passes on to the Model. This will include, most importantly, the instruction input by the user. This string will be inputted by the user which will then be sent along for processing by the model. In addition, the View will pass along the input events by the user such as click events or keyboard press events.  
+
+GetInstruction() 
+RegisterMouseClickEvent()
+RegisterKeyboardEvent()
+
+**ModeltoView**
+
+This external API will hold the features that the View will need to take in order to refresh its display. It will take information regarding the "turtle" such as its location and orientation and certain states that the "turtle" object possesses. It will also be able to pass on any error results to the View due to bad input. The ModeltoView will in essence be able to pass on any characteristics that the View would need to to visualize or display. 
+   
+getStatistics()
+getLocation()
+getOrientation()
+getTurtleImage()
+ErrorMessage()
+
+**ModeltoModel**
+
+This Internal API will hold features that the model will pass along around different sub-components within the model. The ModeltoModel would have public methods and classes that would hold the interactions between the ModelTurtle, theCommandBank, and the Parser. 
+
+updateLocation()
+updateOrientation()
+updateImage()
+getPreviousPoint()
+chooseCommand()
+interpretCommand()
+
+**ViewtoView**
+
+This internal API will hold features to deal with communication between the View components. It will show interaction between different UI elements and corresponding influences on the scene.
+
+displayTurtle()
+moveTurtle()
+turnTurtle()
+changeColor() 
