@@ -12,9 +12,13 @@ Public backend: This external API will contain features that the View needs to c
 
 Public frontend: The public frontend will be responsible for initialising and setting up the stage and screen which have to interact dynamically with the backend. In addition, the public front end will have to pass the command or instruction inputted to the View to the Model as well as any mouse or keyboard events if necessary.
 
+![enter image description here](https://git.cs.duke.edu/CompSci308_2016Fall/slogo_team01/blob/master/images/Designoverviewsketch.jpg "Design Overview")
+
 **User Interface**
 
 Users will interact with our program through the use of various menus and toolbars. There will be a menu for what tab you would like to have open on the side of your screen (history, possible commands, etc.) and there will be a toolbar along the top with some pre-programmed moves. We will have an output box for any math/words that the turtle does not need to know about. History will allow the user to click on the previous command and repeat it. Possible commands is just a library of all commands that someone can do and how to use them. The user will get a report if they put in a command that is not valid, or use a valid command with the incorrect/null command arguments.
+
+![enter image description here](https://git.cs.duke.edu/CompSci308_2016Fall/slogo_team01/blob/master/images/UIsketch.jpeg "UI Sketch")
 
 **API Details**
 
