@@ -1,0 +1,42 @@
+Guhan Muruganandam gm114 
+Teddy Francheschi (ttf6)
+
+Part 1
+
+What about your design should be flexible?
+
+Within the API for external BackEnd, it will remain flexible in that it can easily add new features to communicate to the View. In addition it should be easily able to access a pre-decided amount of information in the FrontEnd. As a result a good controller will not require any massive edits to add new functionality.
+
+How is your design encapsulating your implementation decisions?
+
+Within the external BackEnd API, there is a responsibility for ensuring that View only has access to what it requires which are the data values needed to update the GUI. Likewise it should ensure that the Internal BackEnd part of the API has no access to aspects of the FrontEnd that are not required by it.
+
+What exceptions (error cases) might occur in your part and how will you handle them (or not, by throwing)?
+
+The main exception that could occur in this API is if a valid instruction is inputted, yet the GUI can not implement it. For example if the turtle must move forward, but has no space to move(Depending on the exact implementation). However for this API, there is an assumption that the command is valid if the expression tree could process it.
+
+Why do you think your API/design is good (also define what your measure of good is)?
+
+I think the design is good, because it is an API that truly creates separation between the View and the Model. They are only able to communicate within this API, so that neither can access variables they are not supposed to. The design is valuable because the there is a separate API solely to deal with communication between the FrontEnd and the BackEnd.
+
+Part 2
+
+Come up with at least five use cases for your part (it is absolutely fine if they are useful for both teams).
+
+User inputs fd 50, API will have to provide View the co-ordinates of the new position 
+User inputs fd 50, API will have to update statistic(e.g. total distance traveled) 
+User inputs add 20,30, API will have to tell View to not affect the turtle image or screen and instead output the sum of the math operation in a different output area 
+User inputs wrong input, API passes on error message associated with that error condition to the View 
+User inputs pendown, API passes on boolean condition to have View draw the line path.
+
+How do you think at least one of the “advanced” Java features will help you implement your design?
+
+One advanced feature that might come in handy is binding in which any changes in the Model turtle object should lead to a corresponding change in the FrontEnd of the View Turtle Object.
+
+What feature are you most excited to work on?
+
+Creating an organized format to pass information between the two models that allows the backend and front end to easily see the variables they will work with
+
+What feature/design problem are you most worried about working on?
+
+I am also worried about creating this organized format. I am worried that if I poorly communicate the information it could lead to severe error that will be difficult to find.
