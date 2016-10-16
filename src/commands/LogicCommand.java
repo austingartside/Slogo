@@ -7,9 +7,6 @@ public abstract class LogicCommand extends CommandNode {
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
-	}
+	public abstract void execute();
 
 }

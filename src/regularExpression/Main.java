@@ -2,10 +2,11 @@ package regularExpression;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-
+import java.util.*;
 
 public class Main {
+	
+	List<ArrayList<String>> textInput;
     // utility function that reads given file and returns its entire contents as a single string
     private static String readFileToString (String filename) throws FileNotFoundException {
         final String END_OF_FILE = "\\z";
@@ -18,10 +19,14 @@ public class Main {
 
     // given some text, prints results of parsing it using the given language
     private static void parseText (ProgramParser lang, String[] text) {
+    	//textInput = new ArrayList<ArrayList<String>>();
         for (String s : text) {
-        	System.out.print(s + " ");
+        	if(s.contains("\n")){
+        		System.out.println("IASDKNASLDKJFALSKDJFNALSKDJFNALKSDJNFALKJN");
+        	}
+        	//System.out.print(s + " ");
             if (s.trim().length() > 0) {
-                //System.out.println(String.format("%s : %s", s, lang.getSymbol(s)));
+                System.out.println(String.format("%s : %s", s, lang.getSymbol(s)));
             }
         }
         //System.out.println();
@@ -74,12 +79,13 @@ public class Main {
         lang.addPatterns("resources/languages/Syntax");
 
         try {
-            String userInput = "fd 50 rt 90 BACK :distance Left :angle";
+            //String userInput = "fd 50\n rt 90 BACK :distance Left :angle";
+        	String userInput = "fd 50\n rt 90 BACK :distance Left :angle";
             String fileInput = readFileToString("data/examples/simple/square.logo");
             // try against different inputs
             //parseText(lang, examples);
             //parseText(lang, userInput.split(WHITESPACE));
-            parseText(lang, fileInput.split(WHITESPACE));
+            //parseText(lang, fileInput.split(WHITESPACE));
         }
         catch (FileNotFoundException e) {
             //e.printStackTrace();

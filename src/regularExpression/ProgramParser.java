@@ -39,6 +39,7 @@ public class ProgramParser {
             if (match(text, e.getValue())) {
                 return e.getKey();
             }
+            //CHANGED HERE
         }
         return ERROR;
     }

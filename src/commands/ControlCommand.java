@@ -6,5 +6,8 @@ public abstract class ControlCommand extends CommandNode{
 		super(command);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public abstract void execute();
 
 }
