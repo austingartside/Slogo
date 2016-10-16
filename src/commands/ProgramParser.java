@@ -1,4 +1,4 @@
-package regularExpression;
+package commands;
 
 import java.util.Enumeration;
 import java.util.ArrayList;

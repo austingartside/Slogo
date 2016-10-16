@@ -1,4 +1,4 @@
-package regularExpression;
+package commands;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +23,14 @@ public class InputReader {
         String result = input.next();
         input.close();
         return result;
+    }
+    
+    /**
+     * @return The command input separated by whitespace and lines. 
+     * Each row is a line in the input and each element is a symbol (could be command or + or etc.)
+     */
+    public List<List<String>> getInputtedCommands(){
+    	return textInput;
     }
 
     // given some text, prints results of parsing it using the given language
