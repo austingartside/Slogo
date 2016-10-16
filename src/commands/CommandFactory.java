@@ -1,15 +1,25 @@
 package commands;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 public class CommandFactory {
 	
 	private static final String PACKAGE_NAME = "commands";
 	
-	public Object getCommand(String commandName) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+	
+	//haven't done anything about user created variables
+	public Object getCommand(String commandName, ListOfCommands commandList) throws Exception{
 		try{
-			String className = PACKAGE_NAME + "."+ commandName + "Node";
-			return Class.forName(className).getConstructor(String.class).newInstance(commandName);
+			ProgramParser lang = new ProgramParser();
+			String translatedCommand = lang.getSymbol(commandName);
+			if(isValidCommand(translatedCommand)){
+				String className = PACKAGE_NAME + "."+ translatedCommand + "Node";
+				return Class.forName(className).getConstructor(String.class).newInstance(translatedCommand, commandList, this);
+			}
+			else{
+				throw new IllegalArgumentException("Command " + commandName + " does not exist");
+			}
 		}
 		catch(IllegalArgumentException e){
 			e.printStackTrace();
@@ -17,9 +27,8 @@ public class CommandFactory {
 		throw new IllegalArgumentException("Command " + commandName + " does not exist");	
 	}
 	
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
-		CommandFactory austin = new CommandFactory();
-		austin.getCommand("Forward");
+	public boolean isValidCommand(String command){
+		return command.equals("NOMATCH");
 	}
 	
 }

@@ -49,33 +49,31 @@ public class InputReader {
     	for(int i = 0; i<textInput.size(); i++){
     		for(int j = 0; j<textInput.get(i).size(); j++){
     			String s = textInput.get(i).get(j);
-    			if(commandExists(lang.getSymbol(s))){
+    			//if(commandExists(lang.getSymbol(s))){
     				System.out.print(String.format("%s:%s    ", s, lang.getSymbol(s)));
-    			}
+    			//}
     		}
     		System.out.println();
     	}
     }
     
-    private boolean commandExists(String command){
-    	return !command.equals("NO MATCH");
-    }
+//    private boolean commandExists(String command){
+//    	return !command.equals("NO MATCH");
+//    }
     
     private void convertInputToList(String input){
     	textInput = new ArrayList<List<String>>();
     	String[] lineSeparatedText =input.split("\n");
     	for(String line: lineSeparatedText){
     		line = line.trim().toLowerCase();
-    		if(line.length()>0){
-    			if(line.charAt(0) == '#'){
-    				textInput.add(new ArrayList<String>());
-    			}
-    			else{
-    				String[] splitLine = line.split(WHITESPACE);
-    				List<String> lineInput = convertArrayToList(splitLine);
-    				textInput.add(lineInput);
-    			}
+    		if(line.length()==0 || line.charAt(0) == '#'){
+    			textInput.add(new ArrayList<String>());
     		}
+			else{
+				String[] splitLine = line.split(WHITESPACE);
+				List<String> lineInput = convertArrayToList(splitLine);
+				textInput.add(lineInput);
+			}
     	}
     }
     
@@ -138,12 +136,12 @@ public class InputReader {
 
         try {
             //String userInput = "fd 50\n rt 90 BACKpoop :distance Left :angle";
-        	String userInput = "make\n set repeat   dotimes\n for\n if\n ifelse\n TO\n";
+        	//String userInput = "make\n set repeat   dotimes\n for\n if\n ifelse\n TO\n";
         	//String userInput = "fd\n bk\n lt\n rt\n SETH\n TOWArDS\n setxy\n goto\n pu\n pd\n st\n ht\n home\n cs\n";
         	//String userInput = "sum\n difference\n product\n QuotienT\n ReMainder\n Minus\n random\n sin\n cos\n tan\n atan\n log\n"
         	//		+ " pow\n pI\n";
         	//String userInput = "less?\n lessp\n Greater?\n greaterP\n equal?\n equalp\n notequal?\n notequalp\n and\n or\n not\n";
-            //String userInput = "to 4 [ fd 50 rt 100 ]\n rt 90 BACK :distance Left :angle";
+            String userInput = "repeat 4 [ fd 50 rt 100 ]\n rt 90 BACK :distance Left :angle";
             //String[] text = userInput.split("\n");
             String fileInput = readFileToString("data/examples/simple/square.logo");
             // try against different inputs
