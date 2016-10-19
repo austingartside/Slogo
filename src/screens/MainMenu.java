@@ -41,7 +41,7 @@ public class MainMenu {
             
             @Override
             public void handle(final ActionEvent ae){
-                myActionScene = new LogoScene(myScene, myResources, height, width);
+                myActionScene = new SLogoScene(myScene, myResources, height, width);
                 myScene.setRoot(myActionScene.getRoot());
             }
         });

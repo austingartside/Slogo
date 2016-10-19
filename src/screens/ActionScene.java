@@ -3,6 +3,8 @@ package screens;
 import java.util.ResourceBundle;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public abstract class ActionScene {
     private Group myRoot;
@@ -21,5 +23,12 @@ public abstract class ActionScene {
     
     public void setRoot(Group r){
         myRoot = r;
+    }
+    
+    private void showError (String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(message);
+        alert.setContentText(myResources.getString(message));
+        alert.showAndWait();
     }
 }
