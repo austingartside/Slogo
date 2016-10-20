@@ -11,11 +11,12 @@ import java.util.List;
  *
  */
 public class CommandHistory extends ButtonGenerator{
-    public void create(Group g, List list){
+    public void create(Group g){
         setAttributes("Command History");
-        getList().getItems().addAll(list);
+        getList().getItems().addAll(getChoices());
         g.getChildren().add(getList());
     }
+
     public void execute(){
 
     }

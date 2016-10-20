@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class CurrVariables extends ButtonGenerator{
 
-    public void create(Group g, List list) {
+    public void create(Group g) {
         setAttributes("Current Variables");
-        getList().getItems().addAll(list);
+        getList().getItems().addAll(getChoices());
         g.getChildren().add(getList());
     }
     public void execute(){

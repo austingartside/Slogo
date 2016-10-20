@@ -2,15 +2,15 @@ package View;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import sun.security.util.ObjectIdentifier;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -26,13 +26,18 @@ public class DisplayGenerator {
     private Group group;
     private TextField commandLine;
     private Button enter;
+    private CanvasGenerator canvas;
 
+    private ButtonGenerator backgroundChanger, imageChanger, commandHistory, currCommands,
+    currVariables, languageChooser, penColorChanger;
 
     public DisplayGenerator(){
         commandLine = new TextField();
         enter = new Button("Enter");
         group = new Group();
         scene = new Scene(group, SIZE_X, SIZE_Y);
+        canvas = new CanvasGenerator();
+        initButtons();
     }
 
     /**
@@ -56,37 +61,103 @@ public class DisplayGenerator {
     public Scene getScene(){
         return scene;
     }
+    public void changeBackgroundColor(Color color){
+        canvas.changeBackgroundColor(color);
+    }
+    public ComboBox<Object> getBackgroundChanger(){
+        return backgroundChanger.getList();
+    }
+    public ComboBox<Object> getImageChanger(){
+        return imageChanger.getList();
+    }
+    public ComboBox<Object> getCommandHistory(){
+        return commandHistory.getList();
+    }
+    public ComboBox<Object> getCurrCommands(){
+        return currCommands.getList();
+    }
+    public ComboBox<Object> getCurrVariables(){
+        return currVariables.getList();
+    }
+    public ComboBox<Object> getLanguageChooser(){
+        return languageChooser.getList();
+    }
+    public ComboBox<Object> getPenColorChanger(){
+        return penColorChanger.getList();
+    }
+    public void drawTurtle(double angle, double x, double y){
+
+    }
+    public String getCommand(){
+        return commandLine.getText();
+    }
+
+    //TODO change Object to Command object, so that we can add stuff to command history
+    public void addToHistory(Object object){
+        commandHistory.getList().getItems().add(object);
+    }
+    public void addToCurrCommands(Object object){
+        currCommands.getList().getItems().add(object);
+    }
+    public void addToCurrVariables(Object object){
+        currVariables.getList().getItems().add(object);
+    }
+    private void addLanguages(){
+        languageChooser.getList().getItems().add("English");
+        languageChooser.getList().getItems().add("Chinese");
+        languageChooser.getList().getItems().add("French");
+        languageChooser.getList().getItems().add("German");
+        languageChooser.getList().getItems().add("Italian");
+        languageChooser.getList().getItems().add("Portuguese");
+        languageChooser.getList().getItems().add("Russian");
+        languageChooser.getList().getItems().add("Spanish");
+
+    }
+    private void addPenColors(){
+        penColorChanger.getList().getItems().add(Color.BLUE);
+        penColorChanger.getList().getItems().add(Color.PURPLE);
+        penColorChanger.getList().getItems().add(Color.GREEN);
+        penColorChanger.getList().getItems().add(Color.BLACK);
+        penColorChanger.getList().getItems().add(Color.YELLOW);
+    }
+    private void addBackgroundColors(){
+        backgroundChanger.getList().getItems().add(Color.BLUE);
+        backgroundChanger.getList().getItems().add(Color.MEDIUMPURPLE);
+        backgroundChanger.getList().getItems().add(Color.GREENYELLOW);
+    }
+    private void addImage(){
+
+    }
+
     private void addButtons(){
+        createButtons();
+        addPenColors();
+        addBackgroundColors();
+        addLanguages();
         VBox box = new VBox(10);
-
-        ButtonGenerator b = new BackgroundChanger();
-        ArrayList<Color> a = new ArrayList<>();
-        b.create(group, a);
-
-        ButtonGenerator image = new ImageChanger();
-        ArrayList<String> strings = new ArrayList<>();
-        image.create(group, strings);
-        
-        ButtonGenerator command = new CommandHistory();
-        command.create(group, strings);
-
-        ButtonGenerator curr = new CurrCommands();
-        curr.create(group, strings);
-
-        ButtonGenerator var = new CurrVariables();
-        var.create(group, strings);
-
-        ButtonGenerator language = new LanguageChooser();
-        language.create(group, strings);
-
-        ButtonGenerator pen = new PenColorChanger();
-        pen.create(group, strings);
-
-        box.getChildren().addAll(b.getList(), image.getList(), command.getList(),
-                curr.getList(), var.getList(), language.getList(), pen.getList());
+        box.getChildren().addAll(backgroundChanger.getList(), imageChanger.getList(), commandHistory.getList(),
+                currCommands.getList(), currVariables.getList(), languageChooser.getList(), penColorChanger.getList());
         box.setLayoutX(SIZE_X - 300);
         box.setLayoutY(100);
         group.getChildren().add(box);
+    }
+    private void createButtons(){
+        backgroundChanger.create(group);
+        imageChanger.create(group);
+        commandHistory.create(group);
+        currCommands.create(group);
+        currVariables.create(group);
+        languageChooser.create(group);
+        penColorChanger.create(group);
+    }
+    private void initButtons(){
+        backgroundChanger = new BackgroundChanger();
+        imageChanger = new ImageChanger();
+        commandHistory = new CommandHistory();
+        currCommands = new CurrCommands();
+        currVariables = new CurrVariables();
+        languageChooser = new LanguageChooser();
+        penColorChanger = new PenColorChanger();
     }
     private void addCommandInput(){
         Label label1 = new Label("Command:");
@@ -98,10 +169,8 @@ public class DisplayGenerator {
         group.getChildren().add(hb);
     }
     private void addCanvas(){
-        CanvasGenerator generator = new CanvasGenerator();
-        generator.createCanvas(group);
+        canvas.createCanvas(group);
     }
-    public String getCommand(){
-        return commandLine.getText();
-    }
+    //all the event handlers for comboboxes
+
 }

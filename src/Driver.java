@@ -1,3 +1,4 @@
+import ViewLogic.DisplayUpdater;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import View.DisplayGenerator;
@@ -8,9 +9,9 @@ import View.DisplayGenerator;
 public class Driver extends Application{
 
     public void start(Stage stage){
-        DisplayGenerator display = new DisplayGenerator();
-        display.setScene();
-        stage.setScene(display.getScene());
+        DisplayUpdater display = new DisplayUpdater();
+        display.setUp();
+        stage.setScene(display.getGeneratorScene());
         stage.show();
     }
 

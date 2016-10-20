@@ -19,6 +19,9 @@ public class CanvasGenerator {
         canvas = new Canvas(CANVAS_X, CANVAS_Y);
         gc = canvas.getGraphicsContext2D();
     }
+    public Canvas getCanvas(){
+        return canvas;
+    }
     public void createCanvas(Group group){
         gc.setFill(Color.GREENYELLOW);
         gc.fillRect(DisplayGenerator.ALIGN, 75, CANVAS_X, CANVAS_Y);
@@ -26,6 +29,8 @@ public class CanvasGenerator {
     }
     public void changeBackgroundColor(Color color){
         gc.setFill(color);
+        gc.fillRect(DisplayGenerator.ALIGN, 75, CANVAS_X, CANVAS_Y);
+
     }
 
 }
