@@ -2,7 +2,6 @@ package model.parser;
 import java.util.*;
 
 import model.commands.BlankNode;
-import model.commands.CommandFactory;
 import model.commands.CommandNode;
 import model.commands.TurtleCommand;
 

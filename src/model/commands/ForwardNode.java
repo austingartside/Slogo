@@ -1,6 +1,7 @@
 package model.commands;
 import java.util.*;
 
+import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class ForwardNode extends TurtleCommand{
