@@ -1,6 +1,8 @@
-package commands;
+package model.commands;
 
 import java.util.List;
+
+import model.parser.CommandFactory;
 
 public class BackwardNode extends TurtleCommand{
 
@@ -10,7 +12,6 @@ public class BackwardNode extends TurtleCommand{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 		
 	}
 

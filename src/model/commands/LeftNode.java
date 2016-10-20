@@ -1,8 +1,8 @@
-package commands;
+package model.commands;
 
-public class SetHeadingNode extends TurtleCommand{
+public class LeftNode extends TurtleCommand{
 
-	public SetHeadingNode(String command) {
+	public LeftNode(String command) {
 		super(command);
 		// TODO Auto-generated constructor stub
 	}

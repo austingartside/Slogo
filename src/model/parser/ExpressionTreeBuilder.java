@@ -1,5 +1,9 @@
-package commands;
+package model.parser;
 import java.util.*;
+
+import model.commands.BlankNode;
+import model.commands.CommandNode;
+import model.commands.TurtleCommand;
 
 public class ExpressionTreeBuilder {
 	

@@ -1,8 +1,8 @@
-package commands;
+package model.commands;
 
-public class HideTurtleNode extends TurtleCommand{
+public class SetPositionNode extends TurtleCommand{
 
-	public HideTurtleNode(String command) {
+	public SetPositionNode(String command) {
 		super(command);
 		// TODO Auto-generated constructor stub
 	}

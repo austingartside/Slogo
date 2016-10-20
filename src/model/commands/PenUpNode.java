@@ -1,8 +1,8 @@
-package commands;
+package model.commands;
 
-public class ShowTurtleNode extends TurtleCommand{
+public class PenUpNode extends TurtleCommand{
 
-	public ShowTurtleNode(String command) {
+	public PenUpNode(String command) {
 		super(command);
 		// TODO Auto-generated constructor stub
 	}

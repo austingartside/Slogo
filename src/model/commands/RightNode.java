@@ -1,8 +1,8 @@
-package commands;
+package model.commands;
 
-public class ClearScreenNode extends TurtleCommand{
+public class RightNode extends TurtleCommand{
 
-	public ClearScreenNode(String command) {
+	public RightNode(String command) {
 		super(command);
 		// TODO Auto-generated constructor stub
 	}

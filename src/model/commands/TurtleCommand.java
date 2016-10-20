@@ -1,4 +1,6 @@
-package commands;
+package model.commands;
+
+import model.parser.ListOfCommands;
 
 public abstract class TurtleCommand extends CommandNode {
 	

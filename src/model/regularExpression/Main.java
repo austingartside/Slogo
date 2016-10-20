@@ -1,10 +1,10 @@
-package regularExpression;
+package model.regularExpression;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import commands.ProgramParser;
+import model.parser.ProgramParser;
 
 public class Main {
 	

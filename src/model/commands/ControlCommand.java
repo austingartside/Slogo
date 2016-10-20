@@ -1,4 +1,4 @@
-package commands;
+package model.commands;
 
 public abstract class ControlCommand extends CommandNode{
 

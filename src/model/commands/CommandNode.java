@@ -1,4 +1,4 @@
-package commands;
+package model.commands;
 
 import java.util.*;
 

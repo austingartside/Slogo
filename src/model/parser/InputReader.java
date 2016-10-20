@@ -1,4 +1,4 @@
-package commands;
+package model.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

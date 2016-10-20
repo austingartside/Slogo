@@ -1,4 +1,7 @@
-package commands;
+package model.commands;
+
+import model.parser.CommandFactory;
+import model.parser.ListOfCommands;
 
 public class ConstantNode extends TurtleCommand{
 

@@ -1,8 +1,8 @@
-package commands;
+package model.commands;
 
-public class PenUpNode extends TurtleCommand{
+public class SetTowardsNode extends TurtleCommand{
 
-	public PenUpNode(String command) {
+	public SetTowardsNode(String command) {
 		super(command);
 		// TODO Auto-generated constructor stub
 	}
