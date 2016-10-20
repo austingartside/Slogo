@@ -7,9 +7,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public abstract class ActionScene {
-    private Group myRoot;
-    private ResourceBundle myResources;
-    private Scene myScene;
+    protected Group myRoot;
+    protected ResourceBundle myResources;
+    protected Scene myScene;
     
     public ActionScene(Scene scene, ResourceBundle resource, int height, int width){
         myRoot = new Group();

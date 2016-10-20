@@ -1,13 +1,21 @@
 package regularExpression;
 
+
+import screens.MainMenu;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-
 import commands.ProgramParser;
+import javafx.scene.Scene;
 
 public class Main {
-	
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 800; 
+    public static final String DEFAULT_RESOURCE_PACKAGE = "names";
+    
+    private static ResourceBundle myResources;
+    
 	List<ArrayList<String>> textInput;
     // utility function that reads given file and returns its entire contents as a single string
     private static String readFileToString (String filename) throws FileNotFoundException {
@@ -74,7 +82,6 @@ public class Main {
             "(",
             ")"
         };
-
         ProgramParser lang = new ProgramParser();
         // these are more specific, so add them first to ensure they are checked first
         lang.addPatterns("resources/languages/English");

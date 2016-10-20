@@ -9,12 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Node;
 
 public class MainMenu {
-    private GridPane myRoot;
+    private Group myRoot;
     private Scene myScene;
     private ResourceBundle myResources;
     private ImageView myLogo;
@@ -22,21 +24,18 @@ public class MainMenu {
     
     public Scene init(int width, int height, ResourceBundle resources){
         myResources = resources;
-        myRoot = new GridPane();
-        myRoot.setAlignment(Pos.CENTER);
-        myRoot.setHgap(10);
-        myRoot.setVgap(10);
-        myRoot.setPadding(new Insets(25, 25, 25, 25));
-        
+        myRoot = new Group();
+        VBox vb = new VBox();
         myScene = new Scene(myRoot, width, height);
-        
-        Image logo = new Image(getClass().getClassLoader().getResourceAsStream(myResources.getString("LogoImage")));
+        Image logo = new Image(myResources.getString("LogoImage"));
         myLogo = new ImageView(logo);
         myLogo.setFitHeight(height);
         myLogo.setFitWidth(width);
         
         Button startProject = new Button(myResources.getString("StartProject"));
-        
+        startProject.setLayoutX(width/2-startProject.getWidth()/2);
+        startProject.setLayoutY(11*(height-startProject.getHeight())/12);
+        startProject.setPrefWidth(width/2);
         startProject.setOnAction(new EventHandler<ActionEvent>(){
             
             @Override
@@ -45,11 +44,11 @@ public class MainMenu {
                 myScene.setRoot(myActionScene.getRoot());
             }
         });
-        
-        
-        myRoot.add(startProject, 3, 1);
-        GridPane.setHalignment(startProject, HPos.CENTER);
-        
+        vb.getChildren().add(startProject);
+        vb.setSpacing(10);
+        vb.setLayoutY(4*height/5);
+        vb.setLayoutX(width/2-startProject.getPrefWidth()/2);
+        myRoot.getChildren().addAll(myLogo,vb);
         return myScene;
     }
     
