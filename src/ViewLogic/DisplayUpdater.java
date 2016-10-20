@@ -16,6 +16,7 @@ public class DisplayUpdater {
     public void setUp(){
         generator.setScene();
         addHandlers();
+        addEnterHandler();
     }
     public Scene getGeneratorScene(){
         return generator.getScene();
@@ -32,10 +33,18 @@ public class DisplayUpdater {
     public void addCurrVariables(Object object){
         generator.addToCurrVariables(object);
     }
-    public void getCurrLanguage() {
 
+    public String getCurrLanguage() {
+        return (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
     }
+    //TODO ADD CALL TO PARSER HERE
+    private void addEnterHandler(){
+        generator.getEnter().setOnAction((actionEvent -> {
+            //call parser to parse stuff
+            //use generator.getInput() to get String input
 
+        }));
+    }
     private void addHandlers(){
         generator.getBackgroundChanger().setOnAction((event) ->{
             generator.changeBackgroundColor((Color) generator.getBackgroundChanger().getSelectionModel().getSelectedItem());

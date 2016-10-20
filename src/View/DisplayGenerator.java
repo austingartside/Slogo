@@ -1,5 +1,6 @@
 package View;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -27,11 +28,11 @@ public class DisplayGenerator {
     private TextField commandLine;
     private Button enter;
     private CanvasGenerator canvas;
-
     private ButtonGenerator backgroundChanger, imageChanger, commandHistory, currCommands,
     currVariables, languageChooser, penColorChanger;
 
     public DisplayGenerator(){
+
         commandLine = new TextField();
         enter = new Button("Enter");
         group = new Group();
@@ -168,6 +169,10 @@ public class DisplayGenerator {
         hb.setLayoutX(ALIGN);
         group.getChildren().add(hb);
     }
+    public String getInput(){
+        return commandLine.getText();
+    }
+
     private void addCanvas(){
         canvas.createCanvas(group);
     }
