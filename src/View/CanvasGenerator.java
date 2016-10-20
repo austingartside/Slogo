@@ -19,10 +19,10 @@ public class CanvasGenerator {
         canvas = new Canvas(CANVAS_X, CANVAS_Y);
         gc = canvas.getGraphicsContext2D();
     }
-    public void createCanvas(Group group){
+    public Canvas createCanvas(){
         gc.setFill(Color.GREENYELLOW);
-        gc.fillRect(DisplayGenerator.ALIGN, 75, CANVAS_X, CANVAS_Y);
-        group.getChildren().add(canvas);
+        gc.fillRect(DisplayGenerator.ALIGN_X, 75, CANVAS_X, CANVAS_Y);
+        return canvas;
     }
     public void changeBackgroundColor(Color color){
         gc.setFill(color);
