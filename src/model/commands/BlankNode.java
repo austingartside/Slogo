@@ -9,8 +9,8 @@ public class BlankNode extends TurtleCommand{
 	}
 
 	@Override
-	public void execute() {
-		
+	public double execute() {
+		return 0; // ?????
 	}
 
 }

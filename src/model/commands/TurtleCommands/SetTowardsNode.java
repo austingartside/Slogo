@@ -18,9 +18,8 @@ public class SetTowardsNode extends TurtleCommand{
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		return 0;// TODO Auto-generated method stub
 	}
 
 }

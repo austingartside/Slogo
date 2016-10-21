@@ -10,6 +10,7 @@ public class Turtle {
 	private double newYpos;
 	private boolean revealBoolean=true;
 	private boolean penBoolean=false;
+	private boolean clearScreen=false; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private ImageView image;
 	private double angleNow;
 	private double ZERO=0; //temporary
@@ -126,14 +127,14 @@ public class Turtle {
 	 * Used for PENUP
 	 */
 	public void penUp(){
-		penBoolean=true;
+		penBoolean=false;
 	}
 	
 	/**
 	 * Used for PENDOWN
 	 */
 	public void penDown(){
-		penBoolean=false;
+		penBoolean=true;
 	}
 	
 	

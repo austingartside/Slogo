@@ -17,8 +17,9 @@ public class BackwardNode extends TurtleCommand{
 	}
 
 	@Override
-	public void execute() {
-		
+	public double execute() {
+		myTurtle.move(MINUS*this.getChild(FIRSTENTRY));
+		return this.getChild(FIRSTENTRY);
 	}
 
 }

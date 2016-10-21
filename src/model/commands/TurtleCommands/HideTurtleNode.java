@@ -12,9 +12,9 @@ public class HideTurtleNode extends TurtleCommand{
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		myTurtle.hideTurtle();
+		return ZERO;
 	}
 
 }

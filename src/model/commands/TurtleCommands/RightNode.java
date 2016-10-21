@@ -16,9 +16,8 @@ public class RightNode extends TurtleCommand{
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		myTurtle.changeOrientation(this.getChild(FIRSTENTRY));
 	}
 
 }

@@ -9,6 +9,9 @@ public abstract class CommandNode {
 	public final static int FIRSTENTRY=0;
 	public final static int SECONDENTRY=1;
 	public final static double ZERO=0;
+	public final static double MINUS=-1;
+	public final static double SQUARED=2;
+	public final static double ONE=1;
 	
 	
 	List<CommandNode> myChildren;
