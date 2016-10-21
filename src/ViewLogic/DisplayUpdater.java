@@ -21,20 +21,25 @@ public class DisplayUpdater {
     public Scene getGeneratorScene(){
         return generator.getScene();
     }
-    public void updateTurtleLoc(boolean penDown, double angle, double x, double y){
-        generator.drawTurtle(angle, x, y);
-    }
-    public void addHistory(Object object){
-        generator.addToHistory(object);
-    }
-    public void addCurrCommands(Object object){
-        generator.addToCurrCommands(object);
-    }
-    public void addCurrVariables(Object object){
-        generator.addToCurrVariables(object);
-    }
 
-    public String getCurrLanguage() {
+    public void updateTurtleLoc(boolean penDown, double xPrev, double yPrev, double x, double y){
+        generator.drawTurtle(x, y);
+        if(penDown){
+            Color c = (Color) generator.getPenColorChanger().getSelectionModel().getSelectedItem();
+
+            generator.drawLine(c, xPrev, yPrev, x, y);
+        }
+    }
+    public void addToHistory(Object object){
+        generator.getCommandHistory().getItems().add(object);
+    }
+    public void addToCurrCommands(Object object){
+        generator.getCurrCommands().getItems().add(object);
+    }
+    public void addToCurrVariables(Object object){
+        generator.getCurrVariables().getItems().add(object);
+    }
+    public String getCurrLanguage(){
         return (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
     }
     //TODO ADD CALL TO PARSER HERE
@@ -62,4 +67,6 @@ public class DisplayUpdater {
         generator.getPenColorChanger().setOnAction((event) ->{
         });
     }
+
+
 }
