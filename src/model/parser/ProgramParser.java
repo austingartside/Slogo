@@ -17,6 +17,8 @@ public class ProgramParser {
 
     public ProgramParser () {
         mySymbols = new ArrayList<>();
+        addPatterns("resources/languages/English");
+        addPatterns("resources/languages/Syntax");
     }
 
     // adds the given resource file to this language's recognized types
