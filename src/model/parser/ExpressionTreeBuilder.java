@@ -13,13 +13,15 @@ public class ExpressionTreeBuilder {
 	 * @throws Exception
 	 */
 	public CommandNode makeTree() throws Exception{
+		//ProgramParser lang = new ProgramParser();
 		InputReader inputControl = new InputReader();
 		CommandFactory nodeCreator = new CommandFactory();
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
 		TurtleCommand head = new BlankNode("blank_node");
 		while(commandList.getRow()<commandList.getNumRows())
 			if(isValid(commandList.getRowList())){	
-				head.addChild((CommandNode)nodeCreator.getCommand(commandList.getCommand(), commandList));
+				String myCommand = commandList.getCommand();
+				head.addChild((CommandNode)nodeCreator.getCommand(myCommand, commandList));
 			}
 		return head;
 	}

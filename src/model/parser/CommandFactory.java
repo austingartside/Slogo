@@ -15,7 +15,7 @@ public class CommandFactory {
 			ProgramParser lang = new ProgramParser();
 			String translatedCommand = lang.getSymbol(commandName);
 			if(isValidCommand(translatedCommand)){
-				String className = SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
+				String className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
 				return Class.forName(className).getConstructor(String.class).newInstance(translatedCommand, commandList, this);
 			}
 			else{
