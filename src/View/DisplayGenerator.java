@@ -22,6 +22,7 @@ public class DisplayGenerator {
     public static final double SIZE_Y = 700;
     static final double ALIGN = SIZE_X/4 - 200;
 
+    private Color penColor;
     private Rectangle turtle;
     private Scene scene;
     private Group group;
@@ -32,6 +33,7 @@ public class DisplayGenerator {
     currVariables, languageChooser, penColorChanger;
 
     public DisplayGenerator(){
+        penColor = Color.BLACK;
         turtle = new Rectangle(100, 300, 20, 20);
         commandLine = new TextField();
         enter = new Button("Enter");
@@ -50,7 +52,7 @@ public class DisplayGenerator {
         addCanvas();
         addButtons();
         addImage();
-        drawLine(Color.BLUE, 50, 50, 300, 300);
+        //drawLine(50, 50, 300, 300);
     }
 
     /**
@@ -91,6 +93,12 @@ public class DisplayGenerator {
     public ComboBox<Object> getPenColorChanger(){
         return penColorChanger.getList();
     }
+    public Color getPenColor(){
+        return penColor;
+    }
+    public void setPenColor(Color c){
+        penColor = c;
+    }
     public String getCommand(){
         return commandLine.getText();
     }
@@ -104,13 +112,13 @@ public class DisplayGenerator {
     public void rotateTurtle(double angle){
         turtle.setRotate(angle);
     }
-    public void drawLine(Color c, double xPrev, double yPrev, double x, double y){
+    public void drawLine(double xPrev, double yPrev, double x, double y){
         Line line = new Line();
         line.setStartX(xPrev);
         line.setStartY(yPrev);
         line.setEndX(x);
         line.setEndY(y);
-        line.setStroke(c);
+        line.setStroke(penColor);
         group.getChildren().add(line);
     }
     private void addLanguages(){

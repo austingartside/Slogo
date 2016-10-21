@@ -28,8 +28,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
         generator.drawTurtle(x, y);
         if(penDown){
-            Color c = (Color) generator.getPenColorChanger().getSelectionModel().getSelectedItem();
-            generator.drawLine(c, xPrev, yPrev, x, y);
+            generator.drawLine(xPrev, yPrev, x, y);
         }
     }
     public void updateHistory(Object object){
@@ -71,7 +70,6 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.getEnter().setOnAction((actionEvent -> {
             //call parser to parse stuff
             //use generator.getInput() to get String input
-
         }));
     }
     private void addHandlers(){
@@ -89,6 +87,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.getLanguageChooser().setOnAction((event) ->{
         });
         generator.getPenColorChanger().setOnAction((event) ->{
+            Color c = (Color) generator.getPenColorChanger().getSelectionModel().getSelectedItem();
+            generator.setPenColor(c);
         });
     }
 
