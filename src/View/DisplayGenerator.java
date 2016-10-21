@@ -1,9 +1,7 @@
 package View;
 
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -11,7 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import sun.security.util.ObjectIdentifier;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -23,6 +22,7 @@ public class DisplayGenerator {
     public static final double SIZE_Y = 700;
     static final double ALIGN = SIZE_X/4 - 200;
 
+    private Rectangle turtle;
     private Scene scene;
     private Group group;
     private TextField commandLine;
@@ -32,7 +32,7 @@ public class DisplayGenerator {
     currVariables, languageChooser, penColorChanger;
 
     public DisplayGenerator(){
-
+        turtle = new Rectangle(100, 300, 20, 20);
         commandLine = new TextField();
         enter = new Button("Enter");
         group = new Group();
@@ -49,6 +49,8 @@ public class DisplayGenerator {
         addCommandInput();
         addCanvas();
         addButtons();
+        addImage();
+        drawLine(Color.BLUE, 50, 50, 300, 300);
     }
 
     /**
@@ -86,22 +88,25 @@ public class DisplayGenerator {
     public ComboBox<Object> getPenColorChanger(){
         return penColorChanger.getList();
     }
-    public void drawTurtle(double angle, double x, double y){
-
-    }
     public String getCommand(){
         return commandLine.getText();
     }
 
     //TODO change Object to Command object, so that we can add stuff to command history
-    public void addToHistory(Object object){
-        commandHistory.getList().getItems().add(object);
+
+    public void drawTurtle(double x, double y){
+        turtle.setLayoutX(x);
+        turtle.setLayoutY(y);
+
     }
-    public void addToCurrCommands(Object object){
-        currCommands.getList().getItems().add(object);
-    }
-    public void addToCurrVariables(Object object){
-        currVariables.getList().getItems().add(object);
+    public void drawLine(Color c, double xPrev, double yPrev, double x, double y){
+        Line line = new Line();
+        line.setStartX(xPrev);
+        line.setStartY(yPrev);
+        line.setEndX(x);
+        line.setEndY(y);
+        line.setStroke(c);
+        group.getChildren().add(line);
     }
     private void addLanguages(){
         languageChooser.getList().getItems().add("English");
@@ -127,7 +132,12 @@ public class DisplayGenerator {
         backgroundChanger.getList().getItems().add(Color.GREENYELLOW);
     }
     private void addImage(){
-
+        turtle.setX(200);
+        turtle.setY(200);
+        turtle.setWidth(30);
+        turtle.setHeight(30);
+        turtle.setFill(Color.BLACK);
+        group.getChildren().add(turtle);
     }
 
     private void addButtons(){
