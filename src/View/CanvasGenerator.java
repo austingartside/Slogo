@@ -10,8 +10,9 @@ import javafx.scene.paint.Color;
  * Generates Canvas and all operations related to canvas
  */
 public class CanvasGenerator {
-    private final int CANVAS_X = 800;
-    private final int CANVAS_Y = 600;
+    public static final int CANVAS_X = 800;
+    public static final int CANVAS_Y = 600;
+    public static final int CANVAS_OFFSET = 75;
     private Canvas canvas;
     private GraphicsContext gc;
 
@@ -19,18 +20,13 @@ public class CanvasGenerator {
         canvas = new Canvas(CANVAS_X, CANVAS_Y);
         gc = canvas.getGraphicsContext2D();
     }
-    public Canvas getCanvas(){
-        return canvas;
-    }
     public void createCanvas(Group group){
         gc.setFill(Color.GREENYELLOW);
-        gc.fillRect(DisplayGenerator.ALIGN, 75, CANVAS_X, CANVAS_Y);
+        gc.fillRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
         group.getChildren().add(canvas);
     }
     public void changeBackgroundColor(Color color){
         gc.setFill(color);
-        gc.fillRect(DisplayGenerator.ALIGN, 75, CANVAS_X, CANVAS_Y);
-
+        gc.fillRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
     }
-
 }

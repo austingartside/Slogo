@@ -24,7 +24,7 @@ public abstract class CommandNode {
 	public String getCommand(){
 		return myCommand;
 	}
-
+	
 	public void addChild(CommandNode newChild){
 		myChildren.add(newChild);
 	}
@@ -41,9 +41,6 @@ public abstract class CommandNode {
 	public double getChild(int i){
 		return myChildren.get(i).execute();
 	}
-	
-
-	
 
 	/**
 	 * CarryOut the inputed command

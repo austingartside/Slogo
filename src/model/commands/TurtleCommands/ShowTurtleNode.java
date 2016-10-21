@@ -1,6 +1,5 @@
 package model.commands.TurtleCommands;
 
-import model.commands.TurtleCommand;
 import model.parser.ListOfCommands;
 
 public class ShowTurtleNode extends TurtleCommand{
@@ -12,7 +11,7 @@ public class ShowTurtleNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(){
 		//myTurtle.showTurtle();
 		return ZERO;
 	}

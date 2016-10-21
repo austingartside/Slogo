@@ -1,9 +1,7 @@
 package View;
 
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -11,7 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import sun.security.util.ObjectIdentifier;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -23,6 +22,8 @@ public class DisplayGenerator {
     public static final double SIZE_Y = 700;
     static final double ALIGN = SIZE_X/4 - 200;
 
+    private Color penColor;
+    private Rectangle turtle;
     private Scene scene;
     private Group group;
     private TextField commandLine;
@@ -32,7 +33,8 @@ public class DisplayGenerator {
     currVariables, languageChooser, penColorChanger;
 
     public DisplayGenerator(){
-
+        penColor = Color.BLACK;
+        turtle = new Rectangle(100, 300, 20, 20);
         commandLine = new TextField();
         enter = new Button("Enter");
         group = new Group();
@@ -49,6 +51,8 @@ public class DisplayGenerator {
         addCommandInput();
         addCanvas();
         addButtons();
+        addImage();
+        //drawLine(50, 50, 300, 300);
     }
 
     /**
@@ -61,6 +65,9 @@ public class DisplayGenerator {
     }
     public Scene getScene(){
         return scene;
+    }
+    public Group getGroup(){
+        return group;
     }
     public void changeBackgroundColor(Color color){
         canvas.changeBackgroundColor(color);
@@ -86,22 +93,33 @@ public class DisplayGenerator {
     public ComboBox<Object> getPenColorChanger(){
         return penColorChanger.getList();
     }
-    public void drawTurtle(double angle, double x, double y){
-
+    public Color getPenColor(){
+        return penColor;
+    }
+    public void setPenColor(Color c){
+        penColor = c;
     }
     public String getCommand(){
         return commandLine.getText();
     }
 
     //TODO change Object to Command object, so that we can add stuff to command history
-    public void addToHistory(Object object){
-        commandHistory.getList().getItems().add(object);
+
+    public void drawTurtle(double x, double y){
+        turtle.setX(canvasCoordX(x));
+        turtle.setY(canvasCoordY(y));
     }
-    public void addToCurrCommands(Object object){
-        currCommands.getList().getItems().add(object);
+    public void rotateTurtle(double angle){
+        turtle.setRotate(angle);
     }
-    public void addToCurrVariables(Object object){
-        currVariables.getList().getItems().add(object);
+    public void drawLine(double xPrev, double yPrev, double x, double y){
+        Line line = new Line();
+        line.setStartX(xPrev);
+        line.setStartY(yPrev);
+        line.setEndX(x);
+        line.setEndY(y);
+        line.setStroke(penColor);
+        group.getChildren().add(line);
     }
     private void addLanguages(){
         languageChooser.getList().getItems().add("English");
@@ -112,7 +130,6 @@ public class DisplayGenerator {
         languageChooser.getList().getItems().add("Portuguese");
         languageChooser.getList().getItems().add("Russian");
         languageChooser.getList().getItems().add("Spanish");
-
     }
     private void addPenColors(){
         penColorChanger.getList().getItems().add(Color.BLUE);
@@ -127,7 +144,11 @@ public class DisplayGenerator {
         backgroundChanger.getList().getItems().add(Color.GREENYELLOW);
     }
     private void addImage(){
-
+        drawTurtle(0, 0);
+        turtle.setWidth(30);
+        turtle.setHeight(30);
+        turtle.setFill(Color.BLACK);
+        group.getChildren().add(turtle);
     }
 
     private void addButtons(){
@@ -168,6 +189,12 @@ public class DisplayGenerator {
         hb.setLayoutY(SIZE_Y-80);
         hb.setLayoutX(ALIGN);
         group.getChildren().add(hb);
+    }
+    private double canvasCoordX(double x){
+        return x + ALIGN + CanvasGenerator.CANVAS_X/2;
+    }
+    private double canvasCoordY(double y){
+        return y + CanvasGenerator.CANVAS_OFFSET + CanvasGenerator.CANVAS_Y/2;
     }
     public String getInput(){
         return commandLine.getText();
