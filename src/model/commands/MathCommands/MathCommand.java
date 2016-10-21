@@ -1,4 +1,6 @@
-package model.commands;
+package model.commands.MathCommands;
+
+import model.commands.CommandNode;
 
 public abstract class MathCommand extends CommandNode {
 
