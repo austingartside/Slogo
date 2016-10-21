@@ -64,6 +64,9 @@ public class DisplayGenerator {
     public Scene getScene(){
         return scene;
     }
+    public Group getGroup(){
+        return group;
+    }
     public void changeBackgroundColor(Color color){
         canvas.changeBackgroundColor(color);
     }
@@ -95,9 +98,11 @@ public class DisplayGenerator {
     //TODO change Object to Command object, so that we can add stuff to command history
 
     public void drawTurtle(double x, double y){
-        turtle.setLayoutX(x);
-        turtle.setLayoutY(y);
-
+        turtle.setX(canvasCoordX(x));
+        turtle.setY(canvasCoordY(y));
+    }
+    public void rotateTurtle(double angle){
+        turtle.setRotate(angle);
     }
     public void drawLine(Color c, double xPrev, double yPrev, double x, double y){
         Line line = new Line();
@@ -117,7 +122,6 @@ public class DisplayGenerator {
         languageChooser.getList().getItems().add("Portuguese");
         languageChooser.getList().getItems().add("Russian");
         languageChooser.getList().getItems().add("Spanish");
-
     }
     private void addPenColors(){
         penColorChanger.getList().getItems().add(Color.BLUE);
@@ -132,8 +136,7 @@ public class DisplayGenerator {
         backgroundChanger.getList().getItems().add(Color.GREENYELLOW);
     }
     private void addImage(){
-        turtle.setX(200);
-        turtle.setY(200);
+        drawTurtle(0, 0);
         turtle.setWidth(30);
         turtle.setHeight(30);
         turtle.setFill(Color.BLACK);
@@ -178,6 +181,12 @@ public class DisplayGenerator {
         hb.setLayoutY(SIZE_Y-80);
         hb.setLayoutX(ALIGN);
         group.getChildren().add(hb);
+    }
+    private double canvasCoordX(double x){
+        return x + ALIGN + CanvasGenerator.CANVAS_X/2;
+    }
+    private double canvasCoordY(double y){
+        return y + CanvasGenerator.CANVAS_OFFSET + CanvasGenerator.CANVAS_Y/2;
     }
     public String getInput(){
         return commandLine.getText();
