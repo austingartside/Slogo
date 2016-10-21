@@ -1,20 +1,19 @@
-package model.commands.TurtleCommands;
+package model.commands.ControlCommands;
 
 import model.commands.CommandNode;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class SetPositionNode extends TurtleCommand{
+public class RepeatNode extends ControlCommand{
 
-	public SetPositionNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
+	public RepeatNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
 		updateLocation(commandList);
 		addChild((CommandNode) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
-		addChild((CommandNode) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		// TODO Auto-generated constructor stub
+		moveThroughList(commandList, nodeMaker);
 	}
+
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub

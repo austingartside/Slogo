@@ -3,7 +3,7 @@ import java.util.*;
 
 import model.commands.BlankNode;
 import model.commands.CommandNode;
-import model.commands.TurtleCommand;
+import model.commands.TurtleCommands.TurtleCommand;
 
 public class ExpressionTreeBuilder {
 	
