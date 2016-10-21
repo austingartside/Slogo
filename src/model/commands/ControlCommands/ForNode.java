@@ -1,10 +1,17 @@
 package model.commands.ControlCommands;
 
+import model.commands.CommandNode;
+import model.parser.CommandFactory;
+import model.parser.ListOfCommands;
+
 public class ForNode extends ControlCommand{
 
-	public ForNode(String command) {
+	public ForNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
-		// TODO Auto-generated constructor stub
+		updateLocation(commandList);
+		moveThroughList(commandList, nodeMaker);
+		moveThroughList(commandList, nodeMaker);
+		
 	}
 
 	@Override

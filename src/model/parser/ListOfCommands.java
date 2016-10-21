@@ -13,6 +13,10 @@ public class ListOfCommands {
 		myCol = col;
 	}
 	
+	public boolean isOutOfBounds(){
+		return myRow>=getNumRows();
+	}
+	
 	public List<String> getRowList(){
 		return myCommandList.get(myRow);
 	}

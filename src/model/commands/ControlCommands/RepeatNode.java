@@ -11,12 +11,7 @@ public class RepeatNode extends ControlCommand{
 		updateLocation(commandList);
 		addChild((CommandNode) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
-		updateLocation(commandList);
-		String currentCommand = commandList.getCommand();
-		while(!isEndList(currentCommand)){
-			addChild((CommandNode) nodeMaker.getCommand(commandList.getCommand(),
-					commandList));
-		}
+		moveThroughList(commandList, nodeMaker);
 	}
 
 	@Override

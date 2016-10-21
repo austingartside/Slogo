@@ -16,7 +16,7 @@ public abstract class CommandNode {
 	public String getCommand(){
 		return myCommand;
 	}
-
+	
 	public void addChild(CommandNode newChild){
 		myChildren.add(newChild);
 	}
