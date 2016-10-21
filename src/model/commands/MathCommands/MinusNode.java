@@ -12,14 +12,12 @@ public class MinusNode extends MathCommand{
 		updateLocation(commandList);
 		addChild((CommandNode) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
-		addChild((CommandNode) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		double expr1=this.getChild(FIRSTENTRY);
+		return -expr1;
 	}
 
 }

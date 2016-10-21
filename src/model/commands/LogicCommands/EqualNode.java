@@ -16,9 +16,11 @@ public class EqualNode extends LogicCommand{
 				commandList));
 	}
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		double expr1=this.getChild(FIRSTENTRY);
+		double expr2=this.getChild(SECONDENTRY);
+		// This format has to be used so that the return is a double and not a boolean.
+		return expr1==expr2 ? 1:0;
 	}
 
 }

@@ -1,18 +1,32 @@
 package model;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Turtle {
-	private double xpos;
-	private double ypos;
+	private double oldXpos;
+	private double oldYpos;
+	private double newXpos;
+	private double newYpos;
 	private boolean revealBoolean=true;
 	private boolean penBoolean=false;
 	private ImageView image;
 	private double angleNow;
+	private double ZERO=0; //temporary
 	
 	public Turtle(){
+		this.setPosition(ZERO,ZERO);
+		this.setImage("Turtle.png"); //Resource File
+		this.setOrientation(ZERO);
 		
 	}
+	
+	public void setImage(String pngfile) {
+		Image imager = new Image(this.getClass().getClassLoader().getResourceAsStream(pngfile));
+        image=new ImageView();
+        image.setImage(imager);
+	}
+	
 	/**
 	 * Changes position of turtle
 	 * Used for FORWARD,BACK
@@ -20,35 +34,53 @@ public class Turtle {
 	public void move(double vector){
 		double xmove=vector*(Math.sin(Math.toRadians(angleNow)));
 		double ymove=vector*(Math.cos(Math.toRadians(angleNow)));
-		xpos=xpos+xmove;
-		ypos=ypos+ymove;
-		image.setX(xpos);
-		image.setY(ypos);
+		newXpos=oldXpos+xmove;
+		newYpos=oldYpos+ymove;
+		image.setX(newXpos);
+		image.setY(newYpos);
 	}
 	/**
 	 * Sets position of turtle
 	 * Used for Home,ClearScreen
 	 */
 	public void setPosition(double x, double y){
+		oldXpos=newXpos;
+		oldYpos=newYpos;
 		image.setX(x);
 		image.setY(y);
-		xpos=x;
-		ypos=y;
+		newXpos=x;
+		newYpos=y;
 	}
 	
 	/**
 	 * Used for XCOR
 	 */
-	public double getPositionX(){
-		return xpos;
+	public double getNewPositionX(){
+		return newXpos;
 	}
 	
 	/**
 	 * Used for YCOR
 	 */
-	public double getPositionY(){
-		return ypos;
+	public double getNewPositionY(){
+		return newYpos;
 	}
+	
+	/**
+	 * Used for line drawing with NewPosition
+	 */
+	public double getOldPositionX(){
+		return oldXpos;
+	}
+	
+	/**
+	 * Used for line drawing with newPosition
+	 */
+	public double getOldPositionY(){
+		return oldYpos;
+	}
+	
+	
 	
 	/**
 	 * Sets the angle of the turtle

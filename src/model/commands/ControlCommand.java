@@ -8,6 +8,6 @@ public abstract class ControlCommand extends CommandNode{
 	}
 	
 	@Override
-	public abstract void execute();
+	public abstract double execute();
 
 }

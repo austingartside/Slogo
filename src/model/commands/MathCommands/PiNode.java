@@ -13,9 +13,8 @@ public class PiNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		return Math.PI;
 	}
 
 }

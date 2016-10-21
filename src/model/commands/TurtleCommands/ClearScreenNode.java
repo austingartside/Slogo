@@ -1,7 +1,9 @@
 package model.commands.TurtleCommands;
 
+import model.commands.Controller;
 import model.commands.TurtleCommand;
 import model.parser.ListOfCommands;
+
 
 public class ClearScreenNode extends TurtleCommand{
 
@@ -11,9 +13,12 @@ public class ClearScreenNode extends TurtleCommand{
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		double dist=Math.sqrt(Math.pow(myTurtle.getPositionX, 2)+Math.pow(Math.pow(myTurtle.getPositionY, 2)));
+		myTurtle.setPosition(ZERO,ZERO);
+		myTurtle.setOrientation(ZERO);
+		//Distance moved by turtle for reset or turtle in general?	
+		return dist;
 	}
 
 }

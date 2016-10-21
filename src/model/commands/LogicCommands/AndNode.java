@@ -16,9 +16,12 @@ public class AndNode extends LogicCommand{
 				commandList));
 	}
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		double test1=this.getChild(FIRSTENTRY);
+		double test2=this.getChild(SECONDENTRY);
+		// This format has to be used so that the return is a double and not a boolean.
+		if(test1!=ZERO && test2!=ZERO){return 1;}
+		else{return 0;}
 	}
 
 }

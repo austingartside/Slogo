@@ -9,6 +9,6 @@ public abstract class MathCommand extends CommandNode {
 	}
 
 	@Override
-	public abstract void execute();
+	public abstract double execute();
 
 }

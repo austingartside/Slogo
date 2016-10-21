@@ -17,9 +17,10 @@ public class RemainderNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		double expr1=this.getChild(FIRSTENTRY);
+		double expr2=this.getChild(SECONDENTRY);
+		return expr1%expr2; ////Its 3 am i just made this up
 	}
 
 }

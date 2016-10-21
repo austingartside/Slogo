@@ -17,9 +17,10 @@ public class PowerNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public double execute() {
+		double base=this.getChild(FIRSTENTRY);
+		double exponent=this.getChild(SECONDENTRY);
+		return Math.pow(base,exponent);
 	}
 
 }

@@ -9,6 +9,6 @@ public abstract class LogicCommand extends CommandNode {
 	}
 
 	@Override
-	public abstract void execute();
+	public abstract double execute();
 
 }
