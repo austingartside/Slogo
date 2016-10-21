@@ -96,7 +96,7 @@ The public front end class will include the elements of the front end that would
  * This interface provides the methods that need to be implemented by the backend that relate directly to the
  * visual created on the front end.
  */
-public interface ViewToModelInterface {
+public interface ViewLogic.ViewToModelInterface {
 	//Creates a stage to be used for the visualization
 	Public void makeScreen();
 	
