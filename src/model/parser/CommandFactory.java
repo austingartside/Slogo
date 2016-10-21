@@ -6,7 +6,7 @@ import java.util.*;
 public class CommandFactory {
 	
 	private static final String PACKAGE_NAME = "commands";
-  //private static final String SUPER_PACKAGE_NAME="model";
+    private static final String SUPER_PACKAGE_NAME="model";
 	
 	
 	//haven't done anything about user created variables
@@ -15,7 +15,7 @@ public class CommandFactory {
 			ProgramParser lang = new ProgramParser();
 			String translatedCommand = lang.getSymbol(commandName);
 			if(isValidCommand(translatedCommand)){
-				String className =/*SUPER_PACKAGE_NAME +*/ PACKAGE_NAME + "."+ translatedCommand + "Node";
+				String className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
 				return Class.forName(className).getConstructor(String.class).newInstance(translatedCommand, commandList, this);
 			}
 			else{
