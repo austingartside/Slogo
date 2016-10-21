@@ -1,10 +1,11 @@
 package model.commands.TurtleCommands;
 
+import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class PenDownNode extends TurtleCommand{
+public class XCoordinateNode extends TurtleCommand{
 
-	public PenDownNode(String command,ListOfCommands commandList) {
+	public XCoordinateNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
 		super(command);
 		updateLocation(commandList);
 		// TODO Auto-generated constructor stub

@@ -1,5 +1,6 @@
 package model.commands;
 
+import model.commands.TurtleCommands.TurtleCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
