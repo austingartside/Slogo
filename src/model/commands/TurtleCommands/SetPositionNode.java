@@ -18,9 +18,10 @@ public class SetPositionNode extends TurtleCommand{
 	}
 	@Override
 	public double execute() {
-		myTurtle.setPositionX(this.getChild(FIRSTENTRY));
-		myTurtle.setPositionY(this.getChild(SECONDENTRY));
-		return Math.sqrt(Math.pow(myTurtle.getNewPositionX-myTurtle.getOldPositionX, SQUARED)+Math.pow(Math.pow(myTurtle.getPositionY-myTurtle.getOldPositionY,SQUARED)));
+		//myTurtle.setPositionX(this.getChild(FIRSTENTRY));
+		//myTurtle.setPositionY(this.getChild(SECONDENTRY));
+		//return Math.sqrt(Math.pow(myTurtle.getNewPositionX-myTurtle.getOldPositionX, SQUARED)+Math.pow(Math.pow(myTurtle.getPositionY-myTurtle.getOldPositionY,SQUARED)));
+		return ZERO;
 	}
 
 }

@@ -16,8 +16,8 @@ public class ForwardNode extends TurtleCommand{
 	}
 
 	@Override
-	public return execute() {
-		myTurtle.move(MINUS*this.getChild(FIRSTENTRY));
+	public double execute() {
+		//myTurtle.move(MINUS*this.getChild(FIRSTENTRY));
 		return this.getChild(FIRSTENTRY);
 	}
 	

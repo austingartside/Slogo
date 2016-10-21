@@ -2,6 +2,8 @@ package model.commands.TurtleCommands;
 
 import java.util.List;
 
+import model.Controller;
+import model.Turtle;
 import model.commands.CommandNode;
 import model.commands.TurtleCommand;
 import model.parser.CommandFactory;
@@ -18,7 +20,7 @@ public class BackwardNode extends TurtleCommand{
 
 	@Override
 	public double execute() {
-		myTurtle.move(MINUS*this.getChild(FIRSTENTRY));
+		//myTurtle.move(MINUS*this.getChild(FIRSTENTRY));
 		return this.getChild(FIRSTENTRY);
 	}
 

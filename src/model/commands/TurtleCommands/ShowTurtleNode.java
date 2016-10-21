@@ -13,7 +13,7 @@ public class ShowTurtleNode extends TurtleCommand{
 
 	@Override
 	public double execute() {
-		myTurtle.showTurtle();
+		//myTurtle.showTurtle();
 		return ZERO;
 	}
 

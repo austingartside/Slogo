@@ -136,6 +136,10 @@ public class Turtle {
 	public void penDown(){
 		penBoolean=true;
 	}
+
+	public ImageView getImage() {
+		return image;
+	}
 	
 	
 }

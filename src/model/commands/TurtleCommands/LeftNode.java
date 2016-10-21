@@ -17,7 +17,7 @@ public class LeftNode extends TurtleCommand{
 
 	@Override
 	public double execute() {
-		myTurtle.changeOrientation(MINUS*this.getChild(FIRSTENTRY));
+		//myTurtle.changeOrientation(MINUS*this.getChild(FIRSTENTRY));
 		return this.getChild(FIRSTENTRY);
 		// WILL PROBABLY NEED TO CHEKC THIS
 	}

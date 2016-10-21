@@ -12,7 +12,7 @@ public class PenUpNode extends TurtleCommand{
 
 	@Override
 	public double execute() {
-		myTurtle.penUp();
+		//myTurtle.penUp();
 		return ZERO; 
 	}
 
