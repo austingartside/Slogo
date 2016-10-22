@@ -1,13 +1,20 @@
 package model.commands.ControlCommands;
 
+import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class IfElseNode extends ControlCommand{
 
-	public IfElseNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
+	public IfElseNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
-		// TODO Auto-generated constructor stub
+		updateLocation(commandList);
+		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
+				commandList));
+		checkForListStart(commandList);
+		moveThroughList(commandList, nodeMaker);
+		checkForListStart(commandList);
+		moveThroughList(commandList, nodeMaker);
 	}
 
 	@Override

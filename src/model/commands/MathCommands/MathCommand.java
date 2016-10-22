@@ -1,8 +1,8 @@
 package model.commands.MathCommands;
 
-import model.commands.CommandNode;
+import model.commands.Command;
 
-public abstract class MathCommand extends CommandNode {
+public abstract class MathCommand extends Command {
 
 	public MathCommand(String command) {
 		super(command);

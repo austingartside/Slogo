@@ -1,13 +1,18 @@
 package model.commands.ControlCommands;
 
+import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class IfNode extends ControlCommand{
 
-	public IfNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
+	public IfNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
-		// TODO Auto-generated constructor stub
+		updateLocation(commandList);
+		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
+				commandList));
+		checkForListStart(commandList);
+		moveThroughList(commandList, nodeMaker);
 	}
 
 	@Override

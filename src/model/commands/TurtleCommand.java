@@ -2,7 +2,7 @@ package model.commands;
 
 import model.parser.ListOfCommands;
 
-public abstract class TurtleCommand extends CommandNode {
+public abstract class TurtleCommand extends Command {
 	
 	public TurtleCommand(String command){
 		super(command);

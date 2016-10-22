@@ -1,6 +1,6 @@
 package model.commands.MathCommands;
 
-import model.commands.CommandNode;
+import model.commands.Command;
 import model.commands.MathCommands.MathCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;

@@ -1,6 +1,6 @@
 package model.commands.ControlCommands;
 
-import model.commands.CommandNode;
+import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -9,7 +9,9 @@ public class ForNode extends ControlCommand{
 	public ForNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
 		updateLocation(commandList);
+		checkForListStart(commandList);
 		moveThroughList(commandList, nodeMaker);
+		checkForListStart(commandList);
 		moveThroughList(commandList, nodeMaker);
 		
 	}

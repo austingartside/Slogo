@@ -1,13 +1,19 @@
 package model.commands.ControlCommands;
 
+import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class MakeVariableNode extends ControlCommand{
 
-	public MakeVariableNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
+	public MakeVariableNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
-		// TODO Auto-generated constructor stub
+		updateLocation(commandList);
+		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
+				commandList));
+		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
+				commandList));
+		
 	}
 
 	@Override

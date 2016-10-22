@@ -1,6 +1,6 @@
 package model.commands.ControlCommands;
 
-import model.commands.CommandNode;
+import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -9,8 +9,9 @@ public class RepeatNode extends ControlCommand{
 	public RepeatNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
 		updateLocation(commandList);
-		addChild((CommandNode) nodeMaker.getCommand(commandList.getCommand(),
+		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
+		checkForListStart(commandList);
 		moveThroughList(commandList, nodeMaker);
 	}
 
