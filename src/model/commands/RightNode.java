@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -16,9 +17,9 @@ public class RightNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
-		//myTurtle.changeOrientation(this.getChild(FIRSTENTRY));
-		return this.getChild(FIRSTENTRY, variables);
+	public double execute(Controller control) {
+		//myTurtle.changeOrientation(this.executeChild(FIRSTENTRY));
+		return this.executeChild(FIRSTENTRY, control);
 	}
 
 }

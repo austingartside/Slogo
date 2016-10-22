@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -23,15 +24,15 @@ public class ForNode extends ControlCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
-		double varToIncrement = variables.get(variableName);
-		double start = getChild(0, variables);
-		double end = getChild(1, variables);
-		double increment = getChild(2, variables);
+	public double execute(Controller control) {
+		double varToIncrement = control.getVariables().get(variableName);
+		double start = executeChild(0, control);
+		double end = executeChild(1, control);
+		double increment = executeChild(2, control);
 		double lastVal = 0;
 		for(varToIncrement = start; varToIncrement<end; varToIncrement+=increment){
-			lastVal = getChild(3, variables);
-			variables.put(variableName, varToIncrement);
+			lastVal = executeChild(3, control);
+			control.getVariables().put(variableName, varToIncrement);
 		}
 		return lastVal;
 	}

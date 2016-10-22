@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.ListOfCommands;
 
 public abstract class TurtleCommand extends Command {
@@ -11,6 +12,6 @@ public abstract class TurtleCommand extends Command {
 	}
 	
 	@Override
-	public abstract double execute(Map<String, Double> variables);
+	public abstract double execute(Controller control);
 
 }

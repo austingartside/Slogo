@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -26,14 +27,14 @@ public class RepeatNode extends ControlCommand{
 	}
 	
 	@Override
-	public double execute(Map<String, Double> variables) {
+	public double execute(Controller control) {
 		printVal();
-		double numTimes = getChild(0, variables);
+		double numTimes = executeChild(0, control);
 		double lastVal = 0;
 		for(double i = 1; i<numTimes; i++){
-			variables.put(ITER_VALUE, i);
+			control.getVariables().put(ITER_VALUE, i);
 			for(int j = 1; j<getNumChildren(); j++){
-				 lastVal = getChild(j, variables);
+				 lastVal = executeChild(j, control);
 			}
 		}
 		return lastVal;

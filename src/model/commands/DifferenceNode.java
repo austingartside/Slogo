@@ -1,7 +1,6 @@
 package model.commands;
 
-import java.util.Map;
-
+import model.Controller;
 import model.commands.MathCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
@@ -18,9 +17,9 @@ public class DifferenceNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute(Map<String, Double> variables) {
-		double expr1=getChild(FIRSTENTRY, variables);
-		double expr2=getChild(SECONDENTRY, variables);
+	public double execute(Controller control) {
+		double expr1=executeChild(FIRSTENTRY, control);
+		double expr2=executeChild(SECONDENTRY, control);
 		return expr1-expr2;
 		
 	}

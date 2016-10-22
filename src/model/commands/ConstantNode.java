@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -20,8 +21,8 @@ public class ConstantNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
-		printName();
+	public double execute(Controller control) {
+		//printName();
 		return myVal;	
 	}
 

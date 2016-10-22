@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 import model.parser.ProgramParser;
@@ -59,6 +60,6 @@ public abstract class ControlCommand extends Command{
 	}
 	
 	@Override
-	public abstract double execute(Map<String, Double> variables);
+	public abstract double execute(Controller control);
 
 }

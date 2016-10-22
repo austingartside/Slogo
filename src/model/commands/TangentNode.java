@@ -1,7 +1,7 @@
 package model.commands;
 
-import java.util.Map;
 
+import model.Controller;
 import model.commands.MathCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
@@ -16,8 +16,8 @@ public class TangentNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute(Map<String, Double> variables) {
-		return Math.tan(getChild(FIRSTENTRY, variables));
+	public double execute(Controller control) {
+		return Math.tan(executeChild(FIRSTENTRY, control));
 	}
 
 }
