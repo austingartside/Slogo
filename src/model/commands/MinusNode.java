@@ -19,7 +19,7 @@ public class MinusNode extends MathCommand{
 	@Override
 	public double execute(Controller control) {
 		double expr1=executeChild(FIRSTENTRY, control);
-		return -expr1;
+		return -1*expr1;
 	}
 
 }
