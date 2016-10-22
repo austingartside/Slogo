@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import model.parser.ExpressionTreeBuilder;
 public class Controller {
 	
 	private Map<String, Double> variables;
+	private Map<String, Command> commands;
+	private List<String> history;
 	//Map<String, Integer> variables;
 	
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
@@ -19,10 +22,32 @@ public class Controller {
 	public Controller(){
 		myTurtle = new Turtle();
 		variables = new HashMap<String, Double>();
+		commands = new HashMap<String, Command>();
+		history = new ArrayList<String>();
 	}
 	
 	public void addVariable(String name, double value){
 		variables.put(name, value);
+	}
+	
+	public double getVariableValue(String variableName){
+		if(!variables.containsKey(variableName)){
+			//error?
+			System.out.println("Ya Done Goofed");
+		}
+		return variables.get(variableName);
+	}
+	
+	public void addCommand(String key, Command value){
+		commands.put(key, value);
+	}
+	
+	public Command findCommand(String command){
+		if(!commands.containsKey(command)){
+			//error?
+			System.out.println("Ya Done Goofed");
+		}
+		return commands.get(command);
 	}
 	
 	public void setUp(){
@@ -68,11 +93,11 @@ public class Controller {
 		 return myTurtle.getImage();
 	}
 	
-	public void addHistory(){
-		
+	public void addHistory(String command){
+		history.add(command);
 	}
-	public void getHistory(){
-		
+	public List<String> getHistory(){
+		return history;
 	}
 
 }

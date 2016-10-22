@@ -23,7 +23,7 @@ public class CommandFactory {
 				return Class.forName(className).getConstructor(String.class, ListOfCommands.class, CommandFactory.class).newInstance(commandName, commandList, this);
 			}
 			else{
-				throw new IllegalArgumentException("Command " + commandName + " does not exist");
+				//throw new IllegalArgumentException("Command " + commandName + " does not exist");
 			}
 		}
 		catch(IllegalArgumentException e){

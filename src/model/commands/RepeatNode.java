@@ -19,7 +19,7 @@ public class RepeatNode extends ControlCommand{
 		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker);
+		moveThroughList(commandList, nodeMaker, this);
 	}
 
 	public void printVal(){
