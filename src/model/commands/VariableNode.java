@@ -5,14 +5,15 @@ import java.util.Map;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class CommandNode extends Command{
+public class VariableNode extends TurtleCommand{
 
 	String myVarName;
 	
-	public CommandNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
+	public VariableNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
 		super(command);
 		myVarName = command;
 		updateLocation(commandList);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

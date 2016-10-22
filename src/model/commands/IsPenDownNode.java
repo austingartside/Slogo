@@ -5,20 +5,17 @@ import java.util.Map;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class CommandNode extends Command{
+public class IsPenDownNode extends TurtleCommand{
 
-	String myVarName;
-	
-	public CommandNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
+	public IsPenDownNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
 		super(command);
-		myVarName = command;
 		updateLocation(commandList);
 	}
 
 	@Override
 	public double execute(Map<String, Double> variables) {
-		// TODO Auto-generated method stub
-		return 0;
+		return 0;// TODO Auto-generated method stub
+		
 	}
 
 }
