@@ -13,12 +13,12 @@ public class Turtle {
 	private boolean clearScreen=false; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private ImageView image;
 	private double angleNow;
-	private double ZERO=0; //temporary
+	private double ZERO=0.0; //temporary
 	
 	public Turtle(){
-		this.setPosition(ZERO,ZERO);
-		this.setImage("Turtle.png"); //Resource File
-		this.setOrientation(ZERO);
+		//this.setPosition(ZERO,ZERO);
+		//this.setImage("Turtle.png"); //Resource File
+		//this.setOrientation(ZERO);
 		
 	}
 	
@@ -44,14 +44,14 @@ public class Turtle {
 	 * Sets position of turtle
 	 * Used for Home,ClearScreen
 	 */
-	public void setPosition(double x, double y){
+	/*public void setPosition(double x, double y){
 		oldXpos=newXpos;
 		oldYpos=newYpos;
 		image.setX(x);
 		image.setY(y);
 		newXpos=x;
 		newYpos=y;
-	}
+	}*/
 	
 	/**
 	 * Used for XCOR

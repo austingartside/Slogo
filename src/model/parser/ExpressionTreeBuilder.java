@@ -3,7 +3,7 @@ import java.util.*;
 
 import model.commands.BlankNode;
 import model.commands.Command;
-import model.commands.TurtleCommands.TurtleCommand;
+import model.commands.TurtleCommand;
 
 public class ExpressionTreeBuilder {
 	
@@ -17,12 +17,16 @@ public class ExpressionTreeBuilder {
 		InputReader inputControl = new InputReader();
 		CommandFactory nodeCreator = new CommandFactory();
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
-		TurtleCommand head = new BlankNode("blank_node");
-		while(commandList.getRow()<commandList.getNumRows())
+		Command head = new BlankNode("blank_node", commandList, nodeCreator);
+		while(commandList.getRow()<commandList.getNumRows()){
 			if(isValid(commandList.getRowList())){	
 				String myCommand = commandList.getCommand();
 				head.addChild((Command)nodeCreator.getCommand(myCommand, commandList));
 			}
+			else{
+				commandList.setRow(commandList.getRow()+1);
+			}
+		}
 		return head;
 	}
 	

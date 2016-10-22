@@ -15,10 +15,12 @@ public abstract class Command {
 	
 	
 	List<Command> myChildren;
+	//List<Integer> myChildren;
 	String myCommand;
 	public Command(String command){
 		myCommand = command;
 		myChildren = new ArrayList<Command>();
+		//myChildren = new ArrayList<Integer>();
 	}
 	
 	public String getCommand(){
@@ -26,10 +28,13 @@ public abstract class Command {
 	}
 	
 	public void addChild(Command newChild){
+	//public void addChild(){
 		myChildren.add(newChild);
+		//myChildren.add(1);
 	}
 	
 	public List<Command> getChildren(){
+	//public List<Integer> getChildren(){
 		return myChildren;
 	}
 	

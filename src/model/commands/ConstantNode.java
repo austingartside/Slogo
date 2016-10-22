@@ -2,7 +2,6 @@ package model.commands;
 
 import java.util.Map;
 
-import model.commands.TurtleCommands.TurtleCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -15,9 +14,14 @@ public class ConstantNode extends TurtleCommand{
 		myVal = Double.parseDouble(command);
 		updateLocation(commandList);
 	}
+	
+	public void printName(){
+		System.out.println(myVal);
+	}
 
 	@Override
 	public double execute(Map<String, Double> variables) {
+		printName();
 		return myVal;	
 	}
 

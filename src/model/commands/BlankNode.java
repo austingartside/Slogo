@@ -3,11 +3,12 @@ package model.commands;
 import java.util.List;
 import java.util.Map;
 
-import model.commands.TurtleCommands.TurtleCommand;
+import model.parser.CommandFactory;
+import model.parser.ListOfCommands;
 
 public class BlankNode extends TurtleCommand{
 
-	public BlankNode(String command) {
+	public BlankNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
 		super(command);
 	}
 
