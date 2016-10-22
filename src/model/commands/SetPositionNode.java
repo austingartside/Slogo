@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -17,9 +18,9 @@ public class SetPositionNode extends TurtleCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute(Map<String, Double> variables) {
-		//myTurtle.setPositionX(this.getChild(FIRSTENTRY));
-		//myTurtle.setPositionY(this.getChild(SECONDENTRY));
+	public double execute(Controller control) {
+		//myTurtle.setPositionX(this.executeChild(FIRSTENTRY));
+		//myTurtle.setPositionY(this.executeChild(SECONDENTRY));
 		//return Math.sqrt(Math.pow(myTurtle.getNewPositionX-myTurtle.getOldPositionX, SQUARED)+Math.pow(Math.pow(myTurtle.getPositionY-myTurtle.getOldPositionY,SQUARED)));
 		return ZERO;
 	}

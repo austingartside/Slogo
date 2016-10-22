@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.ListOfCommands;
 
 public class HomeNode extends TurtleCommand{
@@ -13,9 +14,9 @@ public class HomeNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
-		//double dist=Math.sqrt(Math.pow(myTurtle.getPositionX, SQUARED)+Math.pow(Math.pow(myTurtle.getPositionY,SQUARED)));
-		//myTurtle.setPosition(ZERO,ZERO);
+	public double execute(Controller control) {
+		//double dist=Math.sqrt(Math.pow(control.getTurtle().getPositionX, SQUARED)+Math.pow(Math.pow(control.getTurtle().getPositionY,SQUARED)));
+		//control.getTurtle().setPosition(ZERO,ZERO);
 		//myTurtle.setOrientation(ZERO);
 		//Distance moved by turtle for reset or turtle in general?	
 		//return dist;

@@ -36,9 +36,16 @@ public class Controller {
 		BlankNode head = (BlankNode) myExpressionTree.makeTree();
 		//System.out.println(head.getChildren().size());
 		for(Command currentCommand: head.getChildren()){
-			currentCommand.execute(variables);
+			currentCommand.execute(this);
 			System.out.println();		
 		}
+		System.out.println(myTurtle.getNewPositionX());
+		System.out.println(myTurtle.getNewPositionY());
+	}	
+	
+	public Map<String,Double> getVariables(){
+		return variables;
+	}
 //		System.out.println();
 //		Command one = head.getChildren().get(0);
 //		for(Command currentCommand: one.getChildren()){
@@ -47,13 +54,10 @@ public class Controller {
 //		}
 		
 		
-		//head.getChild(0, variables).getName();
-		
-		
-	}
+		//head.executeChild(0, variables).getName();
 	
 	//// Im not sure how to get the implemented Turtle executes to affect the Turtle built here. Do we pass in the Turtle as a object or use these getters and setters or another way?
-	public Turtle getTurtleModel(){
+	public Turtle getTurtle(){
 		return myTurtle;
 	}
 	

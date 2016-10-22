@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.commands.MathCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
@@ -16,8 +17,8 @@ public class MinusNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute(Map<String, Double> variables) {
-		double expr1=getChild(FIRSTENTRY, variables);
+	public double execute(Controller control) {
+		double expr1=executeChild(FIRSTENTRY, control);
 		return -expr1;
 	}
 

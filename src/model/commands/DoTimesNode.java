@@ -1,7 +1,7 @@
 package model.commands;
 
-import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -25,15 +25,15 @@ public class DoTimesNode extends ControlCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
-		double limit = getChild(0, variables);
+	public double execute(Controller control) {
+		double limit = executeChild(FIRSTENTRY, control);
 		double lastVal = 0;
 		for(double i = 0; i<limit; i++){
 			if(i>=1){
-				variables.put(varName, i);
+				control.getVariables().put(varName, i);
 			}
 			for(int j = 1; j<getNumChildren(); j++){
-				 lastVal = getChild(j, variables);
+				 lastVal = executeChild(j, control);
 			}
 		}
 		return lastVal;		

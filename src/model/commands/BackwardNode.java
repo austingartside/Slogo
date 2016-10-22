@@ -25,10 +25,10 @@ public class BackwardNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
-		//myTurtle.move(MINUS*this.getChild(FIRSTENTRY));
+	public double execute(Controller control) {
+		//myTurtle.move(MINUS*this.executeChild(FIRSTENTRY));
 		printName();
-		return getChild(FIRSTENTRY, variables);
+		return executeChild(FIRSTENTRY, control);
 	}
 
 }

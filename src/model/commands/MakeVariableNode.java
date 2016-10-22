@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -19,9 +20,9 @@ public class MakeVariableNode extends ControlCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
-		variables.put(variableName, getChild(0, variables));
-		return variables.get(variableName);
+	public double execute(Controller control) {
+		control.getVariables().put(variableName, executeChild(0, control));
+		return control.getVariables().get(variableName);
 	}
 
 }

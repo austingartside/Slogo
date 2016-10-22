@@ -2,6 +2,8 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
+
 public abstract class LogicCommand extends Command {
 
 	public LogicCommand(String command) {
@@ -9,6 +11,6 @@ public abstract class LogicCommand extends Command {
 	}
 
 	@Override
-	public abstract double execute(Map<String, Double> variables);
+	public abstract double execute(Controller control);
 
 }

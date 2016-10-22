@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 import model.parser.ProgramParser;
@@ -35,7 +36,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 	}
 
 	@Override
-	public double execute(Map<String, Double> variables) {
+	public double execute(Controller control) {
 		
 		return 0;
 	}

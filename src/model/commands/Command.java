@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.*;
 
+import model.Controller;
 import model.parser.ListOfCommands;
 
 public abstract class Command {
@@ -51,14 +52,14 @@ public abstract class Command {
 		commandList.setCol(newCol);
 	}
 	
-	public double getChild(int i, Map<String, Double> variables){
-		return myChildren.get(i).execute(variables);
+	public double executeChild(int i, Controller control){
+		return myChildren.get(i).execute(control);
 	}
 
 	/**
 	 * CarryOut the inputed command
 	 * @return 
 	 */
-	public abstract double execute(Map<String, Double> variables);
+	public abstract double execute(Controller control);
 }
 

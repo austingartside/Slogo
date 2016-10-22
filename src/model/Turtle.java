@@ -16,9 +16,11 @@ public class Turtle {
 	private double ZERO=0.0; //temporary
 	
 	public Turtle(){
-		//this.setPosition(ZERO,ZERO);
+		newXpos=0.0;
+		newYpos=0.0;
+		this.setPosition(ZERO,ZERO);
 		//this.setImage("Turtle.png"); //Resource File
-		//this.setOrientation(ZERO);
+		this.setOrientation(ZERO);
 		
 	}
 	
@@ -32,26 +34,28 @@ public class Turtle {
 	 * Changes position of turtle
 	 * Used for FORWARD,BACK
 	 */
-	public void move(double vector){
+	public double move(double vector){
 		double xmove=vector*(Math.sin(Math.toRadians(angleNow)));
 		double ymove=vector*(Math.cos(Math.toRadians(angleNow)));
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
-		image.setX(newXpos);
-		image.setY(newYpos);
+		setPosition(newXpos,newYpos);
+		return vector;
+		//image.setX(newXpos);
+		//image.setY(newYpos);
 	}
 	/**
 	 * Sets position of turtle
 	 * Used for Home,ClearScreen
 	 */
-	/*public void setPosition(double x, double y){
+	public void setPosition(double x, double y){
 		oldXpos=newXpos;
 		oldYpos=newYpos;
-		image.setX(x);
-		image.setY(y);
+		//image.setX(x);
+		//image.setY(y);
 		newXpos=x;
 		newYpos=y;
-	}*/
+	}
 	
 	/**
 	 * Used for XCOR
@@ -98,9 +102,9 @@ public class Turtle {
 	 */
 	
 	public void setOrientation(double angle){
-		image.setRotate(360-angleNow);
+		//image.setRotate(360-angleNow);
 		angleNow=angle;
-		image.setRotate(angle);
+		//image.setRotate(angle);
 	}
 	 /**
 	 * Used for HEADING
