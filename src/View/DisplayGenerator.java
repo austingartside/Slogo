@@ -243,6 +243,7 @@ public class DisplayGenerator {
     public Canvas addCanvas(){
         Canvas can = canvas.createCanvas();
         GridPane.setConstraints(can, 0, 2, 12, 16);
+        gridPane.getChildren().add(can);
         return can;
     }
     //all the event handlers for comboboxes
