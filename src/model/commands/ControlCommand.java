@@ -18,11 +18,11 @@ public abstract class ControlCommand extends Command{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker, Command parent) throws Exception {
 		updateLocation(commandList);
 		String currentCommand = commandList.getCommand();
 		while(!isEndList(currentCommand)){
-			this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
+			parent.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
 			if(commandList.isOutOfBounds()){
 				throw new Exception("no closing bracket");
 			}

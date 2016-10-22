@@ -20,7 +20,7 @@ public class DoTimesNode extends ControlCommand{
 		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
 		updateLocation(commandList);
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker);
+		moveThroughList(commandList, nodeMaker, this);
 		
 	}
 
