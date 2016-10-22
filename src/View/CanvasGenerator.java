@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 public class CanvasGenerator {
     public static final int CANVAS_X = 800;
     public static final int CANVAS_Y = 600;
-    public static final int CANVAS_OFFSET = 75;
+    public static final int CANVAS_OFFSET = 100;
     private Canvas canvas;
     private GraphicsContext gc;
 

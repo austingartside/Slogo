@@ -1,4 +1,5 @@
 package View;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 /**
@@ -7,12 +8,19 @@ import javafx.scene.control.ComboBox;
  */
 
 public class PenColorChanger extends ButtonGenerator{
-    public ComboBox<Object> create(){
-        setAttributes("Change Pen Color");
-        getList().getItems().addAll(getChoices());
-        return getList();
+    private Button button;
+    public PenColorChanger(){
+        button = new Button("Change Pen Color");
+    }
+    @Override
+    public Button create(){
+        control = button;
+        return button;
     }
     public void execute(){
 
+    }
+    public Button getButton(){
+        return button;
     }
 }

@@ -11,17 +11,19 @@ import javafx.scene.paint.Color;
  *
  */
 public class BackgroundChanger extends ButtonGenerator{
-    private ComboBox<Color> colors;
+    private Button button;
     public BackgroundChanger(){
-        colors = new ComboBox<>();
+        button = new Button("Background Color");
     }
     @Override
-    public ComboBox<Object> create(){
-        setAttributes("Background Color");
-        getList().getItems().addAll(getChoices());
-        return getList();
+    public Button create(){
+        control = button;
+        return button;
     }
     public void execute(){
 
+    }
+    public Button getButton(){
+        return button;
     }
 }

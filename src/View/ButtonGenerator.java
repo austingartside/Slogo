@@ -11,21 +11,14 @@ import java.util.List;
  * Adds all the buttons to the page.
  */
 public abstract class ButtonGenerator{
-    private ComboBox<Object> list;
+    protected Control control;
     private List<Object> choices;
     public ButtonGenerator(){
         choices = new ArrayList<>();
-        list = new ComboBox<>();
     }
-    protected ComboBox<Object> getList(){
-        return list;
-    }
-    protected List<Object> getChoices(){
+    protected List<Object> getList(){
         return choices;
     }
-    protected void setAttributes(String str){
-        list.setPromptText(str);
-    }
-    protected abstract ComboBox<Object> create();
+    protected abstract Control create();
     protected abstract void execute();
 }
