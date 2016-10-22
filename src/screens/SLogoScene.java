@@ -2,6 +2,7 @@ package screens;
 
 import java.util.ResourceBundle;
 import View.DisplayGenerator;
+import ViewLogic.DisplayUpdater;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,23 +22,24 @@ public class SLogoScene extends ActionScene{
     private DisplayGenerator displayGenerator;
     private ToolBar toolBar;
     
-    public SLogoScene(Scene scene, ResourceBundle resource, int height, int width){
-        super(scene, resource, height, width);
-        mainView = new GridPane();
-        mainView.setAlignment(Pos.CENTER);
-        mainView.setHgap(10);
-        mainView.setVgap(10);
-        mainView.setPadding(new Insets(25, 25, 25, 25));
+    public SLogoScene(ResourceBundle resource, int h, int w){
+        super(resource, h, w);
         displayGenerator = new DisplayGenerator();
-        myScene = displayGenerator.getScene();
-        setScene();
+        DisplayUpdater display = new DisplayUpdater(displayGenerator);
+        display.setUp();
     }
     
     /**
      * This method adds all necessary components to the front end.
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      */
-    public void setScene(){
-        myScene.setRoot(displayGenerator.setScene());
+    public Scene setScene(){
+        displayGenerator.setScene();
+        mainView = displayGenerator.getGridPane();
+        myScene =  new Scene(mainView,width,height);
+        return myScene;
+    }
+    public GridPane getRoot(){
+        return mainView;
     }
 }

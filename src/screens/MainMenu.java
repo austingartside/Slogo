@@ -40,9 +40,6 @@ public class MainMenu {
         startProject.setLayoutX(width/2-startProject.getWidth()/2);
         startProject.setLayoutY(11*(height-startProject.getHeight())/12);
         startProject.setPrefWidth(width/2);
-
-        DisplayUpdater display = new DisplayUpdater();
-        display.setUp();
         Controller control=new Controller();
         control.setUp();
         
@@ -50,8 +47,8 @@ public class MainMenu {
             
             @Override
             public void handle(final ActionEvent ae){
-                myActionScene = new SLogoScene(myScene, myResources, height, width);
-                myScene.setRoot(myActionScene.getRoot());
+                myActionScene = new SLogoScene(myResources, height, width);
+                myScene.setRoot(((SLogoScene)myActionScene).getRoot());
             }
         });
         vb.getChildren().add(startProject);

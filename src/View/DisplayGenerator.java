@@ -1,4 +1,5 @@
 package View;
+import ViewLogic.DisplayUpdater;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -85,11 +86,11 @@ public class DisplayGenerator {
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         for(int i = 0; i < COLUMNS; i++){
             ColumnConstraints column = new ColumnConstraints();
-            column.setPercentWidth(10);
+            column.setPercentWidth(100/COLUMNS);
             gridPane.getColumnConstraints().add(column);
 
             RowConstraints row = new RowConstraints();
-            row.setPercentHeight(10);
+            row.setPercentHeight(100/ROWS);
             gridPane.getRowConstraints().add(row);
         }
         
@@ -181,7 +182,7 @@ public class DisplayGenerator {
             
             @Override
             public void handle(final ActionEvent ae){
-                gridPane.getChildren().add(backgroundColorPicker);
+                gridPane.add(backgroundColorPicker,0,0,4,4);
             }
         });
     }
@@ -197,10 +198,10 @@ public class DisplayGenerator {
         addPenColors();
         addBackgroundColors();
         addLanguages();
-        GridPane.setConstraints(backgroundChanger.getButton(), 0, 0, 2, 4);
-        GridPane.setConstraints(imageChanger.getButton(), 4, 0, 2, 4);
-        GridPane.setConstraints(penColorChanger.getButton(), 8, 0, 2, 4);
-        gridPane.getChildren().addAll(backgroundChanger.getButton(), imageChanger.getButton(), penColorChanger.getButton());
+        gridPane.add(backgroundChanger.getButton(), 0, 0, 2, 4);
+        gridPane.add(imageChanger.getButton(), 4, 0, 2, 4);
+        gridPane.add(penColorChanger.getButton(), 8, 0, 2, 4);
+        System.out.println("BUTTONS");
     }
     private void createButtons(){
         backgroundChanger.create();
@@ -227,8 +228,7 @@ public class DisplayGenerator {
         hb.setSpacing(10);
         hb.setLayoutY(SIZE_Y-80);
         hb.setLayoutX(ALIGN);
-        GridPane.setConstraints(hb,0,18,12,2);
-        gridPane.getChildren().add(hb);
+        gridPane.add(hb,0,18,12,2);
         return commandLine;
     }
     private double canvasCoordX(double x){
@@ -242,10 +242,9 @@ public class DisplayGenerator {
     }
     public Canvas addCanvas(){
         Canvas can = canvas.createCanvas();
-        GridPane.setConstraints(can, 0, 2, 12, 16);
+        gridPane.add(can,0,2,12,16);
         return can;
     }
-    //all the event handlers for comboboxes
 
     public Scene getScene () {
         return scene;
