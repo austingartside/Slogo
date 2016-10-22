@@ -1,5 +1,7 @@
 package model.commands.MathCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.commands.MathCommands.MathCommand;
 import model.parser.CommandFactory;
@@ -17,9 +19,9 @@ public class RemainderNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute() {
-		double expr1=this.getChild(FIRSTENTRY);
-		double expr2=this.getChild(SECONDENTRY);
+	public double execute(Map<String, Double> variables) {
+		double expr1=this.getChild(FIRSTENTRY, variables);
+		double expr2=this.getChild(SECONDENTRY, variables);
 		return expr1%expr2; ////Its 3 am i just made this up
 	}
 

@@ -1,5 +1,7 @@
 package model.commands.TurtleCommands;
 
+import java.util.Map;
+
 import model.parser.ListOfCommands;
 
 public class PenDownNode extends TurtleCommand{
@@ -11,7 +13,7 @@ public class PenDownNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		//myTurtle.penDown();
 		return ONE;
 	}

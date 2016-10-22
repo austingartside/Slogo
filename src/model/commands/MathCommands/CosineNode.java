@@ -1,5 +1,7 @@
 package model.commands.MathCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.commands.MathCommands.MathCommand;
 import model.parser.CommandFactory;
@@ -15,8 +17,8 @@ public class CosineNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute() {
-		return Math.cos(this.getChild(FIRSTENTRY));
+	public double execute(Map<String, Double> variables) {
+		return Math.cos(getChild(FIRSTENTRY, variables));
 	}
 
 }

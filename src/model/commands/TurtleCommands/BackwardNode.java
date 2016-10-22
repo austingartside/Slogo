@@ -1,6 +1,7 @@
 package model.commands.TurtleCommands;
 
 import java.util.List;
+import java.util.Map;
 
 import model.Controller;
 import model.Turtle;
@@ -18,9 +19,9 @@ public class BackwardNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		//myTurtle.move(MINUS*this.getChild(FIRSTENTRY));
-		return this.getChild(FIRSTENTRY);
+		return getChild(FIRSTENTRY, variables);
 	}
 
 }

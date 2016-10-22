@@ -1,5 +1,7 @@
 package model.commands.TurtleCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
@@ -15,9 +17,9 @@ public class SetHeadingNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		//myTurtle.setOrientation(this.getChild(FIRSTENTRY));
-		return this.getChild(FIRSTENTRY);
+		return this.getChild(FIRSTENTRY, variables);
 	}
 
 }

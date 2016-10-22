@@ -1,5 +1,7 @@
 package model.commands.TurtleCommands;
 
+import java.util.Map;
+
 import model.parser.ListOfCommands;
 
 public class HomeNode extends TurtleCommand{
@@ -11,7 +13,7 @@ public class HomeNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		//double dist=Math.sqrt(Math.pow(myTurtle.getPositionX, SQUARED)+Math.pow(Math.pow(myTurtle.getPositionY,SQUARED)));
 		//myTurtle.setPosition(ZERO,ZERO);
 		//myTurtle.setOrientation(ZERO);

@@ -1,5 +1,7 @@
 package model.commands.MathCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.commands.MathCommands.MathCommand;
 import model.parser.CommandFactory;
@@ -17,9 +19,9 @@ public class PowerNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute() {
-		double base=this.getChild(FIRSTENTRY);
-		double exponent=this.getChild(SECONDENTRY);
+	public double execute(Map<String, Double> variables) {
+		double base=getChild(FIRSTENTRY, variables);
+		double exponent=getChild(SECONDENTRY, variables);
 		return Math.pow(base,exponent);
 	}
 

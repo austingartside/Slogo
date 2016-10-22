@@ -29,6 +29,14 @@ public abstract class Command {
 		myChildren.add(newChild);
 	}
 	
+	public List<Command> getChildren(){
+		return myChildren;
+	}
+	
+	public int getNumChildren(){
+		return myChildren.size();
+	}
+	
 	public void updateLocation(ListOfCommands commandList) {
 		int newCol = commandList.getCol()+1;
 		if(newCol>=commandList.getRowLength()){
@@ -38,14 +46,14 @@ public abstract class Command {
 		commandList.setCol(newCol);
 	}
 	
-	public double getChild(int i){
-		return myChildren.get(i).execute();
+	public double getChild(int i, Map<String, Double> variables){
+		return myChildren.get(i).execute(variables);
 	}
 
 	/**
 	 * CarryOut the inputed command
 	 * @return 
 	 */
-	public abstract double execute();
+	public abstract double execute(Map<String, Double> variables);
 }
 

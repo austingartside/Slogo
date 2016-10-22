@@ -1,5 +1,7 @@
 package model.commands.ControlCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
@@ -16,7 +18,7 @@ public class IfNode extends ControlCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		return 0;
 		// TODO Auto-generated method stub
 		

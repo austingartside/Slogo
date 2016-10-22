@@ -1,5 +1,7 @@
 package model.commands.TurtleCommands;
 
+import java.util.Map;
+
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -12,7 +14,7 @@ public class XCoordinateNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		return 0;
 		// TODO Auto-generated method stub
 		

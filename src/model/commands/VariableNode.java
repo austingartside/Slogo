@@ -1,5 +1,7 @@
 package model.commands;
 
+import java.util.Map;
+
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -15,7 +17,7 @@ public class VariableNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

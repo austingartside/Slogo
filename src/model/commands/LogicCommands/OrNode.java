@@ -1,5 +1,7 @@
 package model.commands.LogicCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.commands.LogicCommands.LogicCommand;
 import model.parser.CommandFactory;
@@ -16,9 +18,9 @@ public class OrNode extends LogicCommand{
 				commandList));
 	}
 	@Override
-	public double execute() {
-		double test1=this.getChild(FIRSTENTRY);
-		double test2=this.getChild(SECONDENTRY);
+	public double execute(Map<String, Double> variables) {
+		double test1=this.getChild(FIRSTENTRY, variables);
+		double test2=this.getChild(SECONDENTRY, variables);
 		// This format has to be used so that the return is a double and not a boolean.
 		if(test1!=ZERO || test2!=ZERO){return 1;}
 		else{return 0;}

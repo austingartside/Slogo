@@ -1,5 +1,7 @@
 package model.commands.LogicCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.commands.LogicCommands.LogicCommand;
 import model.parser.CommandFactory;
@@ -16,8 +18,8 @@ public class NotNode extends LogicCommand{
 				commandList));
 	}
 	@Override
-	public double execute() {
-		double test=this.getChild(FIRSTENTRY);
+	public double execute(Map<String, Double> variables) {
+		double test=this.getChild(FIRSTENTRY, variables);
 		// This format has to be used so that the return is a double and not a boolean.
 		return test==ZERO ? 1:0;
 	}

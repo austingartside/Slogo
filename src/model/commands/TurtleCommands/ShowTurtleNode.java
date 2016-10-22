@@ -1,5 +1,7 @@
 package model.commands.TurtleCommands;
 
+import java.util.Map;
+
 import model.parser.ListOfCommands;
 
 public class ShowTurtleNode extends TurtleCommand{
@@ -11,7 +13,7 @@ public class ShowTurtleNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute(){
+	public double execute(Map<String, Double> variables){
 		//myTurtle.showTurtle();
 		return ZERO;
 	}

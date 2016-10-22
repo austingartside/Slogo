@@ -1,5 +1,7 @@
 package model.commands.MathCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.commands.MathCommands.MathCommand;
 import model.parser.CommandFactory;
@@ -13,7 +15,7 @@ public class PiNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		return Math.PI;
 	}
 

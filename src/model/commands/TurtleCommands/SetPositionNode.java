@@ -1,5 +1,7 @@
 package model.commands.TurtleCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
@@ -16,7 +18,7 @@ public class SetPositionNode extends TurtleCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		//myTurtle.setPositionX(this.getChild(FIRSTENTRY));
 		//myTurtle.setPositionY(this.getChild(SECONDENTRY));
 		//return Math.sqrt(Math.pow(myTurtle.getNewPositionX-myTurtle.getOldPositionX, SQUARED)+Math.pow(Math.pow(myTurtle.getPositionY-myTurtle.getOldPositionY,SQUARED)));

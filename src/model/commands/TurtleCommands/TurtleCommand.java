@@ -1,5 +1,7 @@
 package model.commands.TurtleCommands;
 
+import java.util.Map;
+
 import model.commands.Command;
 import model.parser.ListOfCommands;
 
@@ -10,6 +12,6 @@ public abstract class TurtleCommand extends Command {
 	}
 	
 	@Override
-	public abstract double execute();
+	public abstract double execute(Map<String, Double> variables);
 
 }

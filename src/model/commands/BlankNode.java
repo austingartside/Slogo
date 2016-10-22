@@ -1,6 +1,7 @@
 package model.commands;
 
 import java.util.List;
+import java.util.Map;
 
 import model.commands.TurtleCommands.TurtleCommand;
 
@@ -11,7 +12,7 @@ public class BlankNode extends TurtleCommand{
 	}
 
 	@Override
-	public double execute() {
+	public double execute(Map<String, Double> variables) {
 		return 0; // ?????
 	}
 
