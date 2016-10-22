@@ -21,7 +21,7 @@ public class Driver extends Application{
     public void start(Stage stage){
         //myResources = ResourceBundle.getBundle(RESOURCE_BUNDLE);
         MainMenu menu = new MainMenu();
-        stage.setScene(menu.init(WIDTH,HEIGHT,myResources));
+        stage.setScene(menu.init(stage, WIDTH,HEIGHT,myResources));
         stage.show();
     }
 

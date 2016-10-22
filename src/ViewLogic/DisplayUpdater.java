@@ -16,13 +16,11 @@ import java.util.Iterator;
  *
  */
 public class DisplayUpdater implements ViewToModelInterface{
-    //private DisplayGenerator generator;
     private DisplayGenerator generator;
-    
-    public DisplayUpdater(DisplayGenerator dg){
-        generator = dg;
-    }
 
+    public DisplayUpdater(DisplayGenerator g){
+        generator = g;
+    }
     public void setUp(){
         addHandlers();
         addEnterHandler();

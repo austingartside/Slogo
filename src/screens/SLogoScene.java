@@ -19,27 +19,24 @@ public class SLogoScene extends ActionScene{
     private Canvas turtleCanvas;
     private Canvas backgroundCanvas;
     private TextField commandLine;
-    private DisplayGenerator displayGenerator;
+    private DisplayUpdater updater;
     private ToolBar toolBar;
-    
-    public SLogoScene(ResourceBundle resource, int h, int w){
-        super(resource, h, w);
-        displayGenerator = new DisplayGenerator();
-        DisplayUpdater display = new DisplayUpdater(displayGenerator);
-        display.setUp();
+    public SLogoScene(ResourceBundle resource, int height, int width){
+        super(resource, height, width);
+        updater = new DisplayUpdater(new DisplayGenerator());
+        updater.setUp();
+        myScene = updater.getGeneratorScene();
+        //setScene();
+    }
+    public DisplayUpdater getUpdater(){
+        return updater;
     }
     
     /**
      * This method adds all necessary components to the front end.
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      */
-    public Scene setScene(){
-        displayGenerator.setScene();
-        mainView = displayGenerator.getGridPane();
-        myScene =  new Scene(mainView,width,height);
-        return myScene;
-    }
-    public GridPane getRoot(){
-        return mainView;
-    }
+    /*public void setScene(){
+        myScene.setRoot(displayGenerator.setScene());
+    }*/
 }

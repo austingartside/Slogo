@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,9 +23,9 @@ public class MainMenu {
     private Scene myScene;
     private ResourceBundle myResources;
     private ImageView myLogo;
-    private ActionScene myActionScene;
+    private SLogoScene myActionScene;
     
-    public Scene init(int width, int height, ResourceBundle resources){
+    public Scene init(Stage stage, int width, int height, ResourceBundle resources){
         myResources = resources;
         myRoot = new Group();
         VBox vb = new VBox();
@@ -42,13 +43,11 @@ public class MainMenu {
         startProject.setPrefWidth(width/2);
         Controller control=new Controller();
         control.setUp();
-        
         startProject.setOnAction(new EventHandler<ActionEvent>(){
-            
             @Override
             public void handle(final ActionEvent ae){
                 myActionScene = new SLogoScene(myResources, height, width);
-                myScene.setRoot(((SLogoScene)myActionScene).getRoot());
+                stage.setScene(myActionScene.getUpdater().getGeneratorScene());
             }
         });
         vb.getChildren().add(startProject);
