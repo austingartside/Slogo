@@ -24,10 +24,6 @@ public class ForwardNode extends TurtleCommand{
 	@Override
 	public double execute(Controller control) {
 		return control.getTurtle().move(this.executeChild(FIRSTENTRY, control));
-		//System.out.print("Position:");
-		//System.out.println(control.getTurtle().getNewPositionY());
-		//printName();
-		//return executeChild(FIRSTENTRY, control);
 	}
 	
 	

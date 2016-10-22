@@ -90,10 +90,12 @@ public class Turtle {
 	/**
 	 * Sets the angle of the turtle
 	 * Used for RIGHT,LEFT
+	 * @return 
 	 */
-	public void changeOrientation(double angle){
+	public double changeOrientation(double angle){
 		image.setRotate(angle);
 		angleNow=angle;
+		return angle;
 	}
 	
 	/**

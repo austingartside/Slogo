@@ -18,7 +18,7 @@ public class ArcTangentNode extends MathCommand{
 	}
 	@Override
 	public double execute(Controller control) {
-		return 1.0;
+		return Math.atan(executeChild(FIRSTENTRY, control));
 	}
 
 }

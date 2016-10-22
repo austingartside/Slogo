@@ -18,8 +18,7 @@ public class RightNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		//myTurtle.changeOrientation(this.executeChild(FIRSTENTRY));
-		return this.executeChild(FIRSTENTRY, control);
+		return control.getTurtle().changeOrientation(this.executeChild(FIRSTENTRY,control));
 	}
 
 }

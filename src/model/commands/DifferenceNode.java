@@ -17,7 +17,7 @@ public class DifferenceNode extends MathCommand{
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public double execute(Controller control) {
+	public double execute(Controller control) { 
 		double expr1=executeChild(FIRSTENTRY, control);
 		double expr2=executeChild(SECONDENTRY, control);
 		return expr1-expr2;
