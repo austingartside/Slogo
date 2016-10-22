@@ -2,6 +2,7 @@ package screens;
 
 import javafx.scene.control.Button;
 import java.util.ResourceBundle;
+import ViewLogic.DisplayUpdater;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import model.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -27,15 +29,23 @@ public class MainMenu {
         myRoot = new Group();
         VBox vb = new VBox();
         myScene = new Scene(myRoot, width, height);
-        Image logo = new Image(myResources.getString("LogoImage"));
+        //Image logo = new Image(myResources.getString("LogoImage"));
+        Image logo = new Image("resources.view/SLogoLogo.jpg");
         myLogo = new ImageView(logo);
         myLogo.setFitHeight(height);
         myLogo.setFitWidth(width);
         
-        Button startProject = new Button(myResources.getString("StartProject"));
+        //Button startProject = new Button(myResources.getString("StartProject"));
+        Button startProject = new Button("Start Animation!");
         startProject.setLayoutX(width/2-startProject.getWidth()/2);
         startProject.setLayoutY(11*(height-startProject.getHeight())/12);
         startProject.setPrefWidth(width/2);
+
+        DisplayUpdater display = new DisplayUpdater();
+        display.setUp();
+        Controller control=new Controller();
+        control.setUp();
+        
         startProject.setOnAction(new EventHandler<ActionEvent>(){
             
             @Override
