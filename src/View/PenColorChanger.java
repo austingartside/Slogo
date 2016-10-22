@@ -1,8 +1,5 @@
 package View;
-
-import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -10,8 +7,10 @@ import javafx.scene.control.Control;
  */
 
 public class PenColorChanger extends ButtonGenerator{
-    public Control create(){
-        return new ComboBox();
+    public ComboBox<Object> create(){
+        setAttributes("Change Pen Color");
+        getList().getItems().addAll(getChoices());
+        return getList();
     }
     public void execute(){
 

@@ -1,16 +1,18 @@
 package View;
-
-import javafx.scene.Group;
-import javafx.scene.control.Control;
+import javafx.scene.control.ComboBox;
 
 /**
  * Created by Bill Xiong on 10/19/16.
  *
  */
-public class CommandHistory{
-
-    public void create(){
+public class CommandHistory extends ButtonGenerator{
+    @Override
+    public ComboBox<Object> create(){
+        setAttributes("Command History");
+        getList().getItems().addAll(getChoices());
+        return getList();
     }
+
     public void execute(){
 
     }

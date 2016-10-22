@@ -41,6 +41,6 @@ public class SLogoScene extends ActionScene{
         commandLine = displayGenerator.addCommandInput();
         backgroundCanvas = displayGenerator.addCanvas();
         turtleCanvas = displayGenerator.addCanvas();
-        toolBar = displayGenerator.addToolBar();
+        //toolBar = displayGenerator.addToolBar();
     }
 }

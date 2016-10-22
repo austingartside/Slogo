@@ -15,12 +15,11 @@ public class BackgroundChanger extends ButtonGenerator{
     public BackgroundChanger(){
         colors = new ComboBox<>();
     }
-    public Control create(){
-        colors.setPromptText("Change Background Color");
-        colors.setLayoutX(DisplayGenerator.SIZE_X - ButtonGenerator.OFFSET_X);
-        colors.setLayoutY(ButtonGenerator.OFFSET_Y);
-        colors.getItems().addAll(Color.BLACK, Color.BLUE, Color.GREEN, Color.RED);
-        return colors;
+    @Override
+    public ComboBox<Object> create(){
+        setAttributes("Background Color");
+        getList().getItems().addAll(getChoices());
+        return getList();
     }
     public void execute(){
 

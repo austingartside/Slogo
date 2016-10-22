@@ -1,24 +1,31 @@
 package View;
 
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Bill Xiong on 10/19/16.
  * Adds all the buttons to the page.
  */
 public abstract class ButtonGenerator{
-    protected static final int OFFSET_X = 300;
-    protected static final int OFFSET_Y = 100;
     private ComboBox<Object> list;
+    private List<Object> choices;
     public ButtonGenerator(){
+        choices = new ArrayList<>();
         list = new ComboBox<>();
     }
     protected ComboBox<Object> getList(){
         return list;
     }
-    protected abstract Control create();
+    protected List<Object> getChoices(){
+        return choices;
+    }
+    protected void setAttributes(String str){
+        list.setPromptText(str);
+    }
+    protected abstract ComboBox<Object> create();
     protected abstract void execute();
 }
