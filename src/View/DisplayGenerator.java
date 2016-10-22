@@ -2,10 +2,8 @@ package View;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -16,17 +14,18 @@ import javafx.scene.shape.Rectangle;
  * Created by Bill Xiong on 10/19/16.
  * Generates and updates the display. Should not interact with backend
  */
+
 public class DisplayGenerator {
 
     public static final double SIZE_X = 1200;
     public static final double SIZE_Y = 700;
-    static final double ALIGN = SIZE_X/4 - 200;
+    public static final double ALIGN = SIZE_X/4 - 200;
 
     private Color penColor;
     private Rectangle turtle;
     private Scene scene;
     private Group group;
-    private TextField commandLine;
+    private TextArea commandLine;
     private Button enter;
     private CanvasGenerator canvas;
     private ButtonGenerator backgroundChanger, imageChanger, commandHistory, currCommands,
@@ -35,7 +34,8 @@ public class DisplayGenerator {
     public DisplayGenerator(){
         penColor = Color.BLACK;
         turtle = new Rectangle(100, 300, 20, 20);
-        commandLine = new TextField();
+        commandLine = new TextArea();
+        commandLine.setMaxHeight(30);
         enter = new Button("Enter");
         group = new Group();
         scene = new Scene(group, SIZE_X, SIZE_Y);
@@ -52,7 +52,7 @@ public class DisplayGenerator {
         addCanvas();
         addButtons();
         addImage();
-        //drawLine(50, 50, 300, 300);
+        drawLine(150, 75, 300, 300);
     }
 
     /**
@@ -62,6 +62,13 @@ public class DisplayGenerator {
      */
     public Button getEnter(){
         return enter;
+    }
+    public TextArea getCommandLine(){
+        return commandLine;
+    }
+
+    public GraphicsContext getContext(){
+        return canvas.getGraphicsContext();
     }
     public Scene getScene(){
         return scene;
@@ -93,9 +100,7 @@ public class DisplayGenerator {
     public ComboBox<Object> getPenColorChanger(){
         return penColorChanger.getList();
     }
-    public Color getPenColor(){
-        return penColor;
-    }
+
     public void setPenColor(Color c){
         penColor = c;
     }
@@ -109,17 +114,32 @@ public class DisplayGenerator {
         turtle.setX(canvasCoordX(x));
         turtle.setY(canvasCoordY(y));
     }
+    public void makeTurtleInvisible(){
+        turtle.setFill(Color.TRANSPARENT);
+    }
+    //TODO change colors later
+    public void makeTurtleVisible(){
+        turtle.setFill(Color.BLACK);
+    }
+    public void clear(){
+        canvas.clear();
+    }
     public void rotateTurtle(double angle){
         turtle.setRotate(angle);
     }
     public void drawLine(double xPrev, double yPrev, double x, double y){
-        Line line = new Line();
-        line.setStartX(xPrev);
-        line.setStartY(yPrev);
-        line.setEndX(x);
-        line.setEndY(y);
+/*        Line line = new Line();
+        line.setStartX(canvasCoordX(xPrev));
+        line.setStartY(canvasCoordY(yPrev));
+        line.setEndX(canvasCoordX(x));
+        line.setEndY(canvasCoordY(y));
         line.setStroke(penColor);
-        group.getChildren().add(line);
+        group.getChildren().add(line);*/
+        GraphicsContext gc = canvas.getGraphicsContext();
+        gc.moveTo(xPrev, yPrev);
+        gc.lineTo(x, y);
+        gc.setStroke(penColor);
+        gc.stroke();
     }
     private void addLanguages(){
         languageChooser.getList().getItems().add("English");
@@ -200,9 +220,7 @@ public class DisplayGenerator {
         return commandLine.getText();
     }
 
-    private void addCanvas(){
+    public void addCanvas(){
         canvas.createCanvas(group);
     }
-    //all the event handlers for comboboxes
-
 }

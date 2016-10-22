@@ -20,6 +20,9 @@ public class CanvasGenerator {
         canvas = new Canvas(CANVAS_X, CANVAS_Y);
         gc = canvas.getGraphicsContext2D();
     }
+    public GraphicsContext getGraphicsContext(){
+        return gc;
+    }
     public void createCanvas(Group group){
         gc.setFill(Color.GREENYELLOW);
         gc.fillRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
@@ -28,5 +31,12 @@ public class CanvasGenerator {
     public void changeBackgroundColor(Color color){
         gc.setFill(color);
         gc.fillRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
+    }
+    public void clear(){
+        gc.setFill(Color.GREENYELLOW);
+        gc.fillRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
+        //gc.clearRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
+    }
+    public void addTurtle(){
     }
 }

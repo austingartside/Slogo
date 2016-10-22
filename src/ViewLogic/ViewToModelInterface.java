@@ -9,8 +9,9 @@ public interface ViewToModelInterface {
 
 	/** 
 	 * Allows the turtle to show or not show
+     * @param visible if true, make visible, else make invisible.
 	 */ 
-	public void setVisible();
+	public void setVisible(boolean visible);
 	
 	/** 
 	 * Change the coordinate of the turtle
@@ -50,5 +51,13 @@ public interface ViewToModelInterface {
 	 */ 
 	public void clear();
 
+    /**
+     * Gets the language that the user typed in.
+     * @return the language of the commands
+     */
+
+    public String getLanguage();
+
+    public void parse(String str);
 	//To be completed, other methods that might update the screen in some way shape or form.
 }
