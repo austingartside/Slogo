@@ -38,9 +38,6 @@ public class SLogoScene extends ActionScene{
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      */
     public void setScene(){
-        commandLine = displayGenerator.addCommandInput();
-        backgroundCanvas = displayGenerator.addCanvas();
-        turtleCanvas = displayGenerator.addCanvas();
-        //toolBar = displayGenerator.addToolBar();
+        myScene.setRoot(displayGenerator.setScene());
     }
 }
