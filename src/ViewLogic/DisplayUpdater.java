@@ -88,6 +88,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             generator.setText("");
         }));
     }
+
     private void addHandlers(){
         generator.getBackgroundPicker().setOnAction((event) ->{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
