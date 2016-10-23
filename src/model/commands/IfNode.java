@@ -5,21 +5,34 @@ import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class IfNode extends ControlCommand{
-
+	
+	private String myName;
+	
 	public IfNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
+		myName = command;
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
+		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
 		checkForListStart(commandList);
 		moveThroughList(commandList, nodeMaker, this);
 	}
+	
+	public void printName(){
+		System.out.println(myName);
+	}
 
 	@Override
 	public double execute(Controller control) {
-		return 0;
-		// TODO Auto-generated method stub
-		
+		printName();
+		double checkValue = this.executeChild(0, control);
+		double lastVal = 0;
+		if(checkValue != 0){
+			for(int j = 1; j<getNumChildren(); j++){
+				 lastVal = executeChild(j, control);
+			}
+		}
+		return lastVal;
 	}
 
 }

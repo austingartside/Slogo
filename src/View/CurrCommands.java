@@ -8,7 +8,7 @@ import javafx.scene.control.ListView;
 public class CurrCommands extends ButtonGenerator{
     private ListView<String> listView;
     public CurrCommands(){
-        listView = new ListView<String>();
+        listView = new ListView<>();
     }
     @Override
     public ListView<String> create(){

@@ -15,11 +15,15 @@ public class VariableNode extends TurtleCommand{
 		updateLocation(commandList);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getName(){
+		return myVarName;
+	}
 
 	@Override
 	public double execute(Controller control) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println(myVarName +" "+ control.getVariableValue(myVarName));
+		return control.getVariableValue(myVarName);
 	}
 
 }

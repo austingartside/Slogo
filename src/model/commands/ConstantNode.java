@@ -22,7 +22,7 @@ public class ConstantNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		//printName();
+		printName();
 		return myVal;	
 	}
 
