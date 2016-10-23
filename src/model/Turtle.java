@@ -3,6 +3,7 @@ package model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+
 public class Turtle {
 	private double oldXpos;
 	private double oldYpos;
@@ -156,7 +157,7 @@ public class Turtle {
 	public ImageView getImage() {
 		return image;
 	}
-
+	
 	public boolean isRevealBoolean() {
 		return revealBoolean;
 	}
@@ -168,5 +169,5 @@ public class Turtle {
 	public boolean isClearScreen() {
 		return clearScreen;
 	}
-	
+
 }

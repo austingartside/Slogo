@@ -1,21 +1,25 @@
 package View;
-
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-
-import java.util.List;
+import javafx.scene.control.ComboBox;
 
 /**
  * Created by Bill Xiong on 10/19/16.
  *
  */
 public class LanguageChooser extends ButtonGenerator{
-    public void create(Group g){
-        setAttributes("Change Language");
-        getList().getItems().addAll(getChoices());
-        g.getChildren().add(getList());
+    private ComboBox<Object> cBox;
+    public LanguageChooser(){
+        cBox = new ComboBox<Object>();
+    } 
+    public ComboBox<Object> create(){
+        cBox.setPromptText("Change Language");
+        control = cBox;
+        return cBox;
     }
+    
     public void execute(){
 
+    }
+    protected ComboBox<Object> getBox(){
+        return cBox;
     }
 }

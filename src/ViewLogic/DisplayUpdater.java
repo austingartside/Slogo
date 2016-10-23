@@ -1,9 +1,12 @@
 package ViewLogic;
 import View.DisplayGenerator;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import java.util.Iterator;
@@ -13,9 +16,11 @@ import java.util.Iterator;
  *
  */
 public class DisplayUpdater implements ViewToModelInterface{
-    //private DisplayGenerator generator;
-    private static final DisplayGenerator generator = new DisplayGenerator();
+    private DisplayGenerator generator;
 
+    public DisplayUpdater(DisplayGenerator g){
+        generator = g;
+    }
     public void setUp(){
         generator.setScene();
         addHandlers();
@@ -31,13 +36,13 @@ public class DisplayUpdater implements ViewToModelInterface{
             generator.drawLine(xPrev, yPrev, x, y);
         }
     }
-    public void updateHistory(Object object){
+    public void updateHistory(String object){
         generator.getCommandHistory().getItems().add(object);
     }
-    public void updateCurrCommands(Object object){
+    public void updateCurrCommands(String object){
         generator.getCurrCommands().getItems().add(object);
     }
-    public void updateCurrVariables(Object object){
+    public void updateCurrVariables(String object){
         generator.getCurrVariables().getItems().add(object);
     }
 
@@ -55,7 +60,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     public void clear(){
         generator.drawTurtle(0, 0);
-        Group group = generator.getGroup();
+        GridPane group = generator.getGridPane();
         ObservableList<Node> list = group.getChildren();
         Iterator iterator = list.iterator();
         while(iterator.hasNext()){
@@ -73,22 +78,32 @@ public class DisplayUpdater implements ViewToModelInterface{
         }));
     }
     private void addHandlers(){
-        generator.getBackgroundChanger().setOnAction((event) ->{
-            generator.changeBackgroundColor((Color) generator.getBackgroundChanger().getSelectionModel().getSelectedItem());
+        generator.getBackgroundPicker().setOnAction((event) ->{
+            generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
         });
-        generator.getImageChanger().setOnAction((event) ->{
+        generator.getImagePicker().setOnAction((event) ->{
         });
-        generator.getCommandHistory().setOnAction((event) ->{
+        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent m){
+                
+            }
         });
-        generator.getCurrCommands().setOnAction((event) ->{
+        generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent m){
+                
+            }
         });
-        generator.getCurrVariables().setOnAction((event) ->{
+        generator.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent m){
+                
+            }
         });
         generator.getLanguageChooser().setOnAction((event) ->{
         });
-        generator.getPenColorChanger().setOnAction((event) ->{
-            Color c = (Color) generator.getPenColorChanger().getSelectionModel().getSelectedItem();
-            generator.setPenColor(c);
+
+        generator.getPenColorPicker().setOnAction((event) ->{
+            Color c = generator.getPenColorPicker().getValue();
+            //generator.setPenColor(c);
         });
     }
 
