@@ -10,9 +10,9 @@ public interface ViewToModelInterface {
 
     /**
      * Allows the turtle to show or not show
+     * @param visible if true, make turtle visible, else make turtle invisible.
      */
-    public void setVisible ();
-
+    public void setVisible (boolean visible);
     /**
      * Change the coordinate of the turtle
      */
@@ -51,6 +51,7 @@ public interface ViewToModelInterface {
      * Uses reset in addition to wiping out everything
      */
     public void clear ();
+
 
     // To be completed, other methods that might update the screen in some way shape or form.
 }

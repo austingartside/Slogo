@@ -12,10 +12,12 @@ import javafx.scene.paint.Color;
 public class CanvasGenerator {
     public static final int CANVAS_X = 600;
     public static final int CANVAS_Y = 400;
-    public static final int CANVAS_OFFSET = 100;
     private Canvas canvas;
     private GraphicsContext gc;
 
+    public GraphicsContext getContext(){
+        return gc;
+    }
     public CanvasGenerator(){
         canvas = new Canvas(CANVAS_X, CANVAS_Y);
         gc = canvas.getGraphicsContext2D();
