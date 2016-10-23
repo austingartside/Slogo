@@ -2,9 +2,11 @@ package ViewLogic;
 import View.CanvasGenerator;
 import View.DisplayGenerator;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import java.util.Iterator;
@@ -14,10 +16,10 @@ import java.util.Iterator;
  *
  */
 public class DisplayUpdater implements ViewToModelInterface{
-    //private DisplayGenerator generator;
-    private static final DisplayGenerator generator = new DisplayGenerator();
     private String language;
-    public DisplayUpdater(){
+    private DisplayGenerator generator;
+    public DisplayUpdater(DisplayGenerator g){
+        generator = g;
         language = "English";
     }
     public void setUp(){
@@ -38,13 +40,13 @@ public class DisplayUpdater implements ViewToModelInterface{
     public String getLanguage(){
         return language;
     }
-    public void updateHistory(Object object){
+    public void updateHistory(String object){
         generator.getCommandHistory().getItems().add(object);
     }
-    public void updateCurrCommands(Object object){
+    public void updateCurrCommands(String object){
         generator.getCurrCommands().getItems().add(object);
     }
-    public void updateCurrVariables(Object object){
+    public void updateCurrVariables(String object){
         generator.getCurrVariables().getItems().add(object);
     }
     public void setVisible(boolean visible){
@@ -62,54 +64,52 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.drawTurtle(0, 0);
     }
     public void clear(){
-       /* generator.drawTurtle(0, 0);
-        Group group = generator.getGroup();
-        ObservableList<Node> list = group.getChildren();
-        Iterator iterator = list.iterator();
-        while(iterator.hasNext()){
-            Node n = (Node) iterator.next();
-            if(n instanceof Line){
-                iterator.remove();
-            }
-        }*/
         generator.clear();
     }
+    public void parse(String str){}
+
     private void addEnterHandler(){
         generator.getEnter().setOnAction((actionEvent -> {
-            parse(generator.getInput());
+            //call parser to parse stuff
+            //use generator.getCommand() to get String input
+            updateHistory(generator.getCommand());
+            generator.setText("");
         }));
     }
-    //TODO ADD CALL TO PARSER HERE
-    public void parse(String str){
-
-    }
     private void addHandlers(){
-        generator.getBackgroundChanger().setOnAction((event) ->{
-            generator.changeBackgroundColor((Color) generator.getBackgroundChanger().getSelectionModel().getSelectedItem());
+        generator.getBackgroundPicker().setOnAction((event) ->{
+            generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
         });
-        generator.getImageChanger().setOnAction((event) ->{
+        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            }
+        });
+        generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            }
+        });
+        generator.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            }
+        });
+        generator.getLanguageChooser().setOnAction((event) -> {
+                    language = (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
+        });
 
+        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent m){
+                String command = generator.getCommandHistory().getSelectionModel().getSelectedItem();
+                generator.setText(command);
+            }
         });
-        generator.getCommandHistory().setOnAction((event) ->{
-            String command = (String) generator.getCommandHistory().getSelectionModel().getSelectedItem();
-            generator.getCommandLine().setText(command);
-        });
-        generator.getCurrCommands().setOnAction((event) ->{
-            String command = (String) generator.getCurrCommands().getSelectionModel().getSelectedItem();
-            parse(command);
-        });
-        generator.getCurrVariables().setOnAction((event) ->{
-            String command = (String) generator.getCommandHistory().getSelectionModel().getSelectedItem();
-            generator.getCommandLine().setText(command);
-        });
-        generator.getLanguageChooser().setOnAction((event) ->{
-            language = (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
-        });
-        generator.getPenColorChanger().setOnAction((event) ->{
-            Color c = (Color) generator.getPenColorChanger().getSelectionModel().getSelectedItem();
-            generator.setPenColor(c);
+
+        generator.getPenColorPicker().setOnAction((event) ->{
+            Color c = generator.getPenColorPicker().getValue();
+            //generator.setPenColor(c);
         });
     }
-
-
 }

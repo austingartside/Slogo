@@ -1,12 +1,16 @@
 package model.commands;
 
-public abstract class MathCommand extends CommandNode {
+import java.util.Map;
+
+import model.Controller;
+
+public abstract class MathCommand extends Command {
 
 	public MathCommand(String command) {
 		super(command);
 	}
 
 	@Override
-	public abstract void execute();
+	public abstract double execute(Controller control);
 
 }

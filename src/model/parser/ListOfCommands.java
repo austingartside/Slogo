@@ -21,7 +21,10 @@ public class ListOfCommands {
 		return myCommandList.get(myRow);
 	}
 	
-	public String getCommand(){
+	public String getCommand() throws Exception{
+		if(isOutOfBounds()){
+			throw new Exception();
+		}
 		return myCommandList.get(myRow).get(myCol);
 	}
 	

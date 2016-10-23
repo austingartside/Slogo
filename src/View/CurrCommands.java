@@ -1,22 +1,24 @@
 package View;
-
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-
-import java.util.List;
-
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 /**
  * Created by Bill Xiong on 10/19/16.
  *
  */
 public class CurrCommands extends ButtonGenerator{
-    public void create(Group g){
-        setAttributes("Current Commands");
-        getList().getItems().addAll(getChoices());
-        g.getChildren().add(getList());
+    private ListView<String> listView;
+    public CurrCommands(){
+        listView = new ListView<>();
     }
-
+    @Override
+    public ListView<String> create(){
+        control = listView;
+        return listView;
+    }
     public void execute(){
 
+    }
+    public ListView<String> getListView(){
+        return listView;
     }
 }

@@ -2,8 +2,8 @@ package model.parser;
 import java.util.*;
 
 import model.commands.BlankNode;
-import model.commands.CommandNode;
-import model.commands.TurtleCommands.TurtleCommand;
+import model.commands.Command;
+import model.commands.TurtleCommand;
 
 public class ExpressionTreeBuilder {
 	
@@ -12,17 +12,21 @@ public class ExpressionTreeBuilder {
 	 * @return expression tree based on the typed used input
 	 * @throws Exception
 	 */
-	public CommandNode makeTree() throws Exception{
+	public Command makeTree() throws Exception{
 		//ProgramParser lang = new ProgramParser();
 		InputReader inputControl = new InputReader();
 		CommandFactory nodeCreator = new CommandFactory();
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
-		TurtleCommand head = new BlankNode("blank_node");
-		while(commandList.getRow()<commandList.getNumRows())
+		Command head = new BlankNode("blank_node", commandList, nodeCreator);
+		while(commandList.getRow()<commandList.getNumRows()){
 			if(isValid(commandList.getRowList())){	
 				String myCommand = commandList.getCommand();
-				head.addChild((CommandNode)nodeCreator.getCommand(myCommand, commandList));
+				head.addChild((Command)nodeCreator.getCommand(myCommand, commandList));
 			}
+			else{
+				commandList.setRow(commandList.getRow()+1);
+			}
+		}
 		return head;
 	}
 	

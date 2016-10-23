@@ -2,7 +2,7 @@ package View;
 
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
-
+import javafx.scene.control.Control;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,22 +11,14 @@ import java.util.List;
  * Adds all the buttons to the page.
  */
 public abstract class ButtonGenerator{
-    private ComboBox<Object> list;
+    protected Control control;
     private List<Object> choices;
-
     public ButtonGenerator(){
         choices = new ArrayList<>();
-        list = new ComboBox<>();
     }
-    protected List<Object> getChoices(){
+    protected List<Object> getList(){
         return choices;
     }
-    protected ComboBox<Object> getList(){
-        return list;
-    }
-    protected void setAttributes(String str){
-        list.setPromptText(str);
-    }
-    protected abstract void create(Group group);
+    protected abstract Control create();
     protected abstract void execute();
 }

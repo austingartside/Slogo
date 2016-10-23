@@ -2,11 +2,11 @@ package ViewLogic;
 
 /**
  * @author austingartside
- * This interface provides the methods that need to be implemnented by the backend that relate directly to the
- * visual created on the front end.
+ *         This interface provides the methods that need to be implemnented by the backend that
+ *         relate directly to the
+ *         visual created on the front end.
  */
 public interface ViewToModelInterface {
-
 	/** 
 	 * Allows the turtle to show or not show
      * @param visible if true, make visible, else make invisible.
@@ -22,22 +22,18 @@ public interface ViewToModelInterface {
 	 * Change the direction that the turtle is facing
 	 */ 
 	public void setOrientation(double angle);
-	
-	/** 
-	 * Change the command history as specified by a the user.
-	 * That is add elements to a history (or potentially wipe it)
-	 */ 
-	public void updateHistory(Object o);
+
+    /**
+     * Change the command history as specified by a the user.
+     * That is add elements to a history (or potentially wipe it)
+     */
+    public void updateHistory (String o);
     /**
      * Change the curr commands as specified by a the user.
      * Every time user enters command, add it to list of curr commands
      */
 
-    public void updateCurrCommands(Object object);
-    /**
-     * Every time user enters variable, store it. Allow user to change it.
-     */
-    public void updateCurrVariables(Object object);
+    public void updateCurrCommands (String object);
 
 	
 	/** 
@@ -60,4 +56,8 @@ public interface ViewToModelInterface {
 
     public void parse(String str);
 	//To be completed, other methods that might update the screen in some way shape or form.
+    public void updateCurrVariables (String object);
+
+
+    // To be completed, other methods that might update the screen in some way shape or form.
 }
