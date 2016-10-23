@@ -10,7 +10,7 @@ public class ConstantNode extends TurtleCommand{
 
 	private double myVal;
 	
-	public ConstantNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public ConstantNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myVal = Double.parseDouble(commandList.getCommand());
 		updateLocation(commandList);

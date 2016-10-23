@@ -9,11 +9,11 @@ import model.parser.ListOfCommands;
 
 public class AndNode extends LogicCommand{
 
-	public AndNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public AndNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override
 	public double execute(Controller control) {

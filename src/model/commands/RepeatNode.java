@@ -12,13 +12,13 @@ public class RepeatNode extends ControlCommand{
 	
 	String myVal;
 	
-	public RepeatNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public RepeatNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myVal = "Repeat";
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, this);
+		moveThroughList(commandList, nodeMaker, this, control);
 	}
 
 	public void printVal(){

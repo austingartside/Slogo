@@ -58,7 +58,7 @@ public class Controller {
 	//I may have misunderstood how the tree takes in the input.
 	public Command getTree() throws Exception{
 		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
-		return (BlankNode) myExpressionTree.makeTree();
+		return (BlankNode) myExpressionTree.makeTree(this);
 	}
 	
 	public void executeTree(Command head) throws Exception{

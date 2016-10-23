@@ -10,7 +10,7 @@ import model.parser.ListOfCommands;
 public class BlankNode extends TurtleCommand{
 	private static final String BLANK = "BlankNode";
 	
-	public BlankNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public BlankNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(BLANK);
 	}
 

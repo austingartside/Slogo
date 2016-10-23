@@ -12,11 +12,11 @@ public class BackwardNode extends TurtleCommand{
 
 	String myVal;
 	
-	public BackwardNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public BackwardNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myVal = "Backward";
 		updateLocation(commandList);	
-		addChild((Command) nodeMaker.getCommand(commandList));
+		addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	
 	public void printName(){

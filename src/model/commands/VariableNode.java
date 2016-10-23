@@ -7,7 +7,7 @@ import model.parser.ListOfCommands;
 
 public class VariableNode extends TurtleCommand{
 	
-	public VariableNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public VariableNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
 	}

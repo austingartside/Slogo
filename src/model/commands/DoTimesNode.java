@@ -10,7 +10,7 @@ public class DoTimesNode extends ControlCommand{
 	private String varName;
 	private String myName;
 	
-	public DoTimesNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public DoTimesNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = "DoTimes";
 		updateLocation(commandList);
@@ -19,10 +19,10 @@ public class DoTimesNode extends ControlCommand{
 		isVariable(commandList.getCommand());
 		varName = commandList.getCommand();
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		updateLocation(commandList);
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, this);
+		moveThroughList(commandList, nodeMaker, this, control);
 		
 	}
 	

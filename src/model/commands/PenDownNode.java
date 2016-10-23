@@ -6,7 +6,7 @@ import model.parser.ListOfCommands;
 
 public class PenDownNode extends TurtleCommand{
 
-	public PenDownNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public PenDownNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
 	}

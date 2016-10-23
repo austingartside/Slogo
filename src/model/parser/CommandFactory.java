@@ -3,6 +3,7 @@ package model.parser;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+import model.Controller;
 import model.commands.BlankNode;
 import model.commands.ConstantNode;
 
@@ -13,14 +14,15 @@ public class CommandFactory {
 	
 	
 	//haven't done anything about user created variables
-	public Object getCommand(ListOfCommands commandList) throws Exception{
+	public Object getCommand(ListOfCommands commandList, Controller control) throws Exception{
 		try{
 			ProgramParser lang = new ProgramParser();
 			String translatedCommand = lang.getSymbol(commandList.getCommand());
 			//System.out.println(translatedCommand);
 			if(isValidCommand(translatedCommand)){
 				String className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
-				return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class).newInstance(commandList, this);
+				return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
+						.newInstance(commandList, this, control);
 			}
 			else{
 				//throw new IllegalArgumentException("Command " + commandName + " does not exist");

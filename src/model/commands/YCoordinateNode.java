@@ -8,7 +8,7 @@ import model.parser.ListOfCommands;
 
 public class YCoordinateNode extends TurtleCommand{
 
-	public YCoordinateNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public YCoordinateNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
 	}
