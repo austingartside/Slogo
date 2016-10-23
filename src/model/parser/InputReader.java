@@ -18,7 +18,7 @@ public class InputReader {
 	//String userInput = "repeat 4 [ fd 50 rt 100 ]\n rt 90 BACK :distance Left :angle";
 	//String userInput = "repeat 4  bk 50 bk 100 ]\n bk 90";
 	//String userInput = "fd fd 50 fd bk 60\n#bk bk 80";
-	String userInput= "fd fd fd 10";
+	String userInput= "rt 90 fd fd 10 rt 90 bk 30";
 	//String userInput = "repeat";
 	private List<List<String>> textInput;
     

@@ -40,6 +40,7 @@ public class Turtle {
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
 		setPosition(newXpos,newYpos);
+		//Controller.UpdateView() Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
 		return vector;
 		//image.setX(newXpos);
 		//image.setY(newYpos);
@@ -93,8 +94,8 @@ public class Turtle {
 	 * @return 
 	 */
 	public double changeOrientation(double angle){
-		image.setRotate(angle);
-		angleNow=angle;
+		//image.setRotate(angle);
+		angleNow=angleNow+angle;
 		return angle;
 	}
 	
