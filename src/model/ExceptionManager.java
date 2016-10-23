@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ExceptionManager {
@@ -15,14 +17,27 @@ public class ExceptionManager {
 	
 	
 	private Map<String, String> exceptions;
+	private List<String> errors;
 	
 	public ExceptionManager(){
 		exceptions = new HashMap<String, String>();
 		exceptions.put(LIST_START, LIST_START_MESSAGE);
 		exceptions.put(LIST_END, LIST_END_MESSAGE);
 		exceptions.put(NO_COMMAND, NO_COMMAND_MESSAGE);
-		exceptions.put(NO_VARIABLE, NO_VARIABLE_MESSAGE);
-		
+		exceptions.put(NO_VARIABLE, NO_VARIABLE_MESSAGE);	
+		errors = new ArrayList<String>();
+	}
+	
+	public void resetErrors(){
+		errors = new ArrayList<String>();
+	}
+	
+	public boolean isError(){
+		return errors.size()>0;
+	}
+	
+	public void addError(String error){
+		errors.add(error);
 	}
 
 }
