@@ -1,5 +1,6 @@
 package screens;
 
+import View.DisplayGenerator;
 import javafx.scene.control.Button;
 import java.util.ResourceBundle;
 import ViewLogic.DisplayUpdater;
@@ -19,6 +20,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 
 public class MainMenu {
+    public static final DisplayGenerator displayGenerator = new DisplayGenerator();
     private Group myRoot;
     private Scene myScene;
     private ResourceBundle myResources;
