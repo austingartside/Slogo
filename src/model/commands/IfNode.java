@@ -13,7 +13,7 @@ public class IfNode extends ControlCommand{
 		myName = commandList.getCommand();
 		updateLocation(commandList);
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control);
 	}
 	

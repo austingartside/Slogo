@@ -3,6 +3,8 @@ import java.util.*;
 
 public class ListOfCommands {
 	
+	private static final String NON_COMMAND = "?aslkn234?3";
+	
 	private List<List<String>> myCommandList;
 	private int myRow;
 	private int myCol;
@@ -23,7 +25,7 @@ public class ListOfCommands {
 	
 	public String getCommand() throws Exception{
 		if(isOutOfBounds()){
-			throw new Exception();
+			return NON_COMMAND;
 		}
 		return myCommandList.get(myRow).get(myCol);
 	}
@@ -42,6 +44,10 @@ public class ListOfCommands {
 	
 	public int getCol(){
 		return myCol;
+	}
+	
+	public void endParse(){
+		myRow = myCommandList.size();
 	}
 	
 	public void setRow(int row){

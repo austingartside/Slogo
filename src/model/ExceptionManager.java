@@ -8,7 +8,7 @@ import java.util.Map;
 public class ExceptionManager {
 	private static final String LIST_START = "ListStartException";
 	private static final String LIST_START_MESSAGE = "ListStartException: missing start bracket [";
-	private static final String LIST_END = "ListENDException";
+	private static final String LIST_END = "ListEndException";
 	private static final String LIST_END_MESSAGE = "ListStartException: missing end bracket ]";
 	private static final String NO_COMMAND = "MissingCommandException";
 	private static final String NO_COMMAND_MESSAGE = "MissingCommandException: Command does not exist";
@@ -32,7 +32,7 @@ public class ExceptionManager {
 		errors = new ArrayList<String>();
 	}
 	
-	public boolean isError(){
+	public boolean hasErrors(){
 		return errors.size()>0;
 	}
 	

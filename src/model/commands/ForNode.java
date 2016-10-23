@@ -15,13 +15,13 @@ public class ForNode extends ControlCommand{
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
 		updateLocation(commandList);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		updateLocation(commandList);
-		isVariable(commandList.getCommand());
+		isVariable(commandList.getCommand(), control);
 		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		variableName = commandList.getCommand();
 		moveThroughList(commandList, nodeMaker, this, control);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control);		
 	}
 	
