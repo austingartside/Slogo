@@ -23,6 +23,7 @@ public class ForwardNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
+		printName();
 		return control.getTurtle().move(this.executeChild(FIRSTENTRY, control));
 	}
 	
