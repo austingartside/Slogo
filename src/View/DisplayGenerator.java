@@ -1,12 +1,18 @@
 package View;
+import java.io.File;
+import ViewLogic.DisplayUpdater;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -35,7 +41,7 @@ public class DisplayGenerator {
     
     private GridPane gridPane;
     private Color penColor;
-    private Rectangle turtle;
+    private ImageView turtle;
     private Scene scene;
     private TextArea commandLine;
     private Button enter;
@@ -51,10 +57,12 @@ public class DisplayGenerator {
     private ColorPicker penColorPicker;
     private ColorPicker backgroundColorPicker;
     private Button help;
+    private ImageView turtleInvis;
 
     public DisplayGenerator(){
         penColor = Color.BLACK;
-        turtle = new Rectangle(ROWS, ROWS);
+        turtle = new ImageView(new File("/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Turtle.png").toURI().toString());
+        turtleInvis = new ImageView(turtle.getImage());
         commandLine = new TextArea();
         commandLine.setMaxHeight(30);
         enter = new Button("Enter");
@@ -123,6 +131,9 @@ public class DisplayGenerator {
     public Button getEnter(){
         return enter;
     }
+    public Button getClear(){
+        return clear;
+    }
     public TextArea getCommandLine(){
         return commandLine;
     }
@@ -147,6 +158,16 @@ public class DisplayGenerator {
     public ListView<String> getCurrVariables(){
         return currVariables.getListView();
     }
+    public void changeTurtleImage(String pic){
+        Image turtleIm = new Image(new File(pic).toURI().toString());
+        turtle.setImage(turtleIm);
+        
+        turtle.setFitWidth(40);
+        turtle.setFitHeight(40);
+        turtle.setPreserveRatio(true);
+        turtle.setSmooth(true);
+        turtle.setCache(true);
+    }
     public ComboBox<Object> getLanguageChooser(){
         return languageChooser.getBox();
     }
@@ -169,11 +190,12 @@ public class DisplayGenerator {
         turtle.setTranslateY(canvasY(y));
     }
     public void makeTurtleInvisible(){
-        turtle.setFill(Color.TRANSPARENT);
+        turtleInvis = new ImageView(turtle.getImage());
+        turtle.setImage(null);
     }
     //TODO change colors later
     public void makeTurtleVisible(){
-        turtle.setFill(Color.BLACK);
+        turtle.setImage(turtleInvis.getImage());
     }
     public void clear(){
         canvas.clear();
@@ -215,15 +237,17 @@ public class DisplayGenerator {
             
             @Override
             public void handle(final ActionEvent ae){
-                gridPane.getChildren().add(backgroundColorPicker);
+                gridPane.add(backgroundColorPicker,0,0,4,4);
             }
         });
     }
     private void addImage(){
         drawTurtle(0, 0);
-        turtle.setWidth(30);
-        turtle.setHeight(30);
-        turtle.setFill(Color.BLACK);
+        turtle.setFitWidth(40);
+        turtle.setFitHeight(40);
+        turtle.setPreserveRatio(true);
+        turtle.setSmooth(true);
+        turtle.setCache(true);
         gridPane.getChildren().add(turtle);
     }
     private void addButtons(){
@@ -231,19 +255,22 @@ public class DisplayGenerator {
         addPenColors();
         addBackgroundColors();
         addLanguages();
-        GridPane.setConstraints(backgroundChanger.getButton(), 0, 0, 2, 4);
-        GridPane.setConstraints(imageChanger.getButton(), 4, 0, 2, 4);
-        GridPane.setConstraints(penColorChanger.getButton(), 8, 0, 2, 4);
-        backgroundChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        
+        gridPane.add(imageChanger.getButton(), 4, 1, 4, 2);
+        gridPane.add(backgroundColorPicker,0,1,4,2);
+        gridPane.add(penColorPicker,8,1,4,2);
+        
+        Label pen = new Label("Pen Color");
+        Label background = new Label("Background Color");
+        gridPane.add(background, 0,0,4,1);
+        gridPane.add(pen, 8,0,4,1);
+        
+        backgroundColorPicker.setMaxWidth(Double.MAX_VALUE);
         imageChanger.getButton().setMaxWidth(Double.MAX_VALUE);
-        penColorChanger.getButton().setMaxWidth(Double.MAX_VALUE);
-        backgroundChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        penColorPicker.setMaxWidth(Double.MAX_VALUE);
+        backgroundColorPicker.setMaxHeight(Double.MAX_VALUE);
         imageChanger.getButton().setMaxHeight(Double.MAX_VALUE);
-        penColorChanger.getButton().setMaxHeight(Double.MAX_VALUE);
-        GridPane.setConstraints(backgroundChanger.getButton(), 0, 1, 4, 2);
-        GridPane.setConstraints(imageChanger.getButton(), 4, 1, 4, 2);
-        GridPane.setConstraints(penColorChanger.getButton(), 8, 1, 4, 2);
-        gridPane.getChildren().addAll(backgroundChanger.getButton(), imageChanger.getButton(), penColorChanger.getButton());
+        penColorPicker.setMaxHeight(Double.MAX_VALUE);
     }
     private void createButtons(){
         backgroundChanger.create();
