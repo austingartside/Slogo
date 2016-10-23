@@ -3,12 +3,13 @@ package model.commands;
 import java.util.Map;
 
 import model.Controller;
+import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class HomeNode extends TurtleCommand{
 
-	public HomeNode(String command,ListOfCommands commandList) {
-		super(command);
+	public HomeNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
 		// TODO Auto-generated constructor stub
 	}

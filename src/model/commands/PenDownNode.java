@@ -1,14 +1,14 @@
 package model.commands;
 
 import model.Controller;
+import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class PenDownNode extends TurtleCommand{
 
-	public PenDownNode(String command,ListOfCommands commandList) {
-		super(command);
+	public PenDownNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

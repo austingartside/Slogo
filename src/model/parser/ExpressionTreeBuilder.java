@@ -17,11 +17,10 @@ public class ExpressionTreeBuilder {
 		InputReader inputControl = new InputReader();
 		CommandFactory nodeCreator = new CommandFactory();
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
-		Command head = new BlankNode("blank_node", commandList, nodeCreator);
+		Command head = new BlankNode(commandList, nodeCreator);
 		while(commandList.getRow()<commandList.getNumRows()){
 			if(isValid(commandList.getRowList())){	
-				String myCommand = commandList.getCommand();
-				head.addChild((Command)nodeCreator.getCommand(myCommand, commandList));
+				head.addChild((Command)nodeCreator.getCommand(commandList));
 			}
 			else{
 				commandList.setRow(commandList.getRow()+1);

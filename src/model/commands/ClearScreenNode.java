@@ -3,13 +3,14 @@ package model.commands;
 import java.util.Map;
 
 import model.Controller;
+import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 
 public class ClearScreenNode extends TurtleCommand{
 
-	public ClearScreenNode(String command,ListOfCommands commandList) {
-		super(command);
+	public ClearScreenNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);	
 	}
 

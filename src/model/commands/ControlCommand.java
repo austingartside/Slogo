@@ -21,7 +21,7 @@ public abstract class ControlCommand extends Command{
 		updateLocation(commandList);
 		String currentCommand = commandList.getCommand();
 		while(!isEndList(currentCommand)){
-			parent.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
+			parent.addChild((Command) nodeMaker.getCommand(commandList));
 			if(commandList.isOutOfBounds()){
 				throw new Exception("no closing bracket");
 			}

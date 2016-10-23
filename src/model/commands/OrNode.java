@@ -8,13 +8,11 @@ import model.parser.ListOfCommands;
 
 public class OrNode extends LogicCommand{
 
-	public OrNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public OrNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList));
 	}
 	@Override
 	public double execute(Controller control) {

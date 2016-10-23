@@ -9,12 +9,10 @@ import model.parser.ListOfCommands;
 
 public class MinusNode extends MathCommand{
 
-	public MinusNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public MinusNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		// TODO Auto-generated constructor stub
+		this.addChild((Command) nodeMaker.getCommand(commandList));
 	}
 	@Override
 	public double execute(Controller control) {
