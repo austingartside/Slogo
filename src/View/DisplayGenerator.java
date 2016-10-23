@@ -1,9 +1,7 @@
 package View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,19 +11,13 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import screens.SLogoScene;
 import javafx.scene.control.*;
-
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -190,13 +182,6 @@ public class DisplayGenerator {
         turtle.setRotate(angle);
     }
     public void drawLine(double xPrev, double yPrev, double x, double y){
-        /*Line line = new Line();
-        line.setStartX(canvasX(xPrev));
-        line.setStartY(canvasY(yPrev));
-        line.setEndX(canvasX(x));
-        line.setEndY(canvasY(y));
-        line.setStroke(penColor);
-        gridPane.getChildren().add(line);*/
         GraphicsContext gc = canvas.getContext();
         gc.moveTo(canvasLineX(xPrev), canvasLineY(yPrev));
         gc.setStroke(penColor);

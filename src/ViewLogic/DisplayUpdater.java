@@ -1,9 +1,7 @@
 package ViewLogic;
-import View.CanvasGenerator;
+
 import View.DisplayGenerator;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
