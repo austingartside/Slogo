@@ -89,8 +89,10 @@ public class Controller {
 	public void setTurtleModel(Turtle turtle){
 		myTurtle=turtle;
 	}
-	public ImageView getTurtleView(){
-		 return myTurtle.getImage();
+	
+	public TurtleView makeTurtleView(){
+		TurtleView turtleView= new TurtleView(myTurtle);
+		return turtleView;
 	}
 	
 	public void addHistory(String command){
@@ -98,6 +100,11 @@ public class Controller {
 	}
 	public List<String> getHistory(){
 		return history;
+	}
+
+	public static void UpdateView() {
+		//View Instance and then send Turtle View.
+		
 	}
 
 }
