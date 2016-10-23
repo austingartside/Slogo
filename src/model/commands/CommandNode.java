@@ -11,12 +11,12 @@ public class CommandNode extends ControlCommand{
 	private String myVarName;
 	private static final String BLANK_NODE = "class model.commands.BlankNode";
 	
-	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myVarName = commandList.getCommand();
 		updateLocation(commandList);
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, this);
+		moveThroughList(commandList, nodeMaker, this, control);
 	}
 
 	@Override

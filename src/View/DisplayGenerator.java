@@ -1,10 +1,12 @@
 package View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
@@ -19,8 +21,12 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import screens.SLogoScene;
 import javafx.scene.control.*;
+
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -31,9 +37,9 @@ public class DisplayGenerator {
     public static final double SIZE_X = 1200;
     public static final double SIZE_Y = 700;
     static final double ALIGN = SIZE_X/4 - 200;
+    static final int ADJUST = 150;
     public static final int COLUMNS = 20;
     public static final int ROWS = 20;
-    public static final int GAPS = 10;
     
     private GridPane gridPane;
     private Color penColor;
@@ -56,7 +62,7 @@ public class DisplayGenerator {
 
     public DisplayGenerator(){
         penColor = Color.BLACK;
-        turtle = new Rectangle(100, 300, 20, 20);
+        turtle = new Rectangle(ROWS, ROWS);
         commandLine = new TextArea();
         enter = new Button("Enter");
         clear = new Button("Clear");
@@ -75,6 +81,22 @@ public class DisplayGenerator {
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      */
     public GridPane setScene(){
+/*        Button test = new Button("move turtle");
+        test.setOnAction((event)->{
+            drawTurtle(50, 0);
+        });
+        Button rotate = new Button("rotate");
+        rotate.setTranslateY(50);
+        rotate.setOnAction((event)->{
+            rotateTurtle(50);
+        });*/
+      /*  Button draw = new Button("draw");
+        draw.setOnAction((event)->{
+            drawLine(0, 0, 50, 0);
+        });*/
+/*        gridPane.getChildren().add(test);
+        gridPane.getChildren().add(rotate);*/
+       /* gridPane.getChildren().add(draw);*/
         addListViews();
         addCommandInput();
         addCanvas();
@@ -148,20 +170,35 @@ public class DisplayGenerator {
     //TODO change Object to Command object, so that we can add stuff to command history
 
     public void drawTurtle(double x, double y){
-        turtle.setTranslateX(300);
-        turtle.setTranslateY(350);
+        turtle.setTranslateX(canvasX(x));
+        turtle.setTranslateY(canvasY(y));
+    }
+    public void setTurtleVisible(){
+        turtle.setFill(Color.BLACK);
+    }
+    public void setTurtleInvisible(){
+        turtle.setFill(Color.TRANSPARENT);
+    }
+    public void clearLines(){
+        canvas.getContext().clearRect(0, 0, CanvasGenerator.CANVAS_X, CanvasGenerator.CANVAS_Y);
+        canvas.getContext().setFill(Color.GREENYELLOW);
     }
     public void rotateTurtle(double angle){
         turtle.setRotate(angle);
     }
     public void drawLine(double xPrev, double yPrev, double x, double y){
-        Line line = new Line();
-        line.setStartX(xPrev);
-        line.setStartY(yPrev);
-        line.setEndX(x);
-        line.setEndY(y);
+        /*Line line = new Line();
+        line.setStartX(canvasX(xPrev));
+        line.setStartY(canvasY(yPrev));
+        line.setEndX(canvasX(x));
+        line.setEndY(canvasY(y));
         line.setStroke(penColor);
-        gridPane.getChildren().add(line);
+        gridPane.getChildren().add(line);*/
+        GraphicsContext gc = canvas.getContext();
+        gc.moveTo(canvasLineX(xPrev), canvasLineY(yPrev));
+        gc.setStroke(penColor);
+        gc.lineTo(canvasLineX(x), canvasLineY(y));
+        gc.stroke();
     }
     private void addLanguages(){
         languageChooser.getBox().setMaxWidth(Double.MAX_VALUE);
@@ -279,29 +316,36 @@ public class DisplayGenerator {
         help.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(final ActionEvent ae){
-                WebView browser = new WebView();
-                WebEngine webEngine = browser.getEngine();
-                webEngine.load("resources.view/help.html");
-                Group root = new Group();
-                root.getChildren().add(browser);
-                Button back = new Button("Back");
-                back.setOnAction(new EventHandler<ActionEvent>(){
-                    @Override
-                    public void handle(final ActionEvent ae){
-                        scene.setRoot(gridPane);
-                    }
-                });
-                back.setLayoutX(scene.getWidth()-100);
-                back.setLayoutY(0);
-                root.getChildren().add(back);
-                scene.setRoot(root);
+                displayHelp();
             }
         });
         help.setMaxWidth(Double.MAX_VALUE);
         gridPane.add(help, 18, 0, 2, 1);
     }
     //all the event handlers for comboboxes
-
+    private void displayHelp(){
+        String path = System.getProperty("user.dir");
+        path += "/src/help.html";
+        WebView web = new WebView();
+        web.getEngine().load("file:///" + path);
+        Stage s = new Stage();
+        Scene scene = new Scene(web);
+        scene.setRoot(web);
+        s.setScene(scene);
+        s.show();
+    }
+    private double canvasX(double x){
+        return CanvasGenerator.CANVAS_X/2 + x;
+    }
+    private double canvasY(double y){
+        return CanvasGenerator.CANVAS_Y/2 + ADJUST + y;
+    }
+    private double canvasLineX(double x){
+        return CanvasGenerator.CANVAS_X/2 + x;
+    }
+    private double canvasLineY(double y){
+        return CanvasGenerator.CANVAS_Y/2 + y;
+    }
     public Scene getScene () {
         return scene;
     }

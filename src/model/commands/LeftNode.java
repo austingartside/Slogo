@@ -6,10 +6,10 @@ import model.parser.ListOfCommands;
 
 public class LeftNode extends TurtleCommand{
 
-	public LeftNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public LeftNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 
 	@Override

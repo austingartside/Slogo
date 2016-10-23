@@ -7,11 +7,11 @@ import model.parser.ListOfCommands;
 
 public class LessThanNode extends LogicCommand{
 
-	public LessThanNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public LessThanNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override
 	public double execute(Controller control) {

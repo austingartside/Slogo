@@ -52,8 +52,13 @@ public class DisplayUpdater implements ViewToModelInterface{
     public String getCurrLanguage(){
         return (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
     }
-    public void setVisible(){
-
+    public void setVisible(boolean visible){
+        if(visible){
+            generator.setTurtleVisible();
+        }
+        else{
+            generator.setTurtleInvisible();
+        }
     }
     public void setOrientation(double angle){
         generator.rotateTurtle(angle);
@@ -63,15 +68,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     public void clear(){
         generator.drawTurtle(0, 0);
-        GridPane group = generator.getGridPane();
-        ObservableList<Node> list = group.getChildren();
-        Iterator iterator = list.iterator();
-        while(iterator.hasNext()){
-            Node n = (Node) iterator.next();
-            if(n instanceof Line){
-                iterator.remove();
-            }
-        }
+        generator.clearLines();
     }
     //TODO ADD CALL TO PARSER HERE
     private void addEnterHandler(){
@@ -128,7 +125,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 
         generator.getPenColorPicker().setOnAction((event) ->{
             Color c = generator.getPenColorPicker().getValue();
-            //generator.setPenColor(c);
+            generator.setPenColor(c);
         });
     }
 

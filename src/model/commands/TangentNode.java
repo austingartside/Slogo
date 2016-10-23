@@ -8,10 +8,10 @@ import model.parser.ListOfCommands;
 
 public class TangentNode extends MathCommand{
 
-	public TangentNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public TangentNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList));
+		addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override
 	public double execute(Controller control) {

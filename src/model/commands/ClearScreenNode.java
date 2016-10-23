@@ -9,7 +9,7 @@ import model.parser.ListOfCommands;
 
 public class ClearScreenNode extends TurtleCommand{
 
-	public ClearScreenNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public ClearScreenNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);	
 	}
