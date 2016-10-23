@@ -27,6 +27,6 @@ public class CanvasGenerator {
     }
     public void changeBackgroundColor(Color color){
         gc.setFill(color);
-        gc.fillRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
+        gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
     }
 }
