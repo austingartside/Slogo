@@ -9,19 +9,33 @@ public class IfElseNode extends ControlCommand{
 	public IfElseNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
+		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, this);
+		BlankNode trueStatements = new BlankNode(command, commandList, nodeMaker);
+		this.addChild(trueStatements);
+		moveThroughList(commandList, nodeMaker, trueStatements);
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, this);
+		BlankNode falseStatements = new BlankNode(command, commandList, nodeMaker);
+		this.addChild(falseStatements);
+		moveThroughList(commandList, nodeMaker, falseStatements);
 	}
 
 	@Override
 	public double execute(Controller control) {
-		return 0;
-		// TODO Auto-generated method stub
-		
+		double checkValue = this.executeChild(0, control);
+		double lastVal = 0;
+		Command nodeToUse;
+		if(checkValue!=0){
+			nodeToUse = this.getChildren().get(1);
+		}
+		else{
+			nodeToUse = this.getChildren().get(2);
+		}
+		for(int j = 0; j<nodeToUse.getNumChildren(); j++){
+			 lastVal = executeChild(j, control);
+		}
+		return lastVal;
 	}
 
 }

@@ -9,7 +9,7 @@ public class IfNode extends ControlCommand{
 	public IfNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
 		super(command);
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
+		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
 				commandList));
 		checkForListStart(commandList);
 		moveThroughList(commandList, nodeMaker, this);
@@ -17,9 +17,14 @@ public class IfNode extends ControlCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return 0;
-		// TODO Auto-generated method stub
-		
+		double checkValue = this.executeChild(0, control);
+		double lastVal = 0;
+		if(checkValue != 0){
+			for(int j = 1; j<getNumChildren(); j++){
+				 lastVal = executeChild(j, control);
+			}
+		}
+		return lastVal;
 	}
 
 }
