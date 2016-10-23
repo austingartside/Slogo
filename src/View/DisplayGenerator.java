@@ -131,6 +131,9 @@ public class DisplayGenerator {
     public Button getEnter(){
         return enter;
     }
+    public Button getClear(){
+        return clear;
+    }
     public TextArea getCommandLine(){
         return commandLine;
     }

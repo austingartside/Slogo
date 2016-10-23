@@ -30,7 +30,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void setUp(){
         generator.setScene();
         addHandlers();
-        addEnterHandler();
+        addTextHandler();
     }
     public Scene getGeneratorScene(){
         return generator.getScene();
@@ -72,8 +72,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.clear();
     }
 
-    private void addEnterHandler(){
-        generator.getEnter().setOnAction((actionEvent -> {
+    private void addTextHandler(){
+        generator.getEnter().setOnAction(actionEvent -> {
             //try {
 				try {
 					myController.enterAction(generator.getCommand());
@@ -89,8 +89,13 @@ public class DisplayUpdater implements ViewToModelInterface{
             //use generator.getCommand() to get String input
             updateHistory(generator.getCommand());
             generator.setText("");
-        }));
+        });
+        
+        generator.getClear().setOnAction(actionEvent -> {
+            generator.setText("");
+        });
     }
+    
     private void addHandlers(){
         generator.getBackgroundPicker().setOnAction((event) ->{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
