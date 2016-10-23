@@ -78,7 +78,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addHandlers(){
         generator.getBackgroundPicker().setOnAction((event) ->{
-            generator.changeBackgroundColor((Color) generator.getBackgroundPicker().getValue());
+            generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
         });
         generator.getImagePicker().setOnAction((event) ->{
         });
@@ -99,8 +99,9 @@ public class DisplayUpdater implements ViewToModelInterface{
         });
         generator.getLanguageChooser().setOnAction((event) ->{
         });
+
         generator.getPenColorPicker().setOnAction((event) ->{
-            Color c = (Color) generator.getPenColorPicker().getValue();
+            Color c = generator.getPenColorPicker().getValue();
             generator.setPenColor(c);
         });
     }

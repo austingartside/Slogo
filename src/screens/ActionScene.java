@@ -12,10 +12,11 @@ public abstract class ActionScene {
     protected int height;
     protected int width;
     
-    public ActionScene(ResourceBundle resource, int h, int w){
+    public ActionScene(Scene scene, ResourceBundle resource, int h, int w){
         myResources = resource;
         height = h;
         width = w;
+        myScene = scene;
     }
     
     private void showError (String message) {

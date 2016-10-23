@@ -21,8 +21,8 @@ public class SLogoScene extends ActionScene{
     private TextField commandLine;
     private DisplayUpdater updater;
     private ToolBar toolBar;
-    public SLogoScene(ResourceBundle resource, int height, int width){
-        super(resource, height, width);
+    public SLogoScene(Scene scene, ResourceBundle resource, int height, int width){
+        super(scene, resource, height, width);
         updater = new DisplayUpdater(new DisplayGenerator());
         updater.setUp();
         myScene = updater.getGeneratorScene();

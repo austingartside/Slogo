@@ -141,8 +141,8 @@ public class DisplayGenerator {
     //TODO change Object to Command object, so that we can add stuff to command history
 
     public void drawTurtle(double x, double y){
-        turtle.setX(canvasCoordX(x));
-        turtle.setY(canvasCoordY(y));
+        turtle.setTranslateX(300);
+        turtle.setTranslateY(350);
     }
     public void rotateTurtle(double angle){
         turtle.setRotate(angle);
