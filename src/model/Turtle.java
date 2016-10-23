@@ -40,7 +40,7 @@ public class Turtle {
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
 		setPosition(newXpos,newYpos);
-		//Controller.UpdateView() Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
+		Controller.UpdateView(); //Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
 		return vector;
 		//image.setX(newXpos);
 		//image.setY(newYpos);
@@ -56,6 +56,7 @@ public class Turtle {
 		//image.setY(y);
 		newXpos=x;
 		newYpos=y;
+		Controller.UpdateView();
 	}
 	
 	/**
@@ -85,9 +86,7 @@ public class Turtle {
 	public double getOldPositionY(){
 		return oldYpos;
 	}
-	
-	
-	
+
 	/**
 	 * Sets the angle of the turtle
 	 * Used for RIGHT,LEFT
@@ -96,6 +95,7 @@ public class Turtle {
 	public double changeOrientation(double angle){
 		//image.setRotate(angle);
 		angleNow=angleNow+angle;
+		Controller.UpdateView();
 		return angle;
 	}
 	
@@ -107,6 +107,7 @@ public class Turtle {
 	public void setOrientation(double angle){
 		//image.setRotate(360-angleNow);
 		angleNow=angle;
+		Controller.UpdateView();
 		//image.setRotate(angle);
 	}
 	 /**
@@ -121,6 +122,7 @@ public class Turtle {
 	 */
 	public void showTurtle(){
 		revealBoolean=true;
+		Controller.UpdateView();
 	}
 	
 	/**
@@ -128,6 +130,7 @@ public class Turtle {
 	 */
 	public void hideTurtle(){
 		revealBoolean=false;
+		Controller.UpdateView();
 	}
 	
 	/**
@@ -135,6 +138,7 @@ public class Turtle {
 	 */
 	public void penUp(){
 		penBoolean=false;
+		Controller.UpdateView();
 	}
 	
 	/**
@@ -142,11 +146,27 @@ public class Turtle {
 	 */
 	public void penDown(){
 		penBoolean=true;
+		Controller.UpdateView();
+	}
+	
+	public double getAngle(){
+		return angleNow;
 	}
 
 	public ImageView getImage() {
 		return image;
 	}
-	
+
+	public boolean isRevealBoolean() {
+		return revealBoolean;
+	}
+
+	public boolean isPenBoolean() {
+		return penBoolean;
+	}
+
+	public boolean isClearScreen() {
+		return clearScreen;
+	}
 	
 }
