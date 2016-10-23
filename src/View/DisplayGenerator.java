@@ -41,6 +41,7 @@ public class DisplayGenerator {
     private Scene scene;
     private TextArea commandLine;
     private Button enter;
+    private Button clear;
     private CanvasGenerator canvas;
     private BackgroundChanger backgroundChanger;
     private ImageChanger imageChanger;
@@ -57,6 +58,7 @@ public class DisplayGenerator {
         turtle = new Rectangle(100, 300, 20, 20);
         commandLine = new TextArea();
         enter = new Button("Enter");
+        clear = new Button("Clear");
         gridPane = new GridPane();
         setGridPane();
         scene = new Scene(gridPane, SIZE_X, SIZE_Y);
@@ -156,21 +158,24 @@ public class DisplayGenerator {
         gridPane.getChildren().add(line);
     }
     private void addLanguages(){
-        languageChooser.getList().add("English");//,"Chinese","French","German","Italian","Portugese","Russian","Spanish");
-        languageChooser.getList().add("Chinese");
-        languageChooser.getList().add("French");
-        languageChooser.getList().add("German");
-        languageChooser.getList().add("Italian");
-        languageChooser.getList().add("Portugese");
-        languageChooser.getList().add("Russian");
-        languageChooser.getList().add("Spanish");
+        languageChooser.getBox().setMaxWidth(Double.MAX_VALUE);
+        languageChooser.getBox().setMaxHeight(Double.MAX_VALUE);
+        languageChooser.addToList("English");//,"Chinese","French","German","Italian","Portugese","Russian","Spanish");
+        languageChooser.addToList("Chinese");
+        languageChooser.addToList("French");
+        languageChooser.addToList("German");
+        languageChooser.addToList("Italian");
+        languageChooser.addToList("Portugese");
+        languageChooser.addToList("Russian");
+        languageChooser.addToList("Spanish");
+        gridPane.add(languageChooser.getBox(), 14, 18, 4, 2);
     }
     private void addPenColors(){
         penColorChanger.getButton().setOnAction(new EventHandler<ActionEvent>(){
             
             @Override
             public void handle(final ActionEvent ae){
-                gridPane.getChildren().add(penColorPicker);
+                gridPane.add(penColorPicker,8,0);
             }
         });
         
@@ -196,9 +201,15 @@ public class DisplayGenerator {
         addPenColors();
         addBackgroundColors();
         addLanguages();
-        GridPane.setConstraints(backgroundChanger.getButton(), 0, 0, 2, 4);
-        GridPane.setConstraints(imageChanger.getButton(), 4, 0, 2, 4);
-        GridPane.setConstraints(penColorChanger.getButton(), 8, 0, 2, 4);
+        backgroundChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        imageChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        penColorChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        backgroundChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        imageChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        penColorChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        GridPane.setConstraints(backgroundChanger.getButton(), 0, 1, 4, 2);
+        GridPane.setConstraints(imageChanger.getButton(), 4, 1, 4, 2);
+        GridPane.setConstraints(penColorChanger.getButton(), 8, 1, 4, 2);
         gridPane.getChildren().addAll(backgroundChanger.getButton(), imageChanger.getButton(), penColorChanger.getButton());
     }
     private void createButtons(){
@@ -221,13 +232,15 @@ public class DisplayGenerator {
     }
     public TextArea addCommandInput(){
         Label label1 = new Label("Command:");
+        VBox vb = new VBox();
+        vb.getChildren().addAll(enter,clear);
+        vb.setSpacing(10);
         HBox hb = new HBox();
-        hb.getChildren().addAll(label1, commandLine, enter);
+        hb.getChildren().addAll(label1, commandLine, vb);
         hb.setSpacing(10);
         hb.setLayoutY(SIZE_Y-80);
         hb.setLayoutX(ALIGN);
-        GridPane.setConstraints(hb,0,18,12,2);
-        gridPane.getChildren().add(hb);
+        gridPane.add(hb,0,18,12,2);
         return commandLine;
     }
     private double canvasCoordX(double x){
@@ -241,8 +254,7 @@ public class DisplayGenerator {
     }
     public Canvas addCanvas(){
         Canvas can = canvas.createCanvas();
-        GridPane.setConstraints(can, 0, 2, 12, 16);
-        gridPane.getChildren().add(can);
+        gridPane.add(can, 0, 2, 12, 16);
         return can;
     }
     //all the event handlers for comboboxes
