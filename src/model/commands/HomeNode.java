@@ -1,0 +1,26 @@
+package model.commands;
+
+import java.util.Map;
+
+import model.Controller;
+import model.parser.ListOfCommands;
+
+public class HomeNode extends TurtleCommand{
+
+	public HomeNode(String command,ListOfCommands commandList) {
+		super(command);
+		updateLocation(commandList);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public double execute(Controller control) {
+		//double dist=Math.sqrt(Math.pow(control.getTurtle().getPositionX, SQUARED)+Math.pow(Math.pow(control.getTurtle().getPositionY,SQUARED)));
+		//control.getTurtle().setPosition(ZERO,ZERO);
+		//myTurtle.setOrientation(ZERO);
+		//Distance moved by turtle for reset or turtle in general?	
+		//return dist;
+		return 0; //WILL BE DELETED
+	}
+
+}

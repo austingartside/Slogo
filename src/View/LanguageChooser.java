@@ -19,7 +19,10 @@ public class LanguageChooser extends ButtonGenerator{
     public void execute(){
 
     }
-    protected ComboBox<Object> getBox(){
+    public void addToList(Object o){
+        cBox.getItems().add(o);
+    }
+    public ComboBox<Object> getBox(){
         return cBox;
     }
 }
