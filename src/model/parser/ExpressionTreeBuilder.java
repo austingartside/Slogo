@@ -14,7 +14,6 @@ public class ExpressionTreeBuilder {
 	 * @throws Exception
 	 */
 	public Command makeTree(Controller control) throws Exception{
-		//ProgramParser lang = new ProgramParser();
 		InputReader inputControl = new InputReader(control.getUserCommand());
 		CommandFactory nodeCreator = new CommandFactory();
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);

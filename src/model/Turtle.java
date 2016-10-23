@@ -38,12 +38,13 @@ public class Turtle {
 	 * Used for FORWARD,BACK
 	 */
 	public double move(double vector){
-		double xmove=vector*(Math.sin(Math.toRadians(angleNow)));
+		double xmove=-1*vector*(Math.sin(Math.toRadians(angleNow)));
 		double ymove=vector*(Math.cos(Math.toRadians(angleNow)));
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
-		setPosition(newXpos,newYpos);
 		myController.UpdateView(); //Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
+		oldXpos=newXpos;
+		oldYpos=newYpos;
 		return vector;
 		//image.setX(newXpos);
 		//image.setY(newYpos);
@@ -52,7 +53,9 @@ public class Turtle {
 	public double towards(double x, double y){
 		double angle;
 		double currentAngle=angleNow;
-		angle=Math.atan(x/y);
+		angle=Math.toDegrees(Math.atan(x/y));
+		System.out.println(angle);
+		//orientQuadrant(0,currentAngle,angle);
 		//This is garbage. Fix later. Enum?
 		if(x>0){
 			if(y>0){
@@ -74,8 +77,11 @@ public class Turtle {
 	}
 	
 	public double orientQuadrant(double quadrant,double angle, double currentAngle){
-		double newAngle=quadrant+Math.abs(angle);
-		setOrientation(angle);
+		double newAngle=quadrant+angle;
+		System.out.println(quadrant);
+		System.out.println(angle);
+		System.out.println(newAngle);
+		setOrientation(newAngle);
 		return Math.abs(currentAngle-newAngle);
 	}
 	
@@ -136,12 +142,14 @@ public class Turtle {
 	/**
 	 * Sets the angle of the turtle
 	 * Used for RIGHT,LEFT,SETHEADING,TOWARD and all resets
+	 * @return 
 	 */
 	
 	public void setOrientation(double angle){
 		//image.setRotate(360-angleNow);
 		angleNow=angle;
 		myController.UpdateView();
+		//return angleNow;
 		//image.setRotate(angle);
 	}
 	 /**

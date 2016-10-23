@@ -4,16 +4,16 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class IsPenDownNode extends TurtleCommand{
+public class EndParsingNode extends Command{
 
-	public IsPenDownNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+	public EndParsingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.endParse();
 	}
 
 	@Override
 	public double execute(Controller control) {
-		return 0;//
+		return 0;
 	}
 
 }
