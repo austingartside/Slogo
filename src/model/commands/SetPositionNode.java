@@ -8,14 +8,11 @@ import model.parser.ListOfCommands;
 
 public class SetPositionNode extends TurtleCommand{
 
-	public SetPositionNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public SetPositionNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		// TODO Auto-generated constructor stub
+		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList));
 	}
 	@Override
 	public double execute(Controller control) {

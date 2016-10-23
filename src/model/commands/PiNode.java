@@ -9,8 +9,8 @@ import model.parser.ListOfCommands;
 
 public class PiNode extends MathCommand{
 
-	public PiNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public PiNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
 		// TODO Auto-generated constructor stub
 	}

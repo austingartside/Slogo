@@ -6,8 +6,8 @@ import model.parser.ListOfCommands;
 
 public class IsPenDownNode extends TurtleCommand{
 
-	public IsPenDownNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
-		super(command);
+	public IsPenDownNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
 	}
 

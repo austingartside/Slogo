@@ -11,14 +11,14 @@ public class ForNode extends ControlCommand{
 	private String variableName;
 	String myName;
 	
-	public ForNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
-		super(command);
-		myName = command;
+	public ForNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
+		myName = commandList.getCommand();
 		updateLocation(commandList);
 		checkForListStart(commandList);
 		updateLocation(commandList);
 		isVariable(commandList.getCommand());
-		//this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
+		//this.addChild((Command) nodeMaker.getCommand(commandList));
 		variableName = commandList.getCommand();
 		moveThroughList(commandList, nodeMaker, this);
 		checkForListStart(commandList);

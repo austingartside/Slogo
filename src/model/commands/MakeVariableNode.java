@@ -9,20 +9,18 @@ import model.parser.ListOfCommands;
 public class MakeVariableNode extends ControlCommand{
 
 	String variableName;
-	String myName;
 	
-	public MakeVariableNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
-		super(command);
-		myName = command;
+	public MakeVariableNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
 		isVariable(commandList.getCommand());
 		variableName = commandList.getCommand();
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList));
 	}
 	
 	public void printName(){
-		System.out.println(myName);
+		System.out.println(this.getName());
 	}
 
 

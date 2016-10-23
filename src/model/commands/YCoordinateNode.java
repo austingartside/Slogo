@@ -8,16 +8,14 @@ import model.parser.ListOfCommands;
 
 public class YCoordinateNode extends TurtleCommand{
 
-	public YCoordinateNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
-		super(command);
+	public YCoordinateNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
 	}
 
 	@Override
 	public double execute(Controller control) {
 		return 0;
-		// TODO Auto-generated method stub
-		
 	}
 
 }
