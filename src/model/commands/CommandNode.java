@@ -9,14 +9,22 @@ import model.parser.ListOfCommands;
 public class CommandNode extends ControlCommand{
 
 	private String myVarName;
-	private static final String BLANK_NODE = "class model.commands.BlankNode";
+	private static final String NO_COMMAND = "MissingCommandException";
+	//private static final String BLANK_NODE = "class model.commands.BlankNode";
 	
 	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
+		commandExists(control, commandList.getCommand());
 		myVarName = commandList.getCommand();
 		updateLocation(commandList);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control);
+	}
+	
+	public void commandExists(Controller control, String command){
+		if(!control.hasCommand(command)){
+			control.getExceptionManager().addError(NO_COMMAND);
+		}
 	}
 
 	@Override

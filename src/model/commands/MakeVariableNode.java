@@ -13,7 +13,7 @@ public class MakeVariableNode extends ControlCommand{
 	public MakeVariableNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
-		isVariable(commandList.getCommand());
+		isVariable(commandList.getCommand(), control);
 		variableName = commandList.getCommand();
 		updateLocation(commandList);
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));

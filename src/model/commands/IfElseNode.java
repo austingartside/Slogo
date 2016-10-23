@@ -13,13 +13,13 @@ public class IfElseNode extends ControlCommand{
 		myName = commandList.getCommand();
 		updateLocation(commandList);
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		BlankNode trueStatements = new BlankNode(commandList, nodeMaker, control);
 		BlankNode falseStatements = new BlankNode(commandList, nodeMaker, control);
 		this.addChild(trueStatements);
 		this.addChild(falseStatements);
 		moveThroughList(commandList, nodeMaker, trueStatements, control);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, falseStatements, control);
 	}
 	
