@@ -17,7 +17,7 @@ public class SLogoScene extends ActionScene{
     
     public SLogoScene(Scene scene, ResourceBundle resource, int height, int width){
         super(scene, resource, height, width);
-        updater = new DisplayUpdater(new DisplayGenerator());
+        updater = new DisplayUpdater(MainMenu.displayGenerator);
         updater.setUp();
     }
     public DisplayUpdater getUpdater(){
