@@ -142,7 +142,8 @@ public class DisplayUpdater implements ViewToModelInterface{
  
 	public void updateScreen(TurtleView turtleView) {
 		setVisible(turtleView.isRevealBoolean());
-		setOrientation(turtleView.getAngleNow());
-		setCoordinate(turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
+		setOrientation (turtleView.getAngleNow());
+		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
+		if (turtleView.isClearScreen()){clear();}
 	}
 }
