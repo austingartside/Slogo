@@ -28,6 +28,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 		}
 		updateLocation(commandList);
 		checkForListStart(commandList);
+		definedCommand.addChild(new BlankNode(command, commandList, nodeMaker));
 		moveThroughList(commandList, nodeMaker, definedCommand);
 	}
 	

@@ -6,9 +6,10 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class CommandNode extends Command{
+public class CommandNode extends ControlCommand{
 
-	String myVarName;
+	private String myVarName;
+	private static final String BLANK_NODE = "BlankNode";
 	
 	public CommandNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
 		super(command);
@@ -18,8 +19,20 @@ public class CommandNode extends Command{
 
 	@Override
 	public double execute(Controller control) {
-		// TODO Auto-generated method stub
-		return 0;
+		Command commandToExecute = control.findCommand(myVarName);
+		String varName = ((VariableNode) commandToExecute.getChildren().get(0)).getName();
+		int j = 0;
+		while(!varName.getClass().equals(BLANK_NODE)){
+			control.addVariable(((VariableNode)commandToExecute.getChildren().get(j)).getName(),
+					this.executeChild(j, control));
+			j++;
+			varName = ((VariableNode) commandToExecute.getChildren().get(j)).getName();
+		}
+		double lastVal = 0;
+		for(int i = j+1; i<commandToExecute.getNumChildren(); i++){
+			lastVal = commandToExecute.executeChild(i, control); 
+		}
+		return lastVal;
 	}
 
 }

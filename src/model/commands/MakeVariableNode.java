@@ -21,7 +21,7 @@ public class MakeVariableNode extends ControlCommand{
 
 	@Override
 	public double execute(Controller control) {
-		control.getVariables().put(variableName, executeChild(0, control));
+		control.addVariable(variableName, this.executeChild(0, control));
 		return control.getVariables().get(variableName);
 	}
 
