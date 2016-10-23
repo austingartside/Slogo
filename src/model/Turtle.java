@@ -46,6 +46,37 @@ public class Turtle {
 		//image.setX(newXpos);
 		//image.setY(newYpos);
 	}
+	
+	public double towards(double x, double y){
+		double angle;
+		double currentAngle=angleNow;
+		angle=Math.atan(x/y);
+		//This is garbage. Fix later. Enum?
+		if(x>0){
+			if(y>0){
+				orientQuadrant(0,currentAngle,angle);
+			}
+			else{
+				orientQuadrant(90,currentAngle,angle);
+			}
+		}
+		if(x<0){
+			if(y>0){
+				orientQuadrant(270,currentAngle,angle);
+			}
+			else{
+				orientQuadrant(180,currentAngle,angle);
+			}
+		}
+		return 0;
+	}
+	
+	public double orientQuadrant(double quadrant,double angle, double currentAngle){
+		double newAngle=quadrant+Math.abs(angle);
+		setOrientation(angle);
+		return Math.abs(currentAngle-newAngle);
+	}
+	
 	/**
 	 * Sets position of turtle
 	 * Used for Home,ClearScreen

@@ -16,8 +16,19 @@ public class Controller {
 	private Map<String, Command> commands;
 	private List<String> history;
 	//Map<String, Integer> variables;
-	
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
+	
+	/*private static final Controller INSTANCE=new Controller();
+	
+	private Controller(){
+		if(INSTANCE !=null){
+			throw new IllegalStateException("Already instantiated");
+		}
+	}
+	
+	public static Controller getInstance(){
+		return INSTANCE;
+	}*/
 	
 	public Controller(){
 		myTurtle = new Turtle();
@@ -104,6 +115,10 @@ public class Controller {
 
 	public static void UpdateView() {
 		//View Instance and then send Turtle View.
+		
+	}
+	
+	public static void inputButtonAction(){
 		
 	}
 
