@@ -15,6 +15,7 @@ public class Controller {
 	private Map<String, Double> variables;
 	private Map<String, Command> commands;
 	private List<String> history;
+	private String userCommand;
 	//Map<String, Integer> variables;
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	
@@ -39,6 +40,10 @@ public class Controller {
 	
 	public void addVariable(String name, double value){
 		variables.put(name, value);
+	}
+	
+	public String getUserCommand(){
+		return userCommand;
 	}
 	
 	public double getVariableValue(String variableName){
@@ -67,7 +72,7 @@ public class Controller {
 		myTurtle= myTurtleFactory.createTurtle(this);
 	}
 	//I may have misunderstood how the tree takes in the input.
-	public Command getTree(String command) throws Exception{
+	public Command getTree() throws Exception{
 		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
 		return (BlankNode) myExpressionTree.makeTree(this);
 	}
@@ -119,7 +124,8 @@ public class Controller {
 	}
 
 	public void enterAction(String command) throws Exception {
-		Command head=this.getTree(command);
+		userCommand = command;
+		Command head=this.getTree();
 		this.executeTree(head);
 	}
 	
