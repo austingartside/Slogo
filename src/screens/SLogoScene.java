@@ -23,9 +23,4 @@ public class SLogoScene extends ActionScene{
     public DisplayUpdater getUpdater(){
         return updater;
     }
-    
-    /**
-     * This method adds all necessary components to the front end.
-     * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
-     */
 }

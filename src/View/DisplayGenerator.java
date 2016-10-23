@@ -71,6 +71,7 @@ public class DisplayGenerator {
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      */
     public GridPane setScene(){
+        addListViews();
         addCommandInput();
         addCanvas();
         addButtons();
@@ -136,7 +137,9 @@ public class DisplayGenerator {
     public String getCommand(){
         return commandLine.getText();
     }
-
+    public void setText(String str){
+        commandLine.setText(str);
+    }
     //TODO change Object to Command object, so that we can add stuff to command history
 
     public void drawTurtle(double x, double y){
@@ -167,7 +170,6 @@ public class DisplayGenerator {
     }
     private void addPenColors(){
         penColorChanger.getButton().setOnAction(new EventHandler<ActionEvent>(){
-            
             @Override
             public void handle(final ActionEvent ae){
                 gridPane.getChildren().add(penColorPicker);
@@ -199,6 +201,7 @@ public class DisplayGenerator {
         GridPane.setConstraints(backgroundChanger.getButton(), 0, 0, 2, 4);
         GridPane.setConstraints(imageChanger.getButton(), 4, 0, 2, 4);
         GridPane.setConstraints(penColorChanger.getButton(), 8, 0, 2, 4);
+
         gridPane.getChildren().addAll(backgroundChanger.getButton(), imageChanger.getButton(), penColorChanger.getButton());
     }
     private void createButtons(){
@@ -230,20 +233,21 @@ public class DisplayGenerator {
         gridPane.getChildren().add(hb);
         return commandLine;
     }
-    private double canvasCoordX(double x){
-        return x + ALIGN + CanvasGenerator.CANVAS_X/2;
-    }
-    private double canvasCoordY(double y){
-        return y + CanvasGenerator.CANVAS_OFFSET + CanvasGenerator.CANVAS_Y/2;
-    }
-    public String getInput(){
-        return commandLine.getText();
-    }
     public Canvas addCanvas(){
         Canvas can = canvas.createCanvas();
         GridPane.setConstraints(can, 0, 2, 12, 16);
         gridPane.getChildren().add(can);
         return can;
+    }
+    public void addListViews(){
+        VBox box = new VBox();
+        box.getChildren().add(commandHistory.create());
+        commandHistory.getListView().getItems().add("hi");
+        commandHistory.getListView().getItems().add("test");
+
+        box.getChildren().add(currCommands.create());
+        box.getChildren().add(currVariables.create());
+        gridPane.add(box, 13, 4, 8, 12);
     }
     //all the event handlers for comboboxes
 
