@@ -127,6 +127,9 @@ public class DisplayGenerator {
     public Button getEnter(){
         return enter;
     }
+    public Button getClear(){
+        return clear;
+    }
     public Scene getScene(){
         return scene;
     }
@@ -152,7 +155,6 @@ public class DisplayGenerator {
         Image turtleIm = new Image(new File(pic).toURI().toString());
         turtle.setImage(turtleIm);
         
-        gridPane.getChildren().add(turtle);
         turtle.setFitWidth(40);
         turtle.setFitHeight(40);
         turtle.setPreserveRatio(true);

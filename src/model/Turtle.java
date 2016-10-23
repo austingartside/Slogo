@@ -21,9 +21,9 @@ public class Turtle {
 		newXpos=0.0;
 		newYpos=0.0;
 		myController=controller;
-		this.setPosition(ZERO,ZERO);
+		//this.setPosition(ZERO,ZERO);
 		//this.setImage("Turtle.png"); //Resource File
-		this.setOrientation(ZERO);
+		//this.setOrientation(ZERO);
 		
 	}
 	

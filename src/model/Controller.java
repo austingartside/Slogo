@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ViewLogic.DisplayUpdater;
 import javafx.scene.image.ImageView;
 import model.commands.BlankNode;
 import model.commands.Command;
 import model.parser.ExpressionTreeBuilder;
+import screens.MainMenu;
 
 public class Controller {
 	
@@ -18,7 +20,7 @@ public class Controller {
 	private String userCommand;
 	//Map<String, Integer> variables;
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
-	
+	private TurtleView myTurtleView;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -70,6 +72,7 @@ public class Controller {
 		//Factory useless as of now. May be needed for later additions
 		TurtleFactory myTurtleFactory=new TurtleFactory();
 		myTurtle= myTurtleFactory.createTurtle(this);
+		myTurtleView=updateTurtleView();
 	}
 	//I may have misunderstood how the tree takes in the input.
 	public Command getTree() throws Exception{
@@ -107,11 +110,11 @@ public class Controller {
 		return myTurtle;
 	}
 	
-	public void setTurtleModel(Turtle turtle){
-		myTurtle=turtle;
-	}
+	//public void setTurtleModel(Turtle turtle){
+		//myTurtle=turtle;
+	//}
 	
-	public TurtleView makeTurtleView(){
+	public TurtleView updateTurtleView(){
 		TurtleView turtleView= new TurtleView(myTurtle);
 		return turtleView;
 	}
@@ -130,7 +133,13 @@ public class Controller {
 	}
 	
 	public void UpdateView() {
-		
+		myTurtleView=updateTurtleView();
+		//System.out.print("XPos:");
+		//System.out.println(myTurtle.getNewPositionX());
+		//System.out.print("YPos:");
+		//System.out.println(myTurtle.getNewPositionY());
+		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.displayGenerator,this);
+		myDisplayUpdater.updateScreen(myTurtleView);
 	}
 
 }
