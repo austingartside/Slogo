@@ -1,51 +1,38 @@
 package model.commands;
 
-import java.util.*;
+import java.util.Map;
 
+import model.Controller;
+import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public abstract class CommandNode {
+public class CommandNode extends ControlCommand{
+
+	private String myVarName;
+	private static final String BLANK_NODE = "BlankNode";
 	
-	public final static int FIRSTENTRY=0;
-	public final static int SECONDENTRY=1;
-	public final static double ZERO=0;
-	public final static double MINUS=-1;
-	public final static double SQUARED=2;
-	public final static double ONE=1;
-	
-	
-	List<CommandNode> myChildren;
-	String myCommand;
-	public CommandNode(String command){
-		myCommand = command;
-		myChildren = new ArrayList<CommandNode>();
+	public CommandNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
+		super(command);
+		myVarName = command;
+		updateLocation(commandList);
 	}
-	
-	public String getCommand(){
-		return myCommand;
-	}
-	
-	public void addChild(CommandNode newChild){
-		myChildren.add(newChild);
-	}
-	
-	public void updateLocation(ListOfCommands commandList) {
-		int newCol = commandList.getCol()+1;
-		if(newCol>=commandList.getRowLength()){
-			newCol = 0;
-			commandList.setRow(commandList.getRow()+1);
+
+	@Override
+	public double execute(Controller control) {
+		Command commandToExecute = control.findCommand(myVarName);
+		String varName = ((VariableNode) commandToExecute.getChildren().get(0)).getName();
+		int j = 0;
+		while(!varName.getClass().equals(BLANK_NODE)){
+			control.addVariable(((VariableNode)commandToExecute.getChildren().get(j)).getName(),
+					this.executeChild(j, control));
+			j++;
+			varName = ((VariableNode) commandToExecute.getChildren().get(j)).getName();
 		}
-		commandList.setCol(newCol);
-	}
-	
-	public double getChild(int i){
-		return myChildren.get(i).execute();
+		double lastVal = 0;
+		for(int i = j+1; i<commandToExecute.getNumChildren(); i++){
+			lastVal = commandToExecute.executeChild(i, control); 
+		}
+		return lastVal;
 	}
 
-	/**
-	 * CarryOut the inputed command
-	 * @return 
-	 */
-	public abstract double execute();
 }
-

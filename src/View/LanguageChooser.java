@@ -8,7 +8,7 @@ import javafx.scene.control.ComboBox;
 public class LanguageChooser extends ButtonGenerator{
     private ComboBox<Object> cBox;
     public LanguageChooser(){
-        cBox = new ComboBox<Object>();
+        cBox = new ComboBox<>();
     } 
     public ComboBox<Object> create(){
         cBox.setPromptText("Change Language");
@@ -19,7 +19,10 @@ public class LanguageChooser extends ButtonGenerator{
     public void execute(){
 
     }
-    protected ComboBox<Object> getBox(){
+    public void addToList(Object o){
+        cBox.getItems().add(o);
+    }
+    public ComboBox<Object> getBox(){
         return cBox;
     }
 }

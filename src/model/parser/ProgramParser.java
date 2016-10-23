@@ -38,6 +38,7 @@ public class ProgramParser {
     public String getSymbol (String text) {
         final String ERROR = "NO MATCH";
         for (Entry<String, Pattern> e : mySymbols) {
+        	//System.out.print(e.getKey());
             if (match(text, e.getValue())) {
                 return e.getKey();
             }

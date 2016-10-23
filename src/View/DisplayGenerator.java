@@ -42,6 +42,7 @@ public class DisplayGenerator {
     private Scene scene;
     private TextArea commandLine;
     private Button enter;
+    private Button clear;
     private CanvasGenerator canvas;
     private BackgroundChanger backgroundChanger;
     private ImageChanger imageChanger;
@@ -58,6 +59,7 @@ public class DisplayGenerator {
         turtle = new Rectangle(100, 300, 20, 20);
         commandLine = new TextArea();
         enter = new Button("Enter");
+        clear = new Button("Clear");
         gridPane = new GridPane();
         setGridPane();
         scene = new Scene(gridPane, SIZE_X, SIZE_Y);
@@ -72,6 +74,7 @@ public class DisplayGenerator {
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      */
     public GridPane setScene(){
+        addListViews();
         addCommandInput();
         addCanvas();
         addButtons();
@@ -137,7 +140,9 @@ public class DisplayGenerator {
     public String getCommand(){
         return commandLine.getText();
     }
-
+    public void setText(String str){
+        commandLine.setText(str);
+    }
     //TODO change Object to Command object, so that we can add stuff to command history
 
     public void drawTurtle(double x, double y){
@@ -157,28 +162,29 @@ public class DisplayGenerator {
         gridPane.getChildren().add(line);
     }
     private void addLanguages(){
-        languageChooser.getList().add("English");//,"Chinese","French","German","Italian","Portugese","Russian","Spanish");
-        languageChooser.getList().add("Chinese");
-        languageChooser.getList().add("French");
-        languageChooser.getList().add("German");
-        languageChooser.getList().add("Italian");
-        languageChooser.getList().add("Portugese");
-        languageChooser.getList().add("Russian");
-        languageChooser.getList().add("Spanish");
+        languageChooser.getBox().setMaxWidth(Double.MAX_VALUE);
+        languageChooser.getBox().setMaxHeight(Double.MAX_VALUE);
+        languageChooser.addToList("English");//,"Chinese","French","German","Italian","Portugese","Russian","Spanish");
+        languageChooser.addToList("Chinese");
+        languageChooser.addToList("French");
+        languageChooser.addToList("German");
+        languageChooser.addToList("Italian");
+        languageChooser.addToList("Portugese");
+        languageChooser.addToList("Russian");
+        languageChooser.addToList("Spanish");
+        gridPane.add(languageChooser.getBox(), 14, 18, 4, 2);
     }
     private void addPenColors(){
         penColorChanger.getButton().setOnAction(new EventHandler<ActionEvent>(){
-            
             @Override
             public void handle(final ActionEvent ae){
-                gridPane.getChildren().add(penColorPicker);
-                
+                gridPane.add(penColorPicker,8,0);
             }
         });
         
     }
     private void addBackgroundColors(){
-        penColorChanger.getButton().setOnAction(new EventHandler<ActionEvent>(){
+        backgroundChanger.getButton().setOnAction(new EventHandler<ActionEvent>(){
             
             @Override
             public void handle(final ActionEvent ae){
@@ -198,10 +204,19 @@ public class DisplayGenerator {
         addPenColors();
         addBackgroundColors();
         addLanguages();
-        gridPane.add(backgroundChanger.getButton(), 0, 0, 2, 4);
-        gridPane.add(imageChanger.getButton(), 4, 0, 2, 4);
-        gridPane.add(penColorChanger.getButton(), 8, 0, 2, 4);
-        System.out.println("BUTTONS");
+        GridPane.setConstraints(backgroundChanger.getButton(), 0, 0, 2, 4);
+        GridPane.setConstraints(imageChanger.getButton(), 4, 0, 2, 4);
+        GridPane.setConstraints(penColorChanger.getButton(), 8, 0, 2, 4);
+        backgroundChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        imageChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        penColorChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        backgroundChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        imageChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        penColorChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        GridPane.setConstraints(backgroundChanger.getButton(), 0, 1, 4, 2);
+        GridPane.setConstraints(imageChanger.getButton(), 4, 1, 4, 2);
+        GridPane.setConstraints(penColorChanger.getButton(), 8, 1, 4, 2);
+        gridPane.getChildren().addAll(backgroundChanger.getButton(), imageChanger.getButton(), penColorChanger.getButton());
     }
     private void createButtons(){
         backgroundChanger.create();
@@ -223,28 +238,33 @@ public class DisplayGenerator {
     }
     public TextArea addCommandInput(){
         Label label1 = new Label("Command:");
+        VBox vb = new VBox();
+        vb.getChildren().addAll(enter,clear);
+        vb.setSpacing(10);
         HBox hb = new HBox();
-        hb.getChildren().addAll(label1, commandLine, enter);
+        hb.getChildren().addAll(label1, commandLine, vb);
         hb.setSpacing(10);
         hb.setLayoutY(SIZE_Y-80);
         hb.setLayoutX(ALIGN);
         gridPane.add(hb,0,18,12,2);
         return commandLine;
     }
-    private double canvasCoordX(double x){
-        return x + ALIGN + CanvasGenerator.CANVAS_X/2;
-    }
-    private double canvasCoordY(double y){
-        return y + CanvasGenerator.CANVAS_OFFSET + CanvasGenerator.CANVAS_Y/2;
-    }
-    public String getInput(){
-        return commandLine.getText();
-    }
     public Canvas addCanvas(){
         Canvas can = canvas.createCanvas();
-        gridPane.add(can,0,2,12,16);
+        gridPane.add(can, 0, 2, 12, 16);
         return can;
     }
+    public void addListViews(){
+        VBox box = new VBox();
+        box.getChildren().add(commandHistory.create());
+        commandHistory.getListView().getItems().add("hi");
+        commandHistory.getListView().getItems().add("test");
+
+        box.getChildren().add(currCommands.create());
+        box.getChildren().add(currVariables.create());
+        gridPane.add(box, 13, 4, 8, 12);
+    }
+    //all the event handlers for comboboxes
 
     public Scene getScene () {
         return scene;

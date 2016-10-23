@@ -2,7 +2,6 @@ package ViewLogic;
 import View.DisplayGenerator;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -76,6 +75,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             //use generator.getInput() to get String input
         }));
     }
+
     private void addHandlers(){
         generator.getBackgroundPicker().setOnAction((event) ->{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
@@ -83,26 +83,33 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.getImagePicker().setOnAction((event) ->{
         });
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
             public void handle(MouseEvent m){
-                
+                String command = generator.getCommandHistory().getSelectionModel().getSelectedItem();
+                generator.setText(command);
             }
         });
         generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
             public void handle(MouseEvent m){
-                
+                //TODO use the map to map the method to text
+                String command = generator.getCommandHistory().getSelectionModel().getSelectedItem();
+                generator.setText(command);
             }
         });
         generator.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
             public void handle(MouseEvent m){
                 
             }
         });
         generator.getLanguageChooser().setOnAction((event) ->{
+
         });
 
         generator.getPenColorPicker().setOnAction((event) ->{
             Color c = generator.getPenColorPicker().getValue();
-            generator.setPenColor(c);
+            //generator.setPenColor(c);
         });
     }
 
