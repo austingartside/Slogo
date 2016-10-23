@@ -37,7 +37,7 @@ public class Controller {
 	}*/
 	
 	public Controller(){
-		//myTurtle = new Turtle(this);
+		myTurtle = new Turtle(this);
 		variables = new HashMap<String, Double>();
 		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
@@ -141,6 +141,7 @@ public class Controller {
 		myExceptionManager.resetErrors();
 		Command head=this.getTree();
 		if(myExceptionManager.hasErrors()){
+			myExceptionManager.printError();
 			//give control to the user
 			//print the first one
 		}

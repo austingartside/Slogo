@@ -22,7 +22,7 @@ public class ProgramParser {
         addPatterns("resources/languages/French");
         addPatterns("resources/languages/German");
         addPatterns("resources/languages/Italian");
-        addPatterns("resources/languages/Portugese");
+        addPatterns("resources/languages/Portuguese");
         addPatterns("resources/languages/Russian");
         addPatterns("resources/languages/Spanish");
         addPatterns("resources/languages/Syntax");

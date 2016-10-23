@@ -3,6 +3,8 @@ package model.commands;
 import java.util.Map;
 
 import model.Controller;
+import model.exceptions.ListEndException;
+import model.exceptions.ListStartException;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 import model.parser.ProgramParser;
@@ -29,17 +31,28 @@ public abstract class ControlCommand extends Command{
 			if(commandList.isOutOfBounds()){
 				//throw new Exception("no closing bracket");
 				control.getExceptionManager().addError(LIST_END_EX);
+				commandList.endParse();
+				System.out.println("move through list broke");
+				//break;
+			}
+			try{
+				currentCommand = commandList.getCommand();
+			}
+			catch(IndexOutOfBoundsException e){
+				System.out.println("food");
 				break;
 			}
-			currentCommand = commandList.getCommand();
 		}
+		
 		updateLocation(commandList);
 	}
 	
 	public void checkForListStart(ListOfCommands commandList, Controller control) throws Exception{
 		if(!isStartList(commandList.getCommand())){
 			//throw new Exception("Missing front bracket for repeat command");
-			control.getExceptionManager().addError(LIST_START_EX);
+			//System.out.println("missing list start?");
+			//control.getExceptionManager().addError(LIST_START_EX);
+			throw new ListStartException();
 		}	
 	}
 	
@@ -47,6 +60,7 @@ public abstract class ControlCommand extends Command{
 		ProgramParser translator = new ProgramParser();
 		String translatedCommand = translator.getSymbol(command);
 		if(!translatedCommand.equals(VARIABLE)){
+			//System.out.println("missing list start?");
 			//throw new Exception("Variable not defined in MakeUserVariable Command");
 			control.getExceptionManager().addError(NO_VARIABLE_EX);
 		}

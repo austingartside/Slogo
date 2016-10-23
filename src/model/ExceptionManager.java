@@ -36,6 +36,10 @@ public class ExceptionManager {
 		return errors.size()>0;
 	}
 	
+	public void printError(){
+		System.out.println(exceptions.get(errors.get(0)));
+	}
+	
 	public void addError(String error){
 		errors.add(error);
 	}

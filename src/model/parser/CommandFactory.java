@@ -6,6 +6,7 @@ import java.util.*;
 import model.Controller;
 import model.commands.BlankNode;
 import model.commands.ConstantNode;
+import model.exceptions.ListStartException;
 
 public class CommandFactory {
 	
@@ -19,15 +20,22 @@ public class CommandFactory {
 			ProgramParser lang = new ProgramParser();
 			String translatedCommand = lang.getSymbol(commandList.getCommand());
 			String className;
-			if(isValidCommand(translatedCommand)){
-				className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
+			try{
+				//if(isValidCommand(translatedCommand)){
+					className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
+					return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
+							.newInstance(commandList, this, control);
+				//}
+			} catch(Exception e){
+				throw new ListStartException();
 			}
-			else{
-				control.getExceptionManager().addError(NO_COMMAND_EX);
-				className = SUPER_PACKAGE_NAME + PACKAGE_NAME + "." + END_PARSE;
-			}
-			return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
-					.newInstance(commandList, this, control);
+//			else{
+//				control.getExceptionManager().addError(NO_COMMAND_EX);
+//				className = SUPER_PACKAGE_NAME + PACKAGE_NAME + "." + END_PARSE;
+//			}
+			//return "";
+//			return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
+//					.newInstance(commandList, this, control);
 		//}
 //		catch(IllegalArgumentException e){
 //			e.printStackTrace();
@@ -36,7 +44,7 @@ public class CommandFactory {
 	}
 	
 	public boolean isValidCommand(String command){
-		return !command.equals("NOMATCH");
+		return !command.equals("NO MATCH");
 	}
 	
 }

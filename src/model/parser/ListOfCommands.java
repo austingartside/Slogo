@@ -24,9 +24,9 @@ public class ListOfCommands {
 	}
 	
 	public String getCommand() throws Exception{
-		if(isOutOfBounds()){
-			return NON_COMMAND;
-		}
+//		if(isOutOfBounds()){
+//			return NON_COMMAND;
+//		}
 		return myCommandList.get(myRow).get(myCol);
 	}
 	
@@ -47,7 +47,7 @@ public class ListOfCommands {
 	}
 	
 	public void endParse(){
-		myRow = myCommandList.size();
+		myRow = myCommandList.size()+10;
 	}
 	
 	public void setRow(int row){
