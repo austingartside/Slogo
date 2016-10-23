@@ -43,10 +43,8 @@ public class MainMenu {
         startProject.setLayoutX(width/2-startProject.getWidth()/2);
         startProject.setLayoutY(11*(height-startProject.getHeight())/12);
         startProject.setPrefWidth(width/2);
-
         Controller control=new Controller();
         control.setUp();
-        
         startProject.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(final ActionEvent ae){

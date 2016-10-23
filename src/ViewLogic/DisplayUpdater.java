@@ -1,11 +1,18 @@
 package ViewLogic;
 
 import View.DisplayGenerator;
+import javafx.scene.Node;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
+import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.Iterator;
 /**
  * Created by Bill Xiong on 10/19/16.
  *
@@ -28,7 +35,6 @@ public class DisplayUpdater implements ViewToModelInterface{
     public Scene getGeneratorScene(){
         return generator.getScene();
     }
-
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
         generator.drawTurtle(x, y);
         if(penDown){
@@ -89,14 +95,32 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.getBackgroundPicker().setOnAction((event) ->{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
         });
-        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        
+        generator.getImagePicker().setOnAction((event) ->{
+            FileChooser chooser = new FileChooser();
+            Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            File imageFile = chooser.showOpenDialog(mainStage);
+            generator.changeTurtleImage(imageFile.toString());
+            /*try{
+                if(imageFile.toString() != null){
+                    generator.changeTurtleImage(imageFile.toString());
+                }
+            }catch(NullPointerException n){
+                //
+            }*/
+
+        });
+        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent m) {
             }
         });
         generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent m){
+                //TODO use the map to map the method to text
+                String command = generator.getCurrCommands().getSelectionModel().getSelectedItem();
+                generator.setText(command);
             }
         });
         generator.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>() {

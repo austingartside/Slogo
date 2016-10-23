@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import model.Controller;
 
 public class SLogoScene extends ActionScene{
+    
     private DisplayUpdater updater;
     
     public SLogoScene(Scene scene, ResourceBundle resource, int height, int width,Controller control){
