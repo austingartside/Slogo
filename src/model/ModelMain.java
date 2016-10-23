@@ -1,9 +1,11 @@
 package model;
 
+import model.commands.Command;
+
 public class ModelMain {
 	public static void main(String[] args) throws Exception{
 		Controller creator = new Controller();
-		creator.executeTree();
-		//System.out.println(creator.getVariableValue(":randy"));
+		Command head = creator.getTree();
+		creator.executeTree(head);
 	}
 }
