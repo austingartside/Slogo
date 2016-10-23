@@ -16,11 +16,22 @@ public class Controller {
 	private Map<String, Command> commands;
 	private List<String> history;
 	//Map<String, Integer> variables;
-	
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	
+	/*private static final Controller INSTANCE=new Controller();
+	
+	private Controller(){
+		if(INSTANCE !=null){
+			throw new IllegalStateException("Already instantiated");
+		}
+	}
+	
+	public static Controller getInstance(){
+		return INSTANCE;
+	}*/
+	
 	public Controller(){
-		myTurtle = new Turtle();
+		//myTurtle = new Turtle(this);
 		variables = new HashMap<String, Double>();
 		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
@@ -53,10 +64,10 @@ public class Controller {
 	public void setUp(){
 		//Factory useless as of now. May be needed for later additions
 		TurtleFactory myTurtleFactory=new TurtleFactory();
-		myTurtle= myTurtleFactory.createTurtle();
+		myTurtle= myTurtleFactory.createTurtle(this);
 	}
 	//I may have misunderstood how the tree takes in the input.
-	public Command getTree() throws Exception{
+	public Command getTree(String command) throws Exception{
 		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
 		return (BlankNode) myExpressionTree.makeTree(this);
 	}
@@ -107,8 +118,12 @@ public class Controller {
 		return history;
 	}
 
-	public static void UpdateView() {
-		//View Instance and then send Turtle View.
+	public void enterAction(String command) throws Exception {
+		Command head=this.getTree(command);
+		this.executeTree(head);
+	}
+	
+	public void UpdateView() {
 		
 	}
 
