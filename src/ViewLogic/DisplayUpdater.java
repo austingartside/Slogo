@@ -103,14 +103,6 @@ public class DisplayUpdater implements ViewToModelInterface{
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
             generator.changeTurtleImage(imageFile.toString());
-            /*try{
-                if(imageFile.toString() != null){
-                    generator.changeTurtleImage(imageFile.toString());
-                }
-            }catch(NullPointerException n){
-                //
-            }*/
-
         });
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -150,7 +142,7 @@ public class DisplayUpdater implements ViewToModelInterface{
  
 	public void updateScreen(TurtleView turtleView) {
 		setVisible(turtleView.isRevealBoolean());
-		setOrientation (turtleView.getAngleNow());
-		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
+		setOrientation(turtleView.getAngleNow());
+		setCoordinate(turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
 	}
 }
