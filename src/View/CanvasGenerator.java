@@ -14,6 +14,7 @@ public class CanvasGenerator {
     public static final int CANVAS_Y = 400;
     private Canvas canvas;
     private GraphicsContext gc;
+    private final Color DEFAULT = Color.BLUE;
 
     public GraphicsContext getContext(){
         return gc;
@@ -23,7 +24,7 @@ public class CanvasGenerator {
         gc = canvas.getGraphicsContext2D();
     }
     public Canvas createCanvas(){
-        gc.setFill(Color.BLUE);
+        gc.setFill(DEFAULT);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
         return canvas;
     }
@@ -32,7 +33,7 @@ public class CanvasGenerator {
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
     }
     public void clear(){
-        gc.setFill(Color.GREENYELLOW);
+        gc.setFill(DEFAULT);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
         //gc.clearRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
     }

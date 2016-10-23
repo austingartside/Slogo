@@ -1,11 +1,8 @@
 package View;
 import java.io.File;
-import ViewLogic.DisplayUpdater;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,7 +17,6 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
@@ -37,7 +33,6 @@ public class DisplayGenerator {
     static final double ALIGN = SIZE_X/4 - 200;
     static final int ADJUST = 150;
     public static final int COLUMNS = 20;
-    public static final int ROWS = 20;
     
     private GridPane gridPane;
     private Color penColor;
@@ -61,7 +56,8 @@ public class DisplayGenerator {
 
     public DisplayGenerator(){
         penColor = Color.BLACK;
-        turtle = new ImageView(new File("/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Turtle.png").toURI().toString());
+        String path = System.getProperty("user.dir");
+        turtle = new ImageView(new File(path + "/src/resources.view/Turtle.png").toURI().toString());
         turtleInvis = new ImageView(turtle.getImage());
         commandLine = new TextArea();
         commandLine.setMaxHeight(30);
@@ -130,9 +126,6 @@ public class DisplayGenerator {
      */
     public Button getEnter(){
         return enter;
-    }
-    public TextArea getCommandLine(){
-        return commandLine;
     }
     public Scene getScene(){
         return scene;
