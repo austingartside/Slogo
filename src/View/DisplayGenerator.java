@@ -282,7 +282,7 @@ public class DisplayGenerator {
             public void handle(final ActionEvent ae){
                 WebView browser = new WebView();
                 WebEngine webEngine = browser.getEngine();
-                webEngine.load("resources.view/help.html");
+                webEngine.loadContent("resources.view/help.html");
                 Group root = new Group();
                 root.getChildren().add(browser);
                 Button back = new Button("Back");

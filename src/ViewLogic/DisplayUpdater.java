@@ -8,6 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Iterator;
 
 /**
@@ -27,7 +31,6 @@ public class DisplayUpdater implements ViewToModelInterface{
     public Scene getGeneratorScene(){
         return generator.getScene();
     }
-
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
         generator.drawTurtle(x, y);
         if(penDown){
@@ -84,6 +87,16 @@ public class DisplayUpdater implements ViewToModelInterface{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
         });
         generator.getImagePicker().setOnAction((event) ->{
+            FileChooser chooser = new FileChooser();
+            Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            File imageChoice = chooser.showOpenDialog(mainStage);
+            try {
+                String imagePath = imageChoice.toURI().toURL().toString();
+            }
+            catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files","*.bmp", "*.png", "*.jpg", "*.gif"));
         });
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -96,7 +109,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             @Override
             public void handle(MouseEvent m){
                 //TODO use the map to map the method to text
-                String command = generator.getCommandHistory().getSelectionModel().getSelectedItem();
+                String command = generator.getCurrCommands().getSelectionModel().getSelectedItem();
                 generator.setText(command);
             }
         });
@@ -112,7 +125,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 
         generator.getPenColorPicker().setOnAction((event) ->{
             Color c = generator.getPenColorPicker().getValue();
-            //generator.setPenColor(c);
+            generator.setPenColor(c);
         });
     }
 
