@@ -8,19 +8,19 @@ public class IfElseNode extends ControlCommand{
 
 	private String myName;
 	
-	public IfElseNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public IfElseNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList);
-		BlankNode trueStatements = new BlankNode(commandList, nodeMaker);
-		BlankNode falseStatements = new BlankNode(commandList, nodeMaker);
+		BlankNode trueStatements = new BlankNode(commandList, nodeMaker, control);
+		BlankNode falseStatements = new BlankNode(commandList, nodeMaker, control);
 		this.addChild(trueStatements);
 		this.addChild(falseStatements);
-		moveThroughList(commandList, nodeMaker, trueStatements);
+		moveThroughList(commandList, nodeMaker, trueStatements, control);
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, falseStatements);
+		moveThroughList(commandList, nodeMaker, falseStatements, control);
 	}
 	
 	public void printName(){

@@ -7,11 +7,11 @@ import model.parser.ListOfCommands;
 
 public class DifferenceNode extends MathCommand{
 
-	public DifferenceNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public DifferenceNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		// TODO Auto-generated constructor stub
 	}
 	@Override

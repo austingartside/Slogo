@@ -9,10 +9,10 @@ import model.parser.ListOfCommands;
 
 public class ArcTangentNode extends MathCommand{
 
-	public ArcTangentNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public ArcTangentNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		// TODO Auto-generated constructor stub
 	}
 	@Override

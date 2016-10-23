@@ -8,7 +8,7 @@ import model.parser.ListOfCommands;
 
 public class HomeNode extends TurtleCommand{
 
-	public HomeNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public HomeNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
 		// TODO Auto-generated constructor stub

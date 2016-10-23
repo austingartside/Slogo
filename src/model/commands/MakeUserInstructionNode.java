@@ -12,17 +12,17 @@ public class MakeUserInstructionNode extends ControlCommand{
 	private String definedCommandName;
 	private String myName;
 	
-	public MakeUserInstructionNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public MakeUserInstructionNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
 		updateLocation(commandList);
 		checkIfCommand(commandList.getCommand());
 		definedCommandName = commandList.getCommand();
-		Command definedCommand = (Command) nodeMaker.getCommand(commandList);
+		Command definedCommand = (Command) nodeMaker.getCommand(commandList, control);
 		this.addChild(definedCommand);
 		checkForListStart(commandList);
-		definedCommand.addChild(new BlankNode(commandList, nodeMaker));
-		moveThroughList(commandList, nodeMaker, definedCommand);
+		definedCommand.addChild(new BlankNode(commandList, nodeMaker, control));
+		moveThroughList(commandList, nodeMaker, definedCommand, control);
 	}
 	
 	public void printName(){

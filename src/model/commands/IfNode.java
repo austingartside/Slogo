@@ -8,13 +8,13 @@ public class IfNode extends ControlCommand{
 	
 	private String myName;
 	
-	public IfNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public IfNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, this);
+		moveThroughList(commandList, nodeMaker, this, control);
 	}
 	
 	public void printName(){

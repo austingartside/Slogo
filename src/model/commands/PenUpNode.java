@@ -8,7 +8,7 @@ import model.parser.ListOfCommands;
 
 public class PenUpNode extends TurtleCommand{
 
-	public PenUpNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+	public PenUpNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		updateLocation(commandList);
 	}
