@@ -67,9 +67,14 @@ public class Controller {
 		myTurtle= myTurtleFactory.createTurtle();
 	}
 	//I may have misunderstood how the tree takes in the input.
-	public void executeTree() throws Exception{
+	public Command getTree() throws Exception{
 		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
-		BlankNode head = (BlankNode) myExpressionTree.makeTree();
+		return (BlankNode) myExpressionTree.makeTree();
+	}
+	
+	public void executeTree(Command head) throws Exception{
+		//ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
+		//BlankNode head = (BlankNode) myExpressionTree.makeTree();
 		//System.out.println(head.getChildren().size());
 		for(Command currentCommand: head.getChildren()){
 			currentCommand.execute(this);
