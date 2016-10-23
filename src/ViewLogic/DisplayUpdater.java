@@ -8,12 +8,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.TurtleView;
-import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.util.Iterator;
 /**
  * Created by Bill Xiong on 10/19/16.
  *
@@ -91,12 +88,11 @@ public class DisplayUpdater implements ViewToModelInterface{
             updateHistory(generator.getCommand());
             generator.setText("");
         });
-        
+
         generator.getClear().setOnAction(actionEvent -> {
             generator.setText("");
         });
     }
-    
     private void addHandlers(){
         generator.getBackgroundPicker().setOnAction((event) ->{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
@@ -135,7 +131,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             }
         });
         generator.getLanguageChooser().setOnAction((event) -> {
-                    language = (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
+            language = (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
         });
 
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){

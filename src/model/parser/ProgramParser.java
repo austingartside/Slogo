@@ -18,6 +18,13 @@ public class ProgramParser {
     public ProgramParser () {
         mySymbols = new ArrayList<>();
         addPatterns("resources/languages/English");
+        addPatterns("resources/languages/Chinese");
+        addPatterns("resources/languages/French");
+        addPatterns("resources/languages/German");
+        addPatterns("resources/languages/Italian");
+        addPatterns("resources/languages/Portuguese");
+        addPatterns("resources/languages/Russian");
+        addPatterns("resources/languages/Spanish");
         addPatterns("resources/languages/Syntax");
     }
 

@@ -18,9 +18,11 @@ public class MakeUserInstructionNode extends ControlCommand{
 		updateLocation(commandList);
 		checkIfCommand(commandList.getCommand());
 		definedCommandName = commandList.getCommand();
+		//so that we can check commands during parsing for errors instead of having to wait til execution
+		control.addCommand(definedCommandName, new BlankNode(commandList, nodeMaker, control));
 		Command definedCommand = (Command) nodeMaker.getCommand(commandList, control);
 		this.addChild(definedCommand);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		definedCommand.addChild(new BlankNode(commandList, nodeMaker, control));
 		moveThroughList(commandList, nodeMaker, definedCommand, control);
 	}

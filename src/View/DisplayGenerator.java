@@ -1,11 +1,8 @@
 package View;
 import java.io.File;
-import ViewLogic.DisplayUpdater;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,11 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
@@ -37,7 +34,6 @@ public class DisplayGenerator {
     static final double ALIGN = SIZE_X/4 - 200;
     static final int ADJUST = 150;
     public static final int COLUMNS = 20;
-    public static final int ROWS = 20;
     
     private GridPane gridPane;
     private Color penColor;
@@ -134,9 +130,6 @@ public class DisplayGenerator {
     }
     public Button getClear(){
         return clear;
-    }
-    public TextArea getCommandLine(){
-        return commandLine;
     }
     public Scene getScene(){
         return scene;
@@ -256,22 +249,38 @@ public class DisplayGenerator {
         addPenColors();
         addBackgroundColors();
         addLanguages();
-        
-        gridPane.add(imageChanger.getButton(), 4, 1, 4, 2);
-        gridPane.add(backgroundColorPicker,0,1,4,2);
-        gridPane.add(penColorPicker,8,1,4,2);
-        
-        Label pen = new Label("Pen Color");
-        Label background = new Label("Background Color");
-        gridPane.add(background, 0,0,4,1);
-        gridPane.add(pen, 8,0,4,1);
-        
-        backgroundColorPicker.setMaxWidth(Double.MAX_VALUE);
-        imageChanger.getButton().setMaxWidth(Double.MAX_VALUE);
-        penColorPicker.setMaxWidth(Double.MAX_VALUE);
-        backgroundColorPicker.setMaxHeight(Double.MAX_VALUE);
-        imageChanger.getButton().setMaxHeight(Double.MAX_VALUE);
-        penColorPicker.setMaxHeight(Double.MAX_VALUE);
+        formatButtons();
+    }
+    private void formatButtons(){
+        HBox hb = new HBox();
+        hb.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        hb.getChildren().addAll(addColorPickerToBar(backgroundColorPicker,"Background Color"),
+                                addButtonToBar(imageChanger.getButton()),
+                                addColorPickerToBar(penColorPicker,"Pen Color"));
+        gridPane.add(hb, 0, 0, 12, 3);
+        hb.setSpacing(10);
+    }
+    
+    private VBox addColorPickerToBar(ColorPicker cp, String label){
+        VBox vb = new VBox();
+        Label l = new Label(label);
+        HBox.setHgrow(vb, Priority.ALWAYS);
+        cp.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        VBox.setVgrow(cp, Priority.ALWAYS);
+        vb.getChildren().addAll(l,cp);
+        vb.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        return vb;
+    }
+    
+    private VBox addButtonToBar(Button b){
+        VBox vb = new VBox();
+        Label placeHold = new Label("");
+        HBox.setHgrow(vb, Priority.ALWAYS);
+        b.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        VBox.setVgrow(b, Priority.ALWAYS);
+        vb.getChildren().addAll(placeHold,b);
+        vb.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        return vb;
     }
     private void createButtons(){
         backgroundChanger.create();
@@ -299,8 +308,6 @@ public class DisplayGenerator {
         HBox hb = new HBox();
         hb.getChildren().addAll(label1, commandLine, vb);
         hb.setSpacing(10);
-        hb.setLayoutY(SIZE_Y-80);
-        hb.setLayoutX(ALIGN);
         gridPane.add(hb,0,18,12,2);
         return commandLine;
     }
