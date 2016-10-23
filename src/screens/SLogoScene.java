@@ -11,13 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
+import model.Controller;
 
 public class SLogoScene extends ActionScene{
     private DisplayUpdater updater;
     
-    public SLogoScene(Scene scene, ResourceBundle resource, int height, int width){
+    public SLogoScene(Scene scene, ResourceBundle resource, int height, int width,Controller control){
         super(scene, resource, height, width);
-        updater = new DisplayUpdater(MainMenu.displayGenerator);
+        updater = new DisplayUpdater(MainMenu.displayGenerator,control);
         updater.setUp();
     }
     public DisplayUpdater getUpdater(){

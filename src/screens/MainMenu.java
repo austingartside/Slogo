@@ -50,7 +50,7 @@ public class MainMenu {
         startProject.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(final ActionEvent ae){
-                myActionScene = new SLogoScene(myScene, myResources, height, width);
+                myActionScene = new SLogoScene(myScene, myResources, height, width,control);
                 stage.setScene(myActionScene.getUpdater().getGeneratorScene());
             }
         });

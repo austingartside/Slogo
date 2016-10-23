@@ -31,7 +31,7 @@ public class Controller {
 	}*/
 	
 	public Controller(){
-		myTurtle = new Turtle();
+		//myTurtle = new Turtle(this);
 		variables = new HashMap<String, Double>();
 		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
@@ -64,12 +64,12 @@ public class Controller {
 	public void setUp(){
 		//Factory useless as of now. May be needed for later additions
 		TurtleFactory myTurtleFactory=new TurtleFactory();
-		myTurtle= myTurtleFactory.createTurtle();
+		myTurtle= myTurtleFactory.createTurtle(this);
 	}
 	//I may have misunderstood how the tree takes in the input.
-	public Command getTree() throws Exception{
+	public Command getTree(String command) throws Exception{
 		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
-		return (BlankNode) myExpressionTree.makeTree();
+		return (BlankNode) myExpressionTree.makeTree(command);
 	}
 	
 	public void executeTree(Command head) throws Exception{
@@ -119,8 +119,8 @@ public class Controller {
 	}
 
 	public void enterAction(String command) throws Exception {
-		//this.getTree();
-		this.executeTree();
+		Command head=this.getTree(command);
+		this.executeTree(head);
 	}
 	
 	public void UpdateView() {
