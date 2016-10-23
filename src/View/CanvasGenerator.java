@@ -21,7 +21,7 @@ public class CanvasGenerator {
         gc = canvas.getGraphicsContext2D();
     }
     public Canvas createCanvas(){
-        gc.setFill(Color.GREENYELLOW);
+        gc.setFill(Color.BLUE);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
         return canvas;
     }

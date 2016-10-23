@@ -8,6 +8,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Iterator;
 
 /**
@@ -85,6 +89,17 @@ public class DisplayUpdater implements ViewToModelInterface{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
         });
         generator.getImagePicker().setOnAction((event) ->{
+            FileChooser chooser = new FileChooser();
+            Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            File imageFile = chooser.showOpenDialog(mainStage);
+            generator.changeTurtleImage(imageFile.toString());
+            /*try{
+                if(imageFile.toString() != null){
+                    generator.changeTurtleImage(imageFile.toString());
+                }
+            }catch(NullPointerException n){
+                //
+            }*/
         });
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -97,7 +112,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             @Override
             public void handle(MouseEvent m){
                 //TODO use the map to map the method to text
-                String command = generator.getCommandHistory().getSelectionModel().getSelectedItem();
+                String command = generator.getCurrCommands().getSelectionModel().getSelectedItem();
                 generator.setText(command);
             }
         });

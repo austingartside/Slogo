@@ -1,12 +1,17 @@
 package View;
+import java.io.File;
+import ViewLogic.DisplayUpdater;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import screens.SLogoScene;
@@ -37,7 +43,7 @@ public class DisplayGenerator {
     
     private GridPane gridPane;
     private Color penColor;
-    private Rectangle turtle;
+    private ImageView turtle;
     private Scene scene;
     private TextArea commandLine;
     private Button enter;
@@ -56,7 +62,7 @@ public class DisplayGenerator {
 
     public DisplayGenerator(){
         penColor = Color.BLACK;
-        turtle = new Rectangle(100, 300, 20, 20);
+        turtle = new ImageView(new File("/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Turtle.png").toURI().toString());
         commandLine = new TextArea();
         enter = new Button("Enter");
         clear = new Button("Clear");
@@ -91,11 +97,11 @@ public class DisplayGenerator {
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         for(int i = 0; i < COLUMNS; i++){
             ColumnConstraints column = new ColumnConstraints();
-            column.setPercentWidth(10);
+            column.setPercentWidth(100/COLUMNS);
             gridPane.getColumnConstraints().add(column);
 
             RowConstraints row = new RowConstraints();
-            row.setPercentHeight(10);
+            row.setPercentHeight(100/ROWS);
             gridPane.getRowConstraints().add(row);
         }
         
@@ -126,6 +132,17 @@ public class DisplayGenerator {
     }
     public ListView<String> getCurrVariables(){
         return currVariables.getListView();
+    }
+    public void changeTurtleImage(String pic){
+        Image turtleIm = new Image(new File(pic).toURI().toString());
+        turtle.setImage(turtleIm);
+        
+        gridPane.getChildren().add(turtle);
+        turtle.setFitWidth(40);
+        turtle.setFitHeight(40);
+        turtle.setPreserveRatio(true);
+        turtle.setSmooth(true);
+        turtle.setCache(true);
     }
     public ComboBox<Object> getLanguageChooser(){
         return languageChooser.getBox();
@@ -190,15 +207,17 @@ public class DisplayGenerator {
             
             @Override
             public void handle(final ActionEvent ae){
-                gridPane.getChildren().add(backgroundColorPicker);
+                gridPane.add(backgroundColorPicker,0,0,4,4);
             }
         });
     }
     private void addImage(){
         drawTurtle(0, 0);
-        turtle.setWidth(30);
-        turtle.setHeight(30);
-        turtle.setFill(Color.BLACK);
+        turtle.setFitWidth(40);
+        turtle.setFitHeight(40);
+        turtle.setPreserveRatio(true);
+        turtle.setSmooth(true);
+        turtle.setCache(true);
         gridPane.getChildren().add(turtle);
     }
     private void addButtons(){
@@ -206,19 +225,22 @@ public class DisplayGenerator {
         addPenColors();
         addBackgroundColors();
         addLanguages();
-        GridPane.setConstraints(backgroundChanger.getButton(), 0, 0, 2, 4);
-        GridPane.setConstraints(imageChanger.getButton(), 4, 0, 2, 4);
-        GridPane.setConstraints(penColorChanger.getButton(), 8, 0, 2, 4);
-        backgroundChanger.getButton().setMaxWidth(Double.MAX_VALUE);
+        
+        gridPane.add(imageChanger.getButton(), 4, 1, 4, 2);
+        gridPane.add(backgroundColorPicker,0,1,4,2);
+        gridPane.add(penColorPicker,8,1,4,2);
+        
+        Label pen = new Label("Pen Color");
+        Label background = new Label("Background Color");
+        gridPane.add(background, 0,0,4,1);
+        gridPane.add(pen, 8,0,4,1);
+        
+        backgroundColorPicker.setMaxWidth(Double.MAX_VALUE);
         imageChanger.getButton().setMaxWidth(Double.MAX_VALUE);
-        penColorChanger.getButton().setMaxWidth(Double.MAX_VALUE);
-        backgroundChanger.getButton().setMaxHeight(Double.MAX_VALUE);
+        penColorPicker.setMaxWidth(Double.MAX_VALUE);
+        backgroundColorPicker.setMaxHeight(Double.MAX_VALUE);
         imageChanger.getButton().setMaxHeight(Double.MAX_VALUE);
-        penColorChanger.getButton().setMaxHeight(Double.MAX_VALUE);
-        GridPane.setConstraints(backgroundChanger.getButton(), 0, 1, 4, 2);
-        GridPane.setConstraints(imageChanger.getButton(), 4, 1, 4, 2);
-        GridPane.setConstraints(penColorChanger.getButton(), 8, 1, 4, 2);
-        gridPane.getChildren().addAll(backgroundChanger.getButton(), imageChanger.getButton(), penColorChanger.getButton());
+        penColorPicker.setMaxHeight(Double.MAX_VALUE);
     }
     private void createButtons(){
         backgroundChanger.create();
@@ -281,7 +303,7 @@ public class DisplayGenerator {
             public void handle(final ActionEvent ae){
                 WebView browser = new WebView();
                 WebEngine webEngine = browser.getEngine();
-                webEngine.load("resources.view/help.html");
+                webEngine.loadContent("resources.view/help.html");
                 Group root = new Group();
                 root.getChildren().add(browser);
                 Button back = new Button("Back");
