@@ -19,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import screens.SLogoScene;
 import javafx.scene.control.*;
 
@@ -52,6 +54,7 @@ public class DisplayGenerator {
     private PenColorChanger penColorChanger;
     private ColorPicker penColorPicker;
     private ColorPicker backgroundColorPicker;
+    private Button help;
 
     public DisplayGenerator(){
         penColor = Color.BLACK;
@@ -59,6 +62,7 @@ public class DisplayGenerator {
         commandLine = new TextArea();
         enter = new Button("Enter");
         clear = new Button("Clear");
+        help = new Button("Help");
         gridPane = new GridPane();
         setGridPane();
         scene = new Scene(gridPane, SIZE_X, SIZE_Y);
@@ -78,6 +82,7 @@ public class DisplayGenerator {
         addCanvas();
         addButtons();
         addImage();
+        addHelp();
         return gridPane;
         //drawLine(50, 50, 300, 300);
     }
@@ -203,7 +208,6 @@ public class DisplayGenerator {
         addPenColors();
         addBackgroundColors();
         addLanguages();
-
         GridPane.setConstraints(backgroundChanger.getButton(), 0, 0, 2, 4);
         GridPane.setConstraints(imageChanger.getButton(), 4, 0, 2, 4);
         GridPane.setConstraints(penColorChanger.getButton(), 8, 0, 2, 4);
@@ -255,14 +259,43 @@ public class DisplayGenerator {
         return can;
     }
     public void addListViews(){
-        VBox box = new VBox();
-        box.getChildren().add(commandHistory.create());
-        commandHistory.getListView().getItems().add("hi");
-        commandHistory.getListView().getItems().add("test");
+        TabPane tabs = new TabPane();
+        Tab tabCH = new Tab();
+        tabCH.setText("Command History");
+        commandHistory.getListView().getItems().add("Hi");
+        commandHistory.getListView().getItems().add("Bye");
+        tabCH.setContent(commandHistory.getListView());
 
-        box.getChildren().add(currCommands.create());
-        box.getChildren().add(currVariables.create());
-        gridPane.add(box, 13, 4, 8, 12);
+        Tab tabCV = new Tab();
+        tabCV.setText("Current Variables");
+        tabCV.setContent(currVariables.getListView());
+
+        Tab tabCC = new Tab();
+        tabCC.setText("Current Commands");
+        tabCC.setContent(currCommands.getListView());
+        
+        tabs.getTabs().addAll(tabCH,tabCV,tabCC);
+        gridPane.add(tabs, 12, 1, 8, 17);
+    }
+    public void addHelp(){
+        help.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(final ActionEvent ae){
+                WebView browser = new WebView();
+                WebEngine webEngine = browser.getEngine();
+                webEngine.load("resources.view/help.html");
+                scene.setRoot(browser);
+                Button back = new Button("Back");
+                back.setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(final ActionEvent ae){
+                        scene.setRoot(gridPane);
+                    }
+                });
+            }
+        });
+        help.setMaxWidth(Double.MAX_VALUE);
+        gridPane.add(help, 18, 0, 2, 1);
     }
     //all the event handlers for comboboxes
 
