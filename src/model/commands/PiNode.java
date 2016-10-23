@@ -3,23 +3,20 @@ package model.commands;
 import java.util.Map;
 
 import model.Controller;
+import model.commands.MathCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class CommandNode extends Command{
+public class PiNode extends MathCommand{
 
-	String myVarName;
-	
-	public CommandNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
+	public PiNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
 		super(command);
-		myVarName = command;
 		updateLocation(commandList);
+		// TODO Auto-generated constructor stub
 	}
-
 	@Override
 	public double execute(Controller control) {
-		// TODO Auto-generated method stub
-		return 0;
+		return Math.PI;
 	}
 
 }
