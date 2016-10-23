@@ -8,6 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import model.Controller;
+
 import java.util.Iterator;
 
 /**
@@ -16,9 +18,11 @@ import java.util.Iterator;
  */
 public class DisplayUpdater implements ViewToModelInterface{
     private DisplayGenerator generator;
+    private Controller myController;
 
-    public DisplayUpdater(DisplayGenerator g){
+    public DisplayUpdater(DisplayGenerator g,Controller control){
         generator = g;
+        myController=control;
     }
     public void setUp(){
         generator.setScene();
@@ -72,7 +76,18 @@ public class DisplayUpdater implements ViewToModelInterface{
     //TODO ADD CALL TO PARSER HERE
     private void addEnterHandler(){
         generator.getEnter().setOnAction((actionEvent -> {
-            //call parser to parse stuff
+            //try {
+				try {
+					myController.enterAction(generator.getCommand());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			//} catch (Exception e) {
+				// TODO other error?
+				//e.printStackTrace();
+			//}
+        	//call parser to parse stuff
             //use generator.getCommand() to get String input
             updateHistory(generator.getCommand());
             generator.setText("");

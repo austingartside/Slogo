@@ -12,9 +12,9 @@ public class ExpressionTreeBuilder {
 	 * @return expression tree based on the typed used input
 	 * @throws Exception
 	 */
-	public Command makeTree() throws Exception{
+	public Command makeTree(String command) throws Exception{
 		//ProgramParser lang = new ProgramParser();
-		InputReader inputControl = new InputReader();
+		InputReader inputControl = new InputReader(command);
 		CommandFactory nodeCreator = new CommandFactory();
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
 		Command head = new BlankNode(commandList, nodeCreator);

@@ -2,8 +2,8 @@ package model;
 
 public class TurtleFactory {
 
-	public Turtle createTurtle() {
-		Turtle turtle=new Turtle();
+	public Turtle createTurtle(Controller control) {
+		Turtle turtle=new Turtle(control);
 		return turtle;
 	}
 }
