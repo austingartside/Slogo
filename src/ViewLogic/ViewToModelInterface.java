@@ -7,7 +7,6 @@ package ViewLogic;
  *         visual created on the front end.
  */
 public interface ViewToModelInterface {
-
     /**
      * Allows the turtle to show or not show
      * @param visible if true, make turtle visible, else make turtle invisible.
@@ -28,7 +27,6 @@ public interface ViewToModelInterface {
      * That is add elements to a history (or potentially wipe it)
      */
     public void updateHistory (String o);
-
     /**
      * Change the curr commands as specified by a the user.
      * Every time user enters command, add it to list of curr commands
@@ -36,21 +34,28 @@ public interface ViewToModelInterface {
 
     public void updateCurrCommands (String object);
 
+	
+	/** 
+	 * move the turtle back to it's starting position
+	 */
+	public void resetToHome();
+	
+	/** 
+	 * Clear the screen of any drawings or actions used so far.
+	 * Uses reset in addition to wiping out everything
+	 */ 
+	public void clear();
+
     /**
-     * Every time user enters variable, store it. Allow user to change it.
+     * Gets the language that the user typed in.
+     * @return the language of the commands
      */
+
+    public String getLanguage();
+
+	//To be completed, other methods that might update the screen in some way shape or form.
     public void updateCurrVariables (String object);
 
-    /**
-     * move the turtle back to it's starting position
-     */
-    public void resetToHome ();
-
-    /**
-     * Clear the screen of any drawings or actions used so far.
-     * Uses reset in addition to wiping out everything
-     */
-    public void clear ();
 
 
     // To be completed, other methods that might update the screen in some way shape or form.

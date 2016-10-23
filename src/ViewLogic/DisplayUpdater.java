@@ -1,28 +1,24 @@
 package ViewLogic;
+
 import View.DisplayGenerator;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import model.Controller;
-
-import java.util.Iterator;
-
 /**
  * Created by Bill Xiong on 10/19/16.
  *
  */
 public class DisplayUpdater implements ViewToModelInterface{
+    private String language;
     private DisplayGenerator generator;
     private Controller myController;
 
-    public DisplayUpdater(DisplayGenerator g,Controller control){
+    public DisplayUpdater(DisplayGenerator g, Controller control){
         generator = g;
-        myController=control;
+            language = "English";
+            myController = control;
     }
     public void setUp(){
         generator.setScene();
@@ -39,6 +35,9 @@ public class DisplayUpdater implements ViewToModelInterface{
             generator.drawLine(xPrev, yPrev, x, y);
         }
     }
+    public String getLanguage(){
+        return language;
+    }
     public void updateHistory(String object){
         generator.getCommandHistory().getItems().add(object);
     }
@@ -48,16 +47,12 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void updateCurrVariables(String object){
         generator.getCurrVariables().getItems().add(object);
     }
-
-    public String getCurrLanguage(){
-        return (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
-    }
     public void setVisible(boolean visible){
         if(visible){
-            generator.setTurtleVisible();
+            generator.makeTurtleVisible();
         }
         else{
-            generator.setTurtleInvisible();
+            generator.makeTurtleInvisible();
         }
     }
     public void setOrientation(double angle){
@@ -68,9 +63,9 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     public void clear(){
         generator.drawTurtle(0, 0);
-        generator.clearLines();
+        generator.clear();
     }
-    //TODO ADD CALL TO PARSER HERE
+
     private void addEnterHandler(){
         generator.getEnter().setOnAction((actionEvent -> {
             //try {
@@ -90,14 +85,29 @@ public class DisplayUpdater implements ViewToModelInterface{
             generator.setText("");
         }));
     }
-
-    //event handlers for listview, combobox, etc.
     private void addHandlers(){
         generator.getBackgroundPicker().setOnAction((event) ->{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
         });
-        generator.getImagePicker().setOnAction((event) ->{
+        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            }
         });
+        generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            }
+        });
+        generator.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            }
+        });
+        generator.getLanguageChooser().setOnAction((event) -> {
+                    language = (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
+        });
+
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent m){
@@ -105,29 +115,10 @@ public class DisplayUpdater implements ViewToModelInterface{
                 generator.setText(command);
             }
         });
-        generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent m){
-                //TODO use the map to map the method to text
-                String command = generator.getCommandHistory().getSelectionModel().getSelectedItem();
-                generator.setText(command);
-            }
-        });
-        generator.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent m){
-                
-            }
-        });
-        generator.getLanguageChooser().setOnAction((event) ->{
-
-        });
 
         generator.getPenColorPicker().setOnAction((event) ->{
             Color c = generator.getPenColorPicker().getValue();
             generator.setPenColor(c);
         });
     }
-
-
 }

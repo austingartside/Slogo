@@ -1,9 +1,7 @@
 package View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,25 +11,19 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import screens.SLogoScene;
 import javafx.scene.control.*;
-
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by Bill Xiong on 10/19/16.
  * Generates and updates the display. Should not interact with backend
  */
+
 public class DisplayGenerator {
 
     public static final double SIZE_X = 1200;
@@ -64,6 +56,7 @@ public class DisplayGenerator {
         penColor = Color.BLACK;
         turtle = new Rectangle(ROWS, ROWS);
         commandLine = new TextArea();
+        commandLine.setMaxHeight(30);
         enter = new Button("Enter");
         clear = new Button("Clear");
         help = new Button("Help");
@@ -104,7 +97,6 @@ public class DisplayGenerator {
         addImage();
         addHelp();
         return gridPane;
-        //drawLine(50, 50, 300, 300);
     }
     
     public void setGridPane(){
@@ -128,8 +120,14 @@ public class DisplayGenerator {
      * to the backend.
      * @return the submit button to submit the command to the backend
      */
-    public GridPane getGridPane(){
-        return gridPane;
+    public Button getEnter(){
+        return enter;
+    }
+    public TextArea getCommandLine(){
+        return commandLine;
+    }
+    public Scene getScene(){
+        return scene;
     }
     public void changeBackgroundColor(Color color){
         canvas.changeBackgroundColor(color);
@@ -155,9 +153,6 @@ public class DisplayGenerator {
     public ColorPicker getPenColorPicker(){
         return penColorPicker;
     }
-    public ColorPicker getPenColor(){
-        return penColorPicker;
-    }
     public void setPenColor(Color c){
         penColor = c;
     }
@@ -173,27 +168,20 @@ public class DisplayGenerator {
         turtle.setTranslateX(canvasX(x));
         turtle.setTranslateY(canvasY(y));
     }
-    public void setTurtleVisible(){
-        turtle.setFill(Color.BLACK);
-    }
-    public void setTurtleInvisible(){
+    public void makeTurtleInvisible(){
         turtle.setFill(Color.TRANSPARENT);
     }
-    public void clearLines(){
-        canvas.getContext().clearRect(0, 0, CanvasGenerator.CANVAS_X, CanvasGenerator.CANVAS_Y);
-        canvas.getContext().setFill(Color.GREENYELLOW);
+    //TODO change colors later
+    public void makeTurtleVisible(){
+        turtle.setFill(Color.BLACK);
+    }
+    public void clear(){
+        canvas.clear();
     }
     public void rotateTurtle(double angle){
         turtle.setRotate(angle);
     }
     public void drawLine(double xPrev, double yPrev, double x, double y){
-        /*Line line = new Line();
-        line.setStartX(canvasX(xPrev));
-        line.setStartY(canvasY(yPrev));
-        line.setEndX(canvasX(x));
-        line.setEndY(canvasY(y));
-        line.setStroke(penColor);
-        gridPane.getChildren().add(line);*/
         GraphicsContext gc = canvas.getContext();
         gc.moveTo(canvasLineX(xPrev), canvasLineY(yPrev));
         gc.setStroke(penColor);
@@ -345,12 +333,5 @@ public class DisplayGenerator {
     }
     private double canvasLineY(double y){
         return CanvasGenerator.CANVAS_Y/2 + y;
-    }
-    public Scene getScene () {
-        return scene;
-    }
-
-    public Button getEnter () {
-        return enter;
     }
 }
