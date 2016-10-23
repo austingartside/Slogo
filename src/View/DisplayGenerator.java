@@ -2,6 +2,7 @@ package View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -280,7 +282,8 @@ public class DisplayGenerator {
                 WebView browser = new WebView();
                 WebEngine webEngine = browser.getEngine();
                 webEngine.load("resources.view/help.html");
-                scene.setRoot(browser);
+                Group root = new Group();
+                root.getChildren().add(browser);
                 Button back = new Button("Back");
                 back.setOnAction(new EventHandler<ActionEvent>(){
                     @Override
@@ -288,6 +291,10 @@ public class DisplayGenerator {
                         scene.setRoot(gridPane);
                     }
                 });
+                back.setLayoutX(scene.getWidth()-100);
+                back.setLayoutY(0);
+                root.getChildren().add(back);
+                scene.setRoot(root);
             }
         });
         help.setMaxWidth(Double.MAX_VALUE);
