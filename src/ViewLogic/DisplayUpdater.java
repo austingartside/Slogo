@@ -25,14 +25,12 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator = g;
     }
     public void setUp(){
-        generator.setScene();
         addHandlers();
         addEnterHandler();
     }
     public Scene getGeneratorScene(){
         return generator.getScene();
     }
-
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
         generator.drawTurtle(x, y);
         if(penDown){
@@ -100,6 +98,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             }catch(NullPointerException n){
                 //
             }*/
+
         });
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -128,7 +127,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 
         generator.getPenColorPicker().setOnAction((event) ->{
             Color c = generator.getPenColorPicker().getValue();
-            //generator.setPenColor(c);
+            generator.setPenColor(c);
         });
     }
 
