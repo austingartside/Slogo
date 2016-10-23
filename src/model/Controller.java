@@ -113,12 +113,12 @@ public class Controller {
 		return history;
 	}
 
-	public static void UpdateView() {
-		//View Instance and then send Turtle View.
-		
+	public void enterAction(String command) throws Exception {
+		//this.getTree();
+		this.executeTree();
 	}
 	
-	public static void inputButtonAction(){
+	public void UpdateView() {
 		
 	}
 
