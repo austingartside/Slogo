@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ViewLogic.DisplayUpdater;
 import javafx.scene.image.ImageView;
 import model.commands.BlankNode;
 import model.commands.Command;
 import model.parser.ExpressionTreeBuilder;
+import screens.MainMenu;
 
 public class Controller {
 	
@@ -131,7 +133,13 @@ public class Controller {
 	}
 	
 	public void UpdateView() {
-		//DisplayUpdater.UPdateScreen(TurtleView)
+		myTurtleView=updateTurtleView();
+		//System.out.print("XPos:");
+		//System.out.println(myTurtle.getNewPositionX());
+		//System.out.print("YPos:");
+		//System.out.println(myTurtle.getNewPositionY());
+		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.displayGenerator,this);
+		myDisplayUpdater.updateScreen(myTurtleView);
 	}
 
 }

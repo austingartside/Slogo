@@ -16,8 +16,10 @@ import model.Controller;
 public class SLogoScene extends ActionScene{
     private DisplayUpdater updater;
     
-    public SLogoScene(Scene scene, ResourceBundle resource, int height, int width,Controller control){
+    public SLogoScene(Scene scene, ResourceBundle resource, int height, int width){
         super(scene, resource, height, width);
+        Controller control=new Controller();
+        control.setUp();
         updater = new DisplayUpdater(MainMenu.displayGenerator,control);
         updater.setUp();
     }

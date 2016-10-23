@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
+import model.TurtleView;
 /**
  * Created by Bill Xiong on 10/19/16.
  *
@@ -121,4 +122,10 @@ public class DisplayUpdater implements ViewToModelInterface{
             generator.setPenColor(c);
         });
     }
+ 
+	public void updateScreen(TurtleView turtleView) {
+		setVisible(turtleView.isRevealBoolean());
+		setOrientation (turtleView.getAngleNow());
+		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
+	}
 }

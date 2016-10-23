@@ -26,31 +26,31 @@ public class TurtleView {
 		angleNow=turtle.getAngle();
 	}
 
-	protected double getOldXpos() {
+	public double getOldXpos() {
 		return oldXpos;
 	}
 
-	protected double getOldYpos() {
+	public double getOldYpos() {
 		return oldYpos;
 	}
 
-	protected double getNewXpos() {
+	public double getNewXpos() {
 		return newXpos;
 	}
 
-	protected double getNewYpos() {
+	public double getNewYpos() {
 		return newYpos;
 	}
 
-	protected boolean isRevealBoolean() {
+	public boolean isRevealBoolean() {
 		return revealBoolean;
 	}
 
-	protected boolean isPenBoolean() {
+	public boolean isPenBoolean() {
 		return penBoolean;
 	}
 
-	protected boolean isClearScreen() {
+	public boolean isClearScreen() {
 		return clearScreen;
 	}
 
@@ -58,7 +58,7 @@ public class TurtleView {
 		return image;
 	}
 
-	protected double getAngleNow() {
+	public double getAngleNow() {
 		return angleNow;
 	}
 
