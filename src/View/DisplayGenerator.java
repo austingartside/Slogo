@@ -289,8 +289,6 @@ public class DisplayGenerator {
         TabPane tabs = new TabPane();
         Tab tabCH = new Tab();
         tabCH.setText("Command History");
-        commandHistory.getListView().getItems().add("Hi");
-        commandHistory.getListView().getItems().add("Bye");
         tabCH.setContent(commandHistory.getListView());
 
         Tab tabCV = new Tab();
