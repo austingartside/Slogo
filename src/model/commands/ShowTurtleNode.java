@@ -15,8 +15,8 @@ public class ShowTurtleNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control){
-		//myTurtle.showTurtle();
-		return ZERO;
+		control.getTurtle().showTurtle();
+		return ONE;
 	}
 
 }

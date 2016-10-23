@@ -13,8 +13,7 @@ public class IsPenDownNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return 0;// TODO Auto-generated method stub
-		
+		return 0;//
 	}
 
 }

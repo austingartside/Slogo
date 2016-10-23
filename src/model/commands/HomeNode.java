@@ -16,12 +16,12 @@ public class HomeNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		//double dist=Math.sqrt(Math.pow(control.getTurtle().getPositionX, SQUARED)+Math.pow(Math.pow(control.getTurtle().getPositionY,SQUARED)));
-		//control.getTurtle().setPosition(ZERO,ZERO);
-		//myTurtle.setOrientation(ZERO);
+		double dist=Math.sqrt(Math.pow(control.getTurtle().getNewPositionX(), SQUARED)+(Math.pow(control.getTurtle().getNewPositionY(),SQUARED)));
+		control.getTurtle().setPosition(ZERO,ZERO);
+		control.getTurtle().setOrientation(ZERO);
 		//Distance moved by turtle for reset or turtle in general?	
-		//return dist;
-		return 0; //WILL BE DELETED
+		return dist;
+		//return 0; //WILL BE DELETED
 	}
 
 }
