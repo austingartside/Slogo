@@ -15,9 +15,9 @@ public class InputReader {
 	private static final char COMMENT = '#';
 	
 	//for testing
-	//String userInput = "repeat 4 [ fd 50 rt 100 ]\n rt 90 BACK :distance Left :angle";
+	//String userInput = "make :distance 10 make :angle 100 repeat 4 [ fd 50 rt 100 ]\n rt 90 BACK :distance Left :angle";
 	//String userInput = "make :randy 40 dotimes [ :austin 3 ] [ fd :randy bk 100 ]";
-	String userInput = "to pooping [ :austin :randy ] [ fd :austin bk :randy ] pooping [ 10 20 ]";
+	String userInput = "to pooping [ :austin :randy ] [ fd :austin bk :randy ] pooping [ fd 50 20 ]";
 	//String userInput = "pooping [ 10 20 ]";
 	//String userInput = "make :randy 120";
 	//String userInput = "fd fd 50 fd bk 60\n#bk bk 80";

@@ -13,14 +13,14 @@ public class CommandFactory {
 	
 	
 	//haven't done anything about user created variables
-	public Object getCommand(String commandName, ListOfCommands commandList) throws Exception{
+	public Object getCommand(ListOfCommands commandList) throws Exception{
 		try{
 			ProgramParser lang = new ProgramParser();
-			String translatedCommand = lang.getSymbol(commandName);
+			String translatedCommand = lang.getSymbol(commandList.getCommand());
 			//System.out.println(translatedCommand);
 			if(isValidCommand(translatedCommand)){
 				String className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
-				return Class.forName(className).getConstructor(String.class, ListOfCommands.class, CommandFactory.class).newInstance(commandName, commandList, this);
+				return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class).newInstance(commandList, this);
 			}
 			else{
 				//throw new IllegalArgumentException("Command " + commandName + " does not exist");
@@ -29,7 +29,7 @@ public class CommandFactory {
 		catch(IllegalArgumentException e){
 			e.printStackTrace();
 		}
-		throw new IllegalArgumentException("Command " + commandName + " does not exist");	
+		throw new IllegalArgumentException("Command " + commandList.getCommand() + " does not exist");	
 	}
 	
 	public boolean isValidCommand(String command){

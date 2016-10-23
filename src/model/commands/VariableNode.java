@@ -6,24 +6,16 @@ import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class VariableNode extends TurtleCommand{
-
-	String myVarName;
 	
-	public VariableNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
-		super(command);
-		myVarName = command;
+	public VariableNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		// TODO Auto-generated constructor stub
-	}
-	
-	public String getName(){
-		return myVarName;
 	}
 
 	@Override
 	public double execute(Controller control) {
-		System.out.println(myVarName +" "+ control.getVariableValue(myVarName));
-		return control.getVariableValue(myVarName);
+		System.out.println(this.getName() +" "+ control.getVariableValue(this.getName()));
+		return control.getVariableValue(this.getName());
 	}
 
 }

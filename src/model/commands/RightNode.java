@@ -8,12 +8,10 @@ import model.parser.ListOfCommands;
 
 public class RightNode extends TurtleCommand{
 
-	public RightNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public RightNode(ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		// TODO Auto-generated constructor stub
+		addChild((Command) nodeMaker.getCommand(commandList));
 	}
 
 	@Override
