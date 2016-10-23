@@ -1,7 +1,6 @@
 package model.commands;
 
 import java.util.Map;
-
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
@@ -11,26 +10,25 @@ public class MakeUserInstructionNode extends ControlCommand{
 
 	private static final String COMMAND = "Command";
 	private String definedCommandName;
+	private String myName;
 	
-	public MakeUserInstructionNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public MakeUserInstructionNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
+		myName = commandList.getCommand();
 		updateLocation(commandList);
 		checkIfCommand(commandList.getCommand());
 		definedCommandName = commandList.getCommand();
-		Command definedCommand =  (Command) nodeMaker.getCommand(commandList.getCommand(), commandList);
+		Command definedCommand = (Command) nodeMaker.getCommand(commandList, control);
 		this.addChild(definedCommand);
 		checkForListStart(commandList);
-		updateLocation(commandList);
-		while(!isEndList(commandList.getCommand())){
-			isVariable(commandList.getCommand());
-			definedCommand.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
-			updateLocation(commandList);
-		}
-		updateLocation(commandList);
-		checkForListStart(commandList);
-		definedCommand.addChild(new BlankNode(command, commandList, nodeMaker));
-		moveThroughList(commandList, nodeMaker, definedCommand);
+		definedCommand.addChild(new BlankNode(commandList, nodeMaker, control));
+		moveThroughList(commandList, nodeMaker, definedCommand, control);
 	}
+	
+	public void printName(){
+		System.out.println(myName);
+	}
+
 	
 	private void checkIfCommand(String command) throws Exception{
 		ProgramParser translator = new ProgramParser();
@@ -41,8 +39,13 @@ public class MakeUserInstructionNode extends ControlCommand{
 
 	@Override
 	public double execute(Controller control) {
+		printName();
 		Command definedCommand = this.getChildren().get(0);
 		control.addCommand(definedCommandName, definedCommand);
+		//System.out.println(definedCommandName);
+		//VariableNode test = (VariableNode)control.findCommand(definedCommandName).getChildren().get(1);
+		//int test = control.findCommand(definedCommandName).getChildren().get(4).getChildren().get(0).getNumChildren();
+		//System.out.println(test);
 		return 1;
 	}
 

@@ -8,12 +8,10 @@ import model.parser.ListOfCommands;
 
 public class SetHeadingNode extends TurtleCommand{
 
-	public SetHeadingNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public SetHeadingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		// TODO Auto-generated constructor stub
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 
 	@Override

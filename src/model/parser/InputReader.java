@@ -15,14 +15,17 @@ public class InputReader {
 	private static final char COMMENT = '#';
 	
 	//for testing
-	//String userInput = "repeat 4 [ fd 50 rt 100 ]\n rt 90 BACK :distance Left :angle";
-	//String userInput = "repeat 4  bk 50 bk 100 ]\n bk 90";
+	//String userInput = "make :distance 10 make :angle 100 repeat 4 [ fd 50 rt 100 ]\n rt 90 BACK :distance Left :angle";
+	//String userInput = "make :randy 40 dotimes [ :austin 3 ] [ fd :randy bk 100 ]";
+	//String userInput = "to pooping [ :austin :randy ] [ fd :austin bk :randy ] pooping [ fd 50 20 ]";
+	//String userInput = "pooping [ 10 20 ]";
+	//String userInput = "make :randy 120";
 	//String userInput = "fd fd 50 fd bk 60\n#bk bk 80";
-	String userInput= "rt 90 fd fd 10 rt 90 bk 30";
+	//String userInput= "repeat 4 [ repeat 3 [ fd 50 bk 60 ] ]";
 	//String userInput = "repeat";
 	private List<List<String>> textInput;
     
-	public InputReader(){
+	public InputReader(String userInput){
 		convertInputToList(userInput);
 		//printInput(new ProgramParser());
 	}

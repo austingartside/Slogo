@@ -6,8 +6,8 @@ import model.parser.ListOfCommands;
 
 public class HeadingNode extends TurtleCommand{
 
-	public HeadingNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
-		super(command);
+	public HeadingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
 	}
 

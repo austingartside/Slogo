@@ -9,24 +9,29 @@ import model.parser.ListOfCommands;
 public class CommandNode extends ControlCommand{
 
 	private String myVarName;
-	private static final String BLANK_NODE = "BlankNode";
+	private static final String BLANK_NODE = "class model.commands.BlankNode";
 	
-	public CommandNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
-		super(command);
-		myVarName = command;
+	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
+		myVarName = commandList.getCommand();
 		updateLocation(commandList);
+		checkForListStart(commandList);
+		moveThroughList(commandList, nodeMaker, this, control);
 	}
 
 	@Override
 	public double execute(Controller control) {
+		//System.out.println(myVarName);
 		Command commandToExecute = control.findCommand(myVarName);
-		String varName = ((VariableNode) commandToExecute.getChildren().get(0)).getName();
+		//String varName = ((VariableNode) commandToExecute.getChildren().get(0)).getName();
+		//String varName = ((VariableNode) commandToExecute.getChildren().get(0)).getName();
+		Command currentNode = commandToExecute.getChildren().get(0);
 		int j = 0;
-		while(!varName.getClass().equals(BLANK_NODE)){
+		while(!(currentNode instanceof BlankNode)){
 			control.addVariable(((VariableNode)commandToExecute.getChildren().get(j)).getName(),
 					this.executeChild(j, control));
 			j++;
-			varName = ((VariableNode) commandToExecute.getChildren().get(j)).getName();
+			currentNode = commandToExecute.getChildren().get(j);
 		}
 		double lastVal = 0;
 		for(int i = j+1; i<commandToExecute.getNumChildren(); i++){

@@ -15,14 +15,13 @@ public abstract class ControlCommand extends Command{
 	
 	public ControlCommand(String command) {
 		super(command);
-		// TODO Auto-generated constructor stub
 	}
 	
-	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker, Command parent) throws Exception {
+	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker, Command parent, Controller control) throws Exception {
 		updateLocation(commandList);
 		String currentCommand = commandList.getCommand();
 		while(!isEndList(currentCommand)){
-			parent.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
+			parent.addChild((Command) nodeMaker.getCommand(commandList, control));
 			if(commandList.isOutOfBounds()){
 				throw new Exception("no closing bracket");
 			}
@@ -46,16 +45,10 @@ public abstract class ControlCommand extends Command{
 	}
 	
 	public boolean isEndList(String command){
-//		ProgramParser lang = new ProgramParser();
-//		String actualCommand = lang.getSymbol(command);
-//		return actualCommand.equals(lang.getSymbol("]"));
 		return command.equals(ENDLIST);
 	}
 	
 	private boolean isStartList(String command){
-//		ProgramParser lang = new ProgramParser();
-//		String actualCommand = lang.getSymbol(command);
-//		return actualCommand.equals(lang.getSymbol("]"));
 		return command.equals(STARTLIST);
 	}
 	

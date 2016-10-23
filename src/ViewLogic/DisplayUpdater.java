@@ -6,11 +6,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import java.util.Iterator;
-
+import model.Controller;
 /**
  * Created by Bill Xiong on 10/19/16.
  *
@@ -18,9 +15,12 @@ import java.util.Iterator;
 public class DisplayUpdater implements ViewToModelInterface{
     private String language;
     private DisplayGenerator generator;
-    public DisplayUpdater(DisplayGenerator g){
+    private Controller myController;
+
+    public DisplayUpdater(DisplayGenerator g, Controller control){
         generator = g;
-        language = "English";
+            language = "English";
+            myController = control;
     }
     public void setUp(){
         generator.setScene();
@@ -50,13 +50,13 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.getCurrVariables().getItems().add(object);
     }
     public void setVisible(boolean visible){
-        if(!visible)
-            generator.makeTurtleInvisible();
-        else{
+        if(visible){
             generator.makeTurtleVisible();
         }
+        else{
+            generator.makeTurtleInvisible();
+        }
     }
-
     public void setOrientation(double angle){
         generator.rotateTurtle(angle);
     }
@@ -64,13 +64,24 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.drawTurtle(0, 0);
     }
     public void clear(){
+        generator.drawTurtle(0, 0);
         generator.clear();
     }
-    public void parse(String str){}
 
     private void addEnterHandler(){
         generator.getEnter().setOnAction((actionEvent -> {
-            //call parser to parse stuff
+            //try {
+				try {
+					myController.enterAction(generator.getCommand());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			//} catch (Exception e) {
+				// TODO other error?
+				//e.printStackTrace();
+			//}
+        	//call parser to parse stuff
             //use generator.getCommand() to get String input
             updateHistory(generator.getCommand());
             generator.setText("");
@@ -109,7 +120,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 
         generator.getPenColorPicker().setOnAction((event) ->{
             Color c = generator.getPenColorPicker().getValue();
-            //generator.setPenColor(c);
+            generator.setPenColor(c);
         });
     }
 }

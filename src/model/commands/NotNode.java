@@ -9,13 +9,11 @@ import model.parser.ListOfCommands;
 
 public class NotNode extends LogicCommand{
 
-	public NotNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public NotNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override
 	public double execute(Controller control) {

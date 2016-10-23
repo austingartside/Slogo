@@ -8,8 +8,8 @@ import model.parser.ListOfCommands;
 
 public class IsShowingNode extends TurtleCommand{
 
-	public IsShowingNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
-		super(command);
+	public IsShowingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
 	}
 

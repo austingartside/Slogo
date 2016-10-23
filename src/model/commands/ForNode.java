@@ -8,23 +8,31 @@ import model.parser.ListOfCommands;
 
 public class ForNode extends ControlCommand{
 
-	String variableName;
+	private String variableName;
+	String myName;
 	
-	public ForNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public ForNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
+		myName = commandList.getCommand();
 		updateLocation(commandList);
 		checkForListStart(commandList);
 		updateLocation(commandList);
 		isVariable(commandList.getCommand());
-		//this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
+		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		variableName = commandList.getCommand();
-		moveThroughList(commandList, nodeMaker, this);
+		moveThroughList(commandList, nodeMaker, this, control);
 		checkForListStart(commandList);
-		moveThroughList(commandList, nodeMaker, this);		
+		moveThroughList(commandList, nodeMaker, this, control);		
 	}
+	
+	public void printName(){
+		System.out.println(myName);
+	}
+
 
 	@Override
 	public double execute(Controller control) {
+		printName();
 		double varToIncrement = control.getVariableValue(variableName);
 		double start = executeChild(0, control);
 		double end = executeChild(1, control);

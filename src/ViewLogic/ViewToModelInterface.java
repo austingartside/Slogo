@@ -7,21 +7,20 @@ package ViewLogic;
  *         visual created on the front end.
  */
 public interface ViewToModelInterface {
-	/** 
-	 * Allows the turtle to show or not show
-     * @param visible if true, make visible, else make invisible.
-	 */ 
-	public void setVisible(boolean visible);
-	
-	/** 
-	 * Change the coordinate of the turtle
-	 */ 
-	public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y);
-	
-	/** 
-	 * Change the direction that the turtle is facing
-	 */ 
-	public void setOrientation(double angle);
+    /**
+     * Allows the turtle to show or not show
+     * @param visible if true, make turtle visible, else make turtle invisible.
+     */
+    public void setVisible (boolean visible);
+    /**
+     * Change the coordinate of the turtle
+     */
+    public void setCoordinate (boolean penDown, double xPrev, double yPrev, double x, double y);
+
+    /**
+     * Change the direction that the turtle is facing
+     */
+    public void setOrientation (double angle);
 
     /**
      * Change the command history as specified by a the user.
@@ -54,9 +53,9 @@ public interface ViewToModelInterface {
 
     public String getLanguage();
 
-    public void parse(String str);
 	//To be completed, other methods that might update the screen in some way shape or form.
     public void updateCurrVariables (String object);
+
 
 
     // To be completed, other methods that might update the screen in some way shape or form.

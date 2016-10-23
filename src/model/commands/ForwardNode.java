@@ -10,11 +10,11 @@ public class ForwardNode extends TurtleCommand{
 	
 	private String myName;
 	
-	public ForwardNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public ForwardNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
 		myName = "Forward";
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));	
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));	
 	}
 	
 	public void printName(){
@@ -23,9 +23,8 @@ public class ForwardNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
+		printName();
 		return control.getTurtle().move(this.executeChild(FIRSTENTRY, control));
 	}
-	
-	
 
 }

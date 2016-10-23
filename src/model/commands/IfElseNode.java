@@ -6,23 +6,30 @@ import model.parser.ListOfCommands;
 
 public class IfElseNode extends ControlCommand{
 
-	public IfElseNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) throws Exception {
-		super(command);
+	private String myName;
+	
+	public IfElseNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
+		myName = commandList.getCommand();
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList);
-		BlankNode trueStatements = new BlankNode(command, commandList, nodeMaker);
+		BlankNode trueStatements = new BlankNode(commandList, nodeMaker, control);
+		BlankNode falseStatements = new BlankNode(commandList, nodeMaker, control);
 		this.addChild(trueStatements);
-		moveThroughList(commandList, nodeMaker, trueStatements);
-		checkForListStart(commandList);
-		BlankNode falseStatements = new BlankNode(command, commandList, nodeMaker);
 		this.addChild(falseStatements);
-		moveThroughList(commandList, nodeMaker, falseStatements);
+		moveThroughList(commandList, nodeMaker, trueStatements, control);
+		checkForListStart(commandList);
+		moveThroughList(commandList, nodeMaker, falseStatements, control);
+	}
+	
+	public void printName(){
+		System.out.println(myName);
 	}
 
 	@Override
 	public double execute(Controller control) {
+		printName();
 		double checkValue = this.executeChild(0, control);
 		double lastVal = 0;
 		Command nodeToUse;
@@ -33,7 +40,7 @@ public class IfElseNode extends ControlCommand{
 			nodeToUse = this.getChildren().get(2);
 		}
 		for(int j = 0; j<nodeToUse.getNumChildren(); j++){
-			 lastVal = executeChild(j, control);
+			 lastVal = nodeToUse.executeChild(j, control);
 		}
 		return lastVal;
 	}

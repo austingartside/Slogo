@@ -8,14 +8,15 @@ import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class BlankNode extends TurtleCommand{
-
-	public BlankNode(String command, ListOfCommands commandList, CommandFactory nodeMaker) {
-		super(command);
+	private static final String BLANK = "BlankNode";
+	
+	public BlankNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(BLANK);
 	}
 
 	@Override
 	public double execute(Controller control) {
-		return 0; // ?????
+		return 0;
 	}
 
 }

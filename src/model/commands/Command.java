@@ -24,7 +24,7 @@ public abstract class Command {
 		//myChildren = new ArrayList<Integer>();
 	}
 	
-	public String getCommand(){
+	public String getName(){
 		return myCommand;
 	}
 	

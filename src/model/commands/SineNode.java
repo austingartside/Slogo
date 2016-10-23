@@ -9,12 +9,10 @@ import model.parser.ListOfCommands;
 
 public class SineNode extends MathCommand{
 
-	public SineNode(String command,ListOfCommands commandList,CommandFactory nodeMaker) throws Exception {
-		super(command);
+	public SineNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+		super(commandList.getCommand());
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
-		// TODO Auto-generated constructor stub
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override
 	public double execute(Controller control) {

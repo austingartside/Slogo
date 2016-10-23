@@ -12,16 +12,15 @@ import javafx.scene.paint.Color;
 public class CanvasGenerator {
     public static final int CANVAS_X = 600;
     public static final int CANVAS_Y = 400;
-    public static final int CANVAS_OFFSET = 100;
     private Canvas canvas;
     private GraphicsContext gc;
 
+    public GraphicsContext getContext(){
+        return gc;
+    }
     public CanvasGenerator(){
         canvas = new Canvas(CANVAS_X, CANVAS_Y);
         gc = canvas.getGraphicsContext2D();
-    }
-    public GraphicsContext getGraphicsContext(){
-        return gc;
     }
     public Canvas createCanvas(){
         gc.setFill(Color.GREENYELLOW);
@@ -34,9 +33,7 @@ public class CanvasGenerator {
     }
     public void clear(){
         gc.setFill(Color.GREENYELLOW);
-        gc.fillRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
+        gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
         //gc.clearRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
-    }
-    public void addTurtle(){
     }
 }
