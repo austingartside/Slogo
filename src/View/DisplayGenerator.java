@@ -61,7 +61,8 @@ public class DisplayGenerator {
 
     public DisplayGenerator(){
         penColor = Color.BLACK;
-        turtle = new ImageView(new File("/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Turtle.png").toURI().toString());
+        String path = System.getProperty("user.dir");
+        turtle = new ImageView(new File(path + "/src/resources.view/Turtle.png").toURI().toString());
         turtleInvis = new ImageView(turtle.getImage());
         commandLine = new TextArea();
         commandLine.setMaxHeight(30);
