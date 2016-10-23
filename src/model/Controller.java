@@ -134,10 +134,15 @@ public class Controller {
 	
 	public void UpdateView() {
 		myTurtleView=updateTurtleView();
-		//System.out.print("XPos:");
-		//System.out.println(myTurtle.getNewPositionX());
-		//System.out.print("YPos:");
-		//System.out.println(myTurtle.getNewPositionY());
+		//if (!myTurtle.isPenBoolean()){System.out.print("Grrr");}
+		System.out.print("OldXPos:");
+		System.out.println(myTurtle.getOldPositionX());
+		System.out.print("OldYPos:");
+		System.out.println(myTurtle.getOldPositionY());
+		System.out.print("NewXPos:");
+		System.out.println(myTurtle.getNewPositionX());
+		System.out.print("NewYPos:");
+		System.out.println(myTurtle.getNewPositionY());
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.displayGenerator,this);
 		myDisplayUpdater.updateScreen(myTurtleView);
 	}

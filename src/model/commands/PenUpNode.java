@@ -15,7 +15,7 @@ public class PenUpNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		//myTurtle.penUp();
+		control.getTurtle().penUp();
 		return ZERO; 
 	}
 
