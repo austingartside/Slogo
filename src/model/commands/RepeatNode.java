@@ -16,8 +16,7 @@ public class RepeatNode extends ControlCommand{
 		super(command);
 		myVal = "Repeat";
 		updateLocation(commandList);
-		addChild((Command) nodeMaker.getCommand(commandList.getCommand(),
-				commandList));
+		this.addChild((Command) nodeMaker.getCommand(commandList.getCommand(), commandList));
 		checkForListStart(commandList);
 		moveThroughList(commandList, nodeMaker, this);
 	}
@@ -32,7 +31,7 @@ public class RepeatNode extends ControlCommand{
 		double numTimes = executeChild(0, control);
 		double lastVal = 0;
 		for(double i = 1; i<numTimes; i++){
-			control.getVariables().put(ITER_VALUE, i);
+			control.addVariable(ITER_VALUE, i);
 			for(int j = 1; j<getNumChildren(); j++){
 				 lastVal = executeChild(j, control);
 			}

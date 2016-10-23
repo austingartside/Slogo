@@ -30,7 +30,7 @@ public class DoTimesNode extends ControlCommand{
 		double lastVal = 0;
 		for(double i = 0; i<limit; i++){
 			if(i>=1){
-				control.getVariables().put(varName, i);
+				control.addVariable(varName, i);
 			}
 			for(int j = 1; j<getNumChildren(); j++){
 				 lastVal = executeChild(j, control);

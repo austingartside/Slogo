@@ -25,14 +25,14 @@ public class ForNode extends ControlCommand{
 
 	@Override
 	public double execute(Controller control) {
-		double varToIncrement = control.getVariables().get(variableName);
+		double varToIncrement = control.getVariableValue(variableName);
 		double start = executeChild(0, control);
 		double end = executeChild(1, control);
 		double increment = executeChild(2, control);
 		double lastVal = 0;
 		for(varToIncrement = start; varToIncrement<end; varToIncrement+=increment){
 			lastVal = executeChild(3, control);
-			control.getVariables().put(variableName, varToIncrement);
+			control.addVariable(variableName, varToIncrement);
 		}
 		return lastVal;
 	}
