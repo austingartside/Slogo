@@ -171,13 +171,12 @@ public class DisplayGenerator {
             @Override
             public void handle(final ActionEvent ae){
                 gridPane.getChildren().add(penColorPicker);
-                
             }
         });
         
     }
     private void addBackgroundColors(){
-        penColorChanger.getButton().setOnAction(new EventHandler<ActionEvent>(){
+        backgroundChanger.getButton().setOnAction(new EventHandler<ActionEvent>(){
             
             @Override
             public void handle(final ActionEvent ae){

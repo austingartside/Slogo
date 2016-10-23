@@ -103,7 +103,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 
         generator.getPenColorPicker().setOnAction((event) ->{
             Color c = generator.getPenColorPicker().getValue();
-            generator.setPenColor(c);
+            //generator.setPenColor(c);
         });
     }
 
