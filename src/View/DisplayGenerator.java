@@ -2,24 +2,19 @@ package View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ComboBoxBase;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import screens.SLogoScene;
 import javafx.scene.control.*;
 
 /**
@@ -257,9 +252,6 @@ public class DisplayGenerator {
     public void addListViews(){
         VBox box = new VBox();
         box.getChildren().add(commandHistory.create());
-        commandHistory.getListView().getItems().add("hi");
-        commandHistory.getListView().getItems().add("test");
-
         box.getChildren().add(currCommands.create());
         box.getChildren().add(currVariables.create());
         gridPane.add(box, 13, 4, 8, 12);
@@ -270,7 +262,7 @@ public class DisplayGenerator {
         return scene;
     }
 
-    public ComboBoxBase<Object> getEnter () {
-        return new ComboBox<Object>();
+    public Button getEnter () {
+        return enter;
     }
 }

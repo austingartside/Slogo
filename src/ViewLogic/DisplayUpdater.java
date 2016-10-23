@@ -73,10 +73,13 @@ public class DisplayUpdater implements ViewToModelInterface{
     private void addEnterHandler(){
         generator.getEnter().setOnAction((actionEvent -> {
             //call parser to parse stuff
-            //use generator.getInput() to get String input
+            //use generator.getCommand() to get String input
+            updateHistory(generator.getCommand());
+            generator.setText("");
         }));
     }
 
+    //event handlers for listview, combobox, etc.
     private void addHandlers(){
         generator.getBackgroundPicker().setOnAction((event) ->{
             generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
