@@ -97,11 +97,11 @@ public class DisplayGenerator {
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         for(int i = 0; i < COLUMNS; i++){
             ColumnConstraints column = new ColumnConstraints();
-            column.setPercentWidth(100/COLUMNS);
+            column.setPercentWidth(10);
             gridPane.getColumnConstraints().add(column);
 
             RowConstraints row = new RowConstraints();
-            row.setPercentHeight(100/ROWS);
+            row.setPercentHeight(10);
             gridPane.getRowConstraints().add(row);
         }
         
