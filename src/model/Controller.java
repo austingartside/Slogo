@@ -64,8 +64,8 @@ public class Controller {
 			currentCommand.execute(this);
 			System.out.println();		
 		}
-		System.out.println(myTurtle.getNewPositionX());
-		System.out.println(myTurtle.getNewPositionY());
+		//System.out.println(myTurtle.getNewPositionX());
+		//System.out.println(myTurtle.getNewPositionY());
 	}	
 	
 	public Map<String,Double> getVariables(){
