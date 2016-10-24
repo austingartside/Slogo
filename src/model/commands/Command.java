@@ -48,6 +48,12 @@ public abstract class Command {
 		if(newCol>=commandList.getRowLength()){
 			newCol = 0;
 			commandList.setRow(commandList.getRow()+1);
+			if(commandList.getRow()<commandList.getNumRows()){
+				while(commandList.getRowLength()==0){
+					System.out.println("got in here");
+					commandList.setRow(commandList.getRow()+1);
+				}
+			}
 		}
 		commandList.setCol(newCol);
 	}
