@@ -79,22 +79,6 @@ public class DisplayGenerator {
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      */
     public GridPane setScene(){
-/*        Button test = new Button("move turtle");
-        test.setOnAction((event)->{
-            drawTurtle(50, 0);
-        });
-        Button rotate = new Button("rotate");
-        rotate.setTranslateY(50);
-        rotate.setOnAction((event)->{
-            rotateTurtle(50);
-        });*/
-      /*  Button draw = new Button("draw");
-        draw.setOnAction((event)->{
-            drawLine(0, 0, 50, 0);
-        });*/
-/*        gridPane.getChildren().add(test);
-        gridPane.getChildren().add(rotate);*/
-       /* gridPane.getChildren().add(draw);*/
         addListViews();
         addCommandInput();
         addCanvas();
@@ -320,8 +304,6 @@ public class DisplayGenerator {
         TabPane tabs = new TabPane();
         Tab tabCH = new Tab();
         tabCH.setText("Command History");
-        commandHistory.getListView().getItems().add("Hi");
-        commandHistory.getListView().getItems().add("Bye");
         tabCH.setContent(commandHistory.getListView());
 
         Tab tabCV = new Tab();
