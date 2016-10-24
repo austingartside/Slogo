@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import ViewLogic.DisplayUpdater;
-import javafx.scene.image.ImageView;
 import model.commands.BlankNode;
 import model.commands.Command;
 import model.exceptions.CommandDoesNotExistException;
-import model.exceptions.VariableDoesNotExistException;
 import model.parser.ExpressionTreeBuilder;
 import screens.MainMenu;
 
@@ -43,12 +41,12 @@ public class Controller {
 	
 	public Controller(){
 		myTurtle = new Turtle(this);
-		variables = new HashMap<String, Double>();
-		commands = new HashMap<String, Command>();
-		history = new ArrayList<String>();
+		variables = new HashMap<>();
+		commands = new HashMap<>();
+		history = new ArrayList<>();
 		myExceptionManager = new ExceptionManager();
-		executeCommand = new HashMap<String, Boolean>();
-		numParameters = new HashMap<String, Integer>();
+		executeCommand = new HashMap<>();
+		numParameters = new HashMap<>();
 	}
 	
 	public boolean isExecuting(String command){
@@ -71,16 +69,12 @@ public class Controller {
 		variables.put(name, value);
 	}
 	
-	public ExceptionManager getExceptionManager(){
-		return myExceptionManager;
-	}
-	
 	public String getUserCommand(){
 		return userCommand;
 	}
 	
 	public double getVariableValue(String variableName){
-		if(!variables.containsKey(variableName)){
+	    if(!variables.containsKey(variableName)){
 			//myExceptionManager.addError(NO_VARIABLE);
 			//System.out.println("Ya Done Goofed");
 		}
@@ -90,6 +84,9 @@ public class Controller {
 	public void addCommand(String key, Command value){
 		commands.put(key, value);
 	}
+	public Map<String, Command> getCommands(){
+	    return commands;
+    }
 	
 //	public boolean hasCommand(String command){
 //		return commands.containsKey(command);
@@ -104,18 +101,6 @@ public class Controller {
         }
         catch(CommandDoesNotExistException c){
             new DisplayUpdater(MainMenu.slogoScene, control).handleError(c.getError());
-        }
-	}
-	
-	public void checkForVariable(String variable, Controller control) throws VariableDoesNotExistException{
-		try {
-            if (!variables.containsKey(variable)) {
-                //control.getTurtle().setErrorState(4);
-                throw new VariableDoesNotExistException(variable + " has not been defined ");
-            }
-        }
-        catch(VariableDoesNotExistException v){
-
         }
 	}
 	

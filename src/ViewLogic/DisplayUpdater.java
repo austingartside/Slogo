@@ -10,10 +10,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.TurtleView;
+import model.commands.Command;
 import screens.SLogoScene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -33,8 +36,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         addHandlers();
         addTextHandler();
     }
-    public Scene getGeneratorScene(){
-        return scene.getScene();
+    public void setText(String str){
+        scene.setText(str);
     }
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
         scene.drawTurtle(x, y);
@@ -89,11 +92,13 @@ public class DisplayUpdater implements ViewToModelInterface{
         	//call parser to parse stuff
             //use generator.getCommand() to get String input
             updateHistory(scene.getCommand());
-            scene.setText("");
+            addVariables();
+            addUserCommands();
+            setText("");
         });
 
         scene.getClear().setOnAction(actionEvent -> {
-            scene.setText("");
+            setText("");
         });
     }
     private void addHandlers(){
@@ -119,7 +124,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             @Override
             public void handle(MouseEvent m) {
                 String command = scene.getCurrCommands().getSelectionModel().getSelectedItem();
-                scene.setText(command);
+                setText(command);
             }
         });
         scene.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -127,24 +132,23 @@ public class DisplayUpdater implements ViewToModelInterface{
             public void handle(MouseEvent m){
                 //TODO use the map to map the method to text
                 String command = scene.getCurrCommands().getSelectionModel().getSelectedItem();
-                scene.setText(command);
+                setText(command);
             }
         });
         scene.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                String command = scene.getCurrVariables().getSelectionModel().getSelectedItem();
+                setText(command);
             }
         });
         scene.getLanguageChooser().setOnAction((event) -> {
-            language = (String) scene.getLanguageChooser().getSelectionModel().getSelectedItem();
+            language = scene.getLanguageChooser().getSelectionModel().getSelectedItem();
         });
 
-        scene.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent m){
-                String command = scene.getCommandHistory().getSelectionModel().getSelectedItem();
-                scene.setText(command);
-            }
+        scene.getCommandHistory().setOnMouseClicked(m -> {
+            String command = scene.getCommandHistory().getSelectionModel().getSelectedItem();
+            setText(command);
         });
 
         scene.getPenColorPicker().setOnAction((event) ->{
@@ -152,16 +156,27 @@ public class DisplayUpdater implements ViewToModelInterface{
             scene.setPenColor(c);
         });
     }
- 
+
 	public void updateScreen(TurtleView turtleView) {
 		setVisible(turtleView.isRevealBoolean());
 		setOrientation (turtleView.getAngleNow());
 		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
-		int errorState = turtleView.getErrorState();
-        System.out.println(errorState);
-        //handleError(errorState);
-		if (turtleView.isClearScreen()){clear();}
+		if (turtleView.isClearScreen()){
+		    clear();
+		}
 	}
+	private void addUserCommands(){
+	    scene.getCurrCommands().getItems().clear();
+        Map<String, Command> commands = myController.getCommands();
+        commands.keySet().forEach(this::updateCurrCommands);
+    }
+	private void addVariables(){
+	    scene.getCurrVariables().getItems().clear();
+	    Map<String, Double> vars = myController.getVariables();
+        for(String str : vars.keySet()){
+            updateCurrVariables(str.substring(1) + ": " + vars.get(str));
+        }
+    }
 	public void handleError(String error){
         Stage stage = new Stage();
         Group g = new Group();
