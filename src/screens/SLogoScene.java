@@ -42,6 +42,7 @@ public class SLogoScene extends ActionScene{
     private GridPane gridPane;
     private Color penColor;
     private ImageView turtle;
+    private Image turtleIm;
     private Scene scene;
     private TextArea commandLine;
     private Button enter;
@@ -131,9 +132,8 @@ public class SLogoScene extends ActionScene{
         return currVariables.getListView();
     }
     public void changeTurtleImage(String pic){
-        Image turtleIm = new Image(new File(pic).toURI().toString());
+        turtleIm = new Image(new File(pic).toURI().toString());
         turtle.setImage(turtleIm);
-        
         turtle.setFitWidth(40);
         turtle.setFitHeight(40);
         turtle.setPreserveRatio(true);
@@ -157,6 +157,7 @@ public class SLogoScene extends ActionScene{
     }
 
     public void drawTurtle(double x, double y){
+        turtle.setImage(turtleIm);
         turtle.setTranslateX(canvasX(x));
         turtle.setTranslateY(canvasY(y));
     }
