@@ -17,6 +17,9 @@ public abstract class ActionScene {
         myScene = scene;
     }
     
+    public Scene getScene(){
+        return myScene;
+    }
     public Group getRoot(){
         return myRoot;
     }

@@ -138,7 +138,7 @@ public class Controller {
 		//System.out.println(myTurtle.getNewPositionX());
 		//System.out.print("YPos:");
 		//System.out.println(myTurtle.getNewPositionY());
-		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.displayGenerator,this);
+		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.slogoScene,this);
 		myDisplayUpdater.updateScreen(myTurtleView);
 	}
 

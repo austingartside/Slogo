@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.TurtleView;
+import screens.SLogoScene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -17,64 +18,63 @@ import java.io.File;
  */
 public class DisplayUpdater implements ViewToModelInterface{
     private String language;
-    private DisplayGenerator generator;
+    private SLogoScene scene;
     private Controller myController;
 
-    public DisplayUpdater(DisplayGenerator g, Controller control){
-        generator = g;
+    public DisplayUpdater(SLogoScene s, Controller control){
+            scene = s;
             language = "English";
             myController = control;
     }
-    public void setUp(){
-        generator.setScene();
+    public void setUp() throws Exception{
         addHandlers();
         addTextHandler();
     }
     public Scene getGeneratorScene(){
-        return generator.getScene();
+        return scene.getScene();
     }
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
-        generator.drawTurtle(x, y);
+        scene.drawTurtle(x, y);
         if(penDown){
-            generator.drawLine(xPrev, yPrev, x, y);
+            scene.drawLine(xPrev, yPrev, x, y);
         }
     }
     public String getLanguage(){
         return language;
     }
     public void updateHistory(String object){
-        generator.getCommandHistory().getItems().add(object);
+        scene.getCommandHistory().getItems().add(object);
     }
     public void updateCurrCommands(String object){
-        generator.getCurrCommands().getItems().add(object);
+        scene.getCurrCommands().getItems().add(object);
     }
     public void updateCurrVariables(String object){
-        generator.getCurrVariables().getItems().add(object);
+        scene.getCurrVariables().getItems().add(object);
     }
     public void setVisible(boolean visible){
         if(visible){
-            generator.makeTurtleVisible();
+            scene.makeTurtleVisible();
         }
         else{
-            generator.makeTurtleInvisible();
+            scene.makeTurtleInvisible();
         }
     }
     public void setOrientation(double angle){
-        generator.rotateTurtle(angle);
+        scene.rotateTurtle(angle);
     }
     public void resetToHome(){
-        generator.drawTurtle(0, 0);
+        scene.drawTurtle(0, 0);
     }
     public void clear(){
-        generator.drawTurtle(0, 0);
-        generator.clear();
+        scene.drawTurtle(0, 0);
+        scene.clear();
     }
 
     private void addTextHandler(){
-        generator.getEnter().setOnAction(actionEvent -> {
+        scene.getEnter().setOnAction(actionEvent -> {
             //try {
 				try {
-					myController.enterAction(generator.getCommand());
+					myController.enterAction(scene.getCommand());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -85,24 +85,24 @@ public class DisplayUpdater implements ViewToModelInterface{
 			//}
         	//call parser to parse stuff
             //use generator.getCommand() to get String input
-            updateHistory(generator.getCommand());
-            generator.setText("");
+            updateHistory(scene.getCommand());
+            scene.setText("");
         });
 
-        generator.getClear().setOnAction(actionEvent -> {
-            generator.setText("");
+        scene.getClear().setOnAction(actionEvent -> {
+            scene.setText("");
         });
     }
     private void addHandlers(){
-        generator.getBackgroundPicker().setOnAction((event) ->{
-            generator.changeBackgroundColor(generator.getBackgroundPicker().getValue());
+        scene.getBackgroundPicker().setOnAction((event) ->{
+            scene.changeBackgroundColor(scene.getBackgroundPicker().getValue());
         });
         
-        generator.getImagePicker().setOnAction((event) ->{
+        scene.getImagePicker().setOnAction((event) ->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
-            generator.changeTurtleImage(imageFile.toString());
+            scene.changeTurtleImage(imageFile.toString());
             /*try{
                 if(imageFile.toString() != null){
                     generator.changeTurtleImage(imageFile.toString());
@@ -112,39 +112,39 @@ public class DisplayUpdater implements ViewToModelInterface{
             }*/
 
         });
-        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        scene.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent m) {
             }
         });
-        generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        scene.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent m){
                 //TODO use the map to map the method to text
-                String command = generator.getCurrCommands().getSelectionModel().getSelectedItem();
-                generator.setText(command);
+                String command = scene.getCurrCommands().getSelectionModel().getSelectedItem();
+                scene.setText(command);
             }
         });
-        generator.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        scene.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
             }
         });
-        generator.getLanguageChooser().setOnAction((event) -> {
-            language = (String) generator.getLanguageChooser().getSelectionModel().getSelectedItem();
+        scene.getLanguageChooser().setOnAction((event) -> {
+            language = (String) scene.getLanguageChooser().getSelectionModel().getSelectedItem();
         });
 
-        generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        scene.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent m){
-                String command = generator.getCommandHistory().getSelectionModel().getSelectedItem();
-                generator.setText(command);
+                String command = scene.getCommandHistory().getSelectionModel().getSelectedItem();
+                scene.setText(command);
             }
         });
 
-        generator.getPenColorPicker().setOnAction((event) ->{
-            Color c = generator.getPenColorPicker().getValue();
-            generator.setPenColor(c);
+        scene.getPenColorPicker().setOnAction((event) ->{
+            Color c = scene.getPenColorPicker().getValue();
+            scene.setPenColor(c);
         });
     }
  
