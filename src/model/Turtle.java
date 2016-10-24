@@ -38,8 +38,10 @@ public class Turtle {
 	 * Used for FORWARD,BACK
 	 */
 	public double move(double vector){
+		System.out.print("Vector:");
+		System.out.println(vector);
 		double xmove=-1*vector*(Math.sin(Math.toRadians(angleNow)));
-		double ymove=vector*(Math.cos(Math.toRadians(angleNow)));
+		double ymove=-1*vector*(Math.cos(Math.toRadians(angleNow)));
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
 		myController.UpdateView(); //Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
@@ -55,22 +57,22 @@ public class Turtle {
 		double currentAngle=angleNow;
 		angle=Math.toDegrees(Math.atan(x/y));
 		System.out.println(angle);
-		//orientQuadrant(0,currentAngle,angle);
+		//orientQuadrant(0,angle,currentAngle);
 		//This is garbage. Fix later. Enum?
 		if(x>0){
 			if(y>0){
-				orientQuadrant(0,currentAngle,angle);
+				orientQuadrant(0,angle,currentAngle);
 			}
 			else{
-				orientQuadrant(90,currentAngle,angle);
+				orientQuadrant(90,angle,currentAngle);
 			}
 		}
 		if(x<0){
 			if(y>0){
-				orientQuadrant(270,currentAngle,angle);
+				orientQuadrant(270,angle,currentAngle);
 			}
 			else{
-				orientQuadrant(180,currentAngle,angle);
+				orientQuadrant(180,angle,currentAngle);
 			}
 		}
 		return 0;
@@ -80,6 +82,7 @@ public class Turtle {
 		double newAngle=quadrant+angle;
 		System.out.println(quadrant);
 		System.out.println(angle);
+		System.out.println("Gdhdh");
 		System.out.println(newAngle);
 		setOrientation(newAngle);
 		return Math.abs(currentAngle-newAngle);
@@ -95,7 +98,7 @@ public class Turtle {
 		//image.setX(x);
 		//image.setY(y);
 		newXpos=x;
-		newYpos=y;
+		newYpos=-1*y;
 		myController.UpdateView();
 	}
 	
@@ -159,6 +162,11 @@ public class Turtle {
 		return angleNow;
 	}
 	
+	public void clearScreen(){
+		clearScreen=true;
+		myController.UpdateView();
+	}
+	
 	/**
 	 * Used for SHOWTURTLE
 	 */
@@ -209,6 +217,9 @@ public class Turtle {
 
 	public boolean isClearScreen() {
 		return clearScreen;
+	}
+	public void setClearScreenOff(){
+		clearScreen=false;
 	}
 
 }

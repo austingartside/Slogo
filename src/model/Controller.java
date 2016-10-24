@@ -165,7 +165,10 @@ public class Controller {
 		System.out.println(myTurtle.getNewPositionX());
 		System.out.print("NewYPos:");
 		System.out.println(myTurtle.getNewPositionY());
+		if(myTurtleView.isClearScreen()){System.out.println("Austin");}
+		
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.displayGenerator,this);
+		myTurtle.setClearScreenOff();
 		myDisplayUpdater.updateScreen(myTurtleView);
 	}
 
