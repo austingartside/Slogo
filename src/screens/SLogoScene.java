@@ -7,11 +7,6 @@ import java.util.ResourceBundle;
 import View.CanvasGenerator;
 import View.DisplayGenerator;
 import View.ListViewNamer;
-import ViewLogic.DisplayUpdater;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -42,7 +37,7 @@ public class SLogoScene extends ActionScene{
     private GridPane gridPane;
     private Color penColor;
     private ImageView turtle;
-    private Scene scene;
+    private Image turtleIm;
     private TextArea commandLine;
     private Button enter;
     private Button clear;
@@ -65,6 +60,7 @@ public class SLogoScene extends ActionScene{
         String path = System.getProperty("user.dir");
         turtle = new ImageView(new File(path + "/src/resources.view/Turtle.png").toURI().toString());
         turtleInvis = new ImageView(turtle.getImage());
+        turtleIm = turtle.getImage();
         commandLine = new TextArea();
         commandLine.setMaxHeight(30);
         canvas = new CanvasGenerator();
@@ -131,9 +127,8 @@ public class SLogoScene extends ActionScene{
         return currVariables.getListView();
     }
     public void changeTurtleImage(String pic){
-        Image turtleIm = new Image(new File(pic).toURI().toString());
+        turtleIm = new Image(new File(pic).toURI().toString());
         turtle.setImage(turtleIm);
-        
         turtle.setFitWidth(40);
         turtle.setFitHeight(40);
         turtle.setPreserveRatio(true);
