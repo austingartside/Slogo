@@ -156,9 +156,13 @@ public class SLogoScene extends ActionScene{
         commandLine.setText(str);
     }
 
+
+
     public void drawTurtle(double x, double y){
-        turtle.setTranslateX(canvasX(x));
-        turtle.setTranslateY(canvasY(y));
+        if(x < CanvasGenerator.CANVAS_X/2 && x > -CanvasGenerator.CANVAS_X / 2 && y < CanvasGenerator.CANVAS_Y/2 && y > -CanvasGenerator.CANVAS_Y/2) {
+            turtle.setTranslateX(canvasX(x));
+            turtle.setTranslateY(canvasY(y));
+        }
     }
     public void makeTurtleInvisible(){
         turtleInvis = new ImageView(turtle.getImage());
