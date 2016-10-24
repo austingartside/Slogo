@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import screens.SLogoScene;
 import javafx.scene.control.*;
 
 /**
@@ -170,8 +171,13 @@ public class DisplayGenerator {
     
     private Canvas addCanvas(CanvasGenerator canvas){
         Canvas can = canvas.createCanvas();
+        canvasBoundsMath(canvas);
         gridPane.add(can, 0, 2, 12, 16);
         return can;
+    }
+    private void canvasBoundsMath(CanvasGenerator canvas){
+        canvas.setBounds((SLogoScene.SIZE_Y+CanvasGenerator.CANVAS_Y)/2,(SLogoScene.SIZE_Y-CanvasGenerator.CANVAS_Y)/2,
+                         gridPane.getPadding().getLeft()+CanvasGenerator.CANVAS_X,gridPane.getPadding().getLeft());
     }
     
     private void addListViews(List<ListViewNamer> listViews){

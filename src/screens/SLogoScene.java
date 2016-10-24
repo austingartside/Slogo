@@ -43,7 +43,6 @@ public class SLogoScene extends ActionScene{
     private Color penColor;
     private ImageView turtle;
     private Image turtleIm;
-    private Scene scene;
     private TextArea commandLine;
     private Button enter;
     private Button clear;
@@ -66,6 +65,7 @@ public class SLogoScene extends ActionScene{
         String path = System.getProperty("user.dir");
         turtle = new ImageView(new File(path + "/src/resources.view/Turtle.png").toURI().toString());
         turtleInvis = new ImageView(turtle.getImage());
+        turtleIm = turtle.getImage();
         commandLine = new TextArea();
         commandLine.setMaxHeight(30);
         canvas = new CanvasGenerator();
@@ -158,8 +158,12 @@ public class SLogoScene extends ActionScene{
 
     public void drawTurtle(double x, double y){
         turtle.setImage(turtleIm);
-        turtle.setTranslateX(canvasX(x));
-        turtle.setTranslateY(canvasY(y));
+        if(x<CanvasGenerator.CANVAS_X/2 && x>-CanvasGenerator.CANVAS_X/2 && 
+                y<CanvasGenerator.CANVAS_Y/2 && y>-CanvasGenerator.CANVAS_Y/2){
+            turtle.setTranslateX(canvasX(x));
+            turtle.setTranslateY(canvasY(y));
+            System.out.println("helo");
+        }
     }
     public void makeTurtleInvisible(){
         turtleInvis = new ImageView(turtle.getImage());
