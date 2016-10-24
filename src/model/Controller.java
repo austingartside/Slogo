@@ -9,6 +9,8 @@ import ViewLogic.DisplayUpdater;
 import javafx.scene.image.ImageView;
 import model.commands.BlankNode;
 import model.commands.Command;
+import model.exceptions.CommandDoesNotExistException;
+import model.exceptions.VariableDoesNotExistException;
 import model.parser.ExpressionTreeBuilder;
 import screens.MainMenu;
 
@@ -60,8 +62,8 @@ public class Controller {
 	
 	public double getVariableValue(String variableName){
 		if(!variables.containsKey(variableName)){
-			myExceptionManager.addError(NO_VARIABLE);
-			System.out.println("Ya Done Goofed");
+			//myExceptionManager.addError(NO_VARIABLE);
+			//System.out.println("Ya Done Goofed");
 		}
 		return variables.get(variableName);
 	}
@@ -70,14 +72,25 @@ public class Controller {
 		commands.put(key, value);
 	}
 	
-	public boolean hasCommand(String command){
-		return commands.containsKey(command);
+//	public boolean hasCommand(String command){
+//		return commands.containsKey(command);
+//	}
+	
+	public void checkForCommand(String command, Controller control) throws CommandDoesNotExistException{
+		if(!commands.containsKey(command)){
+			control.getTurtle().setErrorState(3);
+			throw new CommandDoesNotExistException(command + " has not been defined ");
+		}
+	}
+	
+	public void checkForVariable(String variable, Controller control) throws VariableDoesNotExistException{
+		if(!variables.containsKey(variable)){
+			control.getTurtle().setErrorState(4);
+			throw new VariableDoesNotExistException(variable + " has not been defined ");
+		}
 	}
 	
 	public Command findCommand(String command){
-		if(!hasCommand(command)){
-			myExceptionManager.addError(NO_COMMAND); 
-		}
 		return commands.get(command);
 	}
 	
@@ -143,15 +156,15 @@ public class Controller {
 		userCommand = command;
 		myExceptionManager.resetErrors();
 		Command head=this.getTree();
-		if(myExceptionManager.hasErrors()){
-			myExceptionManager.printError();
+		//if(myExceptionManager.hasErrors()){
+		//	myExceptionManager.printError();
 			//give control to the user
 			//print the first one
-		}
-		else{
+		//}
+		//else{
 			this.executeTree(head);
 			history.add(userCommand);
-		}
+		//}
 	}
 	
 	public void UpdateView() {
