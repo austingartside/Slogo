@@ -20,7 +20,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 
 public class MainMenu {
-    public static final DisplayGenerator displayGenerator = new DisplayGenerator();
+    public static SLogoScene slogoScene;
     private Group myRoot;
     private Scene myScene;
     private ResourceBundle myResources;
@@ -48,8 +48,23 @@ public class MainMenu {
         startProject.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(final ActionEvent ae){
-                myActionScene = new SLogoScene(myScene, myResources, height, width);
-                stage.setScene(myActionScene.getUpdater().getGeneratorScene());
+                try {
+                    myActionScene = new SLogoScene(myScene, myResources);
+                }
+                catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                slogoScene = myActionScene;
+                DisplayUpdater du = new DisplayUpdater(myActionScene,new Controller());
+                try {
+                    du.setUp();
+                }
+                catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                stage.setScene(myActionScene.getScene());
             }
         });
         vb.getChildren().add(startProject);

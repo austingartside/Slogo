@@ -44,7 +44,7 @@ public abstract class ControlCommand extends Command{
 			}
 			catch(IndexOutOfBoundsException e){
 				//control.getTurtle().setErrorState(2);
-                new DisplayUpdater(MainMenu.displayGenerator, null).handleError("Missing ] at line " + commandList.getRow() + " ");
+                new DisplayUpdater(MainMenu.slogoScene, null).handleError("Missing ] at line " + commandList.getRow() + " ");
 			}
 		}
 		
@@ -63,7 +63,7 @@ public abstract class ControlCommand extends Command{
 
         }
         catch(MissingListStartException m){
-            new DisplayUpdater(MainMenu.displayGenerator, null).handleError(m.getError());
+            new DisplayUpdater(MainMenu.slogoScene, null).handleError(m.getError());
         }
 	}
 	
@@ -84,7 +84,7 @@ public abstract class ControlCommand extends Command{
             }
         }
         catch(VariableDoesNotExistException v){
-            new DisplayUpdater(MainMenu.displayGenerator, null).handleError(v.getError());
+            new DisplayUpdater(MainMenu.slogoScene, null).handleError(v.getError());
         }
 	}
 	

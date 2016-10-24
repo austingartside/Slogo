@@ -84,7 +84,7 @@ public class Controller {
             }
         }
         catch(CommandDoesNotExistException c){
-            new DisplayUpdater(MainMenu.displayGenerator, control).handleError(c.getError());
+            new DisplayUpdater(MainMenu.slogoScene, control).handleError(c.getError());
         }
 	}
 	
@@ -127,7 +127,7 @@ public class Controller {
             }
         }
         catch(NullPointerException n){
-            new DisplayUpdater(MainMenu.displayGenerator, null).handleError("Error parsing command");
+            new DisplayUpdater(MainMenu.slogoScene, null).handleError("Error parsing command");
         }
 		//System.out.println(myTurtle.getNewPositionX());
 		//System.out.println(myTurtle.getNewPositionY());
@@ -195,7 +195,7 @@ public class Controller {
 		System.out.println(myTurtle.getNewPositionY());
 		if(myTurtleView.isClearScreen()){System.out.println("Austin");}
 		
-		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.displayGenerator,this);
+		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.slogoScene, this);
 		myTurtle.setClearScreenOff();
 		myDisplayUpdater.updateScreen(myTurtleView);
 	}
