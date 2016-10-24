@@ -34,6 +34,7 @@ public class DisplayGenerator {
     static final double ALIGN = SIZE_X/4 - 200;
     static final int ADJUST = 150;
     public static final int COLUMNS = 20;
+    private final int MAX_SIZE = 40;
     
     private GridPane gridPane;
     private Color penColor;
@@ -221,8 +222,8 @@ public class DisplayGenerator {
     }
     private void addImage(){
         drawTurtle(0, 0);
-        turtle.setFitWidth(40);
-        turtle.setFitHeight(40);
+        turtle.setFitWidth(MAX_SIZE);
+        turtle.setFitHeight(MAX_SIZE);
         turtle.setPreserveRatio(true);
         turtle.setSmooth(true);
         turtle.setCache(true);
@@ -340,7 +341,7 @@ public class DisplayGenerator {
         s.show();
     }
     private double canvasX(double x){
-        return CanvasGenerator.CANVAS_X/2 + x;
+        return CanvasGenerator.CANVAS_X/2 + x - MAX_SIZE/2;
     }
     private double canvasY(double y){
         return CanvasGenerator.CANVAS_Y/2 + ADJUST + y;

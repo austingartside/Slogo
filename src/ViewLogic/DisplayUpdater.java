@@ -107,6 +107,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         generator.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent m) {
+                String command = generator.getCurrCommands().getSelectionModel().getSelectedItem();
+                generator.setText(command);
             }
         });
         generator.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
