@@ -27,18 +27,14 @@ public abstract class ControlCommand extends Command{
 	}
 	
 	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker, Command parent,
-			Controller control) throws Exception {
+			Controller control, String originalCommand) throws Exception {
+		ProgramParser translator = new ProgramParser();
 		updateLocation(commandList);
 		String currentCommand = commandList.getCommand();
+		int count = 0;
 		while(!isEndList(currentCommand)){
 			parent.addChild((Command) nodeMaker.getCommand(commandList, control));
-//			if(commandList.isOutOfBounds()){
-//				//throw new Exception("no closing bracket");
-//				control.getExceptionManager().addError(LIST_END_EX);
-//				commandList.endParse();
-//				System.out.println("move through list broke");
-//				//break;
-//			}
+			count++;
 			try{
 				currentCommand = commandList.getCommand();
 			}
@@ -46,6 +42,9 @@ public abstract class ControlCommand extends Command{
 				//control.getTurtle().setErrorState(2);
                 new DisplayUpdater(MainMenu.slogoScene, null).handleError("Missing ] at line " + commandList.getRow() + " ");
 			}
+		}
+		if(translator.getSymbol(originalCommand).equals(COMMAND)){
+			control.addNumParam(originalCommand, count);
 		}
 		
 		updateLocation(commandList);

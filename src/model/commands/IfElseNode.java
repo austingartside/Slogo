@@ -18,9 +18,9 @@ public class IfElseNode extends ControlCommand{
 		BlankNode falseStatements = new BlankNode(commandList, nodeMaker, control);
 		this.addChild(trueStatements);
 		this.addChild(falseStatements);
-		moveThroughList(commandList, nodeMaker, trueStatements, control);
+		moveThroughList(commandList, nodeMaker, trueStatements, control, myName);
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, falseStatements, control);
+		moveThroughList(commandList, nodeMaker, falseStatements, control, myName);
 	}
 	
 	public void printName(){

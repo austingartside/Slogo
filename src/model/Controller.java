@@ -22,10 +22,11 @@ public class Controller {
 	
 	private Map<String, Double> variables;
 	private Map<String, Command> commands;
+	private Map<String, Boolean> executeCommand;
+	private Map<String, Integer> numParameters;
 	private List<String> history;
 	private String userCommand;
 	private ExceptionManager myExceptionManager;
-	//Map<String, Integer> variables;
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	private TurtleView myTurtleView;
 	/*private static final Controller INSTANCE=new Controller();
@@ -46,6 +47,24 @@ public class Controller {
 		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
 		myExceptionManager = new ExceptionManager();
+		executeCommand = new HashMap<String, Boolean>();
+		numParameters = new HashMap<String, Integer>();
+	}
+	
+	public boolean isExecuting(String command){
+		return executeCommand.get(command);
+	}
+	
+	public void addNumParam(String command, int count){
+		numParameters.put(command, count);
+	}
+	
+	public int getNumParam(String command){
+		return numParameters.get(command);
+	}
+	
+	public void changeExecutingValue(String command, boolean value){
+		executeCommand.put(command, value);
 	}
 	
 	public void addVariable(String name, double value){
