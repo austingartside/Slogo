@@ -14,7 +14,7 @@ public class HideTurtleNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		//myTurtle.hideTurtle();
+		control.getTurtle().hideTurtle();
 		return ZERO;
 	}
 
