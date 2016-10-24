@@ -6,7 +6,7 @@ import java.util.*;
 import model.Controller;
 import model.commands.BlankNode;
 import model.commands.ConstantNode;
-import model.exceptions.ListStartException;
+import model.exceptions.CommandDoesNotExistException;
 
 public class CommandFactory {
 	
@@ -16,35 +16,21 @@ public class CommandFactory {
     private static final String END_PARSE = "EndParsingNode";
 	
 	public Object getCommand(ListOfCommands commandList, Controller control) throws Exception{
-		//try{
-			ProgramParser lang = new ProgramParser();
-			String translatedCommand = lang.getSymbol(commandList.getCommand());
-			String className;
-			try{
-				//if(isValidCommand(translatedCommand)){
-					className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
-					return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
-							.newInstance(commandList, this, control);
-				//}
-			} catch(Exception e){
-				throw new ListStartException();
-			}
-//			else{
-//				control.getExceptionManager().addError(NO_COMMAND_EX);
-//				className = SUPER_PACKAGE_NAME + PACKAGE_NAME + "." + END_PARSE;
-//			}
-			//return "";
-//			return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
-//					.newInstance(commandList, this, control);
-		//}
-//		catch(IllegalArgumentException e){
-//			e.printStackTrace();
-//		}
-		//throw new IllegalArgumentException("Command " + commandList.getCommand() + " does not exist");	
+		ProgramParser lang = new ProgramParser();
+		String translatedCommand = lang.getSymbol(commandList.getCommand());
+		String className;
+		try{
+			className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
+			return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
+					.newInstance(commandList, this, control);
+		} catch(Exception e){
+			control.getTurtle().setErrorState(3);
+			throw new CommandDoesNotExistException(commandList.getCommand() + " does not exist ");
+		}	
 	}
 	
-	public boolean isValidCommand(String command){
-		return !command.equals("NO MATCH");
-	}
+//	public boolean isValidCommand(String command){
+//		return !command.equals("NO MATCH");
+//	}
 	
 }

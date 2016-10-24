@@ -16,11 +16,13 @@ public class Turtle {
 	private double angleNow;
 	private double ZERO=0.0; //temporary
 	private Controller myController;
+	private int errorState;
 	
 	public Turtle(Controller controller){
 		newXpos=0.0;
 		newYpos=0.0;
 		myController=controller;
+		errorState = 0;
 		//this.setPosition(ZERO,ZERO);
 		//this.setImage("Turtle.png"); //Resource File
 		//this.setOrientation(ZERO);
@@ -31,6 +33,14 @@ public class Turtle {
 		Image imager = new Image(this.getClass().getClassLoader().getResourceAsStream(pngfile));
         image=new ImageView();
         image.setImage(imager);
+	}
+	
+	public int getErrorState(){
+		return errorState;
+	}
+	
+	public void setErrorState(int errorNum){
+		errorState = errorNum;
 	}
 	
 	/**

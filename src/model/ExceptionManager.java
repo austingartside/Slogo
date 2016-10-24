@@ -6,6 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class ExceptionManager {
+	
+	//ListStart = 1;
+	//ListEnd = 2;
+	//CommandDoesNotExist = 3;
+	//VariableDoesNotExist = 4;
+	
+	
 	private static final String LIST_START = "ListStartException";
 	private static final String LIST_START_MESSAGE = "ListStartException: missing start bracket [";
 	private static final String LIST_END = "ListEndException";
