@@ -164,6 +164,7 @@ public class Turtle {
 	
 	public void clearScreen(){
 		clearScreen=true;
+		myController.UpdateView();
 	}
 	
 	/**
