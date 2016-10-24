@@ -16,11 +16,13 @@ public class Turtle {
 	private double angleNow;
 	private double ZERO=0.0; //temporary
 	private Controller myController;
+	private int errorState;
 	
 	public Turtle(Controller controller){
 		newXpos=0.0;
 		newYpos=0.0;
 		myController=controller;
+		errorState = 0;
 		//this.setPosition(ZERO,ZERO);
 		//this.setImage("Turtle.png"); //Resource File
 		//this.setOrientation(ZERO);
@@ -33,17 +35,28 @@ public class Turtle {
         image.setImage(imager);
 	}
 	
+	public int getErrorState(){
+		return errorState;
+	}
+	
+	public void setErrorState(int errorNum){
+		errorState = errorNum;
+	}
+	
 	/**
 	 * Changes position of turtle
 	 * Used for FORWARD,BACK
 	 */
 	public double move(double vector){
+		System.out.print("Vector:");
+		System.out.println(vector);
 		double xmove=vector*(Math.sin(Math.toRadians(angleNow)));
-		double ymove=vector*(Math.cos(Math.toRadians(angleNow)));
+		double ymove=-1*vector*(Math.cos(Math.toRadians(angleNow)));
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
-		setPosition(newXpos,newYpos);
 		myController.UpdateView(); //Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
+		oldXpos=newXpos;
+		oldYpos=newYpos;
 		return vector;
 		//image.setX(newXpos);
 		//image.setY(newYpos);
@@ -52,30 +65,36 @@ public class Turtle {
 	public double towards(double x, double y){
 		double angle;
 		double currentAngle=angleNow;
-		angle=Math.atan(x/y);
+		angle=Math.toDegrees(Math.atan(x/y));
+		System.out.println(angle);
+		//orientQuadrant(0,angle,currentAngle);
 		//This is garbage. Fix later. Enum?
 		if(x>0){
 			if(y>0){
-				orientQuadrant(0,currentAngle,angle);
+				orientQuadrant(0,angle,currentAngle);
 			}
 			else{
-				orientQuadrant(90,currentAngle,angle);
+				orientQuadrant(90,angle,currentAngle);
 			}
 		}
 		if(x<0){
 			if(y>0){
-				orientQuadrant(270,currentAngle,angle);
+				orientQuadrant(270,angle,currentAngle);
 			}
 			else{
-				orientQuadrant(180,currentAngle,angle);
+				orientQuadrant(180,angle,currentAngle);
 			}
 		}
 		return 0;
 	}
 	
 	public double orientQuadrant(double quadrant,double angle, double currentAngle){
-		double newAngle=quadrant+Math.abs(angle);
-		setOrientation(angle);
+		double newAngle=quadrant+angle;
+		System.out.println(quadrant);
+		System.out.println(angle);
+		System.out.println("Gdhdh");
+		System.out.println(newAngle);
+		setOrientation(newAngle);
 		return Math.abs(currentAngle-newAngle);
 	}
 	
@@ -89,7 +108,7 @@ public class Turtle {
 		//image.setX(x);
 		//image.setY(y);
 		newXpos=x;
-		newYpos=y;
+		newYpos=-1*y;
 		myController.UpdateView();
 	}
 	
@@ -136,12 +155,14 @@ public class Turtle {
 	/**
 	 * Sets the angle of the turtle
 	 * Used for RIGHT,LEFT,SETHEADING,TOWARD and all resets
+	 * @return 
 	 */
 	
 	public void setOrientation(double angle){
 		//image.setRotate(360-angleNow);
 		angleNow=angle;
 		myController.UpdateView();
+		//return angleNow;
 		//image.setRotate(angle);
 	}
 	 /**
@@ -149,6 +170,11 @@ public class Turtle {
 	 */
 	public double getOrientation(){
 		return angleNow;
+	}
+	
+	public void clearScreen(){
+		clearScreen=true;
+		myController.UpdateView();
 	}
 	
 	/**
@@ -201,6 +227,9 @@ public class Turtle {
 
 	public boolean isClearScreen() {
 		return clearScreen;
+	}
+	public void setClearScreenOff(){
+		clearScreen=false;
 	}
 
 }

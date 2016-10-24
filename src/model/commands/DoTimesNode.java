@@ -14,14 +14,14 @@ public class DoTimesNode extends ControlCommand{
 		super(commandList.getCommand());
 		myName = "DoTimes";
 		updateLocation(commandList);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		updateLocation(commandList);
-		isVariable(commandList.getCommand());
+		isVariable(commandList.getCommand(), control);
 		varName = commandList.getCommand();
 		updateLocation(commandList);
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		updateLocation(commandList);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control);
 		
 	}

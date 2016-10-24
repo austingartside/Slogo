@@ -18,11 +18,28 @@ public class MakeUserInstructionNode extends ControlCommand{
 		updateLocation(commandList);
 		checkIfCommand(commandList.getCommand());
 		definedCommandName = commandList.getCommand();
+		//so that we can check commands during parsing for errors instead of having to wait til execution
+		control.addCommand(definedCommandName, new BlankNode(commandList, nodeMaker, control));
+		///start check
+		checkVariableList(commandList.getRow(), commandList.getCol(), commandList, control);
+		//end check
 		Command definedCommand = (Command) nodeMaker.getCommand(commandList, control);
 		this.addChild(definedCommand);
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		definedCommand.addChild(new BlankNode(commandList, nodeMaker, control));
 		moveThroughList(commandList, nodeMaker, definedCommand, control);
+	}
+	
+	public void checkVariableList(int row, int col, ListOfCommands commandList, Controller control) throws Exception{
+		updateLocation(commandList);
+		checkForListStart(commandList, control);
+		updateLocation(commandList);
+		while(!isEndList(commandList.getCommand())){
+			isVariable(commandList.getCommand(), control);
+			updateLocation(commandList);
+		}
+		commandList.setRow(row);
+		commandList.setCol(col);
 	}
 	
 	public void printName(){
@@ -42,10 +59,6 @@ public class MakeUserInstructionNode extends ControlCommand{
 		printName();
 		Command definedCommand = this.getChildren().get(0);
 		control.addCommand(definedCommandName, definedCommand);
-		//System.out.println(definedCommandName);
-		//VariableNode test = (VariableNode)control.findCommand(definedCommandName).getChildren().get(1);
-		//int test = control.findCommand(definedCommandName).getChildren().get(4).getChildren().get(0).getNumChildren();
-		//System.out.println(test);
 		return 1;
 	}
 

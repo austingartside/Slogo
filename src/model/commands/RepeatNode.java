@@ -17,7 +17,7 @@ public class RepeatNode extends ControlCommand{
 		myVal = "Repeat";
 		updateLocation(commandList);
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		checkForListStart(commandList);
+		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control);
 	}
 

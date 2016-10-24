@@ -115,6 +115,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent m) {
+                String command = scene.getCurrCommands().getSelectionModel().getSelectedItem();
+                scene.setText(command);
             }
         });
         scene.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -152,5 +154,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 		setVisible(turtleView.isRevealBoolean());
 		setOrientation (turtleView.getAngleNow());
 		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
+		int errorState = turtleView.getErrorState();
+		if (turtleView.isClearScreen()){clear();}
 	}
 }

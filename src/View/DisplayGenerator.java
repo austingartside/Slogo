@@ -81,6 +81,7 @@ public class DisplayGenerator {
         addButtons(languages,toolbar);
         addImage(turtle);
         addHelp(findButton(buttons,"Help"));
+
         return gridPane;
     }
     

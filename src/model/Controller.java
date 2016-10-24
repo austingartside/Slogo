@@ -9,15 +9,22 @@ import ViewLogic.DisplayUpdater;
 import javafx.scene.image.ImageView;
 import model.commands.BlankNode;
 import model.commands.Command;
+import model.exceptions.CommandDoesNotExistException;
+import model.exceptions.VariableDoesNotExistException;
 import model.parser.ExpressionTreeBuilder;
 import screens.MainMenu;
 
 public class Controller {
 	
+	private static final String NO_COMMAND = "MissingCommandException";
+	private static final String NON_COMMAND = "?aslkn234?3";
+	private static final String NO_VARIABLE = "MissingVariableException";
+	
 	private Map<String, Double> variables;
 	private Map<String, Command> commands;
 	private List<String> history;
 	private String userCommand;
+	private ExceptionManager myExceptionManager;
 	//Map<String, Integer> variables;
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	private TurtleView myTurtleView;
@@ -34,14 +41,19 @@ public class Controller {
 	}*/
 	
 	public Controller(){
-		//myTurtle = new Turtle(this);
+		myTurtle = new Turtle(this);
 		variables = new HashMap<String, Double>();
 		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
+		myExceptionManager = new ExceptionManager();
 	}
 	
 	public void addVariable(String name, double value){
 		variables.put(name, value);
+	}
+	
+	public ExceptionManager getExceptionManager(){
+		return myExceptionManager;
 	}
 	
 	public String getUserCommand(){
@@ -50,8 +62,8 @@ public class Controller {
 	
 	public double getVariableValue(String variableName){
 		if(!variables.containsKey(variableName)){
-			//error?
-			System.out.println("Ya Done Goofed");
+			//myExceptionManager.addError(NO_VARIABLE);
+			//System.out.println("Ya Done Goofed");
 		}
 		return variables.get(variableName);
 	}
@@ -60,11 +72,25 @@ public class Controller {
 		commands.put(key, value);
 	}
 	
-	public Command findCommand(String command){
+//	public boolean hasCommand(String command){
+//		return commands.containsKey(command);
+//	}
+	
+	public void checkForCommand(String command, Controller control) throws CommandDoesNotExistException{
 		if(!commands.containsKey(command)){
-			//error?
-			System.out.println("Ya Done Goofed");
+			control.getTurtle().setErrorState(3);
+			throw new CommandDoesNotExistException(command + " has not been defined ");
 		}
+	}
+	
+	public void checkForVariable(String variable, Controller control) throws VariableDoesNotExistException{
+		if(!variables.containsKey(variable)){
+			control.getTurtle().setErrorState(4);
+			throw new VariableDoesNotExistException(variable + " has not been defined ");
+		}
+	}
+	
+	public Command findCommand(String command){
 		return commands.get(command);
 	}
 	
@@ -128,17 +154,34 @@ public class Controller {
 
 	public void enterAction(String command) throws Exception {
 		userCommand = command;
+		myExceptionManager.resetErrors();
 		Command head=this.getTree();
-		this.executeTree(head);
+		//if(myExceptionManager.hasErrors()){
+		//	myExceptionManager.printError();
+			//give control to the user
+			//print the first one
+		//}
+		//else{
+			this.executeTree(head);
+			history.add(userCommand);
+		//}
 	}
 	
 	public void UpdateView() {
 		myTurtleView=updateTurtleView();
-		//System.out.print("XPos:");
-		//System.out.println(myTurtle.getNewPositionX());
-		//System.out.print("YPos:");
-		//System.out.println(myTurtle.getNewPositionY());
+		//if (!myTurtle.isPenBoolean()){System.out.print("Grrr");}
+		System.out.print("OldXPos:");
+		System.out.println(myTurtle.getOldPositionX());
+		System.out.print("OldYPos:");
+		System.out.println(myTurtle.getOldPositionY());
+		System.out.print("NewXPos:");
+		System.out.println(myTurtle.getNewPositionX());
+		System.out.print("NewYPos:");
+		System.out.println(myTurtle.getNewPositionY());
+		if(myTurtleView.isClearScreen()){System.out.println("Austin");}
+		
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.slogoScene,this);
+		myTurtle.setClearScreenOff();
 		myDisplayUpdater.updateScreen(myTurtleView);
 	}
 
