@@ -23,11 +23,13 @@ public class MakeUserInstructionNode extends ControlCommand{
 		///start check
 		checkVariableList(commandList.getRow(), commandList.getCol(), commandList, control);
 		//end check
+		control.changeExecutingValue(definedCommandName, false);
 		Command definedCommand = (Command) nodeMaker.getCommand(commandList, control);
+		control.changeExecutingValue(definedCommandName, true);
 		this.addChild(definedCommand);
 		checkForListStart(commandList, control);
 		definedCommand.addChild(new BlankNode(commandList, nodeMaker, control));
-		moveThroughList(commandList, nodeMaker, definedCommand, control);
+		moveThroughList(commandList, nodeMaker, definedCommand, control, myName);
 	}
 	
 	public void checkVariableList(int row, int col, ListOfCommands commandList, Controller control) throws Exception{

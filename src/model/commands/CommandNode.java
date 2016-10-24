@@ -16,21 +16,24 @@ public class CommandNode extends ControlCommand{
 	
 	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		//testing
 		myVarName = commandList.getCommand();
 		control.checkForCommand(myVarName, control);
 		updateLocation(commandList);
-		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control);
+		if(!control.isExecuting(myVarName)){
+			checkForListStart(commandList, control);
+			moveThroughList(commandList, nodeMaker, this, control, myVarName);
+		}
+		else{
+			for(int i = 0; i<control.getNumParam(myVarName); i++){
+				this.addChild((Command) nodeMaker.getCommand(commandList, control));
+			}
+		}
 	}
 	
 
 	@Override
 	public double execute(Controller control){
-		//System.out.println(myVarName);
 		Command commandToExecute = control.findCommand(myVarName);
-		//String varName = ((VariableNode) commandToExecute.getChildren().get(0)).getName();
-		//String varName = ((VariableNode) commandToExecute.getChildren().get(0)).getName();
 		Command currentNode = commandToExecute.getChildren().get(0);
 		int j = 0;
 		while(!(currentNode instanceof BlankNode)){

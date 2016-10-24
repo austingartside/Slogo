@@ -14,7 +14,7 @@ public class IfNode extends ControlCommand{
 		updateLocation(commandList);
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control);
+		moveThroughList(commandList, nodeMaker, this, control, myName);
 	}
 	
 	public void printName(){

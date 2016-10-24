@@ -20,9 +20,9 @@ public class ForNode extends ControlCommand{
 		isVariable(commandList.getCommand(), control);
 		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		variableName = commandList.getCommand();
-		moveThroughList(commandList, nodeMaker, this, control);
+		moveThroughList(commandList, nodeMaker, this, control, myName);
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control);		
+		moveThroughList(commandList, nodeMaker, this, control, myName);		
 	}
 	
 	public void printName(){
