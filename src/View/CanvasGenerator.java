@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 public class CanvasGenerator {
     public static final int CANVAS_X = 600;
     public static final int CANVAS_Y = 400;
+    public double boundMaxY,boundMaxX,boundMinY,boundMinX;
     private Canvas canvas;
     private GraphicsContext gc;
     private final Color DEFAULT = Color.BLUE;
@@ -36,5 +37,23 @@ public class CanvasGenerator {
         gc.setFill(DEFAULT);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
         //gc.clearRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
+    }
+    public void setBounds(double maxY,double minY,double maxX,double minX){
+        boundMaxY = maxY;
+        boundMaxX = maxX;
+        boundMinY = minY;
+        boundMinX = minX;
+    }
+    public double getBoundMinX(){
+        return boundMinX;
+    }
+    public double getBoundMinY(){
+        return boundMinY;
+    }
+    public double getBoundMaxX(){
+        return boundMaxX;
+    }
+    public double getBoundMaxY(){
+        return boundMaxY;
     }
 }
