@@ -40,7 +40,7 @@ public class Turtle {
 	public double move(double vector){
 		System.out.print("Vector:");
 		System.out.println(vector);
-		double xmove=-1*vector*(Math.sin(Math.toRadians(angleNow)));
+		double xmove=vector*(Math.sin(Math.toRadians(angleNow)));
 		double ymove=-1*vector*(Math.cos(Math.toRadians(angleNow)));
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
