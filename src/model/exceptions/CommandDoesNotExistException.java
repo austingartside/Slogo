@@ -1,11 +1,14 @@
 package model.exceptions;
 
 public class CommandDoesNotExistException extends Exception{
-	
+
+    private String error;
 	public CommandDoesNotExistException(String error){
-		System.out.println(error);
+		this.error = error;
 	}
-	
+	public String getError(){
+	    return error;
+    }
 	
 	
 	/**

@@ -77,17 +77,27 @@ public class Controller {
 //	}
 	
 	public void checkForCommand(String command, Controller control) throws CommandDoesNotExistException{
-		if(!commands.containsKey(command)){
-			control.getTurtle().setErrorState(3);
-			throw new CommandDoesNotExistException(command + " has not been defined ");
-		}
+	    try{
+            if(!commands.containsKey(command)){
+                //control.getTurtle().setErrorState(3);
+                throw new CommandDoesNotExistException(command + " has not been defined ");
+            }
+        }
+        catch(CommandDoesNotExistException c){
+            new DisplayUpdater(MainMenu.displayGenerator, control).handleError(c.getError());
+        }
 	}
 	
 	public void checkForVariable(String variable, Controller control) throws VariableDoesNotExistException{
-		if(!variables.containsKey(variable)){
-			control.getTurtle().setErrorState(4);
-			throw new VariableDoesNotExistException(variable + " has not been defined ");
-		}
+		try {
+            if (!variables.containsKey(variable)) {
+                //control.getTurtle().setErrorState(4);
+                throw new VariableDoesNotExistException(variable + " has not been defined ");
+            }
+        }
+        catch(VariableDoesNotExistException v){
+
+        }
 	}
 	
 	public Command findCommand(String command){
@@ -106,14 +116,19 @@ public class Controller {
 		return (BlankNode) myExpressionTree.makeTree(this);
 	}
 	
-	public void executeTree(Command head) throws Exception{
+	public void executeTree(Command head) throws NullPointerException{
 		//ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
 		//BlankNode head = (BlankNode) myExpressionTree.makeTree();
 		//System.out.println(head.getChildren().size());
-		for(Command currentCommand: head.getChildren()){
-			currentCommand.execute(this);
-			System.out.println();		
-		}
+		try {
+            for (Command currentCommand : head.getChildren()) {
+                currentCommand.execute(this);
+                System.out.println();
+            }
+        }
+        catch(NullPointerException n){
+            new DisplayUpdater(MainMenu.displayGenerator, null).handleError("Error parsing command");
+        }
 		//System.out.println(myTurtle.getNewPositionX());
 		//System.out.println(myTurtle.getNewPositionY());
 	}	

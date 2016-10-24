@@ -2,6 +2,7 @@ package model.commands;
 
 import java.util.Map;
 
+import ViewLogic.DisplayUpdater;
 import model.Controller;
 import model.exceptions.MissingListEndException;
 import model.exceptions.MissingListStartException;
@@ -9,6 +10,7 @@ import model.exceptions.VariableDoesNotExistException;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 import model.parser.ProgramParser;
+import screens.MainMenu;
 
 public abstract class ControlCommand extends Command{
 
@@ -41,8 +43,8 @@ public abstract class ControlCommand extends Command{
 				currentCommand = commandList.getCommand();
 			}
 			catch(IndexOutOfBoundsException e){
-				control.getTurtle().setErrorState(2);
-				throw new MissingListEndException("Missing ] at line " + commandList.getRow() + " ");
+				//control.getTurtle().setErrorState(2);
+                new DisplayUpdater(MainMenu.displayGenerator, null).handleError("Missing ] at line " + commandList.getRow() + " ");
 			}
 		}
 		
@@ -50,13 +52,19 @@ public abstract class ControlCommand extends Command{
 	}
 	
 	public void checkForListStart(ListOfCommands commandList, Controller control) throws Exception{
-		if(!isStartList(commandList.getCommand())){
-			//throw new Exception("Missing front bracket for repeat command");
-			//System.out.println("missing list start?");
-			//control.getExceptionManager().addError(LIST_START_EX);
-			control.getTurtle().setErrorState(1);
-			throw new MissingListStartException("Missing [ at line " + (commandList.getRow()+1) + " ");
-		}	
+		try {
+            if (!isStartList(commandList.getCommand())) {
+                //throw new Exception("Missing front bracket for repeat command");
+                //System.out.println("missing list start?");
+                //control.getExceptionManager().addError(LIST_START_EX);
+                //control.getTurtle().setErrorState(1);
+                throw new MissingListStartException("Missing [ at line " + (commandList.getRow() + 1) + " ");
+            }
+
+        }
+        catch(MissingListStartException m){
+            new DisplayUpdater(MainMenu.displayGenerator, null).handleError(m.getError());
+        }
 	}
 	
 //	public void checkVarAsCommand(ListOfCommands commandList) throws VariableDoesNotExistException, Exception{
@@ -67,12 +75,17 @@ public abstract class ControlCommand extends Command{
 //	}
 	
 	public void isVariable(String command, Controller control) throws VariableDoesNotExistException{
-		ProgramParser translator = new ProgramParser();
-		String translatedCommand = translator.getSymbol(command);
-		if(!translatedCommand.equals(VARIABLE)){
-			control.getTurtle().setErrorState(4);
-			throw new VariableDoesNotExistException(command + " is not a variable, missing colon ");
-		}
+		try {
+            ProgramParser translator = new ProgramParser();
+            String translatedCommand = translator.getSymbol(command);
+            if (!translatedCommand.equals(VARIABLE)) {
+                //control.getTurtle().setErrorState(4);
+                throw new VariableDoesNotExistException(command + " is not a variable, missing colon ");
+            }
+        }
+        catch(VariableDoesNotExistException v){
+            new DisplayUpdater(MainMenu.displayGenerator, null).handleError(v.getError());
+        }
 	}
 	
 	public boolean isEndList(String command){

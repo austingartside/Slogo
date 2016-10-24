@@ -1,11 +1,15 @@
 package model.exceptions;
 
 public class VariableDoesNotExistException extends Exception{
-	
-	public VariableDoesNotExistException(String error){
-		System.out.println(error);
-	}
 
+    private String error;
+	public VariableDoesNotExistException(String error){
+		this.error = error;
+	    System.out.println(error);
+	}
+    public String getError(){
+        return error;
+    }
 	/**
 	 * 
 	 */

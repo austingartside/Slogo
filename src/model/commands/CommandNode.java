@@ -13,7 +13,7 @@ public class CommandNode extends ControlCommand{
 	private static final String COMMAND = "Command";
 	private static final String NO_COMMAND = "MissingCommandException";
 	//private static final String BLANK_NODE = "class model.commands.BlankNode";
-	
+
 	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		//testing
@@ -23,7 +23,7 @@ public class CommandNode extends ControlCommand{
 		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control);
 	}
-	
+
 
 	@Override
 	public double execute(Controller control){
@@ -41,7 +41,7 @@ public class CommandNode extends ControlCommand{
 		}
 		double lastVal = 0;
 		for(int i = j+1; i<commandToExecute.getNumChildren(); i++){
-			lastVal = commandToExecute.executeChild(i, control); 
+			lastVal = commandToExecute.executeChild(i, control);
 		}
 		return lastVal;
 	}

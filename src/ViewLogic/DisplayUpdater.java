@@ -1,9 +1,11 @@
 package ViewLogic;
 
 import View.DisplayGenerator;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
@@ -11,6 +13,7 @@ import model.TurtleView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+
 /**
  * Created by Bill Xiong on 10/19/16.
  *
@@ -22,8 +25,8 @@ public class DisplayUpdater implements ViewToModelInterface{
 
     public DisplayUpdater(DisplayGenerator g, Controller control){
         generator = g;
-            language = "English";
-            myController = control;
+        language = "English";
+        myController = control;
     }
     public void setUp(){
         generator.setScene();
@@ -147,6 +150,16 @@ public class DisplayUpdater implements ViewToModelInterface{
 		setOrientation (turtleView.getAngleNow());
 		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
 		int errorState = turtleView.getErrorState();
+        System.out.println(errorState);
+        //handleError(errorState);
 		if (turtleView.isClearScreen()){clear();}
 	}
+	public void handleError(String error){
+        Stage stage = new Stage();
+        Group g = new Group();
+        g.getChildren().add(new Label(error));
+        Scene s = new Scene(g);
+        stage.setScene(s);
+        stage.show();
+    }
 }

@@ -14,10 +14,9 @@ public class Turtle {
 	private boolean clearScreen=false; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private ImageView image;
 	private double angleNow;
-	private double ZERO=0.0; //temporary
 	private Controller myController;
 	private int errorState;
-	
+
 	public Turtle(Controller controller){
 		newXpos=0.0;
 		newYpos=0.0;
@@ -42,7 +41,7 @@ public class Turtle {
 	public void setErrorState(int errorNum){
 		errorState = errorNum;
 	}
-	
+
 	/**
 	 * Changes position of turtle
 	 * Used for FORWARD,BACK
