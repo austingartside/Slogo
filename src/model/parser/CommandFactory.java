@@ -26,9 +26,12 @@ public class CommandFactory {
 			return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
 					.newInstance(commandList, this, control);
 		} catch(Exception e){
-		    return null;
+			new DisplayUpdater(MainMenu.slogoScene, null).handleError("Command: " + commandList.getCommand() + " not defined ");
+			throw new CommandDoesNotExistException(commandList.getCommand() + " ");
+		    //return null;
 			//control.getTurtle().setErrorState(3);
 		}
+		//return null;
 	}
 	
 //	public boolean isValidCommand(String command){

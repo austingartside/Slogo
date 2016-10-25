@@ -46,7 +46,6 @@ public abstract class ControlCommand extends Command{
 		if(translator.getSymbol(originalCommand).equals(COMMAND)){
 			control.addNumParam(originalCommand, count);
 		}
-		
 		updateLocation(commandList);
 	}
 	
