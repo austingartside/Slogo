@@ -18,8 +18,9 @@ public class ForNode extends ControlCommand{
 		checkForListStart(commandList, control);
 		updateLocation(commandList);
 		isVariable(commandList.getCommand(), control);
-		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		variableName = commandList.getCommand();
+		control.addVariable(variableName, 0);
+		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		moveThroughList(commandList, nodeMaker, this, control, myName);
 		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control, myName);		
@@ -33,13 +34,14 @@ public class ForNode extends ControlCommand{
 	@Override
 	public double execute(Controller control) {
 		printName();
-		double varToIncrement = control.getVariableValue(variableName);
 		double start = executeChild(0, control);
 		double end = executeChild(1, control);
 		double increment = executeChild(2, control);
 		double lastVal = 0;
-		for(varToIncrement = start; varToIncrement<end; varToIncrement+=increment){
-			lastVal = executeChild(3, control);
+		for(double varToIncrement = start; varToIncrement<end; varToIncrement+=increment){
+			for(int i = 3; i<this.getNumChildren(); i++){
+				lastVal = executeChild(i, control);
+			}
 			control.addVariable(variableName, varToIncrement);
 		}
 		return lastVal;
