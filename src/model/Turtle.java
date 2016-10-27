@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 public class Turtle {
 	private double oldXpos;
 	private double oldYpos;
+	//private DoubleProperty oldYpos
 	private double newXpos;
 	private double newYpos;
 	private boolean revealBoolean=true;
