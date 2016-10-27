@@ -28,6 +28,13 @@ public class Turtle {
 		//this.setOrientation(ZERO);
 		
 	}
+	public void reset(){
+		oldXpos=0.0;
+		oldYpos=0.0;
+		newXpos=0.0;
+		newYpos=0.0;
+		myController.UpdateView();
+	}
 	
 	public void setImage(String pngfile) {
 		Image imager = new Image(this.getClass().getClassLoader().getResourceAsStream(pngfile));
