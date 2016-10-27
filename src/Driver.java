@@ -23,6 +23,8 @@ public class Driver extends Application{
         MainMenu menu = new MainMenu();
         stage.setScene(menu.init(stage, WIDTH,HEIGHT,myResources));
         stage.show();
+        //Controller control =new Controller();
+        //control.setUp(stage,myResources);
     }
 
     public static void main(String[] args){
