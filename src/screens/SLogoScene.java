@@ -35,14 +35,14 @@ public class SLogoScene extends ActionScene{
     public SLogoScene(Scene scene, ResourceBundle resource) throws Exception{
         super(scene, resource, SIZE_Y, SIZE_X);
         
-        Controller control=new Controller();
+        //Controller control=new Controller();
         commandBar = new CommandBar();
         helpButton = new HelpButton();
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
         turtleDisplay = new TurtleDisplay();
    
-        control.setUp();
+        //control.setUp();
         setScene();
     }
     

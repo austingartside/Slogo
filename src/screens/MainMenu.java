@@ -26,9 +26,11 @@ public class MainMenu {
     private ResourceBundle myResources;
     private ImageView myLogo;
     private SLogoScene myActionScene;
+    private Controller myController;
     
     public Scene init(Stage stage, int width, int height, ResourceBundle resources){
-        myResources = resources;
+        //myController=control;
+    	myResources = resources;
         myRoot = new Group();
         VBox vb = new VBox();
         myScene = new Scene(myRoot, width, height);
@@ -48,6 +50,8 @@ public class MainMenu {
         startProject.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(final ActionEvent ae){
+            	
+            	
                 try {
                     myActionScene = new SLogoScene(myScene, myResources);
                 }
@@ -55,16 +59,11 @@ public class MainMenu {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                slogoScene = myActionScene;
-                DisplayUpdater du = new DisplayUpdater(myActionScene,new Controller());
-                try {
-                    du.setUp();
-                }
-                catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                stage.setScene(myActionScene.getScene());
+                
+                //slogoScene = myActionScene;
+                
+                Controller control =new Controller();
+                control.setUp(stage,myResources,myActionScene);
             }
         });
         vb.getChildren().add(startProject);

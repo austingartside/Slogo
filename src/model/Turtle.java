@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 public class Turtle {
 	private double oldXpos;
 	private double oldYpos;
+	//private DoubleProperty oldYpos
 	private double newXpos;
 	private double newYpos;
 	private boolean revealBoolean=true;
@@ -26,6 +27,13 @@ public class Turtle {
 		//this.setImage("Turtle.png"); //Resource File
 		//this.setOrientation(ZERO);
 		
+	}
+	public void reset(){
+		oldXpos=0.0;
+		oldYpos=0.0;
+		newXpos=0.0;
+		newYpos=0.0;
+		myController.UpdateView();
 	}
 	
 	public void setImage(String pngfile) {

@@ -71,7 +71,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
     }
     public void clear(){
-        scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
+        //scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
         scene.getTurtleDisplay().clear();
     }
 
@@ -154,7 +154,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 		}
 	}
 	private void addUserCommands(){
-	    scene.getHelpTabs().getCurrComm().clear();
+	    	scene.getHelpTabs().getCurrComm().clear();
             Map<String, Command> commands = myController.getCommands();
             commands.keySet().forEach(this::updateCurrCommands);
         }

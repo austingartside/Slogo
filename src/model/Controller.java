@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import ViewLogic.DisplayUpdater;
+import javafx.stage.Stage;
 import model.commands.BlankNode;
 import model.commands.Command;
 import model.exceptions.CommandDoesNotExistException;
 import model.parser.ExpressionTreeBuilder;
 import screens.MainMenu;
+import screens.SLogoScene;
 
 public class Controller {
 	
 	private static final String NO_COMMAND = "MissingCommandException";
 	private static final String NON_COMMAND = "?aslkn234?3";
 	private static final String NO_VARIABLE = "MissingVariableException";
+	public static final int WIDTH = 1000;
+    public static final int HEIGHT  = 600;
 	
 	private Map<String, Double> variables;
+	private SLogoScene myActionScene;
 	private Map<String, Command> commands;
 	private Map<String, Boolean> executeCommand;
 	private Map<String, Integer> numParameters;
@@ -47,6 +53,27 @@ public class Controller {
 		myExceptionManager = new ExceptionManager();
 		executeCommand = new HashMap<>();
 		numParameters = new HashMap<>();
+	}
+	
+	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
+		//Factory useless as of now. May be needed for later additions
+		
+		//View set up
+		myActionScene=actionScene;
+		DisplayUpdater du = new DisplayUpdater(myActionScene,this);
+        try {
+            du.setUp();
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        stage.setScene(myActionScene.getScene());
+		
+        //Model set Up
+		TurtleFactory myTurtleFactory=new TurtleFactory();
+		myTurtle= myTurtleFactory.createTurtle(this);
+		myTurtleView=updateTurtleView();
 	}
 	
 	public boolean isExecuting(String command){
@@ -108,12 +135,6 @@ public class Controller {
 		return commands.get(command);
 	}
 	
-	public void setUp(){
-		//Factory useless as of now. May be needed for later additions
-		TurtleFactory myTurtleFactory=new TurtleFactory();
-		myTurtle= myTurtleFactory.createTurtle(this);
-		myTurtleView=updateTurtleView();
-	}
 	//I may have misunderstood how the tree takes in the input.
 	public Command getTree() throws Exception{
 		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
@@ -199,7 +220,7 @@ public class Controller {
 		System.out.println(myTurtle.getNewPositionY());
 		if(myTurtleView.isClearScreen()){System.out.println("Austin");}
 		
-		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.slogoScene, this);
+		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
 		myTurtle.setClearScreenOff();
 		myDisplayUpdater.updateScreen(myTurtleView);
 	}
