@@ -1,12 +1,10 @@
 package View;
-import java.io.File;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,7 +16,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.transform.Translate;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import screens.SLogoScene;
@@ -34,6 +32,7 @@ public class DisplayGenerator {
     static final int ADJUST = 150;
     
     private GridPane gridPane;
+    private SLogoScene myScene;
     
     public void setGridPane(int columns){
         gridPane = new GridPane();
@@ -56,9 +55,7 @@ public class DisplayGenerator {
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      * @throws Exception 
      */
-    public GridPane setScene(List<Control> toolbar,List<ListViewNamer> listViews,TextArea commandLine,
-                             ImageView turtle, CanvasGenerator canvas, ComboBox<String> languages,
-                             List<Button> buttons) throws Exception{
+    public GridPane setScene(SLogoScene scene) throws Exception{
 /*        Button test = new Button("move turtle");
         test.setOnAction((event)->{
             drawTurtle(50, 0);
@@ -76,23 +73,15 @@ public class DisplayGenerator {
         gridPane.getChildren().add(rotate);*/
        /* gridPane.getChildren().add(draw);*/
         
-        addListViews(listViews);
-        addCommandInput(commandLine,findButton(buttons, "Enter"),findButton(buttons, "Clear"));
-        addCanvas(canvas);
-        addButtons(languages,toolbar);
-        addImage(turtle);
-        addHelp(findButton(buttons,"Help"));
+        myScene = scene;
+        
+        addListViews(scene.getHelpTabs());
+        addCommandInput(scene.getCommandBar());
+        addTurtleDisplay(scene.getTurtleDisplay());
+        addHelp(scene.getHelpButton());
+        addToolBar(scene.getSettingTools());
 
         return gridPane;
-    }
-    
-    private Button findButton(List<Button> btns, String label) throws Exception{
-        for(Button btn : btns){
-            if(btn.getText() == label){
-                return btn;
-            }
-        }
-        throw new Exception();
     }
 
     /**
@@ -100,117 +89,34 @@ public class DisplayGenerator {
      * to the backend.
      * @return the submit button to submit the command to the backend
      */
-    private void addLanguages(ComboBox<String> languages){
-        languages.setPromptText("Choose Language");
-        languages.setMaxWidth(Double.MAX_VALUE);
-        languages.setMaxHeight(Double.MAX_VALUE);
-        languages.getItems().addAll("English","Chinese","French","German","Italian","Portugese","Russian","Spanish");
-        gridPane.add(languages, 14, 18, 4, 2);
-    }
-    private void addImage(ImageView turtle){
-        turtle.setTranslateX(CanvasGenerator.CANVAS_X/2 + 0);
-        turtle.setTranslateY(CanvasGenerator.CANVAS_Y/2 + ADJUST + 0);
-        turtle.setFitWidth(40);
-        turtle.setFitHeight(40);
-        turtle.setPreserveRatio(true);
-        turtle.setSmooth(true);
-        turtle.setCache(true);
-        gridPane.getChildren().add(turtle);
-    }
-    private void addButtons(ComboBox<String> languages, List<Control> tb){
-        addLanguages(languages);
-        formatButtons(tb);
+    
+    private void addToolBar(SettingTools st){
+        ((ToolBar)st.getView()).setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        gridPane.add(st.getView(), 0, 0, 12, 3);
     }
     
-    private void formatButtons(List<Control> tb){
-        HBox hb = new HBox();
-        hb.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        for(Control c : tb){
-            if(c instanceof ColorPicker){
-                hb.getChildren().add(addColorPickerToBar(((ColorPicker)c),((ColorPicker)c).getPromptText()));
-            }else{
-                hb.getChildren().add(addButtonToBar(c));
-            }
-        }
-        gridPane.add(hb, 0, 0, 12, 3);
-        hb.setSpacing(10);
+    private void addCommandInput(CommandBar commandBar){
+        gridPane.add(commandBar.getView(),0,18,12,2);
     }
     
-    private VBox addColorPickerToBar(ColorPicker cp, String label){
-        VBox vb = new VBox();
-        Label l = new Label(label);
-        HBox.setHgrow(vb, Priority.ALWAYS);
-        cp.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        VBox.setVgrow(cp, Priority.ALWAYS);
-        vb.getChildren().addAll(l,cp);
-        vb.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        return vb;
+    private void addTurtleDisplay(TurtleDisplay td){
+        canvasBoundsMath(td.getLineCanvas());
+        canvasBoundsMath(td.getBackgroundCanvas());
+        gridPane.add(td.getView(), 0, 2, 12, 16);
     }
     
-    private VBox addButtonToBar(Control b){
-        VBox vb = new VBox();
-        Label placeHold = new Label("");
-        HBox.setHgrow(vb, Priority.ALWAYS);
-        b.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        VBox.setVgrow(b, Priority.ALWAYS);
-        vb.getChildren().addAll(placeHold,b);
-        vb.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        return vb;
-    }
-    private TextArea addCommandInput(TextArea commandLine, Button enter, Button clear){
-        Label label1 = new Label("Command:");
-        VBox vb = new VBox();
-        vb.getChildren().addAll(enter,clear);
-        vb.setSpacing(10);
-        HBox hb = new HBox();
-        hb.getChildren().addAll(label1, commandLine, vb);
-        hb.setSpacing(10);
-        gridPane.add(hb,0,18,12,2);
-        return commandLine;
-    }
-    
-    private Canvas addCanvas(CanvasGenerator canvas){
-        Canvas can = canvas.createCanvas();
-        canvasBoundsMath(canvas);
-        gridPane.add(can, 0, 2, 12, 16);
-        return can;
-    }
     private void canvasBoundsMath(CanvasGenerator canvas){
         canvas.setBounds((SLogoScene.SIZE_Y+CanvasGenerator.CANVAS_Y)/2,(SLogoScene.SIZE_Y-CanvasGenerator.CANVAS_Y)/2,
                          gridPane.getPadding().getLeft()+CanvasGenerator.CANVAS_X,gridPane.getPadding().getLeft());
     }
     
-    private void addListViews(List<ListViewNamer> listViews){
-        TabPane tabs = new TabPane();
-        for(ListViewNamer lv : listViews){
-            Tab tab = new Tab();
-            tab.setText(lv.getName());
-            tab.setContent(lv.getListView());
-            tabs.getTabs().add(tab);
-        }
-        gridPane.add(tabs, 12, 1, 8, 17);
+    private void addListViews(HelpTabs ht){
+        gridPane.add(ht.getView(), 12, 1, 8, 19);
     }
     
-    private void addHelp(Button help){
-        help.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(final ActionEvent ae){
-                displayHelp();
-            }
-        });
-        help.setMaxWidth(Double.MAX_VALUE);
-        gridPane.add(help, 18, 0, 2, 1);
+    private void addHelp(HelpButton helpButton){
+        gridPane.add(helpButton.getView(), 18, 0, 2, 1);
     }
     //all the event handlers for comboboxes
-    private void displayHelp(){
-        String path = System.getProperty("user.dir");
-        path += "/src/help.html";
-        WebView web = new WebView();
-        web.getEngine().load("file:///" + path);
-        Stage s = new Stage();
-        Scene scene = new Scene(web);
-        scene.setRoot(web);
-        s.setScene(scene);
-        s.show();
-    }
+
 }
