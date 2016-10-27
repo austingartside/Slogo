@@ -77,9 +77,8 @@ public class DisplayGenerator {
         
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
-        addCanvas(scene.getCanvas());
-        addImage(scene.getTurtle());
-        addHelp(scene.getHelp());
+        addTurtleDisplay(scene.getTurtleDisplay());
+        addHelp(scene.getHelpButton());
         addToolBar(scene.getSettingTools());
 
         return gridPane;
@@ -90,17 +89,6 @@ public class DisplayGenerator {
      * to the backend.
      * @return the submit button to submit the command to the backend
      */
-    private void addImage(ImageView turtle){
-        turtle.setFitWidth(40);
-        turtle.setFitHeight(40);
-        turtle.setTranslateX(CanvasGenerator.CANVAS_X/2 - turtle.getFitWidth()/2);
-        turtle.setTranslateY(CanvasGenerator.CANVAS_Y/2 + ADJUST - turtle.getFitHeight()/2);
-        centerImage(turtle);
-        turtle.setPreserveRatio(true);
-        turtle.setSmooth(true);
-        turtle.setCache(true);
-        gridPane.getChildren().add(turtle);
-    }
     
     private void addToolBar(SettingTools st){
         ((ToolBar)st.getView()).setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
@@ -111,11 +99,10 @@ public class DisplayGenerator {
         gridPane.add(commandBar.getView(),0,18,12,2);
     }
     
-    private Canvas addCanvas(CanvasGenerator canvas){
-        Canvas can = canvas.createCanvas();
-        canvasBoundsMath(canvas);
-        gridPane.add(can, 0, 2, 12, 16);
-        return can;
+    private void addTurtleDisplay(TurtleDisplay td){
+        canvasBoundsMath(td.getLineCanvas());
+        canvasBoundsMath(td.getBackgroundCanvas());
+        gridPane.add(td.getView(), 0, 2, 12, 16);
     }
     
     private void canvasBoundsMath(CanvasGenerator canvas){
@@ -127,32 +114,9 @@ public class DisplayGenerator {
         gridPane.add(ht.getView(), 12, 1, 8, 19);
     }
     
-    private void addHelp(Button help){
-        help.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(final ActionEvent ae){
-                displayHelp();
-            }
-        });
-        help.setMaxWidth(Double.MAX_VALUE);
-        gridPane.add(help, 18, 0, 2, 1);
+    private void addHelp(HelpButton helpButton){
+        gridPane.add(helpButton.getView(), 18, 0, 2, 1);
     }
     //all the event handlers for comboboxes
-    private void displayHelp(){
-        String path = System.getProperty("user.dir");
-        path += "/src/help.html";
-        WebView web = new WebView();
-        web.getEngine().load("file:///" + path);
-        Stage s = new Stage();
-        Scene scene = new Scene(web);
-        scene.setRoot(web);
-        s.setScene(scene);
-        s.show();
-    }
-    
-    public void centerImage(ImageView turtle) {
-        Image turtleIm = turtle.getImage();
-        turtle.setX(turtle.getFitWidth() / 2);
-        turtle.setY(turtle.getFitHeight() / 2);
-    }
+
 }
