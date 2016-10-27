@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import View.CanvasGenerator;
+import View.CommandBar;
+import View.CommandHistory;
+import View.CurrentCommands;
+import View.CurrentVariables;
 import View.DisplayGenerator;
-import View.ListViewNamer;
+import View.HelpTabs;
+import View.SettingTools;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -19,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import model.Controller;
 
 public class SLogoScene extends ActionScene{
@@ -29,21 +35,15 @@ public class SLogoScene extends ActionScene{
     static final int ADJUST = 150;
     public static final int COLUMNS = 20;
     
+    private String language;
     private GridPane gridPane;
     private Color penColor;
     private ImageView turtle;
     private Image turtleIm;
-    private TextArea commandLine;
-    private Button enter;
-    private Button clear;
     private CanvasGenerator canvas;
-    private Button imageChanger;
-    private ListViewNamer commandHistory;
-    private ListViewNamer currCommands;
-    private ListViewNamer currVariables;
-    private ComboBox<String> languageChooser;
-    private ColorPicker penColorPicker;
-    private ColorPicker backgroundColorPicker;
+    private CommandBar commandBar;
+    private HelpTabs helpTabs;
+    private SettingTools settingTools;
     private Button help;
     private ImageView turtleInvis;
 
@@ -52,74 +52,30 @@ public class SLogoScene extends ActionScene{
         super(scene, resource, SIZE_Y, SIZE_X);
         Controller control=new Controller();
         penColor = Color.BLACK;
+        commandBar = new CommandBar();
         String path = System.getProperty("user.dir");
         turtle = new ImageView(new File(path + "/src/resources.view/Turtle.png").toURI().toString());
         turtleInvis = new ImageView(turtle.getImage());
         turtleIm = turtle.getImage();
-        commandLine = new TextArea();
-        commandLine.setMaxHeight(30);
         canvas = new CanvasGenerator();
-        languageChooser = new ComboBox<String>();
         help = new Button("Help");
+        settingTools = new SettingTools();
+        language = "English";
+        help = new Button("Help");
+        helpTabs = new HelpTabs();
         control.setUp();
-        initControls();
         setScene();
     }
+    
     public void setScene() throws Exception{
         DisplayGenerator dg = new DisplayGenerator();
         dg.setGridPane(COLUMNS);
-        gridPane = dg.setScene(makeToolBar(), addListViews(), commandLine,
-                               turtle, canvas, languageChooser,
-                               makeButtons());
+        gridPane = dg.setScene(this);
         myScene = new Scene(gridPane, SIZE_X,SIZE_Y);
     }
-    private List<Control> makeToolBar(){
-        List<Control> ctrls = new ArrayList<Control>();
-        ctrls.add(imageChanger);
-        ctrls.add(backgroundColorPicker);
-        ctrls.add(penColorPicker);
-        return ctrls;
-    }
     
-    private List<ListViewNamer> addListViews(){
-        List<ListViewNamer> ctrls = new ArrayList<ListViewNamer>();
-        ctrls.add(currCommands);
-        ctrls.add(currVariables);
-        ctrls.add(commandHistory);
-        return ctrls;
-    }
-    
-    private List<Button> makeButtons(){
-        List<Button> ctrls = new ArrayList<Button>();
-        ctrls.add(enter);
-        ctrls.add(help);
-        ctrls.add(clear);
-        return ctrls;
-    }
-    
-    public Button getEnter(){
-        return enter;
-    }
-    public Button getClear(){
-        return clear;
-    }
     public void changeBackgroundColor(Color color){
         canvas.changeBackgroundColor(color);
-    }
-    public ColorPicker getBackgroundPicker(){
-        return backgroundColorPicker;
-    }
-    public Button getImagePicker(){
-        return imageChanger;
-    }
-    public ListView<String> getCommandHistory(){
-        return commandHistory.getListView(); //commandHistory.getList();
-    }
-    public ListView<String> getCurrCommands(){
-        return currCommands.getListView();
-    }
-    public ListView<String> getCurrVariables(){
-        return currVariables.getListView();
     }
     public void changeTurtleImage(String pic){
         turtleIm = new Image(new File(pic).toURI().toString());
@@ -130,28 +86,17 @@ public class SLogoScene extends ActionScene{
         turtle.setSmooth(true);
         turtle.setCache(true);
     }
-    public ComboBox<String> getLanguageChooser(){
-        return languageChooser;
-    }
-    public ColorPicker getPenColorPicker(){
-        return penColorPicker;
-    }
     public void setPenColor(Color c){
         penColor = c;
     }
-    public String getCommand(){
-        return commandLine.getText();
+    public CommandBar getCommandBar(){
+        return commandBar;
     }
-    public void setText(String str){
-        commandLine.setText(str);
-    }
-
-
 
     public void drawTurtle(double x, double y){
         if(x < CanvasGenerator.CANVAS_X/2 && x > -CanvasGenerator.CANVAS_X / 2 && y < CanvasGenerator.CANVAS_Y/2 && y > -CanvasGenerator.CANVAS_Y/2) {
-            turtle.setTranslateX(canvasX(x));
-            turtle.setTranslateY(canvasY(y));
+            turtle.setTranslateX(canvasX(x)-turtle.getFitWidth()/2);
+            turtle.setTranslateY(canvasY(y)-turtle.getFitHeight()/2);
         }
     }
     public void makeTurtleInvisible(){
@@ -168,6 +113,12 @@ public class SLogoScene extends ActionScene{
     public void rotateTurtle(double angle){
         turtle.setRotate(angle);
     }
+    public ImageView getTurtle(){
+        return turtle;
+    }
+    public CanvasGenerator getCanvas(){
+        return canvas;
+    }
     public void drawLine(double xPrev, double yPrev, double x, double y){
         GraphicsContext gc = canvas.getContext();
         gc.moveTo(canvasLineX(xPrev), canvasLineY(yPrev));
@@ -175,19 +126,14 @@ public class SLogoScene extends ActionScene{
         gc.lineTo(canvasLineX(x), canvasLineY(y));
         gc.stroke();
     }
-    private void initControls(){
-        imageChanger = new Button("Change Image");
-        commandHistory = new ListViewNamer("Command History");
-        currCommands = new ListViewNamer("Current Commands");
-        currVariables = new ListViewNamer("Current Variables");
-        languageChooser = new ComboBox<String>();
-        penColorPicker = new ColorPicker();
-        backgroundColorPicker = new ColorPicker();
-        backgroundColorPicker.setPromptText("Background Color");
-        penColorPicker.setPromptText("Pen Color");
-        enter = new Button("Enter");
-        clear = new Button("Clear");
-        help = new Button("Help");
+    public SettingTools getSettingTools(){
+        return settingTools;
+    }
+    public Button getHelp(){
+        return help;
+    }
+    public HelpTabs getHelpTabs(){
+        return helpTabs;
     }
     private double canvasX(double x){
         return CanvasGenerator.CANVAS_X/2 + x;

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.*;
 
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -37,7 +38,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         addTextHandler();
     }
     public void setText(String str){
-        scene.setText(str);
+        scene.getCommandBar().setText(str);
     }
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
         scene.drawTurtle(x, y);
@@ -48,14 +49,14 @@ public class DisplayUpdater implements ViewToModelInterface{
     public String getLanguage(){
         return language;
     }
-    public void updateHistory(String object){
-        scene.getCommandHistory().getItems().add(object);
+    public void updateHistory(String string){
+        scene.getHelpTabs().getCommHist().addItem(string);
     }
-    public void updateCurrCommands(String object){
-        scene.getCurrCommands().getItems().add(object);
+    public void updateCurrCommands(String string){
+        scene.getHelpTabs().getCurrComm().addItem(string);
     }
-    public void updateCurrVariables(String object){
-        scene.getCurrVariables().getItems().add(object);
+    public void updateCurrVariables(String string){
+        scene.getHelpTabs().getCurrVar().addItem(string);
     }
     public void setVisible(boolean visible){
         if(visible){
@@ -77,36 +78,34 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
 
     private void addTextHandler(){
-        scene.getEnter().setOnAction(actionEvent -> {
+        scene.getCommandBar().setEnterAction(actionEvent -> {
             //try {
-				try {
-					myController.enterAction(scene.getCommand());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			//} catch (Exception e) {
-				// TODO other error?
-				//e.printStackTrace();
-			//}
-        	//call parser to parse stuff
+                                try {
+                                        myController.enterAction(scene.getCommandBar().getText());
+                                } catch (Exception e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                }
+                        //} catch (Exception e) {
+                                // TODO other error?
+                                //e.printStackTrace();
+                        //}
+                //call parser to parse stuff
             //use generator.getCommand() to get String input
-            updateHistory(scene.getCommand());
+            updateHistory(scene.getCommandBar().getText());
             addVariables();
             addUserCommands();
             setText("");
         });
-
-        scene.getClear().setOnAction(actionEvent -> {
-            setText("");
-        });
+        
+        scene.getCommandBar().setActions();
     }
     private void addHandlers(){
-        scene.getBackgroundPicker().setOnAction((event) ->{
-            scene.changeBackgroundColor(scene.getBackgroundPicker().getValue());
+        scene.getSettingTools().setBackgroundAction((event) ->{
+            scene.changeBackgroundColor(scene.getSettingTools().getBackgroundColorPicker().getValue());
         });
         
-        scene.getImagePicker().setOnAction((event) ->{
+        scene.getSettingTools().setImageAction((event) ->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
@@ -120,39 +119,28 @@ public class DisplayUpdater implements ViewToModelInterface{
             }*/
 
         });
-        scene.getCommandHistory().setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent m) {
-                String command = scene.getCurrCommands().getSelectionModel().getSelectedItem();
-                setText(command);
-            }
+        scene.getHelpTabs().setCurrCommAction(m -> {
+            //TODO use the map to map the method to text
+            String command = scene.getHelpTabs().getCurrComm().getCommand();
+            setText(command);
         });
-        scene.getCurrCommands().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent m){
-                //TODO use the map to map the method to text
-                String command = scene.getCurrCommands().getSelectionModel().getSelectedItem();
-                setText(command);
-            }
+        
+        scene.getHelpTabs().setCurrVarAction(m-> {
+            String command = scene.getHelpTabs().getCurrVar().getVariable();
+            setText(command);
         });
-        scene.getCurrVariables().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                String command = scene.getCurrVariables().getSelectionModel().getSelectedItem();
-                setText(command);
-            }
-        });
-        scene.getLanguageChooser().setOnAction((event) -> {
-            language = scene.getLanguageChooser().getSelectionModel().getSelectedItem();
+        
+        scene.getSettingTools().setLanguageAction((event) -> {
+            language = scene.getSettingTools().getLanguageChooser().getSelectedItem();
         });
 
-        scene.getCommandHistory().setOnMouseClicked(m -> {
-            String command = scene.getCommandHistory().getSelectionModel().getSelectedItem();
+        scene.getHelpTabs().setCommHistAction(m -> {
+            String command = scene.getHelpTabs().getCommHist().getCommand();
             setText(command);
         });
 
-        scene.getPenColorPicker().setOnAction((event) ->{
-            Color c = scene.getPenColorPicker().getValue();
+        scene.getSettingTools().setPenAction((event) ->{
+            Color c = scene.getSettingTools().getPenColorPicker().getValue();
             scene.setPenColor(c);
         });
     }
@@ -166,16 +154,16 @@ public class DisplayUpdater implements ViewToModelInterface{
 		}
 	}
 	private void addUserCommands(){
-	    scene.getCurrCommands().getItems().clear();
-        Map<String, Command> commands = myController.getCommands();
-        commands.keySet().forEach(this::updateCurrCommands);
-    }
-	private void addVariables(){
-	    scene.getCurrVariables().getItems().clear();
-	    Map<String, Double> vars = myController.getVariables();
-        for(String str : vars.keySet()){
-            updateCurrVariables(str.substring(1) + ": " + vars.get(str));
+	    scene.getHelpTabs().getCurrComm().clear();
+            Map<String, Command> commands = myController.getCommands();
+            commands.keySet().forEach(this::updateCurrCommands);
         }
+	private void addVariables(){
+	    scene.getHelpTabs().getCurrVar().clear();
+	    Map<String, Double> vars = myController.getVariables();
+	    for(String str : vars.keySet()){
+                updateCurrVariables(str.substring(1) + ": " + vars.get(str));
+	    }
     }
 	public void handleError(String error){
         Stage stage = new Stage();
