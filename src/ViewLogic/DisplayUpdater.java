@@ -24,7 +24,6 @@ import javafx.scene.*;
  *
  */
 public class DisplayUpdater implements ViewToModelInterface{
-    private String language;
     private SLogoScene scene;
     private Controller myController;
 
@@ -46,7 +45,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         }
     }
     public String getLanguage(){
-        return language;
+        return scene.getSettingTools().getLanguageChooser().getSelectedItem();
     }
     public void updateHistory(String string){
         scene.getHelpTabs().getCommHist().addItem(string);
@@ -132,7 +131,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         });
         
         scene.getSettingTools().setLanguageAction((event) -> {
-            language = scene.getSettingTools().getLanguageChooser().getSelectedItem();
+            scene.getSettingTools().getLanguageChooser().setLanguage();
         });
 
         scene.getHelpTabs().setCommHistAction(m -> {

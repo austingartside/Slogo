@@ -1,24 +1,8 @@
 package View;
-import java.util.List;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.transform.Translate;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import screens.SLogoScene;
 import javafx.scene.control.*;
 
@@ -32,7 +16,6 @@ public class DisplayGenerator {
     static final int ADJUST = 150;
     
     private GridPane gridPane;
-    private SLogoScene myScene;
     
     public void setGridPane(int columns){
         gridPane = new GridPane();
@@ -73,8 +56,6 @@ public class DisplayGenerator {
         gridPane.getChildren().add(rotate);*/
        /* gridPane.getChildren().add(draw);*/
         
-        myScene = scene;
-        
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
         addTurtleDisplay(scene.getTurtleDisplay());
@@ -100,14 +81,7 @@ public class DisplayGenerator {
     }
     
     private void addTurtleDisplay(TurtleDisplay td){
-        canvasBoundsMath(td.getLineCanvas());
-        canvasBoundsMath(td.getBackgroundCanvas());
         gridPane.add(td.getView(), 0, 2, 12, 16);
-    }
-    
-    private void canvasBoundsMath(CanvasGenerator canvas){
-        canvas.setBounds((SLogoScene.SIZE_Y+CanvasGenerator.CANVAS_Y)/2,(SLogoScene.SIZE_Y-CanvasGenerator.CANVAS_Y)/2,
-                         gridPane.getPadding().getLeft()+CanvasGenerator.CANVAS_X,gridPane.getPadding().getLeft());
     }
     
     private void addListViews(HelpTabs ht){

@@ -36,25 +36,7 @@ public class CanvasGenerator {
     public void clear(){
         gc.clearRect(0, 0, CANVAS_X, CANVAS_Y);
     }
-    public void setBounds(double maxY,double minY,double maxX,double minX){
-        boundMaxY = maxY;
-        boundMaxX = maxX;
-        boundMinY = minY;
-        boundMinX = minX;
-    }
     public Node getView(){
         return canvas;
-    }
-    public double getBoundMinX(){
-        return boundMinX;
-    }
-    public double getBoundMinY(){
-        return boundMinY;
-    }
-    public double getBoundMaxX(){
-        return boundMaxX;
-    }
-    public double getBoundMaxY(){
-        return boundMaxY;
     }
 }

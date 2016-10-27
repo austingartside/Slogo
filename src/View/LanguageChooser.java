@@ -24,14 +24,14 @@ public class LanguageChooser {
     }
     
     public String getSelectedItem(){
-        return lang.getSelectionModel().getSelectedItem();
+        return language;
     }
     
     public Node getView(){
         return lang;
     }
 
-    public void setLanguage(String s){
-        language = s;
+    public void setLanguage(){
+        language = lang.getSelectionModel().getSelectedItem();
     }
 }
