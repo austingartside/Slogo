@@ -32,7 +32,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 		moveThroughList(commandList, nodeMaker, definedCommand, control, myName);
 	}
 	
-	public void checkVariableList(int row, int col, ListOfCommands commandList, Controller control) throws Exception{
+	private void checkVariableList(int row, int col, ListOfCommands commandList, Controller control) throws Exception{
 		updateLocation(commandList);
 		checkForListStart(commandList, control);
 		updateLocation(commandList);
