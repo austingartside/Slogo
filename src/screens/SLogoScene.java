@@ -94,18 +94,22 @@ public class SLogoScene extends ActionScene{
     }
 
     public void drawTurtle(double x, double y){
+        turtle.setImage(turtleIm);
+        turtle.setTranslateX(canvasX(x)-turtle.getFitWidth()/2);
+        turtle.setTranslateY(canvasY(y)-turtle.getFitHeight()/2);
         if(x < CanvasGenerator.CANVAS_X/2 && x > -CanvasGenerator.CANVAS_X / 2 && y < CanvasGenerator.CANVAS_Y/2 && y > -CanvasGenerator.CANVAS_Y/2) {
-            turtle.setTranslateX(canvasX(x)-turtle.getFitWidth()/2);
-            turtle.setTranslateY(canvasY(y)-turtle.getFitHeight()/2);
+            makeTurtleVisible();
+        }else{
+            makeTurtleInvisible();
         }
     }
     public void makeTurtleInvisible(){
-        turtleInvis = new ImageView(turtle.getImage());
+        turtleIm = turtle.getImage();
         turtle.setImage(null);
     }
     //TODO change colors later
     public void makeTurtleVisible(){
-        turtle.setImage(turtleInvis.getImage());
+        turtle.setImage(turtleIm);
     }
     public void clear(){
         canvas.clear();
