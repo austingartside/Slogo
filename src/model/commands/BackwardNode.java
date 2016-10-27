@@ -26,9 +26,9 @@ public class BackwardNode extends TurtleCommand{
 	@Override
 	public double execute(Controller control) {
 		printName();
-		//control.getTurtle().changeOrientation(180);
-		return control.getTurtle().move(this.executeChild(FIRSTENTRY,control));
-		//control.getTurtle().changeOrientation(180);
+		double something = this.executeChild(FIRSTENTRY,control);
+		double fake = control.getTurtle().move(MINUS*something);
+		return something;
 	}
 
 }
