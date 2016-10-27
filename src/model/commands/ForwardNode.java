@@ -12,9 +12,9 @@ public class ForwardNode extends TurtleCommand{
 	
 	public ForwardNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myName = "Forward";
+		myName = commandList.getCommand();
 		updateLocation(commandList);
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));	
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	
 	public void printName(){

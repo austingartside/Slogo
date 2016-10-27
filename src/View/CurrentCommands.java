@@ -5,32 +5,30 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
-public class CommandHistory {
+public class CurrentCommands {
+    private ListView<String> currComm;
     
-    private ListView<String> commHist;
-    
-    public CommandHistory(){
-        commHist = new ListView<String>();
+    public CurrentCommands(){
+        currComm = new ListView<String>();
     }
     
     public void addItem(String s){
-        commHist.getItems().add(s);
+        currComm.getItems().add(s);
     }
     
     public Node getView(){
-        return commHist;
+        return currComm;
     }
     
     public void setOnAction(EventHandler<MouseEvent> a){
-        commHist.setOnMouseClicked(a);
+        currComm.setOnMouseClicked(a);
     }
     
     public String getCommand(){
-        return commHist.getSelectionModel().getSelectedItem();
+        return currComm.getSelectionModel().getSelectedItem();
     }
     
     public void clear(){
-        commHist.getItems().clear();
+        currComm.getItems().clear();
     }
-
 }

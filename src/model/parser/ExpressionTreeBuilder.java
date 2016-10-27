@@ -24,6 +24,11 @@ public class ExpressionTreeBuilder {
 			}
 			else{
 				commandList.setRow(commandList.getRow()+1);
+				if(commandList.getRow()<commandList.getNumRows()){
+					while(commandList.getRowLength() == 0){
+						commandList.setRow(commandList.getRow()+1);
+					}
+				}
 			}
 		}
 		return head;

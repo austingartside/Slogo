@@ -3,10 +3,12 @@ package model.parser;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+import ViewLogic.DisplayUpdater;
 import model.Controller;
 import model.commands.BlankNode;
 import model.commands.ConstantNode;
 import model.exceptions.CommandDoesNotExistException;
+import screens.MainMenu;
 
 public class CommandFactory {
 	
@@ -24,9 +26,12 @@ public class CommandFactory {
 			return Class.forName(className).getConstructor(ListOfCommands.class, CommandFactory.class, Controller.class)
 					.newInstance(commandList, this, control);
 		} catch(Exception e){
-			control.getTurtle().setErrorState(3);
-			throw new CommandDoesNotExistException(commandList.getCommand() + " does not exist ");
-		}	
+			new DisplayUpdater(MainMenu.slogoScene, null).handleError("Command: " + commandList.getCommand() + " not defined ");
+			throw new CommandDoesNotExistException(commandList.getCommand() + " ");
+		    //return null;
+			//control.getTurtle().setErrorState(3);
+		}
+		//return null;
 	}
 	
 //	public boolean isValidCommand(String command){

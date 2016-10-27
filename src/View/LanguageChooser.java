@@ -1,28 +1,37 @@
 package View;
+
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 
-/**
- * Created by Bill Xiong on 10/19/16.
- *
- */
-public class LanguageChooser extends ButtonGenerator{
-    private ComboBox<Object> cBox;
+public class LanguageChooser {
+    
+    public static final String[] LANGUAGES = {"English","Chinese","French","German","Italian","Portugese","Russian","Spanish"};
+    
+    public String language;
+    private ComboBox<String> lang;
+    
     public LanguageChooser(){
-        cBox = new ComboBox<>();
-    } 
-    public ComboBox<Object> create(){
-        cBox.setPromptText("Change Language");
-        control = cBox;
-        return cBox;
+        language = "English";
+        lang = new ComboBox<String>();
+        lang.setPromptText("English");
+        setupLangs();
     }
     
-    public void execute(){
+    private void setupLangs(){
+        for(String s : LANGUAGES){
+            lang.getItems().add(s);
+        }
+    }
+    
+    public String getSelectedItem(){
+        return lang.getSelectionModel().getSelectedItem();
+    }
+    
+    public Node getView(){
+        return lang;
+    }
 
-    }
-    public void addToList(Object o){
-        cBox.getItems().add(o);
-    }
-    public ComboBox<Object> getBox(){
-        return cBox;
+    public void setLanguage(String s){
+        language = s;
     }
 }

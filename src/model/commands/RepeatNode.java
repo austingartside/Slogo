@@ -14,11 +14,11 @@ public class RepeatNode extends ControlCommand{
 	
 	public RepeatNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myVal = "Repeat";
+		myVal = commandList.getCommand();
 		updateLocation(commandList);
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control);
+		moveThroughList(commandList, nodeMaker, this, control, myVal);
 	}
 
 	public void printVal(){

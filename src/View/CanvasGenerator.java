@@ -1,6 +1,7 @@
 package View;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 public class CanvasGenerator {
     public static final int CANVAS_X = 600;
     public static final int CANVAS_Y = 400;
+    public double boundMaxY,boundMaxX,boundMinY,boundMinX;
     private Canvas canvas;
     private GraphicsContext gc;
     private final Color DEFAULT = Color.BLUE;
@@ -23,10 +25,9 @@ public class CanvasGenerator {
         canvas = new Canvas(CANVAS_X, CANVAS_Y);
         gc = canvas.getGraphicsContext2D();
     }
-    public Canvas createCanvas(){
+    public void fillCanvas(Color c){
         gc.setFill(DEFAULT);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
-        return canvas;
     }
     public void changeBackgroundColor(Color color){
         gc.setFill(color);
@@ -35,6 +36,26 @@ public class CanvasGenerator {
     public void clear(){
         gc.setFill(DEFAULT);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
-        //gc.clearRect(DisplayGenerator.ALIGN, CANVAS_OFFSET, CANVAS_X, CANVAS_Y);
+    }
+    public void setBounds(double maxY,double minY,double maxX,double minX){
+        boundMaxY = maxY;
+        boundMaxX = maxX;
+        boundMinY = minY;
+        boundMinX = minX;
+    }
+    public Node getView(){
+        return canvas;
+    }
+    public double getBoundMinX(){
+        return boundMinX;
+    }
+    public double getBoundMinY(){
+        return boundMinY;
+    }
+    public double getBoundMaxX(){
+        return boundMaxX;
+    }
+    public double getBoundMaxY(){
+        return boundMaxY;
     }
 }

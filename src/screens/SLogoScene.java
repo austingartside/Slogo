@@ -1,30 +1,70 @@
 package screens;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import View.CanvasGenerator;
+import View.CommandBar;
+import View.CommandHistory;
+import View.CurrentCommands;
+import View.CurrentVariables;
 import View.DisplayGenerator;
-import ViewLogic.DisplayUpdater;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import View.HelpButton;
+import View.HelpTabs;
+import View.SettingTools;
+import View.TurtleDisplay;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import model.Controller;
 
 public class SLogoScene extends ActionScene{
     
-    private DisplayUpdater updater;
+    public static final int SIZE_X = 1200;
+    public static final int SIZE_Y = 700;
+    static final double ALIGN = SIZE_X/4 - 200;
+    public static final int COLUMNS = 20;
     
-    public SLogoScene(Scene scene, ResourceBundle resource, int height, int width){
-        super(scene, resource, height, width);
+    private GridPane gridPane;
+    private TurtleDisplay turtleDisplay;
+    private CommandBar commandBar;
+    private HelpTabs helpTabs;
+    private SettingTools settingTools;
+    private HelpButton helpButton;
+    
+    public SLogoScene(Scene scene, ResourceBundle resource) throws Exception{
+        super(scene, resource, SIZE_Y, SIZE_X);
+        
         Controller control=new Controller();
+        commandBar = new CommandBar();
+        helpButton = new HelpButton();
+        helpTabs = new HelpTabs();
+        settingTools = new SettingTools();
+        turtleDisplay = new TurtleDisplay();
+   
         control.setUp();
-        updater = new DisplayUpdater(MainMenu.displayGenerator,control);
-        updater.setUp();
+        setScene();
     }
-    public DisplayUpdater getUpdater(){
-        return updater;
+    
+    public void setScene() throws Exception{
+        DisplayGenerator dg = new DisplayGenerator();
+        dg.setGridPane(COLUMNS);
+        gridPane = dg.setScene(this);
+        myScene = new Scene(gridPane, SIZE_X,SIZE_Y);
+    }
+    public CommandBar getCommandBar(){
+        return commandBar;
+    }
+    public TurtleDisplay getTurtleDisplay(){
+        return turtleDisplay;
+    }
+    public SettingTools getSettingTools(){
+        return settingTools;
+    }
+    public HelpButton getHelpButton(){
+        return helpButton;
+    }
+    public HelpTabs getHelpTabs(){
+        return helpTabs;
     }
 }

@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import ViewLogic.DisplayUpdater;
-import javafx.scene.image.ImageView;
 import model.commands.BlankNode;
 import model.commands.Command;
 import model.exceptions.CommandDoesNotExistException;
-import model.exceptions.VariableDoesNotExistException;
 import model.parser.ExpressionTreeBuilder;
 import screens.MainMenu;
 
@@ -22,10 +20,11 @@ public class Controller {
 	
 	private Map<String, Double> variables;
 	private Map<String, Command> commands;
+	private Map<String, Boolean> executeCommand;
+	private Map<String, Integer> numParameters;
 	private List<String> history;
 	private String userCommand;
 	private ExceptionManager myExceptionManager;
-	//Map<String, Integer> variables;
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	private TurtleView myTurtleView;
 	/*private static final Controller INSTANCE=new Controller();
@@ -42,18 +41,32 @@ public class Controller {
 	
 	public Controller(){
 		myTurtle = new Turtle(this);
-		variables = new HashMap<String, Double>();
-		commands = new HashMap<String, Command>();
-		history = new ArrayList<String>();
+		variables = new HashMap<>();
+		commands = new HashMap<>();
+		history = new ArrayList<>();
 		myExceptionManager = new ExceptionManager();
+		executeCommand = new HashMap<>();
+		numParameters = new HashMap<>();
+	}
+	
+	public boolean isExecuting(String command){
+		return executeCommand.get(command);
+	}
+	
+	public void addNumParam(String command, int count){
+		numParameters.put(command, count);
+	}
+	
+	public int getNumParam(String command){
+		return numParameters.get(command);
+	}
+	
+	public void changeExecutingValue(String command, boolean value){
+		executeCommand.put(command, value);
 	}
 	
 	public void addVariable(String name, double value){
 		variables.put(name, value);
-	}
-	
-	public ExceptionManager getExceptionManager(){
-		return myExceptionManager;
 	}
 	
 	public String getUserCommand(){
@@ -61,7 +74,7 @@ public class Controller {
 	}
 	
 	public double getVariableValue(String variableName){
-		if(!variables.containsKey(variableName)){
+	    if(!variables.containsKey(variableName)){
 			//myExceptionManager.addError(NO_VARIABLE);
 			//System.out.println("Ya Done Goofed");
 		}
@@ -71,23 +84,24 @@ public class Controller {
 	public void addCommand(String key, Command value){
 		commands.put(key, value);
 	}
+	public Map<String, Command> getCommands(){
+	    return commands;
+    }
 	
 //	public boolean hasCommand(String command){
 //		return commands.containsKey(command);
 //	}
 	
 	public void checkForCommand(String command, Controller control) throws CommandDoesNotExistException{
-		if(!commands.containsKey(command)){
-			control.getTurtle().setErrorState(3);
-			throw new CommandDoesNotExistException(command + " has not been defined ");
-		}
-	}
-	
-	public void checkForVariable(String variable, Controller control) throws VariableDoesNotExistException{
-		if(!variables.containsKey(variable)){
-			control.getTurtle().setErrorState(4);
-			throw new VariableDoesNotExistException(variable + " has not been defined ");
-		}
+	    try{
+            if(!commands.containsKey(command)){
+                //control.getTurtle().setErrorState(3);
+                throw new CommandDoesNotExistException(command + " has not been defined ");
+            }
+        }
+        catch(CommandDoesNotExistException c){
+            new DisplayUpdater(MainMenu.slogoScene, control).handleError(c.getError());
+        }
 	}
 	
 	public Command findCommand(String command){
@@ -106,14 +120,19 @@ public class Controller {
 		return (BlankNode) myExpressionTree.makeTree(this);
 	}
 	
-	public void executeTree(Command head) throws Exception{
+	public void executeTree(Command head) throws NullPointerException{
 		//ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
 		//BlankNode head = (BlankNode) myExpressionTree.makeTree();
 		//System.out.println(head.getChildren().size());
-		for(Command currentCommand: head.getChildren()){
-			currentCommand.execute(this);
-			System.out.println();		
-		}
+		try {
+            for (Command currentCommand : head.getChildren()) {
+                currentCommand.execute(this);
+                System.out.println();
+            }
+        }
+        catch(NullPointerException n){
+            new DisplayUpdater(MainMenu.slogoScene, null).handleError("Error parsing command");
+        }
 		//System.out.println(myTurtle.getNewPositionX());
 		//System.out.println(myTurtle.getNewPositionY());
 	}	
@@ -180,7 +199,7 @@ public class Controller {
 		System.out.println(myTurtle.getNewPositionY());
 		if(myTurtleView.isClearScreen()){System.out.println("Austin");}
 		
-		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.displayGenerator,this);
+		DisplayUpdater myDisplayUpdater= new DisplayUpdater(MainMenu.slogoScene, this);
 		myTurtle.setClearScreenOff();
 		myDisplayUpdater.updateScreen(myTurtleView);
 	}
