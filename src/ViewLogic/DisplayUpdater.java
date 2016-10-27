@@ -30,7 +30,6 @@ public class DisplayUpdater implements ViewToModelInterface{
 
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
-        language = "English";
         myController = control;
     }
     public void setUp() throws Exception{
@@ -41,9 +40,9 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getCommandBar().setText(str);
     }
     public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
-        scene.drawTurtle(x, y);
+        scene.getTurtleDisplay().getTurtleImage().drawTurtle(x, y);
         if(penDown){
-            scene.drawLine(xPrev, yPrev, x, y);
+            scene.getTurtleDisplay().drawLine(xPrev, yPrev, x, y);
         }
     }
     public String getLanguage(){
@@ -60,21 +59,21 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     public void setVisible(boolean visible){
         if(visible){
-            scene.makeTurtleVisible();
+            scene.getTurtleDisplay().getTurtleImage().makeTurtleVisible();
         }
         else{
-            scene.makeTurtleInvisible();
+            scene.getTurtleDisplay().getTurtleImage().makeTurtleInvisible();
         }
     }
     public void setOrientation(double angle){
-        scene.rotateTurtle(angle);
+        scene.getTurtleDisplay().getTurtleImage().rotateTurtle(angle);
     }
     public void resetToHome(){
-        scene.drawTurtle(0, 0);
+        scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
     }
     public void clear(){
-        scene.drawTurtle(0, 0);
-        scene.clear();
+        scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
+        scene.getTurtleDisplay().clear();
     }
 
     private void addTextHandler(){
@@ -92,7 +91,9 @@ public class DisplayUpdater implements ViewToModelInterface{
                         //}
                 //call parser to parse stuff
             //use generator.getCommand() to get String input
-            updateHistory(scene.getCommandBar().getText());
+            if(!scene.getCommandBar().getText().equals("")){             
+                updateHistory(scene.getCommandBar().getText());
+            }
             addVariables();
             addUserCommands();
             setText("");
@@ -102,14 +103,14 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addHandlers(){
         scene.getSettingTools().setBackgroundAction((event) ->{
-            scene.changeBackgroundColor(scene.getSettingTools().getBackgroundColorPicker().getValue());
+            scene.getTurtleDisplay().changeBackgroundColor(scene.getSettingTools().getBackgroundColorPicker().getValue());
         });
         
         scene.getSettingTools().setImageAction((event) ->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
-            scene.changeTurtleImage(imageFile.toString());
+            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(imageFile.toString());
             /*try{
                 if(imageFile.toString() != null){
                     generator.changeTurtleImage(imageFile.toString());
@@ -141,7 +142,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 
         scene.getSettingTools().setPenAction((event) ->{
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
-            scene.setPenColor(c);
+            scene.getTurtleDisplay().setPenColor(c);
         });
     }
 
