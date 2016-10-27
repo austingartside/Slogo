@@ -34,8 +34,7 @@ public class CanvasGenerator {
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
     }
     public void clear(){
-        gc.setFill(DEFAULT);
-        gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
+        gc.clearRect(0, 0, CANVAS_X, CANVAS_Y);
     }
     public void setBounds(double maxY,double minY,double maxX,double minX){
         boundMaxY = maxY;
