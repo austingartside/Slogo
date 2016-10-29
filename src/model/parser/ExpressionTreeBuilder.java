@@ -11,15 +11,14 @@ import model.commands.TurtleCommand;
  */
 public class ExpressionTreeBuilder {
 	
-	
 	/**
 	 * @return expression tree based on the typed used input
 	 * @throws Exception
 	 */
 	public Command makeTree(Controller control) throws Exception{
 		InputReader inputControl = new InputReader(control.getUserCommand());
-		CommandFactory nodeCreator = new CommandFactory();
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
+		CommandFactory nodeCreator = new CommandFactory();
 		Command head = new BlankNode(commandList, nodeCreator, control);
 		while(commandList.getRow()<commandList.getNumRows()){
 			if(isValid(commandList.getRowList())){	
