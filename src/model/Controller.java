@@ -16,6 +16,7 @@ import model.parser.CommandSaver;
 import model.parser.ExpressionTreeBuilder;
 import model.parser.InputReader;
 import model.parser.ListOfCommands;
+import model.parser.ProgramParser;
 import screens.MainMenu;
 import screens.SLogoScene;
 
@@ -36,6 +37,7 @@ public class Controller {
 	private List<String> history;
 	private String userCommand;
 	//private ExceptionManager myExceptionManager;
+	private ProgramParser parser;
 	private Collection<Turtle> myTurtleCollection;
 	//private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	private Collection<TurtleView> myTurtleViewCollection;
@@ -69,6 +71,11 @@ public class Controller {
 		executeCommand = new HashMap<String, Boolean>();
 		numParameters = new HashMap<>();
 		commandToStringDefinition = new HashMap<String, String>();
+		parser = new ProgramParser();
+	}
+	
+	public ProgramParser getParser(){
+		return parser;
 	}
 	
 	public void addCommandToSave(String command, String definition){

@@ -21,8 +21,7 @@ public class CommandFactory {
     private static final String END_PARSE = "EndParsingNode";
 	
 	public Object getCommand(ListOfCommands commandList, Controller control) throws Exception{
-		ProgramParser lang = new ProgramParser();
-		String translatedCommand = lang.getSymbol(commandList.getCommand());
+		String translatedCommand = control.getParser().getSymbol(commandList.getCommand());
 		String className;
 		try{
 			className =SUPER_PACKAGE_NAME + PACKAGE_NAME + "."+ translatedCommand + "Node";
