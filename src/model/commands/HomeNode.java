@@ -10,7 +10,7 @@ public class HomeNode extends TurtleCommand{
 
 	public HomeNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		// TODO Auto-generated constructor stub
 	}
 

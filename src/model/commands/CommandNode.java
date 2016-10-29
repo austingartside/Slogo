@@ -15,7 +15,7 @@ public class CommandNode extends ControlCommand{
 		super(commandList.getCommand());
 		myVarName = commandList.getCommand();
 		control.checkForCommand(myVarName, control);
-		updateLocation(commandList);
+		commandList.updateLocation();
 		if(!control.isExecuting(myVarName)){
 			checkForListStart(commandList, control);
 			moveThroughList(commandList, nodeMaker, this, control, myVarName);

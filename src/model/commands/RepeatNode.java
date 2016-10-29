@@ -18,7 +18,7 @@ public class RepeatNode extends ControlCommand{
 	public RepeatNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myVal = commandList.getCommand();
-		updateLocation(commandList);
+		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control, myVal);

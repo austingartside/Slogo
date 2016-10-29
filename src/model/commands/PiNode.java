@@ -11,7 +11,7 @@ public class PiNode extends MathCommand{
 
 	public PiNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		// TODO Auto-generated constructor stub
 	}
 	@Override

@@ -10,7 +10,7 @@ public class ShowTurtleNode extends TurtleCommand{
 
 	public ShowTurtleNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 
 	@Override

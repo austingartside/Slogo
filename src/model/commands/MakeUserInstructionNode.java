@@ -20,7 +20,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 	public MakeUserInstructionNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
-		updateLocation(commandList);
+		commandList.updateLocation();
 		checkIfCommand(commandList.getCommand());
 		definedCommandName = commandList.getCommand();
 		//so that we can check commands during parsing for errors instead of having to wait til execution
@@ -39,12 +39,12 @@ public class MakeUserInstructionNode extends ControlCommand{
 	}
 	
 	private void checkVariableList(int row, int col, ListOfCommands commandList, Controller control) throws Exception{
-		updateLocation(commandList);
+		commandList.updateLocation();
 		checkForListStart(commandList, control);
-		updateLocation(commandList);
+		commandList.updateLocation();
 		while(!isEndList(commandList.getCommand())){
 			isVariable(commandList.getCommand(), control);
-			updateLocation(commandList);
+			commandList.updateLocation();
 		}
 		commandList.setRow(row);
 		commandList.setCol(col);

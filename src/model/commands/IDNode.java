@@ -1,23 +1,20 @@
 package model.commands;
 
-import java.util.Map;
-
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class IsShowingNode extends TurtleCommand{
+public class IDNode extends Command{
 
-	public IsShowingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
+	public IDNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		commandList.updateLocation();
 	}
 
 	@Override
 	public double execute(Controller control) {
-		
-		return 0;// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

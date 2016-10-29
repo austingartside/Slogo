@@ -11,7 +11,7 @@ public class ArcTangentNode extends MathCommand{
 
 	public ArcTangentNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		// TODO Auto-generated constructor stub
 	}

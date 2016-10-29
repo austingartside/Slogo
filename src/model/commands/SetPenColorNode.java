@@ -10,7 +10,7 @@ public class SetPenColorNode extends DisplayCommand{
 
 	public SetPenColorNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 
