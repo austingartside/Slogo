@@ -1,5 +1,7 @@
 package ViewLogic;
 
+import View.CanvasGenerator;
+import View.CurrentState;
 import View.DisplayGenerator;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -28,6 +30,12 @@ import javafx.scene.*;
 public class DisplayUpdater implements ViewToModelInterface{
     private SLogoScene scene;
     private Controller myController;
+    private final String XPOS = "X POSITION: ";
+    private final String YPOS = "Y POSITION: ";
+    private final String PENDOWN = "PEN DOWN: ";
+    private final String PENCOLOR = "PEN COLOR: ";
+    private final String BACKGROUND = "BACKGROUND: ";
+    private final String HEADING = "HEADING: ";
 
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
@@ -37,6 +45,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         addHandlers();
         addTextHandler();
     }
+
     public void setText(String str){
         scene.getCommandBar().setText(str);
     }
@@ -58,6 +67,9 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void updateCurrVariables(String string){
         scene.getHelpTabs().getCurrVar().addItem(string);
     }
+    public void updateCurrState(double id, double x, double y, double penDown, Color color, double heading){
+        scene.getHelpTabs().getCurrState().addCurrState(id, x, y, penDown, color, heading);
+    }
     public void setVisible(double d){
         if(d==1){
             scene.getTurtleDisplay().getTurtleImage().makeTurtleVisible();
@@ -76,23 +88,18 @@ public class DisplayUpdater implements ViewToModelInterface{
         //scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
         scene.getTurtleDisplay().clear();
     }
-
+    public void changeBackgroundColor(Color color) {
+        scene.getTurtleDisplay().changeBackgroundColor(color);
+    }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
-            //try {
                                 try {
                                         myController.enterAction(scene.getCommandBar().getText());
                                 } catch (Exception e) {
                                         // TODO Auto-generated catch block
                                         e.printStackTrace();
                                 }
-                        //} catch (Exception e) {
-                                // TODO other error?
-                                //e.printStackTrace();
-                        //}
-                //call parser to parse stuff
-            //use generator.getCommand() to get String input
-            if(!scene.getCommandBar().getText().equals("")){             
+            if(!scene.getCommandBar().getText().equals("")) {
                 updateHistory(scene.getCommandBar().getText());
             }
             addVariables();
@@ -112,14 +119,6 @@ public class DisplayUpdater implements ViewToModelInterface{
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
             scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(imageFile.toString());
-            /*try{
-                if(imageFile.toString() != null){
-                    generator.changeTurtleImage(imageFile.toString());
-                }
-            }catch(NullPointerException n){
-                //
-            }*/
-
         });
         scene.getHelpTabs().setCurrCommAction(m -> {
             //TODO use the map to map the method to text
@@ -140,21 +139,28 @@ public class DisplayUpdater implements ViewToModelInterface{
             String command = scene.getHelpTabs().getCommHist().getCommand();
             setText(command);
         });
+        scene.getHelpTabs().setCurrStateAction(m -> {
+
+        });
 
         scene.getSettingTools().setPenAction((event) ->{
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
             scene.getTurtleDisplay().setPenColor(c);
         });
+
     }
 
 	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
-		for(TurtleView t : myTurtleViewCollection){
-			setVisible(t.isRevealBoolean());
+        scene.getHelpTabs().getCurrState().clear();
+	    for(TurtleView t : myTurtleViewCollection){
+            setVisible(t.isRevealBoolean());
 			setOrientation (t.getAngleNow());
 			setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos());
 			if (t.isClearScreen()==1){
 				clear();
 			}
+			Color c = scene.getSettingTools().getPenColorPicker().getValue();
+            updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
 		}
 		///TODO: Use changes to displayspecs.
 	}

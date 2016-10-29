@@ -13,7 +13,10 @@ import javafx.stage.Stage;
 import model.commands.BlankNode;
 import model.commands.Command;
 import model.exceptions.CommandDoesNotExistException;
+import model.parser.CommandSaver;
 import model.parser.ExpressionTreeBuilder;
+import model.parser.InputReader;
+import model.parser.ListOfCommands;
 import screens.MainMenu;
 import screens.SLogoScene;
 
@@ -31,9 +34,10 @@ public class Controller {
 	private Map<String, Command> commands;
 	private Map<String, Boolean> executeCommand;
 	private Map<String, Integer> numParameters;
+	private Map<String, String> commandToStringDefinition;
 	private List<String> history;
 	private String userCommand;
-	private ExceptionManager myExceptionManager;
+	//private ExceptionManager myExceptionManager;
 	private Collection<Turtle> myTurtleCollection;
 	//private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	private Collection<TurtleView> myTurtleViewCollection;
@@ -42,6 +46,7 @@ public class Controller {
 	private TurtleArmy myTurtleArmy;
 	private Collection<Double> myTurtleIDs;
 	private Collection<Double> myAskList;
+	private CommandSaver commandsToSave;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -62,12 +67,32 @@ public class Controller {
 		myTurtleViewCollection=new ArrayList<TurtleView>();
 		myAskList=new ArrayList<Double>();
 		myDisplaySpecs=new DisplaySpecs();
-		variables = new HashMap<>();
-		commands = new HashMap<>();
-		history = new ArrayList<>();
-		myExceptionManager = new ExceptionManager();
-		executeCommand = new HashMap<>();
+		variables = new HashMap<String, Double>();
+		commands = new HashMap<String, Command>();
+		history = new ArrayList<String>();
+		//myExceptionManager = new ExceptionManager();
+		commandsToSave = new CommandSaver();
+		executeCommand = new HashMap<String, Boolean>();
 		numParameters = new HashMap<>();
+		commandToStringDefinition = new HashMap<String, String>();
+	}
+	
+	public void addCommandToSave(String command, String definition){
+		commandToStringDefinition.put(command, definition);
+	}
+	
+	public Map<String, String> getCommandsToSave(){
+		return commandToStringDefinition;
+	}
+	
+	public String getCommandToSave(String command){
+		return commandToStringDefinition.get(command);
+	}
+	
+	private void saveCommands() throws Exception{
+		InputReader inputControl = new InputReader(userCommand);
+		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
+		commandsToSave.saveAll(commandList, this);;
 	}
 	
 	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
@@ -199,17 +224,10 @@ public class Controller {
 
 	public void enterAction(String command) throws Exception {
 		userCommand = command;
-		myExceptionManager.resetErrors();
 		Command head=this.getTree();
-		//if(myExceptionManager.hasErrors()){
-		//	myExceptionManager.printError();
-			//give control to the user
-			//print the first one
-		//}
-		//else{
-			this.executeTree(head);
-			history.add(userCommand);
-		//}
+		this.executeTree(head);
+		saveCommands();
+		history.add(userCommand);
 	}
 	
 	public void UpdateView() {

@@ -39,23 +39,6 @@ public class DisplayGenerator {
      * @throws Exception 
      */
     public GridPane setScene(SLogoScene scene) throws Exception{
-/*        Button test = new Button("move turtle");
-        test.setOnAction((event)->{
-            drawTurtle(50, 0);
-        });
-        Button rotate = new Button("rotate");
-        rotate.setTranslateY(50);
-        rotate.setOnAction((event)->{
-            rotateTurtle(50);
-        });*/
-      /*  Button draw = new Button("draw");
-        draw.setOnAction((event)->{
-            drawLine(0, 0, 50, 0);
-        });*/
-/*        gridPane.getChildren().add(test);
-        gridPane.getChildren().add(rotate);*/
-       /* gridPane.getChildren().add(draw);*/
-        
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
         addTurtleDisplay(scene.getTurtleDisplay());

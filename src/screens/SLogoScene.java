@@ -16,13 +16,11 @@ import View.SettingTools;
 import View.TurtleDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import model.Controller;
 
 public class SLogoScene extends ActionScene{
     
     public static final int SIZE_X = 1200;
     public static final int SIZE_Y = 700;
-    static final double ALIGN = SIZE_X/4 - 200;
     public static final int COLUMNS = 20;
     
     private GridPane gridPane;
@@ -31,7 +29,7 @@ public class SLogoScene extends ActionScene{
     private HelpTabs helpTabs;
     private SettingTools settingTools;
     private HelpButton helpButton;
-    
+
     public SLogoScene(Scene scene, ResourceBundle resource) throws Exception{
         super(scene, resource, SIZE_Y, SIZE_X);
         
@@ -41,7 +39,7 @@ public class SLogoScene extends ActionScene{
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
         turtleDisplay = new TurtleDisplay();
-   
+        helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         //control.setUp();
         setScene();
     }

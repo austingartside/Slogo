@@ -1,6 +1,7 @@
 package View;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
@@ -12,16 +13,19 @@ public class HelpTabs {
     private CommandHistory commandHistory;
     private CurrentCommands currCommands;
     private CurrentVariables currVariables;
+    private CurrentState currState;
     private TabPane tabs;
     
     public HelpTabs(){
         commandHistory = new CommandHistory();
         currCommands = new CurrentCommands();
         currVariables = new CurrentVariables();
+        currState = new CurrentState();
         tabs = new TabPane();
         tabs.getTabs().add(makeTab(commandHistory.getView(),"Command History"));
         tabs.getTabs().add(makeTab(currCommands.getView(),"Current Commands"));
         tabs.getTabs().add(makeTab(currVariables.getView(),"Current Variables"));
+        tabs.getTabs().add(makeTab(currState.getView(),"Current State"));
     }
     
     private Tab makeTab(Node n,String name){
@@ -42,7 +46,10 @@ public class HelpTabs {
     public void setCommHistAction(EventHandler<MouseEvent> a){
         commandHistory.setOnAction(a);
     }
-    
+
+    public void setCurrStateAction(EventHandler<MouseEvent> a){
+        currState.setOnAction(a);
+    }
     public Node getView(){
         return tabs;
     }
@@ -57,5 +64,9 @@ public class HelpTabs {
     
     public CurrentVariables getCurrVar(){
         return currVariables;
+    }
+
+    public CurrentState getCurrState(){
+        return currState;
     }
 }

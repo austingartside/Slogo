@@ -24,6 +24,11 @@ public class ListOfCommands {
 		return myRow>=getNumRows();
 	}
 	
+	public void reset(){
+		myRow = 0;
+		myCol = 0;
+	}
+	
 	public List<String> getRowList(){
 		return myCommandList.get(myRow);
 	}
