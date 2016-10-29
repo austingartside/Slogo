@@ -16,7 +16,7 @@ public class CanvasGenerator {
     public double boundMaxY,boundMaxX,boundMinY,boundMinX;
     private Canvas canvas;
     private GraphicsContext gc;
-    private final Color DEFAULT = Color.BLUE;
+    public static final Color DEFAULT = Color.BLUE;
 
     public GraphicsContext getContext(){
         return gc;

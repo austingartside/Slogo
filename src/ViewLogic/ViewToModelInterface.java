@@ -1,5 +1,7 @@
 package ViewLogic;
 
+import javafx.scene.paint.Color;
+
 /**
  * @author austingartside
  *         This interface provides the methods that need to be implemnented by the backend that
@@ -56,7 +58,7 @@ public interface ViewToModelInterface {
 	//To be completed, other methods that might update the screen in some way shape or form.
     public void updateCurrVariables (String object);
 
-
+    public void changeBackgroundColor(Color color);
 
     // To be completed, other methods that might update the screen in some way shape or form.
 }
