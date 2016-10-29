@@ -15,7 +15,7 @@ public class LeftNode extends TurtleCommand{
 	@Override
 	public double execute(Controller control) {
 		double turn = this.executeChild(FIRSTENTRY,control);
-		double fake =  control.getTurtle().changeOrientation(MINUS*turn);
+		double fake = control.getTurtle().changeOrientation(MINUS*turn);
 		return turn;
 	}
 

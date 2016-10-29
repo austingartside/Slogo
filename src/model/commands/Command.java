@@ -34,6 +34,10 @@ public abstract class Command {
 		//myChildren.add(1);
 	}
 	
+	public Command getChild(int childNum){
+		return myChildren.get(childNum);
+	}
+	
 	public List<Command> getChildren(){
 	//public List<Integer> getChildren(){
 		return myChildren;

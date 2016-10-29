@@ -34,10 +34,10 @@ public class IfElseNode extends ControlCommand{
 		double lastVal = 0;
 		Command nodeToUse;
 		if(checkValue!=0){
-			nodeToUse = this.getChildren().get(1);
+			nodeToUse = this.getChild(1);
 		}
 		else{
-			nodeToUse = this.getChildren().get(2);
+			nodeToUse = this.getChild(2);
 		}
 		for(int j = 0; j<nodeToUse.getNumChildren(); j++){
 			 lastVal = nodeToUse.executeChild(j, control);

@@ -1,5 +1,6 @@
 package model.commands;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import model.Controller;
@@ -10,9 +11,6 @@ import model.parser.ListOfCommands;
 public class CommandNode extends ControlCommand{
 
 	private String myVarName;
-	private static final String COMMAND = "Command";
-	private static final String NO_COMMAND = "MissingCommandException";
-	//private static final String BLANK_NODE = "class model.commands.BlankNode";
 
 	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
@@ -36,15 +34,21 @@ public class CommandNode extends ControlCommand{
 		Command commandToExecute = control.findCommand(myVarName);
 		Command currentNode = commandToExecute.getChildren().get(0);
 		int j = 0;
+		Map<String, Double> valBeforeParameter = new HashMap<String, Double>();
 		while(!(currentNode instanceof BlankNode)){
-			control.addVariable(((VariableNode)commandToExecute.getChildren().get(j)).getName(),
-					this.executeChild(j, control));
+			double internalValue = this.executeChild(j, control);
+			String varName = ((VariableNode)commandToExecute.getChild(j)).getName();
+			valBeforeParameter.put(varName, control.getVariableValue(varName));
+			control.addVariable(varName, internalValue);
 			j++;
-			currentNode = commandToExecute.getChildren().get(j);
+			currentNode = commandToExecute.getChild(j);
 		}
 		double lastVal = 0;
 		for(int i = j+1; i<commandToExecute.getNumChildren(); i++){
 			lastVal = commandToExecute.executeChild(i, control);
+		}
+		for(String key: valBeforeParameter.keySet()){
+			control.addVariable(key, valBeforeParameter.get(key));
 		}
 		return lastVal;
 	}
