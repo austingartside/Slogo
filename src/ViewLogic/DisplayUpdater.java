@@ -1,8 +1,5 @@
 package ViewLogic;
 
-import View.CanvasGenerator;
-import View.CurrentState;
-import View.DisplayGenerator;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.event.EventHandler;
@@ -29,6 +26,7 @@ import javafx.scene.*;
  */
 public class DisplayUpdater implements ViewToModelInterface{
     private SLogoScene scene;
+
     private Controller myController;
     private final String XPOS = "X POSITION: ";
     private final String YPOS = "Y POSITION: ";
@@ -133,6 +131,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         
         scene.getSettingTools().setLanguageAction((event) -> {
             scene.getSettingTools().getLanguageChooser().setLanguage();
+            //myController.getParser().changeLanguage(this);
         });
 
         scene.getHelpTabs().setCommHistAction(m -> {
@@ -152,6 +151,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 
 	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
         scene.getHelpTabs().getCurrState().clear();
+        System.out.println(myTurtleViewCollection.size());
 	    for(TurtleView t : myTurtleViewCollection){
             setVisible(t.isRevealBoolean());
 			setOrientation (t.getAngleNow());

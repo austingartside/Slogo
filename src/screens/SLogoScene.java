@@ -1,14 +1,8 @@
 package screens;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import View.CanvasGenerator;
 import View.CommandBar;
-import View.CommandHistory;
-import View.CurrentCommands;
-import View.CurrentVariables;
 import View.DisplayGenerator;
 import View.HelpButton;
 import View.HelpTabs;

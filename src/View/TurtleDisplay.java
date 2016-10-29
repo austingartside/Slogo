@@ -31,6 +31,7 @@ public class TurtleDisplay {
     public void drawLine(double xPrev, double yPrev, double x, double y){
         GraphicsContext gc = lineCanvas.getContext();
         gc.setStroke(penColor);
+
         gc.strokeLine(canvasLineX(xPrev), canvasLineY(yPrev), canvasLineX(x), canvasLineY(y));
     }
     public void setPenColor(Color c){
