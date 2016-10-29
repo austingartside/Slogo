@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import ViewLogic.DisplayUpdater;
+
 
 public class ProgramParser {
     // "types" and the regular expression patterns that recognize those types
@@ -18,16 +20,14 @@ public class ProgramParser {
     public ProgramParser () {
         mySymbols = new ArrayList<>();
         addPatterns("resources/languages/English");
-        addPatterns("resources/languages/Chinese");
-        addPatterns("resources/languages/French");
-        addPatterns("resources/languages/German");
-        addPatterns("resources/languages/Italian");
-        addPatterns("resources/languages/Portuguese");
-        addPatterns("resources/languages/Russian");
-        addPatterns("resources/languages/Spanish");
         addPatterns("resources/languages/Syntax");
     }
 
+    public void changeLanguage(DisplayUpdater updater){
+    	mySymbols = new ArrayList<>();
+    	addPatterns("resources/languages/" + updater.getLanguage());
+    	addPatterns("resources/languages/Syntax");  	
+    }
     // adds the given resource file to this language's recognized types
     public void addPatterns (String syntax) {
         ResourceBundle resources = ResourceBundle.getBundle(syntax);

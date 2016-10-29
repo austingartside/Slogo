@@ -21,9 +21,6 @@ public abstract class ControlCommand extends Command{
 	private static String COMMAND = "Command";
 	private static String STARTLIST = "[";
 	private static String ENDLIST = "]";
-	private static final String LIST_START_EX = "ListStartException";
-	private static final String LIST_END_EX = "ListEndException";
-	private static final String NO_VARIABLE_EX = "MissingVariableException";
 	
 	public ControlCommand(String command) {
 		super(command);
@@ -31,7 +28,7 @@ public abstract class ControlCommand extends Command{
 	
 	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker, Command parent,
 			Controller control, String originalCommand) throws Exception {
-		ProgramParser translator = new ProgramParser();
+		ProgramParser translator = control.getParser();
 		commandList.updateLocation();
 		String currentCommand = commandList.getCommand();
 		int count = 0;
@@ -77,7 +74,7 @@ public abstract class ControlCommand extends Command{
 	
 	public void isVariable(String command, Controller control) throws VariableDoesNotExistException{
 		try {
-            ProgramParser translator = new ProgramParser();
+            ProgramParser translator = control.getParser();
             String translatedCommand = translator.getSymbol(command);
             if (!translatedCommand.equals(VARIABLE)) {
                 //control.getTurtle().setErrorState(4);

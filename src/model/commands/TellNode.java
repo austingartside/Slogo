@@ -19,8 +19,9 @@ public class TellNode extends ControlCommand{
 		if(this.getNumChildren()>0){
 			for(int i = 0; i<this.getNumChildren(); i++){
 				turtleNum = this.executeChild(i, control);
-				//above line gives you the turtle number so do what you want with that
-				//create the turtle if it doesn't exist
+				if(!control.getTurtleIDs().contains(turtleNum)){
+					control.makeTurtle(turtleNum);
+				}
 			}
 		}
 		return turtleNum;
