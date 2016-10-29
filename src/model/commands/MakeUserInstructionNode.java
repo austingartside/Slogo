@@ -59,7 +59,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 	@Override
 	public double execute(Controller control) {
 		printName();
-		Command definedCommand = this.getChildren().get(0);
+		Command definedCommand = this.getChild(0);
 		control.addCommand(definedCommandName, definedCommand);
 		return 1;
 	}
