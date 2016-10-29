@@ -252,5 +252,8 @@ public class Turtle {
 	public double setClearScreenOff(){
 		return clearScreen=ZERO;
 	}
+	public boolean checkID(double i) {
+		return(myID==i);
+	}
 
 }
