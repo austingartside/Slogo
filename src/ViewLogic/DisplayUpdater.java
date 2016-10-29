@@ -16,6 +16,7 @@ import screens.SLogoScene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.*;
@@ -39,9 +40,9 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void setText(String str){
         scene.getCommandBar().setText(str);
     }
-    public void setCoordinate(boolean penDown, double xPrev, double yPrev, double x, double y){
+    public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y){
         scene.getTurtleDisplay().getTurtleImage().drawTurtle(x, y);
-        if(penDown){
+        if(penDown==1){
             scene.getTurtleDisplay().drawLine(xPrev, yPrev, x, y);
         }
     }
@@ -57,8 +58,8 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void updateCurrVariables(String string){
         scene.getHelpTabs().getCurrVar().addItem(string);
     }
-    public void setVisible(boolean visible){
-        if(visible){
+    public void setVisible(double d){
+        if(d==1){
             scene.getTurtleDisplay().getTurtleImage().makeTurtleVisible();
         }
         else{
@@ -146,12 +147,14 @@ public class DisplayUpdater implements ViewToModelInterface{
         });
     }
 
-	public void updateScreen(TurtleView turtleView, DisplaySpecs displaySpecs) {
-		setVisible(turtleView.isRevealBoolean());
-		setOrientation (turtleView.getAngleNow());
-		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
-		if (turtleView.isClearScreen()){
-		    clear();
+	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
+		for(TurtleView t : myTurtleViewCollection){
+			setVisible(t.isRevealBoolean());
+			setOrientation (t.getAngleNow());
+			setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos());
+			if (t.isClearScreen()==1){
+				clear();
+			}
 		}
 		///TODO: Use changes to displayspecs.
 	}

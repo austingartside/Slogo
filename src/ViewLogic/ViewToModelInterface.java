@@ -11,11 +11,11 @@ public interface ViewToModelInterface {
      * Allows the turtle to show or not show
      * @param visible if true, make turtle visible, else make turtle invisible.
      */
-    public void setVisible (boolean visible);
+    public void setVisible (double visible);
     /**
      * Change the coordinate of the turtle
      */
-    public void setCoordinate (boolean penDown, double xPrev, double yPrev, double x, double y);
+    public void setCoordinate (double penDown, double xPrev, double yPrev, double x, double y);
 
     /**
      * Change the direction that the turtle is facing

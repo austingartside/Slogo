@@ -8,10 +8,9 @@ public class TurtleView {
 	private double oldYpos;
 	private double newXpos;
 	private double newYpos;
-	private boolean revealBoolean;
-	private boolean penBoolean;
-	private boolean clearScreen; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
-	private ImageView image;
+	private double revealBoolean;
+	private double penBoolean;
+	private double clearScreen; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private double angleNow;
 	private int errorState;
 	
@@ -23,7 +22,6 @@ public class TurtleView {
 		revealBoolean=turtle.isRevealBoolean();
 		penBoolean=turtle.isPenBoolean();
 		clearScreen=turtle.isClearScreen(); 
-		image=turtle.getImage();
 		angleNow=turtle.getAngle();
 		errorState = turtle.getErrorState();
 	}
@@ -48,20 +46,16 @@ public class TurtleView {
 		return newYpos;
 	}
 
-	public boolean isRevealBoolean() {
+	public double isRevealBoolean() {
 		return revealBoolean;
 	}
 
-	public boolean isPenBoolean() {
+	public double isPenBoolean() {
 		return penBoolean;
 	}
 
-	public boolean isClearScreen() {
+	public double isClearScreen() {
 		return clearScreen;
-	}
-
-	protected ImageView getImage() {
-		return image;
 	}
 
 	public double getAngleNow() {
