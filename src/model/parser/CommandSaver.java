@@ -1,10 +1,16 @@
 package model.parser;
 
+import java.io.FileWriter;
+import java.io.IOException;
+//import java.nio.charset.Charset;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.shape.Path;
 import model.Controller;
 
 /**
@@ -12,7 +18,6 @@ import model.Controller;
  *
  */
 public class CommandSaver {
-	private List<String> commandsToSave;
 	private Map<String, Integer> commandsWithBrackets;
 	private static final String TO = "To";
 	private static final String USER_INSTRUCTION = "MakeUserInstruction";
@@ -25,12 +30,11 @@ public class CommandSaver {
 	private static final String CREATE_VARIABLE = "make ";
 	
 	public CommandSaver(){
-		commandsToSave = new ArrayList<String>();
 		commandsWithBrackets = new HashMap<String, Integer>();
 		createCommandMap();
 	}
 	
-	public void createCommandMap(){
+	private void createCommandMap(){
 		commandsWithBrackets.put(REPEAT, 1);
 		commandsWithBrackets.put(DOTIMES, 2);
 		commandsWithBrackets.put(IF, 1);
@@ -39,23 +43,29 @@ public class CommandSaver {
 		commandsWithBrackets.put(USER_INSTRUCTION, 2);
 	}
 	
-	public void saveCommands(ListOfCommands commandList, ProgramParser translator) throws Exception{
+	private void saveCommands(ListOfCommands commandList, Controller control) throws Exception{
 		String fullCommand = "";
+		ProgramParser translator = new ProgramParser();
 		while(commandList.getRow()<commandList.getNumRows()){
 			if(translator.getSymbol(commandList.getCommand()).equals(USER_INSTRUCTION)){
-				System.out.println("pooop");
 				fullCommand+=TO+" ";
-				addBody(fullCommand, commandList, translator);
+				addBody(fullCommand, commandList, translator, control);
 				fullCommand = "";
 			}
 			commandList.updateLocation();
-		}	
+		}
 	}
 	
-	public void addBody(String fullCommand, ListOfCommands commandList, ProgramParser translator) throws Exception{
+	private void addBody(String fullCommand, ListOfCommands commandList, ProgramParser translator, Controller control) throws Exception{
 		int count = 0;
+		boolean isName = true;
+		String commandName = "";
 		while(count<2){
 			commandList.updateLocation();
+			if(isName){
+				commandName = commandList.getCommand();
+				isName = false;
+			}
 			fullCommand+=commandList.getCommand()+" ";
 			if(commandsWithBrackets.containsKey(translator.getSymbol(commandList.getCommand()))){
 				count-=commandsWithBrackets.get(translator.getSymbol(commandList.getCommand()));
@@ -64,33 +74,47 @@ public class CommandSaver {
 				count++;
 			}
 		}
-		commandsToSave.add(fullCommand);
+		control.addCommandToSave(commandName, fullCommand);
 	}
 	
-	public void saveVariables(Controller control){
+	private void saveVariables(Controller control){
 		for(String variable: control.getVariables().keySet()){
-			commandsToSave.add(CREATE_VARIABLE + variable + " " + control.getVariableValue(variable));
+			control.addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
 		}
 	}
 	
-	public void printCommands(){
-		for(int i = 0; i<commandsToSave.size(); i++){
-			System.out.println(commandsToSave.get(i));
+//	private void printCommands(){
+//		for(int i = 0; i<commandsToSave.size(); i++){
+//			System.out.println(commandsToSave.get(i));
+//		}
+//	}
+	
+	public void saveAll(ListOfCommands commandList, Controller control) throws Exception{
+		commandList.reset();
+		saveCommands(commandList, control);
+		saveVariables(control);
+	}
+	
+	public void saveToFile(Controller control) throws IOException{
+		FileWriter writer = new FileWriter("savedCommands.txt"); 
+		for(String command: control.getCommandsToSave().keySet()) {
+		  writer.write(control.getCommandToSave(command));
 		}
+		writer.close();
 	}
 	
-	public void saveToFile(){
-		
-	}
-	
-	public static void main(String[] args) throws Exception{
-		CommandSaver austin = new CommandSaver();
-		String command = "TO square [ ] [ ifelse 4 [ FD :size RT 90 ] [ fd 50 ] ] TO triangle [ :size ] [ REPEAT 3 [ FD :size RT 120 ] ]"
-				+ " TO house [ ] [ SET :size 100 square FD :size RT 60 triangle 80 FD :size ]";
-		InputReader temp = new InputReader(command);
-		ListOfCommands commandList = new ListOfCommands(temp.getInputtedCommands(), 0, 0);
-		ProgramParser translator = new ProgramParser();
-		austin.saveCommands(commandList, translator);
-		austin.printCommands();
-	}
+//	public static void main(String[] args) throws Exception{
+//		CommandSaver austin = new CommandSaver();
+//		Controller control = new Controller();
+//		control.addVariable(":size", 100);
+//		control.addVariable(":poop", 50);
+//		String command = "TO square [ ] [ ifelse 4 [ FD :size RT 90 ] [ fd 50 ] ] TO triangle [ :size ] [ REPEAT 3 [ FD :size RT 120 ] ]"
+//				+ " TO house [ ] [ SET :size 100 square FD :size RT 60 triangle 80 FD :size ]";
+//		InputReader temp = new InputReader(command);
+//		ListOfCommands commandList = new ListOfCommands(temp.getInputtedCommands(), 0, 0);
+//		austin.saveCommands(commandList, control);
+//		austin.saveVariables(control);
+//		//austin.printCommands();
+//		austin.saveToFile(control);
+//	}
 }
