@@ -16,12 +16,12 @@ public class ClearScreenNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		double dist=Math.sqrt(Math.pow(control.getTurtle().getNewPositionX(), SQUARED)+(Math.pow(control.getTurtle().getNewPositionY(),SQUARED)));
-		control.getTurtle().reset();
-		control.getTurtle().setOrientation(ZERO);
-		control.getTurtle().clearScreen();
+		//double dist=Math.sqrt(Math.pow(control.getTurtle().getNewPositionX(), SQUARED)+(Math.pow(control.getTurtle().getNewPositionY(),SQUARED)));
+		//control.getTurtle().reset();
+		//control.getTurtle().setOrientation(ZERO);
+		return control.getTurtle().clearScreen();
 		////Distance moved by turtle for reset or turtle in general?	
-		return dist;
+		//return dist;
 		////WILL NEED TO CHNAGE TO DIFFER FROM HOME
 	}
 

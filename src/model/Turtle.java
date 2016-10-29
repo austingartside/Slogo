@@ -7,22 +7,27 @@ import javafx.scene.image.ImageView;
 public class Turtle {
 	private double oldXpos;
 	private double oldYpos;
+	private int SQUARED =2;
+	private double ZERO =0;
+	private double ONE = 1;
 	//private DoubleProperty oldYpos
 	private double newXpos;
 	private double newYpos;
-	private boolean revealBoolean=true;
-	private boolean penBoolean=true;
-	private boolean clearScreen=false; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
+	private double revealBoolean=ONE;
+	private double penBoolean=ONE;
+	private double clearScreen=ZERO; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private ImageView image;
 	private double angleNow;
 	private Controller myController;
 	private int errorState;
+	private double myID;
 
-	public Turtle(Controller controller){
+	public Turtle(Controller controller, double id){
 		newXpos=0.0;
 		newYpos=0.0;
 		myController=controller;
 		errorState = 0;
+		myID=id;
 		//this.setPosition(ZERO,ZERO);
 		//this.setImage("Turtle.png"); //Resource File
 		//this.setOrientation(ZERO);
@@ -99,7 +104,6 @@ public class Turtle {
 		double newAngle=quadrant+angle;
 		System.out.println(quadrant);
 		System.out.println(angle);
-		System.out.println("Gdhdh");
 		System.out.println(newAngle);
 		setOrientation(newAngle);
 		return Math.abs(currentAngle-newAngle);
@@ -109,7 +113,7 @@ public class Turtle {
 	 * Sets position of turtle
 	 * Used for Home,ClearScreen
 	 */
-	public void setPosition(double x, double y){
+	public double setPosition(double x, double y){
 		oldXpos=newXpos;
 		oldYpos=newYpos;
 		//image.setX(x);
@@ -117,6 +121,7 @@ public class Turtle {
 		newXpos=x;
 		newYpos=-1*y;
 		myController.UpdateView();
+		return Math.sqrt(Math.pow(newXpos-oldXpos, SQUARED)+(Math.pow(newYpos-oldYpos,SQUARED)));
 	}
 	
 	/**
@@ -165,12 +170,13 @@ public class Turtle {
 	 * @return 
 	 */
 	
-	public void setOrientation(double angle){
+	public double setOrientation(double angle){
 		//image.setRotate(360-angleNow);
 		angleNow=angle;
 		myController.UpdateView();
 		//return angleNow;
 		//image.setRotate(angle);
+		return angle;
 	}
 	 /**
 	 * Used for HEADING
@@ -179,64 +185,72 @@ public class Turtle {
 		return angleNow;
 	}
 	
-	public void clearScreen(){
-		clearScreen=true;
+	public double clearScreen(){
+		double dist=Math.sqrt(Math.pow(newXpos, SQUARED)+(Math.pow(newYpos,SQUARED)));
+		reset();
+		setOrientation(ZERO);
+		clearScreen=ONE;
 		myController.UpdateView();
+		return dist;
 	}
 	
 	/**
 	 * Used for SHOWTURTLE
+	 * @return 
 	 */
-	public void showTurtle(){
-		revealBoolean=true;
+	public double showTurtle(){
+		revealBoolean=ONE;
 		myController.UpdateView();
+		return ONE;
 	}
 	
 	/**
 	 * Used for HIDETURTLE
+	 * @return 
 	 */
-	public void hideTurtle(){
-		revealBoolean=false;
+	public double hideTurtle(){
+		revealBoolean=ZERO;
 		myController.UpdateView();
+		return ZERO;
 	}
 	
 	/**
 	 * Used for PENUP
+	 * @return 
 	 */
-	public void penUp(){
-		penBoolean=false;
+	public double penUp(){
+		penBoolean=ZERO;
 		myController.UpdateView();
+		return ZERO;
 	}
 	
 	/**
 	 * Used for PENDOWN
+	 * @return 
 	 */
-	public void penDown(){
-		penBoolean=true;
+	public double penDown(){
+		penBoolean=ONE;
 		myController.UpdateView();
+		return ONE;
 	}
 	
 	public double getAngle(){
 		return angleNow;
 	}
-
-	public ImageView getImage() {
-		return image;
-	}
 	
-	public boolean isRevealBoolean() {
+	public double isRevealBoolean() {
 		return revealBoolean;
 	}
 
-	public boolean isPenBoolean() {
+	public double isPenBoolean() {
 		return penBoolean;
 	}
 
-	public boolean isClearScreen() {
+	public double isClearScreen() {
 		return clearScreen;
 	}
-	public void setClearScreenOff(){
-		clearScreen=false;
+	public double setClearScreenOff(){
+		return clearScreen=ZERO;
 	}
 
 }

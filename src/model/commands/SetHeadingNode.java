@@ -16,9 +16,10 @@ public class SetHeadingNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		double val=this.executeChild(FIRSTENTRY, control);
-		control.getTurtle().setOrientation(val);
-		return val;
+		//double val=this.executeChild(FIRSTENTRY, control);
+		//return control.getTurtle().setOrientation(val);
+		return control.getTurtle().setOrientation(this.executeChild(FIRSTENTRY, control));
+		//return val;
 	}
 
 }

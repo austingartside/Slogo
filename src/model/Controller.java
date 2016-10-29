@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,12 @@ public class Controller {
 	private List<String> history;
 	private String userCommand;
 	private ExceptionManager myExceptionManager;
-	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
-	private TurtleView myTurtleView;
+	private Collection<Turtle> myTurtleCollection;
+	//private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
+	private Collection<TurtleView> myTurtleViewCollection;
 	private DisplaySpecs myDisplaySpecs;
+	private TurtleFactory myTurtleFactory;
+	private TurtleArmy myTurtleArmy;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -47,7 +51,10 @@ public class Controller {
 	}*/
 	
 	public Controller(){
-		myTurtle = new Turtle(this);
+		myTurtleFactory=new TurtleFactory();
+		//myTurtle = new Turtle(this);
+		myTurtleCollection=new ArrayList<Turtle>();
+		myTurtleViewCollection=new ArrayList<TurtleView>();
 		myDisplaySpecs=new DisplaySpecs();
 		variables = new HashMap<>();
 		commands = new HashMap<>();
@@ -73,9 +80,10 @@ public class Controller {
         stage.setScene(myActionScene.getScene());
 		
         //Model set Up
-		TurtleFactory myTurtleFactory=new TurtleFactory();
-		myTurtle= myTurtleFactory.createTurtle(this);
-		myTurtleView=updateTurtleView();
+		Turtle myTurtle= myTurtleFactory.createTurtle(this,1);
+		myTurtleCollection.add(myTurtle);
+		myTurtleArmy= new TurtleArmy(myTurtleCollection);
+		myTurtleViewCollection=updateTurtleViewCollection();
 	}
 	
 	public boolean isExecuting(String command){
@@ -163,28 +171,20 @@ public class Controller {
 	public Map<String,Double> getVariables(){
 		return variables;
 	}
-//		System.out.println();
-//		Command one = head.getChildren().get(0);
-//		for(Command currentCommand: one.getChildren()){
-//			currentCommand.execute(variables);
-//			System.out.println();		
-//		}
-		
-		
-		//head.executeChild(0, variables).getName();
 	
 	//// Im not sure how to get the implemented Turtle executes to affect the Turtle built here. Do we pass in the Turtle as a object or use these getters and setters or another way?
-	public Turtle getTurtle(){
-		return myTurtle;
+	public TurtleArmy getTurtle(){
+	//TODO multiple turtles
+		return myTurtleArmy;
 	}
 	
-	//public void setTurtleModel(Turtle turtle){
-		//myTurtle=turtle;
-	//}
-	
-	public TurtleView updateTurtleView(){
-		TurtleView turtleView= new TurtleView(myTurtle);
-		return turtleView;
+	public Collection<TurtleView> updateTurtleViewCollection(){
+		//Change to binding
+		for(Turtle t: myTurtleCollection){
+			TurtleView turtleView= new TurtleView(t);
+			myTurtleViewCollection.add(turtleView);
+		}
+		return myTurtleViewCollection;
 	}
 	
 	public void addHistory(String command){
@@ -210,22 +210,28 @@ public class Controller {
 	}
 	
 	public void UpdateView() {
-		myTurtleView=updateTurtleView();
+		myTurtleViewCollection=updateTurtleViewCollection();
 		//if (!myTurtle.isPenBoolean()){System.out.print("Grrr");}
-		System.out.print("OldXPos:");
-		System.out.println(myTurtle.getOldPositionX());
-		System.out.print("OldYPos:");
-		System.out.println(myTurtle.getOldPositionY());
-		System.out.print("NewXPos:");
-		System.out.println(myTurtle.getNewPositionX());
-		System.out.print("NewYPos:");
-		System.out.println(myTurtle.getNewPositionY());
-		if(myTurtleView.isClearScreen()){System.out.println("Austin");}
+		//System.out.print("OldXPos:");
+		//System.out.println(myTurtle.getOldPositionX());
+		//System.out.print("OldYPos:");
+		//System.out.println(myTurtle.getOldPositionY());
+		//System.out.print("NewXPos:");
+		//System.out.println(myTurtle.getNewPositionX());
+		//System.out.print("NewYPos:");
+		//System.out.println(myTurtle.getNewPositionY());
+		//if(myTurtleView.isClearScreen()){System.out.println("Austin");}
 		
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
-		myTurtle.setClearScreenOff();
-		myDisplayUpdater.updateScreen(myTurtleView,myDisplaySpecs);
+		resetClearScreens();
+		myDisplayUpdater.updateScreen(myTurtleViewCollection,myDisplaySpecs);
 		
+	}
+
+	private void resetClearScreens() {
+		for(Turtle t: myTurtleCollection){
+			t.setClearScreenOff();
+		}
 	}
 
 	public DisplaySpecs getDisplaySpecs() {
