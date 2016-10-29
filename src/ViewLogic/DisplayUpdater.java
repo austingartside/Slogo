@@ -131,7 +131,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         
         scene.getSettingTools().setLanguageAction((event) -> {
             scene.getSettingTools().getLanguageChooser().setLanguage();
-            //myController.getParser().changeLanguage(this);
+            myController.getParser().changeLanguage(this);
         });
 
         scene.getHelpTabs().setCommHistAction(m -> {

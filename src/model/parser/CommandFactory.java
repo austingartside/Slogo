@@ -29,8 +29,8 @@ public class CommandFactory {
 					.newInstance(commandList, this, control);
 		} catch(Exception e){
 			new DisplayUpdater(MainMenu.slogoScene, null).handleError("Command: " + commandList.getCommand() + " not defined ");
-			throw new CommandDoesNotExistException(commandList.getCommand() + " ");
-		    //return null;
+			//throw new CommandDoesNotExistException(commandList.getCommand() + " ");
+		    return null;
 			//control.getTurtle().setErrorState(3);
 		}
 		//return null;
