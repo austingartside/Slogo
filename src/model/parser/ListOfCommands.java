@@ -1,13 +1,18 @@
 package model.parser;
 import java.util.*;
-
+/**
+ * @author austingartside
+ * 
+ */
 public class ListOfCommands {
 	
-	private static final String NON_COMMAND = "?aslkn234?3";
+	//private static final String NON_COMMAND = "?aslkn234?3";
 	
 	private List<List<String>> myCommandList;
+	//will probably get moved to the controller
 	private int myRow;
 	private int myCol;
+	
 	
 	public ListOfCommands(List<List<String>> commandList, int row, int col){
 		myCommandList = commandList;
@@ -56,6 +61,20 @@ public class ListOfCommands {
 	
 	public void setCol(int col){
 		myCol = col;
+	}
+	
+	public void updateLocation() {
+		int newCol = getCol()+1;
+		if(newCol>=getRowLength()){
+			newCol = 0;
+			setRow(getRow()+1);
+			if(getRow()<getNumRows()){
+				while(getRowLength()==0){
+					setRow(getRow()+1);
+				}
+			}
+		}
+		setCol(newCol);
 	}
 
 }

@@ -1,5 +1,8 @@
 package model.commands;
-
+/**
+ * @author austingartside
+ * 
+ */
 import java.util.Random;
 
 import model.Controller;

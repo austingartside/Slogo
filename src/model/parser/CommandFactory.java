@@ -1,5 +1,8 @@
 package model.parser;
-
+/**
+ * @author austingartside
+ * 
+ */
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 

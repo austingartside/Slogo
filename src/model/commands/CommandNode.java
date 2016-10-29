@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.Controller;
-import model.exceptions.CommandDoesNotExistException;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 

@@ -5,7 +5,10 @@ import model.Controller;
 import model.commands.BlankNode;
 import model.commands.Command;
 import model.commands.TurtleCommand;
-
+/**
+ * @author austingartside
+ * 
+ */
 public class ExpressionTreeBuilder {
 	
 	
