@@ -1,5 +1,8 @@
 package model.exceptions;
-
+/**
+ * @author austingartside
+ * 
+ */
 public class VariableDoesNotExistException extends Exception{
 
     private String error;

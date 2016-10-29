@@ -1,5 +1,8 @@
 package model.exceptions;
-
+/**
+ * @author austingartside
+ * 
+ */
 public class MissingListEndException extends Exception{
 	
 	public MissingListEndException(String error){

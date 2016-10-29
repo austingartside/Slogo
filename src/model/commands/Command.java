@@ -1,5 +1,8 @@
 package model.commands;
-
+/**
+ * @author austingartside
+ * 
+ */
 import java.util.*;
 
 import model.Controller;

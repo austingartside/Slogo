@@ -1,5 +1,8 @@
 package model.commands;
-
+/**
+ * @author austingartside
+ * 
+ */
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;

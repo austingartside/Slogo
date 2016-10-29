@@ -1,3 +1,5 @@
+
+
 package model.commands;
 
 import java.util.Map;
@@ -5,7 +7,10 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 import model.parser.ProgramParser;
-
+/**
+ * @author austingartside
+ * 
+ */
 public class MakeUserInstructionNode extends ControlCommand{
 
 	private static final String COMMAND = "Command";
@@ -23,6 +28,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 		///start check
 		checkVariableList(commandList.getRow(), commandList.getCol(), commandList, control);
 		//end check
+		//for checking whether the command has been defined or not
 		control.changeExecutingValue(definedCommandName, false);
 		Command definedCommand = (Command) nodeMaker.getCommand(commandList, control);
 		control.changeExecutingValue(definedCommandName, true);
