@@ -33,6 +33,7 @@ public class Controller {
 	private ExceptionManager myExceptionManager;
 	private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
 	private TurtleView myTurtleView;
+	private DisplaySpecs myDisplaySpecs;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -47,6 +48,7 @@ public class Controller {
 	
 	public Controller(){
 		myTurtle = new Turtle(this);
+		myDisplaySpecs=new DisplaySpecs();
 		variables = new HashMap<>();
 		commands = new HashMap<>();
 		history = new ArrayList<>();
@@ -222,7 +224,12 @@ public class Controller {
 		
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
 		myTurtle.setClearScreenOff();
-		myDisplayUpdater.updateScreen(myTurtleView);
+		myDisplayUpdater.updateScreen(myTurtleView,myDisplaySpecs);
+		
+	}
+
+	public DisplaySpecs getDisplaySpecs() {
+		return myDisplaySpecs;
 	}
 
 }

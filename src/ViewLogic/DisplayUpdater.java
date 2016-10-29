@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
+import model.DisplaySpecs;
 import model.TurtleView;
 import model.commands.Command;
 import screens.SLogoScene;
@@ -145,13 +146,14 @@ public class DisplayUpdater implements ViewToModelInterface{
         });
     }
 
-	public void updateScreen(TurtleView turtleView) {
+	public void updateScreen(TurtleView turtleView, DisplaySpecs displaySpecs) {
 		setVisible(turtleView.isRevealBoolean());
 		setOrientation (turtleView.getAngleNow());
 		setCoordinate (turtleView.isPenBoolean(),turtleView.getOldXpos() ,turtleView.getOldYpos(), turtleView.getNewXpos(), turtleView.getNewYpos());
 		if (turtleView.isClearScreen()){
 		    clear();
 		}
+		///TODO: Use changes to displayspecs.
 	}
 	private void addUserCommands(){
 	    	scene.getHelpTabs().getCurrComm().clear();

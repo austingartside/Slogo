@@ -11,7 +11,7 @@ public class Turtle {
 	private double newXpos;
 	private double newYpos;
 	private boolean revealBoolean=true;
-	private boolean penBoolean=false;
+	private boolean penBoolean=true;
 	private boolean clearScreen=false; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private ImageView image;
 	private double angleNow;
