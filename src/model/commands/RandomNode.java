@@ -16,7 +16,7 @@ public class RandomNode extends MathCommand{
 	public RandomNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		generator = new Random();
-		updateLocation(commandList);
+		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 

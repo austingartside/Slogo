@@ -17,9 +17,9 @@ public class ForNode extends ControlCommand{
 	public ForNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
-		updateLocation(commandList);
+		commandList.updateLocation();
 		checkForListStart(commandList, control);
-		updateLocation(commandList);
+		commandList.updateLocation();
 		isVariable(commandList.getCommand(), control);
 		variableName = commandList.getCommand();
 		control.addVariable(variableName, 0);

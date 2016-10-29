@@ -8,7 +8,7 @@ public class IsPenDownNode extends TurtleCommand{
 
 	public IsPenDownNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 
 	@Override

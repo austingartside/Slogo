@@ -16,14 +16,14 @@ public class DoTimesNode extends ControlCommand{
 	public DoTimesNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = "DoTimes";
-		updateLocation(commandList);
+		commandList.updateLocation();
 		checkForListStart(commandList, control);
-		updateLocation(commandList);
+		commandList.updateLocation();
 		isVariable(commandList.getCommand(), control);
 		varName = commandList.getCommand();
-		updateLocation(commandList);
+		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		updateLocation(commandList);
+		commandList.updateLocation();
 		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control, myName);
 		

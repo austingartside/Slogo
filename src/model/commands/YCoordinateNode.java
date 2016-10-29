@@ -10,7 +10,7 @@ public class YCoordinateNode extends TurtleCommand{
 
 	public YCoordinateNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 
 	@Override

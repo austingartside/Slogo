@@ -32,7 +32,7 @@ public abstract class ControlCommand extends Command{
 	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker, Command parent,
 			Controller control, String originalCommand) throws Exception {
 		ProgramParser translator = new ProgramParser();
-		updateLocation(commandList);
+		commandList.updateLocation();
 		String currentCommand = commandList.getCommand();
 		int count = 0;
 		while(!isEndList(currentCommand)){
@@ -49,7 +49,7 @@ public abstract class ControlCommand extends Command{
 		if(translator.getSymbol(originalCommand).equals(COMMAND)){
 			control.addNumParam(originalCommand, count);
 		}
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 	
 	public void checkForListStart(ListOfCommands commandList, Controller control) throws Exception{

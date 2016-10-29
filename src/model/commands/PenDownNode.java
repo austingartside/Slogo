@@ -8,7 +8,7 @@ public class PenDownNode extends TurtleCommand{
 
 	public PenDownNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 
 	@Override

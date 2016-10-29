@@ -14,7 +14,7 @@ public class IfElseNode extends ControlCommand{
 	public IfElseNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
-		updateLocation(commandList);
+		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList, control);
 		BlankNode trueStatements = new BlankNode(commandList, nodeMaker, control);

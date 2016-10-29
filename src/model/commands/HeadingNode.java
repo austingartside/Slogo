@@ -8,7 +8,7 @@ public class HeadingNode extends TurtleCommand{
 
 	public HeadingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 
 	@Override

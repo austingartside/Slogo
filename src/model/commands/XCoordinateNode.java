@@ -9,7 +9,7 @@ public class XCoordinateNode extends TurtleCommand{
 
 	public XCoordinateNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 
 	@Override

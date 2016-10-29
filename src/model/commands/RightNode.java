@@ -10,7 +10,7 @@ public class RightNode extends TurtleCommand{
 
 	public RightNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 

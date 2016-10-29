@@ -8,7 +8,7 @@ public class HideTurtleNode extends TurtleCommand{
 
 	public HideTurtleNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		// TODO Auto-generated constructor stub
 	}
 

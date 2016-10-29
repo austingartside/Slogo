@@ -10,7 +10,7 @@ public class TangentNode extends MathCommand{
 
 	public TangentNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override

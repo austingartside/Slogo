@@ -13,7 +13,7 @@ public class VariableNode extends TurtleCommand{
 	
 	public VariableNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 	}
 
 	@Override

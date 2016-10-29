@@ -11,7 +11,7 @@ public class ProductNode extends MathCommand{
 
 	public ProductNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		updateLocation(commandList);
+		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}

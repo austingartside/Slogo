@@ -50,19 +50,19 @@ public abstract class Command {
 		return myChildren.size();
 	}
 	
-	public void updateLocation(ListOfCommands commandList) {
-		int newCol = commandList.getCol()+1;
-		if(newCol>=commandList.getRowLength()){
-			newCol = 0;
-			commandList.setRow(commandList.getRow()+1);
-			if(commandList.getRow()<commandList.getNumRows()){
-				while(commandList.getRowLength()==0){
-					commandList.setRow(commandList.getRow()+1);
-				}
-			}
-		}
-		commandList.setCol(newCol);
-	}
+//	public void updateLocation(ListOfCommands commandList) {
+//		int newCol = commandList.getCol()+1;
+//		if(newCol>=commandList.getRowLength()){
+//			newCol = 0;
+//			commandList.setRow(commandList.getRow()+1);
+//			if(commandList.getRow()<commandList.getNumRows()){
+//				while(commandList.getRowLength()==0){
+//					commandList.setRow(commandList.getRow()+1);
+//				}
+//			}
+//		}
+//		commandList.setCol(newCol);
+//	}
 	
 	public double executeChild(int i, Controller control){
 		return myChildren.get(i).execute(control);
