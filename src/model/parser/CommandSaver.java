@@ -45,18 +45,18 @@ public class CommandSaver {
 	
 	private void saveCommands(ListOfCommands commandList, Controller control) throws Exception{
 		String fullCommand = "";
-		ProgramParser translator = new ProgramParser();
+		ProgramParser translator = control.getParser();
 		while(commandList.getRow()<commandList.getNumRows()){
 			if(translator.getSymbol(commandList.getCommand()).equals(USER_INSTRUCTION)){
 				fullCommand+=TO+" ";
-				addBody(fullCommand, commandList, translator, control);
+				addBody(fullCommand, commandList, control);
 				fullCommand = "";
 			}
 			commandList.updateLocation();
 		}
 	}
 	
-	private void addBody(String fullCommand, ListOfCommands commandList, ProgramParser translator, Controller control) throws Exception{
+	private void addBody(String fullCommand, ListOfCommands commandList, Controller control) throws Exception{
 		int count = 0;
 		boolean isName = true;
 		String commandName = "";
@@ -67,8 +67,8 @@ public class CommandSaver {
 				isName = false;
 			}
 			fullCommand+=commandList.getCommand()+" ";
-			if(commandsWithBrackets.containsKey(translator.getSymbol(commandList.getCommand()))){
-				count-=commandsWithBrackets.get(translator.getSymbol(commandList.getCommand()));
+			if(commandsWithBrackets.containsKey(control.getParser().getSymbol(commandList.getCommand()))){
+				count-=commandsWithBrackets.get(control.getParser().getSymbol(commandList.getCommand()));
 			}
 			if(commandList.getCommand().equals(END_LIST)){
 				count++;
