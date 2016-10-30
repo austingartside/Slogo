@@ -44,7 +44,7 @@ public class DisplayGenerator {
         addTurtleDisplay(scene.getTurtleDisplay());
         addHelp(scene.getHelpButton());
         addToolBar(scene.getSettingTools());
-
+        addFileControl(scene.getFileControl());
         return gridPane;
     }
 
@@ -53,7 +53,9 @@ public class DisplayGenerator {
      * to the backend.
      * @return the submit button to submit the command to the backend
      */
-    
+    private void addFileControl(FileControl fc){
+        gridPane.add(fc.getView(), 12,0,3,1);
+    }
     private void addToolBar(SettingTools st){
         ((ToolBar)st.getView()).setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         gridPane.add(st.getView(), 0, 0, 12, 3);

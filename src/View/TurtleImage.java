@@ -29,7 +29,9 @@ public class TurtleImage {
         turtle.setCache(true);
     }
     public void drawTurtle(double x, double y){
-        turtle.setImage(turtleIm);
+        if(turtle.getImage()!=null){
+            turtle.setImage(turtleIm);
+        }
         turtle.setTranslateX(x);//canvasX(x)
         turtle.setTranslateY(y);//canvasY(y)
         if(x < CanvasGenerator.CANVAS_X/2 && x > -CanvasGenerator.CANVAS_X / 2 && y < CanvasGenerator.CANVAS_Y/2 && y > -CanvasGenerator.CANVAS_Y/2) {
@@ -54,6 +56,7 @@ public class TurtleImage {
     public void makeTurtleInvisible(){
         turtleIm = turtle.getImage();
         turtle.setImage(null);
+        System.out.println("hi");
     }
     //TODO change colors later
     public void makeTurtleVisible(){

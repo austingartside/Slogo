@@ -1,5 +1,7 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -96,6 +98,10 @@ public class Controller {
 		return commandToStringDefinition.get(command);
 	}
 	
+	public void callSaveFile(String fileName) throws IOException{
+	    commandsToSave.saveToFile(this, fileName);
+	}
+	
 	private void saveCommands() throws Exception{
 		InputReader inputControl = new InputReader(userCommand);
 		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
@@ -163,7 +169,9 @@ public class Controller {
 //	public boolean hasCommand(String command){
 //		return commands.containsKey(command);
 //	}
-	
+	public String readFile(String filename) throws FileNotFoundException{
+	    return commandsToSave.readFileToString(filename);
+	}
 	public void checkForCommand(String command, Controller control) throws CommandDoesNotExistException{
 	    try{
             if(!commands.containsKey(command)){
