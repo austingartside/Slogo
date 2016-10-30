@@ -14,7 +14,7 @@ public class XCoordinateNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return 0;	
+		return control.getTurtle().getNewPositionX();
 	}
 
 }
