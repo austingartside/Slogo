@@ -4,11 +4,11 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class IDNode extends Command{
+public class IDNode extends NoArgumentCommand{
 
 	public IDNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
+		super(commandList, nodeMaker, control);
+//		commandList.updateLocation();
 	}
 
 	@Override

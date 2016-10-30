@@ -4,12 +4,11 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class HideTurtleNode extends TurtleCommand{
+public class HideTurtleNode extends NoArgumentCommand{
 
 	public HideTurtleNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		// TODO Auto-generated constructor stub
+		super(commandList, nodeMaker, control);
+		//commandList.updateLocation();
 	}
 
 	@Override

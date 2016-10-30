@@ -6,12 +6,12 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class RightNode extends TurtleCommand{
+public class RightNode extends OneArgumentCommand{
 
 	public RightNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		addChild((Command) nodeMaker.getCommand(commandList, control));
+		super(commandList, nodeMaker, control);
+//		commandList.updateLocation();
+//		addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 
 	@Override

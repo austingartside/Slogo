@@ -4,9 +4,14 @@ import View.TurtleDisplay;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
@@ -17,6 +22,7 @@ import screens.SLogoScene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -153,6 +159,45 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getSettingTools().setPenAction((event) ->{
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
             scene.getTurtleDisplay().setPenColor(c);
+        });
+        
+        scene.getFileControl().setSaveAction((event) ->{
+            final Stage dialog = new Stage();
+            TextField text = new TextField();
+            text.setPromptText("File Name");
+            text.setOnKeyPressed((key) -> {
+                if(key.getCode().equals(KeyCode.ENTER)){
+                    try {
+                        myController.callSaveFile(text.getText());
+                        dialog.close();
+                    }
+                    catch (IOException e) {
+                        handleError("Invalid Input");
+                    }
+                }
+            });
+            VBox vb = new VBox();
+            vb.getChildren().addAll(new Label("Name your file"),text);
+            vb.setAlignment(Pos.CENTER);
+            vb.setSpacing(10);
+            vb.setPadding(new Insets(10,10,10,10));
+            Scene dialogScene = new Scene(vb, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        });
+        
+        scene.getFileControl().setLoadAction((event)->{
+            FileChooser chooser = new FileChooser();
+            Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            File loadFile = chooser.showOpenDialog(mainStage);
+            try {
+                myController.enterAction(myController.readFile(loadFile.toString()));
+            }
+            catch (Exception e) {
+                handleError("Could not parse that file");
+            }
+            addUserCommands();
+            addVariables();
         });
 
     }

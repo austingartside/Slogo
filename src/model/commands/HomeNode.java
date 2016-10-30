@@ -6,11 +6,11 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class HomeNode extends TurtleCommand{
+public class HomeNode extends NoArgumentCommand{
 
 	public HomeNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
+		super(commandList, nodeMaker, control);
+		//commandList.updateLocation();
 		// TODO Auto-generated constructor stub
 	}
 

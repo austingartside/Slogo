@@ -5,14 +5,13 @@ import model.commands.MathCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class DifferenceNode extends MathCommand{
+public class DifferenceNode extends TwoArgumentCommand{
 
 	public DifferenceNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		// TODO Auto-generated constructor stub
+		super(commandList, nodeMaker, control);
+//		commandList.updateLocation();
+//		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+//		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override
 	public double execute(Controller control) { 

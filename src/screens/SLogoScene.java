@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import View.CanvasGenerator;
 import View.CommandBar;
 import View.DisplayGenerator;
+import View.FileControl;
 import View.HelpButton;
 import View.HelpTabs;
 import View.SettingTools;
@@ -23,11 +24,13 @@ public class SLogoScene extends ActionScene{
     private HelpTabs helpTabs;
     private SettingTools settingTools;
     private HelpButton helpButton;
+    private FileControl fileControl;
 
     public SLogoScene(Scene scene, ResourceBundle resource) throws Exception{
         super(scene, resource, SIZE_Y, SIZE_X);
         
         //Controller control=new Controller();
+        fileControl = new FileControl();
         commandBar = new CommandBar();
         helpButton = new HelpButton();
         helpTabs = new HelpTabs();
@@ -58,5 +61,8 @@ public class SLogoScene extends ActionScene{
     }
     public HelpTabs getHelpTabs(){
         return helpTabs;
+    }
+    public FileControl getFileControl(){
+        return fileControl;
     }
 }
