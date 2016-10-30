@@ -13,24 +13,16 @@ public class RepeatNode extends ControlCommand{
 	
 	private static final String ITER_VALUE = ":repcount";
 	
-	String myVal;
-	
 	public RepeatNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myVal = commandList.getCommand();
 		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control, myVal);
-	}
-
-	public void printVal(){
-		System.out.println(myVal);
+		moveThroughList(commandList, nodeMaker, this, control, this.getName());
 	}
 	
 	@Override
 	public double execute(Controller control) {
-		printVal();
 		double numTimes = executeChild(0, control);
 		double lastVal = 0;
 		for(double i = 0; i<numTimes; i++){
