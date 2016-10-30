@@ -1,5 +1,6 @@
 package ViewLogic;
 
+import View.TurtleDisplay;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.event.EventHandler;
@@ -9,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
+import model.Turtle;
 import model.TurtleView;
 import model.commands.Command;
 import screens.SLogoScene;
@@ -34,7 +36,6 @@ public class DisplayUpdater implements ViewToModelInterface{
     private final String PENCOLOR = "PEN COLOR: ";
     private final String BACKGROUND = "BACKGROUND: ";
     private final String HEADING = "HEADING: ";
-
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
         myController = control;
@@ -89,6 +90,9 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void changeBackgroundColor(Color color) {
         scene.getTurtleDisplay().changeBackgroundColor(color);
     }
+    public void changePenThickness(double thickness){
+        scene.getTurtleDisplay().setThickness(thickness);
+    }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
                                 try {
@@ -111,7 +115,11 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getSettingTools().setBackgroundAction((event) ->{
             scene.getTurtleDisplay().changeBackgroundColor(scene.getSettingTools().getBackgroundColorPicker().getValue());
         });
-        
+
+        scene.getSettingTools().setLineChangerAction((event) ->{
+            TurtleDisplay.LineType lineChoice = (TurtleDisplay.LineType) scene.getSettingTools().getLineChoice();
+            scene.getTurtleDisplay().setDash(lineChoice);
+        });
         scene.getSettingTools().setImageAction((event) ->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();

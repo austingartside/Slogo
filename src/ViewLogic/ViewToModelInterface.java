@@ -60,5 +60,6 @@ public interface ViewToModelInterface {
 
     public void changeBackgroundColor(Color color);
 
+    public void changePenThickness(double thickness);
     // To be completed, other methods that might update the screen in some way shape or form.
 }
