@@ -7,12 +7,11 @@ import model.commands.MathCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class PiNode extends MathCommand{
+public class PiNode extends NoArgumentCommand{
 
 	public PiNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		// TODO Auto-generated constructor stub
+		super(commandList, nodeMaker, control);
+		//commandList.updateLocation();
 	}
 	@Override
 	public double execute(Controller control) {

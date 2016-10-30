@@ -7,13 +7,13 @@ import model.commands.LogicCommand;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class EqualNode extends LogicCommand{
+public class EqualNode extends TwoArgumentCommand{
 
 	public EqualNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+		super(commandList, nodeMaker, control);
+//		commandList.updateLocation();
+//		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+//		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	@Override
 	public double execute(Controller control) {

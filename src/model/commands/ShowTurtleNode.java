@@ -6,11 +6,11 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class ShowTurtleNode extends TurtleCommand{
+public class ShowTurtleNode extends NoArgumentCommand{
 
 	public ShowTurtleNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
+		super(commandList, nodeMaker, control);
+		//commandList.updateLocation();
 	}
 
 	@Override

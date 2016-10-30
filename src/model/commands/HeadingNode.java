@@ -4,11 +4,11 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class HeadingNode extends TurtleCommand{
+public class HeadingNode extends NoArgumentCommand{
 
 	public HeadingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
+		super(commandList, nodeMaker, control);
+		//commandList.updateLocation();
 	}
 
 	@Override

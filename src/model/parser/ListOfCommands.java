@@ -6,13 +6,9 @@ import java.util.*;
  */
 public class ListOfCommands {
 	
-	//private static final String NON_COMMAND = "?aslkn234?3";
-	
 	private List<List<String>> myCommandList;
-	//will probably get moved to the controller
 	private int myRow;
 	private int myCol;
-	
 	
 	public ListOfCommands(List<List<String>> commandList, int row, int col){
 		myCommandList = commandList;
@@ -24,7 +20,7 @@ public class ListOfCommands {
 		return myRow>=getNumRows();
 	}
 	
-	public void reset(){
+	public void goToStart(){
 		myRow = 0;
 		myCol = 0;
 	}
@@ -34,9 +30,6 @@ public class ListOfCommands {
 	}
 	
 	public String getCommand() throws Exception{
-//		if(isOutOfBounds()){
-//			return NON_COMMAND;
-//		}
 		return myCommandList.get(myRow).get(myCol);
 	}
 	
@@ -60,26 +53,51 @@ public class ListOfCommands {
 		myRow = myCommandList.size()+10;
 	}
 	
-	public void setRow(int row){
-		myRow = row;
+	public void incrementRow(){
+		myRow++;
 	}
 	
-	public void setCol(int col){
-		myCol = col;
+	public void resetLocation(int oldRow, int oldCol){
+		myRow = oldRow;
+		myCol = oldCol;
 	}
 	
+	/**
+	 * @return true if line is not blank
+	 */
+	public boolean isValidLine(){
+		return getRowList().size()>0;
+	}
+	
+	/**
+	 * Move to the next available location in List of Commands 
+	 * (skip comments and blank rows and go to next line if hit the end of a line)
+	 */
 	public void updateLocation() {
 		int newCol = getCol()+1;
 		if(newCol>=getRowLength()){
 			newCol = 0;
-			setRow(getRow()+1);
-			if(getRow()<getNumRows()){
-				while(getRowLength()==0){
-					setRow(getRow()+1);
+			movePastBlankRows();
+		}
+		myCol = newCol;
+	}
+
+	
+	
+	/**
+	 * When moving to the next row, checks if it's blank and continues updating row until it reaches a filled row
+	 * Comments and blank lines in original input create blank rows
+	 */
+	public void movePastBlankRows() {
+		incrementRow();
+		if(getRow()<getNumRows()){
+			while(getRowLength()==0){
+				incrementRow();
+				if(getRow()==getNumRows()){
+					break;
 				}
 			}
 		}
-		setCol(newCol);
 	}
 
 }

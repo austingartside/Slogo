@@ -21,7 +21,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 		super(commandList.getCommand());
 		myName = commandList.getCommand();
 		commandList.updateLocation();
-		checkIfCommand(commandList.getCommand());
+		checkIfCommand(commandList.getCommand(), control);
 		definedCommandName = commandList.getCommand();
 		//so that we can check commands during parsing for errors instead of having to wait til execution
 		control.addCommand(definedCommandName, new BlankNode(commandList, nodeMaker, control));
@@ -46,8 +46,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 			isVariable(commandList.getCommand(), control);
 			commandList.updateLocation();
 		}
-		commandList.setRow(row);
-		commandList.setCol(col);
+		commandList.resetLocation(row, col);
 	}
 	
 	public void printName(){
@@ -55,8 +54,8 @@ public class MakeUserInstructionNode extends ControlCommand{
 	}
 
 	
-	private void checkIfCommand(String command) throws Exception{
-		ProgramParser translator = new ProgramParser();
+	private void checkIfCommand(String command, Controller control) throws Exception{
+		ProgramParser translator = control.getParser();
 		if(!translator.getSymbol(command).equals(COMMAND)){
 			throw new Exception();
 		}

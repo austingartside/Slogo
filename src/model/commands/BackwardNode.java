@@ -8,24 +8,24 @@ import model.Turtle;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class BackwardNode extends TurtleCommand{
+public class BackwardNode extends OneArgumentCommand{
 
 	String myVal;
 	
 	public BackwardNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		myVal = "Backward";
-		commandList.updateLocation();	
-		addChild((Command) nodeMaker.getCommand(commandList, control));
+		super(commandList, nodeMaker, control);
+		//myVal = "Backward";
+		//commandList.updateLocation();	
+		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	
-	public void printName(){
-		System.out.println(myVal);
-	}
+//	public void printName(){
+//		System.out.println(myVal);
+//	}
 
 	@Override
 	public double execute(Controller control) {
-		printName();
+		//printName();
 		double something = this.executeChild(FIRSTENTRY,control);
 		double fake = control.getTurtle().move(MINUS*something);
 		return something;
