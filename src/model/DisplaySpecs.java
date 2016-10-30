@@ -7,6 +7,9 @@ public class DisplaySpecs {
 	private double myPenSizeIndex;
 	private double myShapeIndex;
 	private double myPaletteIndex;
+	private double myR;
+	private double myG;
+	private double myB;
 	private double DEFAULT=0.0;
 	
 	public DisplaySpecs(){
@@ -37,24 +40,32 @@ public class DisplaySpecs {
 		return myPaletteIndex;
 	}
 
-	public void setBackgroundIndex(double myBackgroundIndex) {
+	public double setBackgroundIndex(double myBackgroundIndex) {
 		this.myBackgroundIndex = myBackgroundIndex;
+		return myBackgroundIndex;
 	}
 
-	public void setPenColorIndex(double myPenColorIndex) {
+	public double setPenColorIndex(double myPenColorIndex) {
 		this.myPenColorIndex = myPenColorIndex;
+		return myPenColorIndex;
 	}
 
-	public void setPenSizeIndex(double myPenSizeIndex) {
+	public double setPenSizeIndex(double myPenSizeIndex) {
 		this.myPenSizeIndex = myPenSizeIndex;
+		return myPenSizeIndex;
 	}
 
-	public void setShapeIndex(double myShapeIndex) {
+	public double setShapeIndex(double myShapeIndex) {
 		this.myShapeIndex = myShapeIndex;
+		return myShapeIndex;
 	}
 
-	public void setPaletteIndex(double myPaletteIndex) {
+	public double setPaletteIndex(double myPaletteIndex, double r,double g, double b) {
 		this.myPaletteIndex = myPaletteIndex;
+		this.myR=r;
+		this.myG=g;
+		this.myB=b;
+		return myPaletteIndex;
 	}
 	
 }

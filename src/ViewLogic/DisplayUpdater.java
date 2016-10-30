@@ -69,7 +69,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getHelpTabs().getCurrState().addCurrState(id, x, y, penDown, color, heading);
     }
     public void setVisible(double d){
-        if(d==1){
+        System.out.println(d);
+    	if(d==1){
             scene.getTurtleDisplay().getTurtleImage().makeTurtleVisible();
         }
         else{
