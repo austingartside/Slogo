@@ -15,11 +15,10 @@ public class MakeUserInstructionNode extends ControlCommand{
 
 	private static final String COMMAND = "Command";
 	private String definedCommandName;
-	private String myName;
 	
 	public MakeUserInstructionNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myName = commandList.getCommand();
+		//myName = commandList.getCommand();
 		commandList.updateLocation();
 		checkIfCommand(commandList.getCommand(), control);
 		definedCommandName = commandList.getCommand();
@@ -35,7 +34,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 		this.addChild(definedCommand);
 		checkForListStart(commandList, control);
 		definedCommand.addChild(new BlankNode(commandList, nodeMaker, control));
-		moveThroughList(commandList, nodeMaker, definedCommand, control, myName);
+		moveThroughList(commandList, nodeMaker, definedCommand, control, this.getName());
 	}
 	
 	private void checkVariableList(int row, int col, ListOfCommands commandList, Controller control) throws Exception{
@@ -50,7 +49,7 @@ public class MakeUserInstructionNode extends ControlCommand{
 	}
 	
 	public void printName(){
-		System.out.println(myName);
+		System.out.println(this.getName());
 	}
 
 	

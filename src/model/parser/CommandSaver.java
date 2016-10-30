@@ -101,20 +101,21 @@ public class CommandSaver {
 	
 	public void saveToFile(Controller control,String fileName) throws IOException{
 		FileWriter writer = new FileWriter(fileName+".txt"); 
-		for(String command: control.getCommandsToSave().keySet()) {
+		for(String command: control.getCommandsInOrder()) {
 		  writer.write(control.getCommandToSave(command));
 		}
 		writer.close();
 	}
 	
-	    public static String readFileToString (String filename) throws FileNotFoundException {
-	        final String END_OF_FILE = "\\z";
-	        Scanner input = new Scanner(new File(filename));
-	        input.useDelimiter(END_OF_FILE);
-	        String result = input.next();
-	        input.close();
-	        return result;
-	    }
+	//can change String fileName t0 just be a file
+    public static String readFileToString (String filename) throws FileNotFoundException {
+        final String END_OF_FILE = "\\z";
+        Scanner input = new Scanner(new File(filename));
+        input.useDelimiter(END_OF_FILE);
+        String result = input.next();
+        input.close();
+        return result;
+    }
 	
 //	public static void main(String[] args) throws Exception{
 //		CommandSaver austin = new CommandSaver();
