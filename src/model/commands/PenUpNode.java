@@ -6,11 +6,11 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class PenUpNode extends TurtleCommand{
+public class PenUpNode extends NoArgumentCommand{
 
 	public PenUpNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
+		super(commandList, nodeMaker, control);
+		//commandList.updateLocation();
 	}
 
 	@Override

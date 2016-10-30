@@ -9,15 +9,15 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class RandomNode extends MathCommand{
+public class RandomNode extends OneArgumentCommand{
 	
 	private Random generator;
 
 	public RandomNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
+		super(commandList, nodeMaker, control);
 		generator = new Random();
-		commandList.updateLocation();
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));
+//		commandList.updateLocation();
+//		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 
 	@Override
@@ -25,7 +25,6 @@ public class RandomNode extends MathCommand{
 		double val = this.executeChild(0, control);
 		int test= (int) Math.abs(val);
 		double answer = 1.0*generator.nextInt(test);
-		System.out.println("generated value is: " +  answer);
 		return answer;
 	}
 
