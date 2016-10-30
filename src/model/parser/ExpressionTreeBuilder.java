@@ -21,23 +21,14 @@ public class ExpressionTreeBuilder {
 		CommandFactory nodeCreator = new CommandFactory();
 		Command head = new BlankNode(commandList, nodeCreator, control);
 		while(commandList.getRow()<commandList.getNumRows()){
-			if(isValid(commandList.getRowList())){	
+			if(commandList.isValidLine()){	
 				head.addChild((Command)nodeCreator.getCommand(commandList, control));
 			}
 			else{
-				commandList.setRow(commandList.getRow()+1);
-				if(commandList.getRow()<commandList.getNumRows()){
-					while(commandList.getRowLength() == 0){
-						commandList.setRow(commandList.getRow()+1);
-					}
-				}
+				commandList.movePastBlankRows();
 			}
 		}
 		return head;
-	}
-	
-	private boolean isValid(List<String> line){
-		return line.size()>0;
 	}
 
 }

@@ -37,7 +37,9 @@ public class CommandNode extends ControlCommand{
 		while(!(currentNode instanceof BlankNode)){
 			double internalValue = this.executeChild(j, control);
 			String varName = ((VariableNode)commandToExecute.getChild(j)).getName();
-			valBeforeParameter.put(varName, control.getVariableValue(varName));
+			if(control.getVariables().containsKey(varName)){
+				valBeforeParameter.put(varName, control.getVariableValue(varName));
+			}
 			control.addVariable(varName, internalValue);
 			j++;
 			currentNode = commandToExecute.getChild(j);
