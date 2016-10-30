@@ -3,11 +3,8 @@ package model.commands;
  * @author austingartside
  * 
  */
-import java.util.Map;
-
 import ViewLogic.DisplayUpdater;
 import model.Controller;
-import model.exceptions.MissingListEndException;
 import model.exceptions.MissingListStartException;
 import model.exceptions.VariableDoesNotExistException;
 import model.parser.CommandFactory;
@@ -39,7 +36,6 @@ public abstract class ControlCommand extends Command{
 				currentCommand = commandList.getCommand();
 			}
 			catch(IndexOutOfBoundsException e){
-				//control.getTurtle().setErrorState(2);
                 new DisplayUpdater(MainMenu.slogoScene, null).handleError("Missing ] at line " + commandList.getRow() + " ");
 			}
 		}
@@ -52,10 +48,6 @@ public abstract class ControlCommand extends Command{
 	public void checkForListStart(ListOfCommands commandList, Controller control) throws Exception{
 		try {
             if (!isStartList(commandList.getCommand())) {
-                //throw new Exception("Missing front bracket for repeat command");
-                //System.out.println("missing list start?");
-                //control.getExceptionManager().addError(LIST_START_EX);
-                //control.getTurtle().setErrorState(1);
                 throw new MissingListStartException("Missing [ at line " + (commandList.getRow() + 1) + " ");
             }
 
@@ -65,19 +57,11 @@ public abstract class ControlCommand extends Command{
         }
 	}
 	
-//	public void checkVarAsCommand(ListOfCommands commandList) throws VariableDoesNotExistException, Exception{
-//		ProgramParser commandTranslator = new ProgramParser();
-//		if(commandTranslator.getSymbol(commandList.getCommand()).equals(COMMAND)){
-//			throw new VariableDoesNotExistException(commandList.getCommand() + " is not a varaiable, missing colon ");
-//		}
-//	}
-	
 	public void isVariable(String command, Controller control) throws VariableDoesNotExistException{
 		try {
             ProgramParser translator = control.getParser();
             String translatedCommand = translator.getSymbol(command);
             if (!translatedCommand.equals(VARIABLE)) {
-                //control.getTurtle().setErrorState(4);
                 throw new VariableDoesNotExistException(command + " is not a variable, missing colon ");
             }
         }

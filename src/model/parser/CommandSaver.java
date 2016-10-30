@@ -47,10 +47,12 @@ public class CommandSaver {
 		String fullCommand = "";
 		ProgramParser translator = control.getParser();
 		while(commandList.getRow()<commandList.getNumRows()){
-			if(translator.getSymbol(commandList.getCommand()).equals(USER_INSTRUCTION)){
-				fullCommand+=TO+" ";
-				addBody(fullCommand, commandList, control);
-				fullCommand = "";
+			if(commandList.isValidLine()){
+				if(translator.getSymbol(commandList.getCommand()).equals(USER_INSTRUCTION)){
+					fullCommand+=TO+" ";
+					addBody(fullCommand, commandList, control);
+					fullCommand = "";
+				}
 			}
 			commandList.updateLocation();
 		}
@@ -90,7 +92,7 @@ public class CommandSaver {
 //	}
 	
 	public void saveAll(ListOfCommands commandList, Controller control) throws Exception{
-		commandList.reset();
+		commandList.goToStart();
 		saveCommands(commandList, control);
 		saveVariables(control);
 	}

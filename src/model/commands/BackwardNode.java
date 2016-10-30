@@ -16,7 +16,7 @@ public class BackwardNode extends TurtleCommand{
 		super(commandList.getCommand());
 		myVal = "Backward";
 		commandList.updateLocation();	
-		addChild((Command) nodeMaker.getCommand(commandList, control));
+		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	
 	public void printName(){
