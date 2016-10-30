@@ -50,8 +50,6 @@ public class MainMenu {
         startProject.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(final ActionEvent ae){
-            	
-            	
                 try {
                     myActionScene = new SLogoScene(myScene, myResources);
                 }

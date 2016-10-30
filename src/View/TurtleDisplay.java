@@ -11,6 +11,9 @@ public class TurtleDisplay {
     public enum LineType{
         DASH, DOTTED, SOLID
     }
+    public enum PenStatus{
+        PENDOWN, PENUP
+    }
     private TurtleImage turtleImage;
     private CanvasGenerator backgroundCanvas;
     private CanvasGenerator lineCanvas;
@@ -19,7 +22,9 @@ public class TurtleDisplay {
     private double thickness;
     private final double NUM_DASH = 5.0;
     private double dashes;
+    private PenStatus status;
     public TurtleDisplay(){
+        status = PenStatus.PENDOWN;
         thickness = 1.0;
         dashes = 0;
         penColor = Color.BLACK;
@@ -37,11 +42,16 @@ public class TurtleDisplay {
     }
    
     public void drawLine(double xPrev, double yPrev, double x, double y){
-        GraphicsContext gc = lineCanvas.getContext();
-        gc.setStroke(penColor);
-        gc.setLineWidth(thickness);
-        gc.setLineDashes(dashes);
-        gc.strokeLine(canvasLineX(xPrev), canvasLineY(yPrev), canvasLineX(x), canvasLineY(y));
+        if(status == PenStatus.PENDOWN) {
+            GraphicsContext gc = lineCanvas.getContext();
+            gc.setStroke(penColor);
+            gc.setLineWidth(thickness);
+            gc.setLineDashes(dashes);
+            gc.strokeLine(canvasLineX(xPrev), canvasLineY(yPrev), canvasLineX(x), canvasLineY(y));
+        }
+    }
+    public void setPenStatus(PenStatus status){
+        this.status = status;
     }
     public void setDash(LineType line){
         dashes = (line == LineType.SOLID) ? 0 : NUM_DASH;

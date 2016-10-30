@@ -1,12 +1,9 @@
+package ViewLogic;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import screens.MainMenu;
 import java.util.ResourceBundle;
-import ViewLogic.DisplayUpdater;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import model.Controller;
-import View.DisplayGenerator;
 /**
  * Created by Bill Xiong on 10/19/16.
  * Runs the program.
