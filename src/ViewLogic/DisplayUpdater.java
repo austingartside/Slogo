@@ -185,7 +185,8 @@ public class DisplayUpdater implements ViewToModelInterface{
             text.setOnKeyPressed((key) -> {
                 if(key.getCode().equals(KeyCode.ENTER)){
                     try {
-                        myController.callSaveFile(text.getText());
+                        //myController.callSaveFile(text.getText());
+                    	myController.getSaveManager().callSaveFile(text.getText());
                         dialog.close();
                     }
                     catch (IOException e) {
@@ -208,7 +209,9 @@ public class DisplayUpdater implements ViewToModelInterface{
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File loadFile = chooser.showOpenDialog(mainStage);
             try {
-                myController.enterAction(myController.readFile(loadFile.toString()));
+                //myController.enterAction(myController.readFile(loadFile.toString()));
+            	//myController.enterAction(myController.getSaveManager().readFile(loadFile.toString()));
+            	myController.enterAction(myController.getSaveManager().readFile(loadFile));
             }
             catch (Exception e) {
                 handleError("Could not parse that file");
