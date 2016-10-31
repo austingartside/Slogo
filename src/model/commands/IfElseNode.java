@@ -8,12 +8,9 @@ import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
 public class IfElseNode extends ControlCommand{
-
-	private String myName;
 	
 	public IfElseNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myName = commandList.getCommand();
 		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		checkForListStart(commandList, control);
@@ -21,18 +18,13 @@ public class IfElseNode extends ControlCommand{
 		BlankNode falseStatements = new BlankNode(commandList, nodeMaker, control);
 		this.addChild(trueStatements);
 		this.addChild(falseStatements);
-		moveThroughList(commandList, nodeMaker, trueStatements, control, myName);
+		moveThroughList(commandList, nodeMaker, trueStatements, control, this.getName());
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, falseStatements, control, myName);
-	}
-	
-	public void printName(){
-		System.out.println(myName);
+		moveThroughList(commandList, nodeMaker, falseStatements, control, this.getName());
 	}
 
 	@Override
 	public double execute(Controller control) {
-		printName();
 		double checkValue = this.executeChild(0, control);
 		double lastVal = 0;
 		Command nodeToUse;

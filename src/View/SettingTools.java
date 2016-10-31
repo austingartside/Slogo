@@ -23,6 +23,7 @@ public class SettingTools {
     private LanguageChooser languageChooser;
     private Button imageChanger;
     private ComboBox<Enum> lineChanger;
+    private ComboBox<Enum> penStatus;
     public SettingTools(){
         languageChooser = new LanguageChooser();
         penColorPicker = new ColorPicker();
@@ -30,6 +31,9 @@ public class SettingTools {
         imageChanger = new Button("Change Image");
         lineChanger = new ComboBox<>();
         lineChanger.setPromptText("SOLID");
+        penStatus = new ComboBox<>();
+        penStatus.setPromptText("PENDOWN");
+        addPenStatusOptions();
         addLineOptions();
         toolBar = new ToolBar();
         toolBar.getItems().add(addButtonToBar((ComboBox<String>)languageChooser.getView()));
@@ -37,6 +41,7 @@ public class SettingTools {
         toolBar.getItems().add(addColorPickerToBar(backgroundColorPicker,"Background Color"));
         toolBar.getItems().add(addButtonToBar(imageChanger));
         toolBar.getItems().add(addButtonToBar(lineChanger));
+        toolBar.getItems().add(addButtonToBar(penStatus));
     }
 
     public void setBackgroundAction(EventHandler<ActionEvent> a){
@@ -54,6 +59,12 @@ public class SettingTools {
 
     public Enum getLineChoice(){
         return lineChanger.getSelectionModel().getSelectedItem();
+    }
+    public Enum getPenStatusChoice(){
+        return penStatus.getSelectionModel().getSelectedItem();
+    }
+    public void setPenStatusAction(EventHandler<ActionEvent> a){
+        penStatus.setOnAction(a);
     }
     public void setLineChangerAction(EventHandler<ActionEvent> a){
         lineChanger.setOnAction(a);
@@ -78,6 +89,10 @@ public class SettingTools {
         lineChanger.getItems().add(TurtleDisplay.LineType.DASH);
         lineChanger.getItems().add(TurtleDisplay.LineType.SOLID);
         lineChanger.getItems().add(TurtleDisplay.LineType.DOTTED);
+    }
+    private void addPenStatusOptions(){
+        penStatus.getItems().add(TurtleDisplay.PenStatus.PENUP);
+        penStatus.getItems().add(TurtleDisplay.PenStatus.PENDOWN);
     }
     private VBox addColorPickerToBar(ColorPicker cp, String label){
         VBox vb = new VBox();

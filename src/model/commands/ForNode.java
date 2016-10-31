@@ -10,11 +10,9 @@ import model.parser.ListOfCommands;
 public class ForNode extends ControlCommand{
 
 	private String variableName;
-	String myName;
 	
 	public ForNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myName = commandList.getCommand();
 		commandList.updateLocation();
 		checkForListStart(commandList, control);
 		commandList.updateLocation();
@@ -22,19 +20,13 @@ public class ForNode extends ControlCommand{
 		variableName = commandList.getCommand();
 		control.addVariable(variableName, 0);
 		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		moveThroughList(commandList, nodeMaker, this, control, myName);
+		moveThroughList(commandList, nodeMaker, this, control, this.getName());
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control, myName);		
+		moveThroughList(commandList, nodeMaker, this, control, this.getName());		
 	}
-	
-	public void printName(){
-		System.out.println(myName);
-	}
-
 
 	@Override
 	public double execute(Controller control) {
-		printName();
 		double start = executeChild(0, control);
 		double end = executeChild(1, control);
 		double increment = executeChild(2, control);

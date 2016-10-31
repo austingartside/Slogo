@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,14 +20,18 @@ import model.DisplaySpecs;
 import model.Turtle;
 import model.TurtleView;
 import model.commands.Command;
+import screens.MainMenu;
 import screens.SLogoScene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Driver;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
+
 import javafx.scene.*;
 
 /**
@@ -124,6 +129,10 @@ public class DisplayUpdater implements ViewToModelInterface{
             TurtleDisplay.LineType lineChoice = (TurtleDisplay.LineType) scene.getSettingTools().getLineChoice();
             scene.getTurtleDisplay().setDash(lineChoice);
         });
+        scene.getSettingTools().setPenStatusAction((event) ->{
+            TurtleDisplay.PenStatus penChoice = (TurtleDisplay.PenStatus) scene.getSettingTools().getPenStatusChoice();
+            scene.getTurtleDisplay().setPenStatus(penChoice);
+        });
         scene.getSettingTools().setImageAction((event) ->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -161,7 +170,13 @@ public class DisplayUpdater implements ViewToModelInterface{
             scene.getTurtleDisplay().setPenColor(c);
             myController.getDisplaySpecs().setPenColorIndex(scene.getDisplayOptions().getColorIndex(c));
         });
-        
+        scene.getFileControl().setWorkspaceAction((event) -> {
+           MainMenu main = new MainMenu();
+            Stage stage = new Stage();
+            stage.setScene(main.init(stage, ViewLogic.Driver.WIDTH, ViewLogic.Driver.HEIGHT, null));
+            stage.show();
+        });
+
         scene.getFileControl().setSaveAction((event) ->{
             final Stage dialog = new Stage();
             TextField text = new TextField();

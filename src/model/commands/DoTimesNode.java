@@ -11,11 +11,9 @@ import model.parser.ListOfCommands;
 public class DoTimesNode extends ControlCommand{
 
 	private String varName;
-	private String myName;
 	
 	public DoTimesNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myName = "DoTimes";
 		commandList.updateLocation();
 		checkForListStart(commandList, control);
 		commandList.updateLocation();
@@ -25,18 +23,12 @@ public class DoTimesNode extends ControlCommand{
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		commandList.updateLocation();
 		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control, myName);
+		moveThroughList(commandList, nodeMaker, this, control, this.getName());
 		
 	}
 	
-	public void printName(){
-		System.out.println(myName);
-	}
-
-
 	@Override
 	public double execute(Controller control) {
-		printName();
 		double limit = this.executeChild(FIRSTENTRY, control);
 		double lastVal = 0;
 		for(double i = 1; i<=limit; i++){
