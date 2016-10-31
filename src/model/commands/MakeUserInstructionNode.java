@@ -23,14 +23,17 @@ public class MakeUserInstructionNode extends ControlCommand{
 		checkIfCommand(commandList.getCommand(), control);
 		definedCommandName = commandList.getCommand();
 		//so that we can check commands during parsing for errors instead of having to wait til execution
-		control.addCommand(definedCommandName, new BlankNode(commandList, nodeMaker, control));
+		//control.addCommand(definedCommandName, new BlankNode(commandList, nodeMaker, control));
+		control.getCommandController().addCommand(definedCommandName, new BlankNode(commandList, nodeMaker, control));
 		///start check
 		checkVariableList(commandList.getRow(), commandList.getCol(), commandList, control);
 		//end check
 		//for checking whether the command has been defined or not
-		control.changeExecutingValue(definedCommandName, false);
+		//control.changeExecutingValue(definedCommandName, false);
+		control.getCommandController().changeExecutingValue(definedCommandName, false);
 		Command definedCommand = (Command) nodeMaker.getCommand(commandList, control);
-		control.changeExecutingValue(definedCommandName, true);
+		//control.changeExecutingValue(definedCommandName, true);
+		control.getCommandController().changeExecutingValue(definedCommandName, true);
 		this.addChild(definedCommand);
 		checkForListStart(commandList, control);
 		definedCommand.addChild(new BlankNode(commandList, nodeMaker, control));
@@ -64,7 +67,8 @@ public class MakeUserInstructionNode extends ControlCommand{
 	public double execute(Controller control) {
 		printName();
 		Command definedCommand = this.getChild(0);
-		control.addCommand(definedCommandName, definedCommand);
+		//control.addCommand(definedCommandName, definedCommand);
+		control.getCommandController().addCommand(definedCommandName, definedCommand);
 		return 1;
 	}
 

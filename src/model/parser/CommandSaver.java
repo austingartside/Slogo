@@ -90,9 +90,12 @@ public class CommandSaver {
 	}
 	
 	private void saveVariables(Controller control){
-		for(String variable: control.getVariables().keySet()){
+		for(String variable: control.getCommandController().getVariables().keySet()){
+		//for(String variable: control..getVariables().keySet()){
 			//control.addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
-			control.getSaveManager().addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
+			//control.getSaveManager().addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
+			control.getSaveManager().addCommandToSave(variable, CREATE_VARIABLE + variable + " "
+			+ control.getCommandController().getVariableValue(variable) + " ");
 		}
 	}
 	
