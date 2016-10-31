@@ -22,10 +22,10 @@ public class Turtle {
 	private int errorState;
 	private double myID;
 
-	public Turtle(Controller controller, double id){
+	public Turtle(Controller control, double id){
 		newXpos=0.0;
 		newYpos=0.0;
-		myController=controller;
+		myController=control;
 		errorState = 0;
 		myID=id;
 		//this.setPosition(ZERO,ZERO);

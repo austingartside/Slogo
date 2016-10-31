@@ -17,7 +17,7 @@ public class SetTowardsNode extends TwoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().towards(executeChild(FIRSTENTRY, control),executeChild(SECONDENTRY, control) );
+		return control.getTurtleControl().getTurtle().towards(executeChild(FIRSTENTRY, control),executeChild(SECONDENTRY, control) );
 	}
 
 }

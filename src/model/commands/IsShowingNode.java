@@ -15,8 +15,7 @@ public class IsShowingNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		
-		return 0;// TODO Auto-generated method stub
+		return control.getTurtleControl().getTurtle().isRevealBoolean();
 		
 	}
 

@@ -25,18 +25,12 @@ public class Controller {
 	private String userCommand;
 	private SLogoScene myActionScene;
 	private ProgramParser parser;
-	private Collection<Turtle> myTurtleCollection;
-	//private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
-	private Collection<TurtleView> myTurtleViewCollection;
 	private DisplaySpecs myDisplaySpecs;
-	private TurtleFactory myTurtleFactory;
-	private TurtleArmy myTurtleArmy;
-	private Collection<Double> myTurtleIDs;
-	private Collection<Double> myAskList;
 	//private CommandSaver commandsToSave;
 	
 	private CommandSaveManager saveManager;
 	private CommandController myCommandController;
+	private TurtleController myTurtleController;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -50,17 +44,12 @@ public class Controller {
 	}*/
 	
 	public Controller(){
-		myTurtleFactory=new TurtleFactory();
-		//myTurtle = new Turtle(this);
-		myTurtleIDs=new ArrayList<Double>();
-		myTurtleCollection=new ArrayList<Turtle>();
-		myTurtleViewCollection=new ArrayList<TurtleView>();
-		myAskList=new ArrayList<Double>();
-		myDisplaySpecs=new DisplaySpecs();
+		myDisplaySpecs=new DisplaySpecs(this);
 		history = new ArrayList<String>();
 		parser = new ProgramParser();
 		saveManager = new CommandSaveManager(this);
 		myCommandController = new CommandController(this);
+		myTurtleController=new TurtleController(this);
 	}
 	
 	public ProgramParser getParser(){
@@ -76,8 +65,6 @@ public class Controller {
 	}
 	
 	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
-		//Factory useless as of now. May be needed for later additions
-		
 		//View set up
 		myActionScene=actionScene;
 		DisplayUpdater du = new DisplayUpdater(myActionScene,this);
@@ -91,7 +78,7 @@ public class Controller {
         stage.setScene(myActionScene.getScene());
 		
         //Model set Up
-		makeTurtle(ONE);
+		myTurtleController.makeTurtle(ONE);
 	}
 	
 	public String getUserCommand(){
@@ -117,25 +104,8 @@ public class Controller {
         catch(NullPointerException n){
             new DisplayUpdater(MainMenu.slogoScene, null).handleError("Error parsing command");
         }
-		//System.out.println(myTurtle.getNewPositionX());
-		//System.out.println(myTurtle.getNewPositionY());
+		
 	}	
-
-	//// Im not sure how to get the implemented Turtle executes to affect the Turtle built here. Do we pass in the Turtle as a object or use these getters and setters or another way?
-	public TurtleArmy getTurtle(){
-		return myTurtleArmy;
-	}
-	
-	public Collection<TurtleView> updateTurtleViewCollection(){
-		//Change to binding
-		myTurtleViewCollection.clear();
-		for(Turtle t: myTurtleCollection){
-			TurtleView turtleView= new TurtleView(t);
-			myTurtleViewCollection.add(turtleView);
-		}
-		return myTurtleViewCollection;
-	}
-	
 	public void addHistory(String command){
 		history.add(command);
 	}
@@ -152,58 +122,19 @@ public class Controller {
 	}
 	
 	public void UpdateView() {
-		myTurtleViewCollection=updateTurtleViewCollection();
+		Collection<TurtleView> myTurtleViewCollection=myTurtleController.updateTurtleViewCollection();
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
-		resetClearScreens();
+		myTurtleController.resetClearScreens();
 		myDisplayUpdater.updateScreen(myTurtleViewCollection,myDisplaySpecs);
 		
 	}
-
-	private void resetClearScreens() {
-		for(Turtle t: myTurtleCollection){
-			t.setClearScreenOff();
-		}
+	
+	public TurtleController getTurtleControl(){
+		return myTurtleController;
 	}
 
 	public DisplaySpecs getDisplaySpecs() {
 		return myDisplaySpecs;
 	}
-
-	public void makeTurtle(double turtleNum) {
-		Turtle turtle=myTurtleFactory.createTurtle(this, turtleNum);
-		myTurtleCollection.add(turtle);
-		myTurtleIDs.add(turtleNum);
-		myTurtleArmy= new TurtleArmy(myTurtleCollection);
-		myTurtleViewCollection=updateTurtleViewCollection();
-	}
-
-	public Collection<Turtle> getTurtleList() {
-		return myTurtleCollection;
-	}
-	
-	public Collection<Double> getTurtleIDs() {
-		return myTurtleIDs;
-	}
-	
-	public void askListUpdate(double turtleNum){
-		myAskList.add(turtleNum);
-	}
-	
-	public void setTurtleArmy(){
-		Collection<Turtle> tempCollection=new ArrayList<Turtle>();
-		
-		Iterator<Double> tempIterator= myAskList.iterator();
-    	while(tempIterator.hasNext()){
-    		Double i=tempIterator.next();
-			for(Turtle t :myTurtleCollection){
-				if(t.checkID(i)){
-					tempCollection.add(t);
-				}
-			}
-		}
-    	myTurtleArmy=new TurtleArmy(tempCollection);
-		myAskList.clear();
-	}
-		
 
 }

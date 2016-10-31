@@ -31,7 +31,7 @@ public class AskNode extends ControlCommand{
 			System.out.println("Bill 7");
 			turtleNum = this.executeChild(i, control);
 			System.out.println("Bill boy");
-			control.askListUpdate(turtleNum);
+			control.getTurtleControl().askListUpdate(turtleNum);
 			System.out.println("Bill girl");
 			//somehow store the turtleNum so that you can only execute commands for this turtle
 			i++;
@@ -40,7 +40,7 @@ public class AskNode extends ControlCommand{
 		}
 		
 		System.out.println("Bill bad");
-		control.setTurtleArmy();
+		control.getTurtleControl().setTurtleArmy();
 		System.out.println("Bill 7.5");
 		int commandBeginning = i+1;
 		for(int j = commandBeginning; j<this.getNumChildren(); j++){

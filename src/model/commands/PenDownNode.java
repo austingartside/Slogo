@@ -13,7 +13,7 @@ public class PenDownNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().penDown();
+		return control.getTurtleControl().getTurtle().penDown();
 	}
 
 }

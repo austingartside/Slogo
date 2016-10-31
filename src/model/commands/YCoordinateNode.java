@@ -15,7 +15,7 @@ public class YCoordinateNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().getNewPositionY();
+		return control.getTurtleControl().getTurtle().getNewPositionY();
 	}
 
 }

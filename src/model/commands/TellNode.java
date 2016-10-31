@@ -19,8 +19,8 @@ public class TellNode extends ControlCommand{
 		if(this.getNumChildren()>0){
 			for(int i = 0; i<this.getNumChildren(); i++){
 				turtleNum = this.executeChild(i, control);
-				if(!control.getTurtleIDs().contains(turtleNum)){
-					control.makeTurtle(turtleNum);
+				if(!control.getTurtleControl().getTurtleIDs().contains(turtleNum)){
+					control.getTurtleControl().makeTurtle(turtleNum);
 				}
 			}
 		}

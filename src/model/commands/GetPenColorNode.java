@@ -12,8 +12,7 @@ public class GetPenColorNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		// TODO Auto-generated method stub
-		return 0;
+		return control.getDisplaySpecs().getPenColorIndex();
 	}
 
 }

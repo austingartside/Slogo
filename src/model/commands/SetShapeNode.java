@@ -13,12 +13,10 @@ public class SetShapeNode extends OneArgumentCommand{
 //		commandList.updateLocation();
 //		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
-
+	
 	@Override
 	public double execute(Controller control) {
-		double index=this.executeChild(FIRSTENTRY, control);
-		control.getDisplaySpecs().setShapeIndex(index);
-		return index;
+		return control.getDisplaySpecs().setShapeIndex(this.executeChild(FIRSTENTRY, control));
 	}
 
 }

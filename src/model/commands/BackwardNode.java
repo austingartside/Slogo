@@ -27,7 +27,7 @@ public class BackwardNode extends OneArgumentCommand{
 	public double execute(Controller control) {
 		//printName();
 		double something = this.executeChild(FIRSTENTRY,control);
-		double fake = control.getTurtle().move(MINUS*something);
+		double fake = control.getTurtleControl().getTurtle().move(MINUS*something);
 		return something;
 	}
 

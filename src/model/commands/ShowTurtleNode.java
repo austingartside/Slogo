@@ -15,7 +15,7 @@ public class ShowTurtleNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control){
-		return control.getTurtle().showTurtle();
+		return control.getTurtleControl().getTurtle().showTurtle();
 	}
 
 }

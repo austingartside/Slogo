@@ -16,7 +16,7 @@ public class RightNode extends OneArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().changeOrientation(this.executeChild(FIRSTENTRY,control));
+		return control.getTurtleControl().getTurtle().changeOrientation(this.executeChild(FIRSTENTRY,control));
 	}
 
 }

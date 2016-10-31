@@ -25,7 +25,7 @@ public class ForwardNode extends OneArgumentCommand{
 	@Override
 	public double execute(Controller control) {
 		//printName();
-		return control.getTurtle().move(this.executeChild(FIRSTENTRY, control));
+		return control.getTurtleControl().getTurtle().move(this.executeChild(FIRSTENTRY, control));
 	}
 
 }

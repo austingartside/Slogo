@@ -17,8 +17,7 @@ public class SetPaletteNode extends Command{
 
 	@Override
 	public double execute(Controller control) {
-		// TODO Auto-generated method stub
-		return 0;
+		return control.getDisplaySpecs().setPaletteIndex(this.executeChild(FIRSTENTRY, control),this.executeChild(SECONDENTRY,control),this.executeChild(3,control),this.executeChild(4,control));
 	}
 	
 	
