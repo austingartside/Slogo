@@ -18,7 +18,8 @@ public class ForNode extends ControlCommand{
 		commandList.updateLocation();
 		isVariable(commandList.getCommand(), control);
 		variableName = commandList.getCommand();
-		control.addVariable(variableName, 0);
+		//control.addVariable(variableName, 0);
+		control.getCommandController().addVariable(variableName, 0);
 		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		moveThroughList(commandList, nodeMaker, this, control, this.getName());
 		checkForListStart(commandList, control);
@@ -35,7 +36,8 @@ public class ForNode extends ControlCommand{
 			for(int i = 3; i<this.getNumChildren(); i++){
 				lastVal = executeChild(i, control);
 			}
-			control.addVariable(variableName, varToIncrement);
+			//control.addVariable(variableName, varToIncrement);
+			control.getCommandController().addVariable(variableName, varToIncrement);
 		}
 		return lastVal;
 	}

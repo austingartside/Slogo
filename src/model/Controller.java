@@ -1,24 +1,16 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import ViewLogic.DisplayUpdater;
 import javafx.stage.Stage;
 import model.commands.BlankNode;
 import model.commands.Command;
-import model.exceptions.CommandDoesNotExistException;
-import model.parser.CommandSaver;
 import model.parser.ExpressionTreeBuilder;
-import model.parser.InputReader;
-import model.parser.ListOfCommands;
 import model.parser.ProgramParser;
 import screens.MainMenu;
 import screens.SLogoScene;
@@ -29,16 +21,9 @@ public class Controller {
     public static final int HEIGHT  = 600;
     public static final double ONE=1;
 	
-	private Map<String, Double> variables;
-	private Map<String, Command> commands;
-	private Map<String, Boolean> executeCommand;
-	private Map<String, Integer> numParameters;
 	private List<String> history;
 	private String userCommand;
 	private SLogoScene myActionScene;
-	//private List<String> commandsInOrder;
-	//private Map<String, String> commandToStringDefinition;
-	//private ExceptionManager myExceptionManager;
 	private ProgramParser parser;
 	private Collection<Turtle> myTurtleCollection;
 	//private Turtle myTurtle; // Will have to change for when there are multiple turtles? This statement is here, in case the nodes use the getters and setters.
@@ -51,6 +36,7 @@ public class Controller {
 	//private CommandSaver commandsToSave;
 	
 	private CommandSaveManager saveManager;
+	private CommandController myCommandController;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -70,18 +56,12 @@ public class Controller {
 		myTurtleCollection=new ArrayList<Turtle>();
 		myTurtleViewCollection=new ArrayList<TurtleView>();
 		myAskList=new ArrayList<Double>();
+
 		myDisplaySpecs=new DisplaySpecs(this);
-		variables = new HashMap<String, Double>();
-		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
-		//myExceptionManager = new ExceptionManager();
-		//commandsToSave = new CommandSaver();
-		executeCommand = new HashMap<String, Boolean>();
-		numParameters = new HashMap<>();
-		//commandToStringDefinition = new HashMap<String, String>();
 		parser = new ProgramParser();
-		//commandsInOrder = new ArrayList<String>();
 		saveManager = new CommandSaveManager(this);
+		myCommandController = new CommandController(this);
 	}
 	
 	public ProgramParser getParser(){
@@ -92,34 +72,9 @@ public class Controller {
 		return saveManager;
 	}
 	
-//	public void addCommandToSave(String command, String definition){
-//		commandToStringDefinition.put(command, definition);
-//		commandsInOrder.add(command);
-//	}
-//	
-//	public List<String> getCommandsInOrder(){
-//		return commandsInOrder;
-//	}
-//	
-//	public Map<String, String> getCommandsToSave(){
-//		return commandToStringDefinition;
-//	}
-//	
-//	public String getCommandToSave(String command){
-//		return commandToStringDefinition.get(command);
-//	}
-//	
-//	public void callSaveFile(String fileName) throws IOException{
-//	    commandsToSave.saveToFile(this, fileName);
-//		//commandsToSave.saveToFile(saveManager, fileName);
-//	}
-//	
-//	private void saveCommands() throws Exception{
-//		InputReader inputControl = new InputReader(userCommand);
-//		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
-//		commandsToSave.saveAll(commandList, this);
-//		//commandsToSave.saveAll(commandList, saveManager);
-//	}
+	public CommandController getCommandController(){
+		return myCommandController;
+	}
 	
 	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
 		//Factory useless as of now. May be needed for later additions
@@ -140,66 +95,8 @@ public class Controller {
 		makeTurtle(ONE);
 	}
 	
-	public boolean isExecuting(String command){
-		return executeCommand.get(command);
-	}
-	
-	public void addNumParam(String command, int count){
-		numParameters.put(command, count);
-	}
-	
-	public int getNumParam(String command){
-		return numParameters.get(command);
-	}
-	
-	public void changeExecutingValue(String command, boolean value){
-		executeCommand.put(command, value);
-	}
-	
-	public void addVariable(String name, double value){
-		variables.put(name, value);
-	}
-	
 	public String getUserCommand(){
 		return userCommand;
-	}
-	
-	public double getVariableValue(String variableName){
-	    if(!variables.containsKey(variableName)){
-			//myExceptionManager.addError(NO_VARIABLE);
-			//System.out.println("Ya Done Goofed");
-		}
-		return variables.get(variableName);
-	}
-	
-	public void addCommand(String key, Command value){
-		commands.put(key, value);
-	}
-	public Map<String, Command> getCommands(){
-	    return commands;
-    }
-	
-//	public boolean hasCommand(String command){
-//		return commands.containsKey(command);
-//	}
-//	public String readFile(String filename) throws FileNotFoundException{
-//		return saveManager.getCommandSaver().readFileToString(filename);
-//	}
-	
-	public void checkForCommand(String command) throws CommandDoesNotExistException{
-	    try{
-            if(!commands.containsKey(command)){
-                //control.getTurtle().setErrorState(3);
-                throw new CommandDoesNotExistException(command + " has not been defined ");
-            }
-        }
-        catch(CommandDoesNotExistException c){
-            new DisplayUpdater(MainMenu.slogoScene, this).handleError(c.getError());
-        }
-	}
-	
-	public Command findCommand(String command){
-		return commands.get(command);
 	}
 	
 	//I may have misunderstood how the tree takes in the input.
@@ -223,11 +120,7 @@ public class Controller {
         }
 		
 	}	
-	
-	public Map<String,Double> getVariables(){
-		return variables;
-	}
-	
+
 	//// Im not sure how to get the implemented Turtle executes to affect the Turtle built here. Do we pass in the Turtle as a object or use these getters and setters or another way?
 	public TurtleArmy getTurtle(){
 		return myTurtleArmy;
