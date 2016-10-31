@@ -15,7 +15,7 @@ public class LeftNode extends OneArgumentCommand{
 	@Override
 	public double execute(Controller control) {
 		double turn = this.executeChild(FIRSTENTRY,control);
-		double fake = control.getTurtle().changeOrientation(MINUS*turn);
+		double fake = control.getTurtleControl().getTurtle().changeOrientation(MINUS*turn);
 		return turn;
 	}
 

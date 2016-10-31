@@ -19,7 +19,7 @@ public class ClearScreenNode extends NoArgumentCommand{
 		//double dist=Math.sqrt(Math.pow(control.getTurtle().getNewPositionX(), SQUARED)+(Math.pow(control.getTurtle().getNewPositionY(),SQUARED)));
 		//control.getTurtle().reset();
 		//control.getTurtle().setOrientation(ZERO);
-		return control.getTurtle().clearScreen();
+		return control.getTurtleControl().getTurtle().clearScreen();
 		////Distance moved by turtle for reset or turtle in general?	
 		//return dist;
 		////WILL NEED TO CHNAGE TO DIFFER FROM HOME

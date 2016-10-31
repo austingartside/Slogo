@@ -13,7 +13,7 @@ public class HideTurtleNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().hideTurtle();
+		return control.getTurtleControl().getTurtle().hideTurtle();
 		//return ZERO;
 	}
 

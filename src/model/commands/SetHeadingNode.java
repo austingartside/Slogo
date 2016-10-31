@@ -18,7 +18,7 @@ public class SetHeadingNode extends OneArgumentCommand{
 	public double execute(Controller control) {
 		//double val=this.executeChild(FIRSTENTRY, control);
 		//return control.getTurtle().setOrientation(val);
-		return control.getTurtle().setOrientation(this.executeChild(FIRSTENTRY, control));
+		return control.getTurtleControl().getTurtle().setOrientation(this.executeChild(FIRSTENTRY, control));
 		//return val;
 	}
 

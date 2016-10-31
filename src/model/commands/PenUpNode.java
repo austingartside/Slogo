@@ -15,7 +15,7 @@ public class PenUpNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		control.getTurtle().penUp();
+		control.getTurtleControl().getTurtle().penUp();
 		return ZERO; 
 	}
 

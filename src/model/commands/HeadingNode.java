@@ -13,7 +13,7 @@ public class HeadingNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().getAngle();
+		return control.getTurtleControl().getTurtle().getAngle();
 		
 	}
 
