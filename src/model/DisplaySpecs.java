@@ -10,7 +10,7 @@ public class DisplaySpecs {
 	private double DEFAULT=0.0;
 	
 	public DisplaySpecs(){
-		myBackgroundIndex=DEFAULT;
+		myBackgroundIndex=1.0;
 		myPenColorIndex=DEFAULT;
 		myPenSizeIndex=DEFAULT;
 		myShapeIndex=DEFAULT;

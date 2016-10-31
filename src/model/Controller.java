@@ -1,5 +1,7 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,6 +35,7 @@ public class Controller {
 	private Map<String, Double> variables;
 	private SLogoScene myActionScene;
 	private Map<String, Command> commands;
+	private List<String> commandsInOrder;
 	private Map<String, Boolean> executeCommand;
 	private Map<String, Integer> numParameters;
 	private Map<String, String> commandToStringDefinition;
@@ -78,6 +81,7 @@ public class Controller {
 		numParameters = new HashMap<>();
 		commandToStringDefinition = new HashMap<String, String>();
 		parser = new ProgramParser();
+		commandsInOrder = new ArrayList<String>();
 	}
 	
 	public ProgramParser getParser(){
@@ -86,6 +90,11 @@ public class Controller {
 	
 	public void addCommandToSave(String command, String definition){
 		commandToStringDefinition.put(command, definition);
+		commandsInOrder.add(command);
+	}
+	
+	public List<String> getCommandsInOrder(){
+		return commandsInOrder;
 	}
 	
 	public Map<String, String> getCommandsToSave(){
@@ -94,6 +103,10 @@ public class Controller {
 	
 	public String getCommandToSave(String command){
 		return commandToStringDefinition.get(command);
+	}
+	
+	public void callSaveFile(String fileName) throws IOException{
+	    commandsToSave.saveToFile(this, fileName);
 	}
 	
 	private void saveCommands() throws Exception{
@@ -163,8 +176,10 @@ public class Controller {
 //	public boolean hasCommand(String command){
 //		return commands.containsKey(command);
 //	}
-	
-	public void checkForCommand(String command, Controller control) throws CommandDoesNotExistException{
+	public String readFile(String filename) throws FileNotFoundException{
+	    return commandsToSave.readFileToString(filename);
+	}
+	public void checkForCommand(String command) throws CommandDoesNotExistException{
 	    try{
             if(!commands.containsKey(command)){
                 //control.getTurtle().setErrorState(3);
@@ -172,7 +187,7 @@ public class Controller {
             }
         }
         catch(CommandDoesNotExistException c){
-            new DisplayUpdater(MainMenu.slogoScene, control).handleError(c.getError());
+            new DisplayUpdater(MainMenu.slogoScene, this).handleError(c.getError());
         }
 	}
 	

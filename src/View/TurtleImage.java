@@ -11,16 +11,20 @@ public class TurtleImage {
     
     private ImageView turtle;
     private Image turtleIm;
+    private String turtleString;
     
     public TurtleImage(){
         String path = System.getProperty("user.dir");
-        turtle = new ImageView(new File(path + "/src/resources.view/Turtle.png").toURI().toString());
+        turtleString = new File(path + "/src/resources.view/Turtle.png").toURI().toString();
+        turtle = new ImageView(turtleString);
         turtleIm = turtle.getImage();
         addImage(turtle);
     }
     
     public void changeTurtleImage(String pic){
-        turtleIm = new Image(new File(pic).toURI().toString());
+        turtleString = pic;
+        System.out.println(turtleString);
+        turtleIm = new Image(turtleString);
         turtle.setImage(turtleIm);
         turtle.setFitWidth(40);
         turtle.setFitHeight(40);
@@ -38,6 +42,9 @@ public class TurtleImage {
             makeTurtleInvisible();
         }
     }
+    public String getString(){
+        return turtleString;
+    }
     private void addImage(ImageView turtle){
         turtle.setFitWidth(40);
         turtle.setFitHeight(40);
@@ -52,12 +59,11 @@ public class TurtleImage {
         turtle.setRotate(angle);
     }
     public void makeTurtleInvisible(){
-        turtleIm = turtle.getImage();
-        turtle.setImage(null);
+        turtle.setVisible(false);
     }
     //TODO change colors later
     public void makeTurtleVisible(){
-        turtle.setImage(turtleIm);
+        turtle.setVisible(true);
     }
     public ImageView getTurtle(){
         return turtle;

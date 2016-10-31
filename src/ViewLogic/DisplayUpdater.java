@@ -1,23 +1,37 @@
 package ViewLogic;
 
+import View.TurtleDisplay;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
+import model.Turtle;
 import model.TurtleView;
 import model.commands.Command;
+import screens.MainMenu;
 import screens.SLogoScene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
+import java.sql.Driver;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
+
 import javafx.scene.*;
 
 /**
@@ -28,13 +42,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     private SLogoScene scene;
 
     private Controller myController;
-    private final String XPOS = "X POSITION: ";
-    private final String YPOS = "Y POSITION: ";
-    private final String PENDOWN = "PEN DOWN: ";
-    private final String PENCOLOR = "PEN COLOR: ";
-    private final String BACKGROUND = "BACKGROUND: ";
-    private final String HEADING = "HEADING: ";
-
+    
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
         myController = control;
@@ -89,13 +97,15 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void changeBackgroundColor(Color color) {
         scene.getTurtleDisplay().changeBackgroundColor(color);
     }
+    public void changePenThickness(double thickness){
+        scene.getTurtleDisplay().setThickness(thickness);
+    }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
                                 try {
                                         myController.enterAction(scene.getCommandBar().getText());
                                 } catch (Exception e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
+                                        handleError("Not valid text");
                                 }
             if(!scene.getCommandBar().getText().equals("")) {
                 updateHistory(scene.getCommandBar().getText());
@@ -109,14 +119,27 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addHandlers(){
         scene.getSettingTools().setBackgroundAction((event) ->{
-            scene.getTurtleDisplay().changeBackgroundColor(scene.getSettingTools().getBackgroundColorPicker().getValue());
+            Color c = scene.getSettingTools().getBackgroundColorPicker().getValue();
+            scene.getTurtleDisplay().changeBackgroundColor(c);
+            myController.getDisplaySpecs().setBackgroundIndex(scene.getDisplayOptions().getColorIndex(c));
+            //myController.getDisplaySpecs().setBackgroundIndex();//What do I set it to if it doesn't exist
         });
-        
+
+        scene.getSettingTools().setLineChangerAction((event) ->{
+            TurtleDisplay.LineType lineChoice = (TurtleDisplay.LineType) scene.getSettingTools().getLineChoice();
+            scene.getTurtleDisplay().setDash(lineChoice);
+        });
+        scene.getSettingTools().setPenStatusAction((event) ->{
+            TurtleDisplay.PenStatus penChoice = (TurtleDisplay.PenStatus) scene.getSettingTools().getPenStatusChoice();
+            scene.getTurtleDisplay().setPenStatus(penChoice);
+        });
         scene.getSettingTools().setImageAction((event) ->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
-            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(imageFile.toString());
+            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage("file:" + imageFile.toString());
+            
+            myController.getDisplaySpecs().setShapeIndex(scene.getDisplayOptions().getImageIndex("file:"+imageFile.toString()));
         });
         scene.getHelpTabs().setCurrCommAction(m -> {
             //TODO use the map to map the method to text
@@ -145,13 +168,65 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getSettingTools().setPenAction((event) ->{
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
             scene.getTurtleDisplay().setPenColor(c);
+            myController.getDisplaySpecs().setPenColorIndex(scene.getDisplayOptions().getColorIndex(c));
+        });
+        scene.getFileControl().setWorkspaceAction((event) -> {
+           MainMenu main = new MainMenu();
+            Stage stage = new Stage();
+            stage.setScene(main.init(stage, ViewLogic.Driver.WIDTH, ViewLogic.Driver.HEIGHT, null));
+            stage.show();
+        });
+
+        scene.getFileControl().setSaveAction((event) ->{
+            final Stage dialog = new Stage();
+            TextField text = new TextField();
+            text.setPromptText("File Name");
+            text.setOnKeyPressed((key) -> {
+                if(key.getCode().equals(KeyCode.ENTER)){
+                    try {
+                        myController.callSaveFile(text.getText());
+                        dialog.close();
+                    }
+                    catch (IOException e) {
+                        handleError("Invalid Input");
+                    }
+                }
+            });
+            VBox vb = new VBox();
+            vb.getChildren().addAll(new Label("Name your file"),text);
+            vb.setAlignment(Pos.CENTER);
+            vb.setSpacing(10);
+            vb.setPadding(new Insets(10,10,10,10));
+            Scene dialogScene = new Scene(vb, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        });
+        
+        scene.getFileControl().setLoadAction((event)->{
+            FileChooser chooser = new FileChooser();
+            Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            File loadFile = chooser.showOpenDialog(mainStage);
+            try {
+                myController.enterAction(myController.readFile(loadFile.toString()));
+            }
+            catch (Exception e) {
+                handleError("Could not parse that file");
+            }
+            addUserCommands();
+            addVariables();
+        });
+        
+        scene.getDisplayOptions().setOptionAction((event)->{
+            final Stage palette = new Stage();
+            Scene paletteScene = new Scene(scene.getDisplayOptions().setScreen(), 600, 600);
+            palette.setScene(paletteScene);
+            palette.show();
         });
 
     }
 
 	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
         scene.getHelpTabs().getCurrState().clear();
-        System.out.println(myTurtleViewCollection.size());
 	    for(TurtleView t : myTurtleViewCollection){
             setVisible(t.isRevealBoolean());
 			setOrientation (t.getAngleNow());
@@ -162,6 +237,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 			Color c = scene.getSettingTools().getPenColorPicker().getValue();
             updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
 		}
+	    changeDisplay();
 		///TODO: Use changes to displayspecs.
 	}
 	private void addUserCommands(){
@@ -175,7 +251,18 @@ public class DisplayUpdater implements ViewToModelInterface{
 	    for(String str : vars.keySet()){
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }
-    }
+        }
+	
+	private void changeDisplay(){
+	    double background = myController.getDisplaySpecs().getBackgroundIndex();
+	    double pen = myController.getDisplaySpecs().getPenColorIndex();
+	    double image = myController.getDisplaySpecs().getShapeIndex();
+	    scene.getTurtleDisplay().changeBackgroundColor(scene.getDisplayOptions().getColor(background));
+            scene.getTurtleDisplay().setPenColor(scene.getDisplayOptions().getColor(pen));
+            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(scene.getDisplayOptions().getImage(image));
+	}
+	
+	
 	public void handleError(String error){
         Stage stage = new Stage();
         Group g = new Group();

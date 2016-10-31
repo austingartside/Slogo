@@ -2,6 +2,7 @@ package View;
 
 import java.util.List;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -21,19 +22,28 @@ public class SettingTools {
     private ColorPicker backgroundColorPicker;
     private LanguageChooser languageChooser;
     private Button imageChanger;
-    
+    private ComboBox<Enum> lineChanger;
+    private ComboBox<Enum> penStatus;
     public SettingTools(){
         languageChooser = new LanguageChooser();
         penColorPicker = new ColorPicker();
         backgroundColorPicker = new ColorPicker();
         imageChanger = new Button("Change Image");
+        lineChanger = new ComboBox<>();
+        lineChanger.setPromptText("SOLID");
+        penStatus = new ComboBox<>();
+        penStatus.setPromptText("PENDOWN");
+        addPenStatusOptions();
+        addLineOptions();
         toolBar = new ToolBar();
         toolBar.getItems().add(addButtonToBar((ComboBox<String>)languageChooser.getView()));
         toolBar.getItems().add(addColorPickerToBar(penColorPicker,"Pen Color"));
         toolBar.getItems().add(addColorPickerToBar(backgroundColorPicker,"Background Color"));
         toolBar.getItems().add(addButtonToBar(imageChanger));
+        toolBar.getItems().add(addButtonToBar(lineChanger));
+        toolBar.getItems().add(addButtonToBar(penStatus));
     }
-    
+
     public void setBackgroundAction(EventHandler<ActionEvent> a){
         backgroundColorPicker.setOnAction(a);
     }
@@ -46,7 +56,19 @@ public class SettingTools {
         ComboBox<String> comboBox = (ComboBox<String>)languageChooser.getView();
         comboBox.setOnAction(a);
     }
-    
+
+    public Enum getLineChoice(){
+        return lineChanger.getSelectionModel().getSelectedItem();
+    }
+    public Enum getPenStatusChoice(){
+        return penStatus.getSelectionModel().getSelectedItem();
+    }
+    public void setPenStatusAction(EventHandler<ActionEvent> a){
+        penStatus.setOnAction(a);
+    }
+    public void setLineChangerAction(EventHandler<ActionEvent> a){
+        lineChanger.setOnAction(a);
+    }
     public void setImageAction(EventHandler<ActionEvent> a){
         imageChanger.setOnAction(a);
     }
@@ -62,7 +84,16 @@ public class SettingTools {
     public LanguageChooser getLanguageChooser(){
         return languageChooser;
     }
-    
+
+    private void addLineOptions(){
+        lineChanger.getItems().add(TurtleDisplay.LineType.DASH);
+        lineChanger.getItems().add(TurtleDisplay.LineType.SOLID);
+        lineChanger.getItems().add(TurtleDisplay.LineType.DOTTED);
+    }
+    private void addPenStatusOptions(){
+        penStatus.getItems().add(TurtleDisplay.PenStatus.PENUP);
+        penStatus.getItems().add(TurtleDisplay.PenStatus.PENDOWN);
+    }
     private VBox addColorPickerToBar(ColorPicker cp, String label){
         VBox vb = new VBox();
         Label l = new Label(label);

@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 public class CanvasGenerator {
     public static final int CANVAS_X = 600;
     public static final int CANVAS_Y = 400;
-    public double boundMaxY,boundMaxX,boundMinY,boundMinX;
     private Canvas canvas;
     private GraphicsContext gc;
     public static final Color DEFAULT = Color.BLUE;
