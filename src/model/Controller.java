@@ -199,8 +199,7 @@ public class Controller {
         catch(NullPointerException n){
             new DisplayUpdater(MainMenu.slogoScene, null).handleError("Error parsing command");
         }
-		//System.out.println(myTurtle.getNewPositionX());
-		//System.out.println(myTurtle.getNewPositionY());
+		
 	}	
 	
 	public Map<String,Double> getVariables(){
