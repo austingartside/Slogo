@@ -9,12 +9,10 @@ import model.parser.ListOfCommands;
 
 public class CommandNode extends ControlCommand{
 
-	private String myVarName;
-
 	public CommandNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		myVarName = commandList.getCommand();
-		control.checkForCommand(myVarName, control);
+		String myVarName = this.getName();
+		control.checkForCommand(myVarName);
 		commandList.updateLocation();
 		if(!control.isExecuting(myVarName)){
 			checkForListStart(commandList, control);
@@ -30,7 +28,7 @@ public class CommandNode extends ControlCommand{
 
 	@Override
 	public double execute(Controller control){
-		Command commandToExecute = control.findCommand(myVarName);
+		Command commandToExecute = control.findCommand(this.getName());
 		Command currentNode = commandToExecute.getChildren().get(0);
 		int j = 0;
 		Map<String, Double> valBeforeParameter = new HashMap<String, Double>();

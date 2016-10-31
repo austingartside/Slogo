@@ -38,13 +38,15 @@ public class DisplayGenerator {
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      * @throws Exception 
      */
-    public GridPane setScene(SLogoScene scene) throws Exception{
+    public GridPane setScene(SLogoScene scene) {
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
         addTurtleDisplay(scene.getTurtleDisplay());
         addHelp(scene.getHelpButton());
         addToolBar(scene.getSettingTools());
-
+        addFileControl(scene.getFileControl());
+        addDisplayOptions(scene.getDisplayOptions());
+        
         return gridPane;
     }
 
@@ -53,7 +55,12 @@ public class DisplayGenerator {
      * to the backend.
      * @return the submit button to submit the command to the backend
      */
-    
+    private void addDisplayOptions(DisplayOptions d){
+        gridPane.add(d.getView(), 15,0,3,1);
+    }
+    private void addFileControl(FileControl fc){
+        gridPane.add(fc.getView(), 12,0,3,1);
+    }
     private void addToolBar(SettingTools st){
         ((ToolBar)st.getView()).setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         gridPane.add(st.getView(), 0, 0, 12, 3);
@@ -68,6 +75,7 @@ public class DisplayGenerator {
     }
     
     private void addListViews(HelpTabs ht){
+        ht.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         gridPane.add(ht.getView(), 12, 1, 8, 19);
     }
     
