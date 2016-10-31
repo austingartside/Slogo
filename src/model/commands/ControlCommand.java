@@ -40,7 +40,8 @@ public abstract class ControlCommand extends Command{
 			}
 		}
 		if(translator.getSymbol(originalCommand).equals(COMMAND)){
-			control.addNumParam(originalCommand, count);
+			//control.addNumParam(originalCommand, count);
+			control.getCommandController().addNumParam(originalCommand, count);
 		}
 		commandList.updateLocation();
 	}
