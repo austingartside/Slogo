@@ -107,7 +107,6 @@ public class DisplayUpdater implements ViewToModelInterface{
             }
             addVariables();
             addUserCommands();
-            changeDisplay();
             setText("");
         });
         
@@ -223,6 +222,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 			Color c = scene.getSettingTools().getPenColorPicker().getValue();
             updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
 		}
+	    changeDisplay();
 		///TODO: Use changes to displayspecs.
 	}
 	private void addUserCommands(){
