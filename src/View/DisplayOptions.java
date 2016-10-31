@@ -2,6 +2,7 @@ package View;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,8 +21,8 @@ import javafx.scene.shape.Rectangle;
 public class DisplayOptions {
     
     private Button options;
-    private ArrayList<String> images;
-    private ArrayList<Color> colors;
+    private List<String> images;
+    private List<Color> colors;
     private VBox vbColors;
     private VBox vbImages;
     
@@ -32,11 +33,12 @@ public class DisplayOptions {
         setImages();
         setScreen();
     }
-    public DisplayOptions(File file){
+    
+    public DisplayOptions(List<String> ims,List<Color> cols){
         options = new Button("Display Options");
         options.setMaxWidth(Double.MAX_VALUE);
-        setColors();
-        setImages();
+        colors = cols;
+        images = ims;
         setScreen();
     }
     
@@ -61,6 +63,13 @@ public class DisplayOptions {
     
     public void setOptionAction(EventHandler<ActionEvent> a){
         options.setOnAction(a);
+    }
+    
+    public void setColors(List<Color> c){
+        colors = c;
+    }
+    public void setImages(List<String> s){
+        images = s;
     }
     
     public Color getColor(double i){

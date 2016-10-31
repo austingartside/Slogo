@@ -46,7 +46,21 @@ public class DisplayUpdater implements ViewToModelInterface{
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
         myController = control;
+        if(!(scene.getWorkspaceParser() == null)){
+            workspaceSetup();
+        }
     }
+    
+    private void workspaceSetup(){
+        scene.getTurtleDisplay().changeBackgroundColor(scene.getWorkspaceParser().getBackgroundColor());
+        scene.getTurtleDisplay().setPenColor(scene.getWorkspaceParser().getPenColor());
+        scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(scene.getWorkspaceParser().getImage());
+        scene.getHelpTools().getDisplayOptions().setColors(scene.getWorkspaceParser().getColorList());
+        scene.getHelpTools().getDisplayOptions().setImages(scene.getWorkspaceParser().getImageList());
+        scene.getSettingTools().getLanguageChooser().setLanguage(scene.getWorkspaceParser().getLanguage());
+        loadFile(scene.getWorkspaceParser().getFiletoLoad());
+    }
+    
     public void setUp() throws Exception{
         addHandlers();
         addTextHandler();
@@ -121,7 +135,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getSettingTools().setBackgroundAction((event) ->{
             Color c = scene.getSettingTools().getBackgroundColorPicker().getValue();
             scene.getTurtleDisplay().changeBackgroundColor(c);
-            myController.getDisplaySpecs().setBackgroundIndex(scene.getDisplayOptions().getColorIndex(c));
+            myController.getDisplaySpecs().setBackgroundIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(c));
             //myController.getDisplaySpecs().setBackgroundIndex();//What do I set it to if it doesn't exist
         });
 
@@ -139,7 +153,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             File imageFile = chooser.showOpenDialog(mainStage);
             scene.getTurtleDisplay().getTurtleImage().changeTurtleImage("file:" + imageFile.toString());
             
-            myController.getDisplaySpecs().setShapeIndex(scene.getDisplayOptions().getImageIndex("file:"+imageFile.toString()));
+            myController.getDisplaySpecs().setShapeIndex(scene.getHelpTools().getDisplayOptions().getImageIndex("file:"+imageFile.toString()));
         });
         scene.getHelpTabs().setCurrCommAction(m -> {
             //TODO use the map to map the method to text
@@ -168,16 +182,16 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getSettingTools().setPenAction((event) ->{
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
             scene.getTurtleDisplay().setPenColor(c);
-            myController.getDisplaySpecs().setPenColorIndex(scene.getDisplayOptions().getColorIndex(c));
+            myController.getDisplaySpecs().setPenColorIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(c));
         });
-        scene.getFileControl().setWorkspaceAction((event) -> {
+        scene.getHelpTools().getFileControl().setWorkspaceAction((event) -> {
            MainMenu main = new MainMenu();
             Stage stage = new Stage();
             stage.setScene(main.init(stage, ViewLogic.Driver.WIDTH, ViewLogic.Driver.HEIGHT, null));
             stage.show();
         });
 
-        scene.getFileControl().setSaveAction((event) ->{
+        scene.getHelpTools().getFileControl().setSaveAction((event) ->{
             final Stage dialog = new Stage();
             TextField text = new TextField();
             text.setPromptText("File Name");
@@ -203,25 +217,16 @@ public class DisplayUpdater implements ViewToModelInterface{
             dialog.show();
         });
         
-        scene.getFileControl().setLoadAction((event)->{
+        scene.getHelpTools().getFileControl().setLoadAction((event)->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File loadFile = chooser.showOpenDialog(mainStage);
-            try {
-                //myController.enterAction(myController.readFile(loadFile.toString()));
-            	//myController.enterAction(myController.getSaveManager().readFile(loadFile.toString()));
-            	myController.enterAction(myController.getSaveManager().readFile(loadFile));
-            }
-            catch (Exception e) {
-                handleError("Could not parse that file");
-            }
-            addUserCommands();
-            addVariables();
+            loadFile(loadFile);
         });
         
-        scene.getDisplayOptions().setOptionAction((event)->{
+        scene.getHelpTools().getDisplayOptions().setOptionAction((event)->{
             final Stage palette = new Stage();
-            Scene paletteScene = new Scene(scene.getDisplayOptions().setScreen(), 600, 600);
+            Scene paletteScene = new Scene(scene.getHelpTools().getDisplayOptions().setScreen(), 600, 600);
             palette.setScene(paletteScene);
             palette.show();
         });
@@ -260,11 +265,21 @@ public class DisplayUpdater implements ViewToModelInterface{
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
-	    scene.getTurtleDisplay().changeBackgroundColor(scene.getDisplayOptions().getColor(background));
-            scene.getTurtleDisplay().setPenColor(scene.getDisplayOptions().getColor(pen));
-            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(scene.getDisplayOptions().getImage(image));
+	    scene.getTurtleDisplay().changeBackgroundColor(scene.getHelpTools().getDisplayOptions().getColor(background));
+            scene.getTurtleDisplay().setPenColor(scene.getHelpTools().getDisplayOptions().getColor(pen));
+            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
 	}
 	
+	private void loadFile(File f){
+            try {
+                myController.enterAction(myController.getSaveManager().readFile(f));
+            }
+            catch (Exception e) {
+                handleError("Could not parse that file");
+            }
+            addUserCommands();
+            addVariables();
+	}
 	
 	public void handleError(String error){
         Stage stage = new Stage();

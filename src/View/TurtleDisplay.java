@@ -2,6 +2,7 @@ package View;
 
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -23,16 +24,17 @@ public class TurtleDisplay {
     private final double NUM_DASH = 5.0;
     private double dashes;
     private PenStatus status;
+    
     public TurtleDisplay(){
-        status = PenStatus.PENDOWN;
-        thickness = 1.0;
-        dashes = 0;
-        penColor = Color.BLACK;
         stackPane = new StackPane();
         backgroundCanvas = new CanvasGenerator();
         lineCanvas = new CanvasGenerator();
         turtleImage = new TurtleImage();
         backgroundCanvas.fillCanvas(Color.BLUE);
+        penColor = Color.BLACK;
+        status = PenStatus.PENDOWN;
+        thickness = 1.0;
+        dashes = 0;
         
         stackPane.getChildren().addAll(backgroundCanvas.getView(),lineCanvas.getView(),turtleImage.getView());
     }

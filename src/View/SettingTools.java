@@ -24,6 +24,7 @@ public class SettingTools {
     private Button imageChanger;
     private ComboBox<Enum> lineChanger;
     private ComboBox<Enum> penStatus;
+    
     public SettingTools(){
         languageChooser = new LanguageChooser();
         penColorPicker = new ColorPicker();

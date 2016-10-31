@@ -6,14 +6,15 @@ import javafx.scene.control.ComboBox;
 public class LanguageChooser {
     
     public static final String[] LANGUAGES = {"English","Chinese","French","German","Italian","Portugese","Russian","Spanish"};
+    public static final String DEFAULT = "English";
     
-    public String language;
+    private String language;
     private ComboBox<String> lang;
     
     public LanguageChooser(){
-        language = "English";
+        language = DEFAULT;
         lang = new ComboBox<String>();
-        lang.setPromptText("English");
+        lang.setPromptText(DEFAULT);
         setupLangs();
     }
     
@@ -33,5 +34,10 @@ public class LanguageChooser {
 
     public void setLanguage(){
         language = lang.getSelectionModel().getSelectedItem();
+    }
+    
+    public void setLanguage(String s){
+        language = s;
+        lang.getSelectionModel().select(s);
     }
 }

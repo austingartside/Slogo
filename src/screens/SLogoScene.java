@@ -9,6 +9,7 @@ import View.DisplayOptions;
 import View.FileControl;
 import View.HelpButton;
 import View.HelpTabs;
+import View.HelpTools;
 import View.SettingTools;
 import View.TurtleDisplay;
 import View.WorkspaceParser;
@@ -26,35 +27,30 @@ public class SLogoScene extends ActionScene{
     private CommandBar commandBar;
     private HelpTabs helpTabs;
     private SettingTools settingTools;
-    private HelpButton helpButton;
-    private FileControl fileControl;
-    private DisplayOptions displayOptions;
+    private HelpTools helpTools;
     private WorkspaceParser workspaceParser;
 
     public SLogoScene(Scene scene, ResourceBundle resource){
         super(scene, resource, SIZE_Y, SIZE_X);
-        
+        workspaceParser = null;
+        init();
+    }
+
+    public SLogoScene(Scene scene, ResourceBundle resource,File file){
+        super(scene, resource, SIZE_Y, SIZE_X);
+        workspaceParser = new WorkspaceParser(file);
+        init();
+    }
+    
+    private void init(){
         //Controller control=new Controller();
-        displayOptions = new DisplayOptions();
-        fileControl = new FileControl();
+        helpTools = new HelpTools();
         commandBar = new CommandBar();
-        helpButton = new HelpButton();
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
         turtleDisplay = new TurtleDisplay();
         //control.setUp();
         setScene();
-    }
-
-    public SLogoScene(Scene scene, ResourceBundle resource,File file){
-        super(scene, resource, SIZE_Y, SIZE_X);
-        displayOptions = new DisplayOptions(file);
-        fileControl = new FileControl();
-        commandBar = new CommandBar();
-        helpButton = new HelpButton();
-        helpTabs = new HelpTabs();
-        settingTools = new SettingTools();
-        turtleDisplay = new TurtleDisplay();
     }
     
     public void setScene(){
@@ -72,17 +68,14 @@ public class SLogoScene extends ActionScene{
     public SettingTools getSettingTools(){
         return settingTools;
     }
-    public HelpButton getHelpButton(){
-        return helpButton;
-    }
     public HelpTabs getHelpTabs(){
         return helpTabs;
     }
-    public FileControl getFileControl(){
-        return fileControl;
+    public WorkspaceParser getWorkspaceParser(){
+        return workspaceParser;
     }
-    public DisplayOptions getDisplayOptions(){
-        return displayOptions;
+    public HelpTools getHelpTools(){
+        return helpTools;
     }
     
 }
