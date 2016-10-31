@@ -26,7 +26,8 @@ public class RepeatNode extends ControlCommand{
 		double numTimes = executeChild(0, control);
 		double lastVal = 0;
 		for(double i = 0; i<numTimes; i++){
-			control.addVariable(ITER_VALUE, i);
+			//control.addVariable(ITER_VALUE, i);
+			control.getCommandController().addVariable(ITER_VALUE, i);
 			for(int j = 1; j<this.getNumChildren(); j++){
 				 lastVal = executeChild(j, control);
 			}
