@@ -32,6 +32,13 @@ public class DisplayOptions {
         setImages();
         setScreen();
     }
+    public DisplayOptions(File file){
+        options = new Button("Display Options");
+        options.setMaxWidth(Double.MAX_VALUE);
+        setColors();
+        setImages();
+        setScreen();
+    }
     
     public Node getView(){
         return options;

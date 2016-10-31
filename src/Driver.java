@@ -12,8 +12,8 @@ import View.DisplayGenerator;
  * Runs the program.
  */
 public class Driver extends Application{
-    public static final int WIDTH = 1000;
-    public static final int HEIGHT  = 600;
+    public static final int WIDTH = 600;
+    public static final int HEIGHT  = 400;
     public static final String RESOURCE_BUNDLE = "bundle";
     
     private ResourceBundle myResources;

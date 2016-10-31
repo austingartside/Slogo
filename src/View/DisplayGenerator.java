@@ -38,7 +38,7 @@ public class DisplayGenerator {
      * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
      * @throws Exception 
      */
-    public GridPane setScene(SLogoScene scene) throws Exception{
+    public GridPane setScene(SLogoScene scene) {
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
         addTurtleDisplay(scene.getTurtleDisplay());
@@ -75,6 +75,7 @@ public class DisplayGenerator {
     }
     
     private void addListViews(HelpTabs ht){
+        ht.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         gridPane.add(ht.getView(), 12, 1, 8, 19);
     }
     

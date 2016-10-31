@@ -1,5 +1,6 @@
 package screens;
 
+import java.io.File;
 import java.util.ResourceBundle;
 import View.CanvasGenerator;
 import View.CommandBar;
@@ -10,6 +11,7 @@ import View.HelpButton;
 import View.HelpTabs;
 import View.SettingTools;
 import View.TurtleDisplay;
+import View.WorkspaceParser;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
@@ -26,9 +28,10 @@ public class SLogoScene extends ActionScene{
     private SettingTools settingTools;
     private HelpButton helpButton;
     private FileControl fileControl;
-    private  DisplayOptions displayOptions;
+    private DisplayOptions displayOptions;
+    private WorkspaceParser workspaceParser;
 
-    public SLogoScene(Scene scene, ResourceBundle resource) throws Exception{
+    public SLogoScene(Scene scene, ResourceBundle resource){
         super(scene, resource, SIZE_Y, SIZE_X);
         
         //Controller control=new Controller();
@@ -39,12 +42,22 @@ public class SLogoScene extends ActionScene{
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
         turtleDisplay = new TurtleDisplay();
-        helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         //control.setUp();
         setScene();
     }
+
+    public SLogoScene(Scene scene, ResourceBundle resource,File file){
+        super(scene, resource, SIZE_Y, SIZE_X);
+        displayOptions = new DisplayOptions(file);
+        fileControl = new FileControl();
+        commandBar = new CommandBar();
+        helpButton = new HelpButton();
+        helpTabs = new HelpTabs();
+        settingTools = new SettingTools();
+        turtleDisplay = new TurtleDisplay();
+    }
     
-    public void setScene() throws Exception{
+    public void setScene(){
         DisplayGenerator dg = new DisplayGenerator();
         dg.setGridPane(COLUMNS);
         gridPane = dg.setScene(this);
