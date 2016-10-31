@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import javafx.scene.shape.Path;
+import model.CommandSaveManager;
 import model.Controller;
 
 /**
@@ -45,14 +46,17 @@ public class CommandSaver {
 		commandsWithBrackets.put(USER_INSTRUCTION, 2);
 	}
 	
-	private void saveCommands(ListOfCommands commandList, Controller control) throws Exception{
+	//private void saveCommands(ListOfCommands commandList, Controller control) throws Exception{
+	private void saveCommands(ListOfCommands commandList, CommandSaveManager manager) throws Exception{
 		String fullCommand = "";
-		ProgramParser translator = control.getParser();
+		//ProgramParser translator = control.getParser();
+		ProgramParser translator = manager.getParser();
 		while(commandList.getRow()<commandList.getNumRows()){
 			if(commandList.isValidLine()){
 				if(translator.getSymbol(commandList.getCommand()).equals(USER_INSTRUCTION)){
 					fullCommand+=TO+" ";
-					addBody(fullCommand, commandList, control);
+					//addBody(fullCommand, commandList, control);
+					addBody(fullCommand, commandList, manager);
 					fullCommand = "";
 				}
 			}
@@ -60,7 +64,8 @@ public class CommandSaver {
 		}
 	}
 	
-	private void addBody(String fullCommand, ListOfCommands commandList, Controller control) throws Exception{
+	//private void addBody(String fullCommand, ListOfCommands commandList, Controller control) throws Exception{
+	private void addBody(String fullCommand, ListOfCommands commandList, CommandSaveManager manager) throws Exception{
 		int count = 0;
 		boolean isName = true;
 		String commandName = "";
@@ -71,46 +76,51 @@ public class CommandSaver {
 				isName = false;
 			}
 			fullCommand+=commandList.getCommand()+" ";
-			if(commandsWithBrackets.containsKey(control.getParser().getSymbol(commandList.getCommand()))){
-				count-=commandsWithBrackets.get(control.getParser().getSymbol(commandList.getCommand()));
+			//if(commandsWithBrackets.containsKey(control.getParser().getSymbol(commandList.getCommand()))){
+			//	count-=commandsWithBrackets.get(control.getParser().getSymbol(commandList.getCommand()));
+			if(commandsWithBrackets.containsKey(manager.getParser().getSymbol(commandList.getCommand()))){
+				count-=commandsWithBrackets.get(manager.getParser().getSymbol(commandList.getCommand()));
 			}
 			if(commandList.getCommand().equals(END_LIST)){
 				count++;
 			}
 		}
-		control.addCommandToSave(commandName, fullCommand);
+		//control.addCommandToSave(commandName, fullCommand);
+		manager.addCommandToSave(commandName, fullCommand);
 	}
 	
 	private void saveVariables(Controller control){
 		for(String variable: control.getVariables().keySet()){
-			control.addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
+			//control.addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
+			control.getSaveManager().addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
 		}
 	}
 	
-//	private void printCommands(){
-//		for(int i = 0; i<commandsToSave.size(); i++){
-//			System.out.println(commandsToSave.get(i));
-//		}
-//	}
-	
-	public void saveAll(ListOfCommands commandList, Controller control) throws Exception{
+	//public void saveAll(ListOfCommands commandList, Controller control) throws Exception{
+	public void saveAll(ListOfCommands commandList, CommandSaveManager manager) throws Exception{
 		commandList.goToStart();
-		saveCommands(commandList, control);
-		saveVariables(control);
+		//saveCommands(commandList, control);
+		saveCommands(commandList, manager);
+		//saveVariables(control);
+		saveVariables(manager.getController());
 	}
 	
-	public void saveToFile(Controller control,String fileName) throws IOException{
+	//public void saveToFile(Controller control, String fileName) throws IOException{
+	public void saveToFile(CommandSaveManager manager, String fileName) throws IOException{
 		FileWriter writer = new FileWriter(fileName+".txt"); 
-		for(String command: control.getCommandsInOrder()) {
-		  writer.write(control.getCommandToSave(command));
+		//for(String command: control.getCommandsInOrder()) {
+		for(String command: manager.getCommandsInOrder()) {
+		  //writer.write(control.getCommandToSave(command));
+			writer.write(manager.getCommandToSave(command));
 		}
 		writer.close();
 	}
 	
 	//can change String fileName t0 just be a file
-    public static String readFileToString (String filename) throws FileNotFoundException {
+    //public String readFileToString (String filename) throws FileNotFoundException {
+	public String readFileToString (File file) throws FileNotFoundException {
         final String END_OF_FILE = "\\z";
-        Scanner input = new Scanner(new File(filename));
+        Scanner input = new Scanner(file);
         input.useDelimiter(END_OF_FILE);
         String result = input.next();
         input.close();

@@ -24,23 +24,20 @@ import screens.MainMenu;
 import screens.SLogoScene;
 
 public class Controller {
-	
-	private static final String NO_COMMAND = "MissingCommandException";
-	private static final String NON_COMMAND = "?aslkn234?3";
-	private static final String NO_VARIABLE = "MissingVariableException";
+
 	public static final int WIDTH = 1000;
     public static final int HEIGHT  = 600;
     public static final double ONE=1;
 	
 	private Map<String, Double> variables;
-	private SLogoScene myActionScene;
 	private Map<String, Command> commands;
-	private List<String> commandsInOrder;
 	private Map<String, Boolean> executeCommand;
 	private Map<String, Integer> numParameters;
-	private Map<String, String> commandToStringDefinition;
 	private List<String> history;
 	private String userCommand;
+	private SLogoScene myActionScene;
+	//private List<String> commandsInOrder;
+	//private Map<String, String> commandToStringDefinition;
 	//private ExceptionManager myExceptionManager;
 	private ProgramParser parser;
 	private Collection<Turtle> myTurtleCollection;
@@ -51,7 +48,9 @@ public class Controller {
 	private TurtleArmy myTurtleArmy;
 	private Collection<Double> myTurtleIDs;
 	private Collection<Double> myAskList;
-	private CommandSaver commandsToSave;
+	//private CommandSaver commandsToSave;
+	
+	private CommandSaveManager saveManager;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -76,44 +75,51 @@ public class Controller {
 		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
 		//myExceptionManager = new ExceptionManager();
-		commandsToSave = new CommandSaver();
+		//commandsToSave = new CommandSaver();
 		executeCommand = new HashMap<String, Boolean>();
 		numParameters = new HashMap<>();
-		commandToStringDefinition = new HashMap<String, String>();
+		//commandToStringDefinition = new HashMap<String, String>();
 		parser = new ProgramParser();
-		commandsInOrder = new ArrayList<String>();
+		//commandsInOrder = new ArrayList<String>();
+		saveManager = new CommandSaveManager(this);
 	}
 	
 	public ProgramParser getParser(){
 		return parser;
 	}
 	
-	public void addCommandToSave(String command, String definition){
-		commandToStringDefinition.put(command, definition);
-		commandsInOrder.add(command);
+	public CommandSaveManager getSaveManager(){
+		return saveManager;
 	}
 	
-	public List<String> getCommandsInOrder(){
-		return commandsInOrder;
-	}
-	
-	public Map<String, String> getCommandsToSave(){
-		return commandToStringDefinition;
-	}
-	
-	public String getCommandToSave(String command){
-		return commandToStringDefinition.get(command);
-	}
-	
-	public void callSaveFile(String fileName) throws IOException{
-	    commandsToSave.saveToFile(this, fileName);
-	}
-	
-	private void saveCommands() throws Exception{
-		InputReader inputControl = new InputReader(userCommand);
-		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
-		commandsToSave.saveAll(commandList, this);;
-	}
+//	public void addCommandToSave(String command, String definition){
+//		commandToStringDefinition.put(command, definition);
+//		commandsInOrder.add(command);
+//	}
+//	
+//	public List<String> getCommandsInOrder(){
+//		return commandsInOrder;
+//	}
+//	
+//	public Map<String, String> getCommandsToSave(){
+//		return commandToStringDefinition;
+//	}
+//	
+//	public String getCommandToSave(String command){
+//		return commandToStringDefinition.get(command);
+//	}
+//	
+//	public void callSaveFile(String fileName) throws IOException{
+//	    commandsToSave.saveToFile(this, fileName);
+//		//commandsToSave.saveToFile(saveManager, fileName);
+//	}
+//	
+//	private void saveCommands() throws Exception{
+//		InputReader inputControl = new InputReader(userCommand);
+//		ListOfCommands commandList = new ListOfCommands(inputControl.getInputtedCommands(), 0, 0);
+//		commandsToSave.saveAll(commandList, this);
+//		//commandsToSave.saveAll(commandList, saveManager);
+//	}
 	
 	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
 		//Factory useless as of now. May be needed for later additions
@@ -176,9 +182,10 @@ public class Controller {
 //	public boolean hasCommand(String command){
 //		return commands.containsKey(command);
 //	}
-	public String readFile(String filename) throws FileNotFoundException{
-	    return commandsToSave.readFileToString(filename);
-	}
+//	public String readFile(String filename) throws FileNotFoundException{
+//		return saveManager.getCommandSaver().readFileToString(filename);
+//	}
+	
 	public void checkForCommand(String command) throws CommandDoesNotExistException{
 	    try{
             if(!commands.containsKey(command)){
@@ -247,7 +254,7 @@ public class Controller {
 		userCommand = command;
 		Command head=this.getTree();
 		this.executeTree(head);
-		saveCommands();
+		saveManager.saveCommands();
 		history.add(userCommand);
 	}
 	
