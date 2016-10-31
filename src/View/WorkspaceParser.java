@@ -2,6 +2,7 @@ package View;
 
 import java.io.File;
 import java.util.List;
+import java.util.Scanner;
 import javafx.scene.paint.Color;
 
 public class WorkspaceParser {
@@ -10,6 +11,7 @@ public class WorkspaceParser {
     
     public WorkspaceParser(File f){
         file = f;
+        parse();
     }
     
     public List<Color> getColorList(){
@@ -34,5 +36,15 @@ public class WorkspaceParser {
     
     public Color getPenLine(){
         return null;
+    }
+    
+    private void parse(){
+        Scanner sc = new Scanner(file);
+        while(sc.hasNextLine()){
+            String line = sc.nextLine();
+            if(line.startsWith("colors")){
+                
+            }
+        }
     }
 }
