@@ -32,6 +32,9 @@ public class CanvasGenerator {
         gc.setFill(color);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
     }
+    public Color getCanvasColor(){
+        return (Color) gc.getFill();
+    }
     public void clear(){
         gc.clearRect(0, 0, CANVAS_X, CANVAS_Y);
     }

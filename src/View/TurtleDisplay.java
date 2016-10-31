@@ -42,6 +42,10 @@ public class TurtleDisplay {
     public void changeBackgroundColor(Color color){
         backgroundCanvas.changeBackgroundColor(color);
     }
+    
+    public Color getPenColor(){
+        return penColor;
+    }
    
     public void drawLine(double xPrev, double yPrev, double x, double y){
         if(status == PenStatus.PENDOWN) {

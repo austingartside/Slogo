@@ -28,7 +28,7 @@ public abstract class ActionScene {
         myRoot = r;
     }
     
-    private void showError (String message) {
+    public void showError (String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(message);
         alert.setContentText(myResources.getString(message));

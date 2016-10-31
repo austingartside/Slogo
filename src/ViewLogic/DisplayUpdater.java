@@ -42,9 +42,11 @@ public class DisplayUpdater implements ViewToModelInterface{
     private SLogoScene scene;
 
     private Controller myController;
+    private String loadedFile;
     
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
+        loadedFile = "";
         myController = control;
         if(!(scene.getWorkspaceParser() == null)){
             workspaceSetup();
@@ -192,14 +194,15 @@ public class DisplayUpdater implements ViewToModelInterface{
         });
 
         scene.getHelpTools().getFileControl().setSaveAction((event) ->{
-            final Stage dialog = new Stage();
             TextField text = new TextField();
-            text.setPromptText("File Name");
+            Stage dialog = new Stage();
+            saveFile(text,dialog);
             text.setOnKeyPressed((key) -> {
                 if(key.getCode().equals(KeyCode.ENTER)){
                     try {
                         //myController.callSaveFile(text.getText());
                     	myController.getSaveManager().callSaveFile(text.getText());
+                    	loadedFile = text.getText();
                         dialog.close();
                     }
                     catch (IOException e) {
@@ -207,14 +210,18 @@ public class DisplayUpdater implements ViewToModelInterface{
                     }
                 }
             });
-            VBox vb = new VBox();
-            vb.getChildren().addAll(new Label("Name your file"),text);
-            vb.setAlignment(Pos.CENTER);
-            vb.setSpacing(10);
-            vb.setPadding(new Insets(10,10,10,10));
-            Scene dialogScene = new Scene(vb, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
+        });
+        
+        scene.getHelpTools().getWorkspaceSaver().setSaveAction((event) ->{
+            TextField text = new TextField();
+            Stage dialog = new Stage();
+            saveFile(text,dialog);
+            text.setOnKeyPressed((key) -> {
+                if(key.getCode().equals(KeyCode.ENTER)){
+                    scene.getHelpTools().getWorkspaceSaver().saveWorkspace(text.getText(),scene,loadedFile);
+                    dialog.close();
+                }
+            });
         });
         
         scene.getHelpTools().getFileControl().setLoadAction((event)->{
@@ -271,6 +278,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 	}
 	
 	private void loadFile(File f){
+	    loadedFile = "file:" + f.toString();
             try {
                 myController.enterAction(myController.getSaveManager().readFile(f));
             }
@@ -279,6 +287,18 @@ public class DisplayUpdater implements ViewToModelInterface{
             }
             addUserCommands();
             addVariables();
+	}
+	
+	private void saveFile(TextField text,Stage dialog){
+            text.setPromptText("File Name");
+            VBox vb = new VBox();
+            vb.getChildren().addAll(new Label("Name your file"),text);
+            vb.setAlignment(Pos.CENTER);
+            vb.setSpacing(10);
+            vb.setPadding(new Insets(10,10,10,10));
+            Scene dialogScene = new Scene(vb, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
 	}
 	
 	public void handleError(String error){

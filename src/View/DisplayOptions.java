@@ -72,6 +72,14 @@ public class DisplayOptions {
         images = s;
     }
     
+    public List<Color> getColors(){
+        return colors;
+    }
+    
+    public List<String> getImages(){
+        return images;
+    }
+    
     public Color getColor(double i){
         return colors.get((int)i);
     }

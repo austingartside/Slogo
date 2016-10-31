@@ -9,13 +9,15 @@ public class HelpTools {
     private FileControl fileControl;
     private DisplayOptions displayOptions;
     private ToolBar toolBar;
+    private WorkspaceSaver workspaceSaver;
     
     public HelpTools(){
         toolBar = new ToolBar();
         helpButton = new HelpButton();
         fileControl = new FileControl();
         displayOptions = new DisplayOptions();
-        toolBar.getItems().addAll(helpButton.getView(),fileControl.getView(),displayOptions.getView());
+        workspaceSaver = new WorkspaceSaver();
+        toolBar.getItems().addAll(helpButton.getView(),fileControl.getView(),displayOptions.getView(),workspaceSaver.getView());
     }
     
     public Node getView(){
@@ -31,5 +33,8 @@ public class HelpTools {
     }
     public HelpButton getHelpButton(){
         return helpButton;
+    }
+    public WorkspaceSaver getWorkspaceSaver(){
+        return workspaceSaver;
     }
 }

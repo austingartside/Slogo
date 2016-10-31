@@ -22,6 +22,13 @@ public class WorkspaceParser {
     
     public WorkspaceParser(File f){
         file = f;
+        try {
+            parse();
+        }
+        catch (FileNotFoundException e) {
+            //CHANGE LATER
+            System.out.println("FILE WAS NOT FOUND");
+        }
     }
     
     public List<Color> getColorList(){
@@ -56,11 +63,11 @@ public class WorkspaceParser {
         Scanner sc = new Scanner(file);
         makeColorList(sc.nextLine());
         makeImageList(sc.nextLine());
+        makeLanguage(sc.nextLine());
         makeFiletoLoad(sc.nextLine());
         makeBackgroundColor(sc.nextLine());
         makePenColor(sc.nextLine());
         makeImage(sc.nextLine());
-        makeLanguage(sc.nextLine());
         sc.close();
     }
 
