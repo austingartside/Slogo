@@ -71,7 +71,7 @@ public class Controller {
 		myTurtleCollection=new ArrayList<Turtle>();
 		myTurtleViewCollection=new ArrayList<TurtleView>();
 		myAskList=new ArrayList<Double>();
-		myDisplaySpecs=new DisplaySpecs();
+		myDisplaySpecs=new DisplaySpecs(this);
 		variables = new HashMap<String, Double>();
 		commands = new HashMap<String, Command>();
 		history = new ArrayList<String>();
