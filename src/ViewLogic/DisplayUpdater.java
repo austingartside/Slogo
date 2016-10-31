@@ -97,7 +97,6 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
-            changeDisplay();
                                 try {
                                         myController.enterAction(scene.getCommandBar().getText());
                                 } catch (Exception e) {
@@ -108,6 +107,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             }
             addVariables();
             addUserCommands();
+            changeDisplay();
             setText("");
         });
         
@@ -213,7 +213,6 @@ public class DisplayUpdater implements ViewToModelInterface{
 
 	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
         scene.getHelpTabs().getCurrState().clear();
-        System.out.println(myTurtleViewCollection.size());
 	    for(TurtleView t : myTurtleViewCollection){
             setVisible(t.isRevealBoolean());
 			setOrientation (t.getAngleNow());
