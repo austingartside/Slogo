@@ -45,6 +45,8 @@ public class DisplayGenerator {
         addHelp(scene.getHelpButton());
         addToolBar(scene.getSettingTools());
         addFileControl(scene.getFileControl());
+        addDisplayOptions(scene.getDisplayOptions());
+        
         return gridPane;
     }
 
@@ -53,6 +55,9 @@ public class DisplayGenerator {
      * to the backend.
      * @return the submit button to submit the command to the backend
      */
+    private void addDisplayOptions(DisplayOptions d){
+        gridPane.add(d.getView(), 15,0,3,1);
+    }
     private void addFileControl(FileControl fc){
         gridPane.add(fc.getView(), 12,0,3,1);
     }

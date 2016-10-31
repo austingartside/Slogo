@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -36,12 +37,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     private SLogoScene scene;
 
     private Controller myController;
-    private final String XPOS = "X POSITION: ";
-    private final String YPOS = "Y POSITION: ";
-    private final String PENDOWN = "PEN DOWN: ";
-    private final String PENCOLOR = "PEN COLOR: ";
-    private final String BACKGROUND = "BACKGROUND: ";
-    private final String HEADING = "HEADING: ";
+    
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
         myController = control;
@@ -101,11 +97,11 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
+            changeDisplay();
                                 try {
                                         myController.enterAction(scene.getCommandBar().getText());
                                 } catch (Exception e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
+                                        handleError("Not valid text");
                                 }
             if(!scene.getCommandBar().getText().equals("")) {
                 updateHistory(scene.getCommandBar().getText());
@@ -119,7 +115,10 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addHandlers(){
         scene.getSettingTools().setBackgroundAction((event) ->{
-            scene.getTurtleDisplay().changeBackgroundColor(scene.getSettingTools().getBackgroundColorPicker().getValue());
+            Color c = scene.getSettingTools().getBackgroundColorPicker().getValue();
+            scene.getTurtleDisplay().changeBackgroundColor(c);
+            myController.getDisplaySpecs().setBackgroundIndex(scene.getDisplayOptions().getColorIndex(c));
+            //myController.getDisplaySpecs().setBackgroundIndex();//What do I set it to if it doesn't exist
         });
 
         scene.getSettingTools().setLineChangerAction((event) ->{
@@ -130,7 +129,9 @@ public class DisplayUpdater implements ViewToModelInterface{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
-            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(imageFile.toString());
+            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage("file:" + imageFile.toString());
+            
+            myController.getDisplaySpecs().setShapeIndex(scene.getDisplayOptions().getImageIndex("file:"+imageFile.toString()));
         });
         scene.getHelpTabs().setCurrCommAction(m -> {
             //TODO use the map to map the method to text
@@ -159,6 +160,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getSettingTools().setPenAction((event) ->{
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
             scene.getTurtleDisplay().setPenColor(c);
+            myController.getDisplaySpecs().setPenColorIndex(scene.getDisplayOptions().getColorIndex(c));
         });
         
         scene.getFileControl().setSaveAction((event) ->{
@@ -199,6 +201,13 @@ public class DisplayUpdater implements ViewToModelInterface{
             addUserCommands();
             addVariables();
         });
+        
+        scene.getDisplayOptions().setOptionAction((event)->{
+            final Stage palette = new Stage();
+            Scene paletteScene = new Scene(scene.getDisplayOptions().setScreen(), 600, 600);
+            palette.setScene(paletteScene);
+            palette.show();
+        });
 
     }
 
@@ -228,7 +237,18 @@ public class DisplayUpdater implements ViewToModelInterface{
 	    for(String str : vars.keySet()){
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }
-    }
+        }
+	
+	private void changeDisplay(){
+	    double background = myController.getDisplaySpecs().getBackgroundIndex();
+	    double pen = myController.getDisplaySpecs().getPenColorIndex();
+	    double image = myController.getDisplaySpecs().getShapeIndex();
+	    scene.getTurtleDisplay().changeBackgroundColor(scene.getDisplayOptions().getColor(background));
+            scene.getTurtleDisplay().setPenColor(scene.getDisplayOptions().getColor(pen));
+            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(scene.getDisplayOptions().getImage(image));
+	}
+	
+	
 	public void handleError(String error){
         Stage stage = new Stage();
         Group g = new Group();

@@ -11,16 +11,20 @@ public class TurtleImage {
     
     private ImageView turtle;
     private Image turtleIm;
+    private String turtleString;
     
     public TurtleImage(){
         String path = System.getProperty("user.dir");
-        turtle = new ImageView(new File(path + "/src/resources.view/Turtle.png").toURI().toString());
+        turtleString = new File(path + "/src/resources.view/Turtle.png").toURI().toString();
+        turtle = new ImageView(turtleString);
         turtleIm = turtle.getImage();
         addImage(turtle);
     }
     
     public void changeTurtleImage(String pic){
-        turtleIm = new Image(new File(pic).toURI().toString());
+        turtleString = pic;
+        System.out.println(turtleString);
+        turtleIm = new Image(turtleString);
         turtle.setImage(turtleIm);
         turtle.setFitWidth(40);
         turtle.setFitHeight(40);
@@ -29,9 +33,7 @@ public class TurtleImage {
         turtle.setCache(true);
     }
     public void drawTurtle(double x, double y){
-        if(turtle.getImage()!=null){
-            turtle.setImage(turtleIm);
-        }
+        turtle.setImage(turtleIm);
         turtle.setTranslateX(x);//canvasX(x)
         turtle.setTranslateY(y);//canvasY(y)
         if(x < CanvasGenerator.CANVAS_X/2 && x > -CanvasGenerator.CANVAS_X / 2 && y < CanvasGenerator.CANVAS_Y/2 && y > -CanvasGenerator.CANVAS_Y/2) {
@@ -39,6 +41,9 @@ public class TurtleImage {
         }else{
             makeTurtleInvisible();
         }
+    }
+    public String getString(){
+        return turtleString;
     }
     private void addImage(ImageView turtle){
         turtle.setFitWidth(40);
@@ -54,13 +59,11 @@ public class TurtleImage {
         turtle.setRotate(angle);
     }
     public void makeTurtleInvisible(){
-        turtleIm = turtle.getImage();
-        turtle.setImage(null);
-        System.out.println("hi");
+        turtle.setVisible(false);
     }
     //TODO change colors later
     public void makeTurtleVisible(){
-        turtle.setImage(turtleIm);
+        turtle.setVisible(true);
     }
     public ImageView getTurtle(){
         return turtle;
