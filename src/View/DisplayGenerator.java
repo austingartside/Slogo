@@ -41,12 +41,13 @@ public class DisplayGenerator {
     public GridPane setScene(SLogoScene scene) {
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
+        //addTurtleDisplay(scene.getTurtleDisplay());
         addTurtleDisplay(scene.getTurtleDisplay());
         addHelp(scene.getHelpButton());
         addToolBar(scene.getSettingTools());
         addFileControl(scene.getFileControl());
         addDisplayOptions(scene.getDisplayOptions());
-        
+        addDebugger(scene.getDebugger());
         return gridPane;
     }
 
@@ -61,6 +62,10 @@ public class DisplayGenerator {
     private void addFileControl(FileControl fc){
         gridPane.add(fc.getView(), 12,0,3,1);
     }
+    private void addDebugger(Debugger db){
+        gridPane.add(db.getView(), 0, 17, 3, 1);
+    }
+
     private void addToolBar(SettingTools st){
         ((ToolBar)st.getView()).setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         gridPane.add(st.getView(), 0, 0, 12, 3);
