@@ -18,8 +18,8 @@ public class VariableNode extends TurtleCommand{
 
 	@Override
 	public double execute(Controller control) {
-		System.out.println(this.getName() +" "+ control.getVariableValue(this.getName()));
-		return control.getVariableValue(this.getName());
+		return control.getCommandController().getVariableValue(this.getName());
+		//return control.getVariableValue(this.getName());
 	}
 
 }

@@ -245,12 +245,14 @@ public class DisplayUpdater implements ViewToModelInterface{
 	}
 	private void addUserCommands(){
 	    	scene.getHelpTabs().getCurrComm().clear();
-            Map<String, Command> commands = myController.getCommands();
+            //Map<String, Command> commands = myController.getCommands();
+	    	Map<String, Command> commands = myController.getCommandController().getCommands();
             commands.keySet().forEach(this::updateCurrCommands);
         }
 	private void addVariables(){
 	    scene.getHelpTabs().getCurrVar().clear();
-	    Map<String, Double> vars = myController.getVariables();
+	    //Map<String, Double> vars = myController.getVariables();
+	    Map<String, Double> vars = myController.getCommandController().getVariables();
 	    for(String str : vars.keySet()){
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }

@@ -33,7 +33,8 @@ public class DoTimesNode extends ControlCommand{
 		double lastVal = 0;
 		for(double i = 1; i<=limit; i++){
 			if(i>=1){
-				control.addVariable(varName, i);
+				//control.addVariable(varName, i);
+				control.getCommandController().addVariable(varName, i);
 			}
 			for(int j = 1; j<this.getNumChildren(); j++){
 				 lastVal = this.executeChild(j, control);
