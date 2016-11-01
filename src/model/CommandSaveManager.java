@@ -56,10 +56,6 @@ public class CommandSaveManager {
 		return myController.getParser();
 	}
 	
-//	public String readFile(String filename) throws FileNotFoundException{
-//		return commandsToSave.readFileToString(filename);
-//	}
-	
 	public String readFile(File file) throws FileNotFoundException{
 		return commandsToSave.readFileToString(file);
 	}

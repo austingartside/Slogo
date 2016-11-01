@@ -1,13 +1,14 @@
 package model.commands;
+
+import java.util.Random;
+import model.Controller;
+import model.parser.CommandFactory;
+import model.parser.ListOfCommands;
+
 /**
  * @author austingartside
  * 
  */
-import java.util.Random;
-
-import model.Controller;
-import model.parser.CommandFactory;
-import model.parser.ListOfCommands;
 
 public class RandomNode extends OneArgumentCommand{
 	
@@ -16,8 +17,6 @@ public class RandomNode extends OneArgumentCommand{
 	public RandomNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
 		generator = new Random();
-//		commandList.updateLocation();
-//		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 
 	@Override

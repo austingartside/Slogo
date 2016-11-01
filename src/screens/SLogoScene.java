@@ -12,6 +12,7 @@ import View.HelpTabs;
 import View.SettingTools;
 import View.TurtleDisplay;
 import View.WorkspaceParser;
+import View.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
@@ -30,18 +31,21 @@ public class SLogoScene extends ActionScene{
     private FileControl fileControl;
     private DisplayOptions displayOptions;
     private WorkspaceParser workspaceParser;
+    private Debugger debugger;
 
     public SLogoScene(Scene scene, ResourceBundle resource){
         super(scene, resource, SIZE_Y, SIZE_X);
         
         //Controller control=new Controller();
         displayOptions = new DisplayOptions();
+        debugger = new Debugger();
         fileControl = new FileControl();
         commandBar = new CommandBar();
         helpButton = new HelpButton();
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
-        turtleDisplay = new TurtleDisplay();
+        turtleDisplay = new TurtleDisplay(2);
+        helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         //control.setUp();
         setScene();
     }
@@ -54,7 +58,7 @@ public class SLogoScene extends ActionScene{
         helpButton = new HelpButton();
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
-        turtleDisplay = new TurtleDisplay();
+        turtleDisplay = new TurtleDisplay(1);
     }
     
     public void setScene(){
@@ -62,6 +66,9 @@ public class SLogoScene extends ActionScene{
         dg.setGridPane(COLUMNS);
         gridPane = dg.setScene(this);
         myScene = new Scene(gridPane, SIZE_X,SIZE_Y);
+    }
+    public Debugger getDebugger(){
+        return debugger;
     }
     public CommandBar getCommandBar(){
         return commandBar;

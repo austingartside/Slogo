@@ -8,7 +8,6 @@ public class TurtlesNode extends NoArgumentCommand{
 
 	public TurtlesNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-//		commandList.updateLocation();
 	}
 
 	@Override

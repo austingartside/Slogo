@@ -1,12 +1,13 @@
 package model.commands;
-/**
- * @author austingartside
- * 
- */
 import java.util.*;
 
 import model.Controller;
 import model.parser.ListOfCommands;
+
+/**
+ * @author austingartside
+ * 
+ */
 
 public abstract class Command {
 	
@@ -19,12 +20,10 @@ public abstract class Command {
 	
 	
 	List<Command> myChildren;
-	//List<Integer> myChildren;
 	String myCommand;
 	public Command(String command){
 		myCommand = command;
 		myChildren = new ArrayList<Command>();
-		//myChildren = new ArrayList<Integer>();
 	}
 	
 	public String getName(){
@@ -32,9 +31,7 @@ public abstract class Command {
 	}
 	
 	public void addChild(Command newChild){
-	//public void addChild(){
 		myChildren.add(newChild);
-		//myChildren.add(1);
 	}
 	
 	public Command getChild(int childNum){
@@ -42,7 +39,6 @@ public abstract class Command {
 	}
 	
 	public List<Command> getChildren(){
-	//public List<Integer> getChildren(){
 		return myChildren;
 	}
 	
@@ -50,6 +46,10 @@ public abstract class Command {
 		return myChildren.size();
 	}
 	
+	/**
+	 * run execute for a given child
+	 * @return value returned by command
+	 */
 	public double executeChild(int i, Controller control){
 		return myChildren.get(i).execute(control);
 	}

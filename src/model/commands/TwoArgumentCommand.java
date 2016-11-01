@@ -3,7 +3,10 @@ package model.commands;
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
-
+/**
+ * @author austingartside
+ * 
+ */
 public abstract class TwoArgumentCommand extends Command{
 
 	public TwoArgumentCommand(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {

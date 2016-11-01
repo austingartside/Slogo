@@ -1,15 +1,13 @@
 package model.commands;
-/**
- * @author austingartside
- * 
- */
-import java.util.List;
-import java.util.Map;
 
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
+/**
+ * @author austingartside
+ * 
+ */
 public class BlankNode extends TurtleCommand{
 	private static final String BLANK = "BlankNode";
 	
