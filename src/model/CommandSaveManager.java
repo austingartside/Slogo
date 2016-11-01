@@ -27,6 +27,11 @@ public class CommandSaveManager {
 		myController = control;
 	}
 	
+	/**
+	 * @param command
+	 * @param definition
+	 * keep track of text definitions of commands in case user ever wants to save them
+	 */
 	public void addCommandToSave(String command, String definition){
 		commandToStringDefinition.put(command, definition);
 		commandsInOrder.add(command);
