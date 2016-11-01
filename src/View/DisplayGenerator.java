@@ -41,7 +41,6 @@ public class DisplayGenerator {
     public GridPane setScene(SLogoScene scene) {
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
-        //addTurtleDisplay(scene.getTurtleDisplay());
         addTurtleDisplay(scene.getTurtleDisplay());
         addHelp(scene.getHelpButton());
         addToolBar(scene.getSettingTools());
