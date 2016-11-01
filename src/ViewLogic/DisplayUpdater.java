@@ -41,12 +41,23 @@ public class DisplayUpdater implements ViewToModelInterface{
     private SLogoScene scene;
 
     private Controller myController;
-    
+
+    private void addUndo(){
+        scene.getDebugger().setUndoAction((event) ->{
+            TurtleImage a = new TurtleImage();
+            scene.getTurtleDisplay().getTurtleImage().add(a);
+            a.drawTurtle(0, 0);
+            scene.getTurtleDisplay().getView().getChildren().add(a.getView());
+            myController.getTurtleControl().updateTurtleViewCollection();
+
+        });
+    }
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
         myController = control;
     }
     public void setUp() throws Exception{
+        addUndo();
         new Handlers(scene).addHandlers(this, myController);
         addTextHandler();
     }
@@ -55,7 +66,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getCommandBar().setText(str);
     }
     public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y, int index){
-        scene.getTurtleDisplay().getTurtleImage().get(0).drawTurtle(x, y);
+        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(x, y);
         if(penDown==1){
             scene.getTurtleDisplay().drawLine(xPrev, yPrev, x, y);
         }
@@ -75,19 +86,22 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void updateCurrState(double id, double x, double y, double penDown, Color color, double heading){
         scene.getHelpTabs().getCurrState().addCurrState(id, x, y, penDown, color, heading);
     }
+    public void addTurtle(){
+        scene.getTurtleDisplay().addTurtle(new TurtleImage());
+    }
     public void setVisible(double d, int index){
         if(d==1){
-            scene.getTurtleDisplay().getTurtleImage().get(0).makeTurtleVisible();
+            scene.getTurtleDisplay().getTurtleImage().get(index).makeTurtleVisible();
         }
         else{
-            scene.getTurtleDisplay().getTurtleImage().get(0).makeTurtleInvisible();
+            scene.getTurtleDisplay().getTurtleImage().get(index).makeTurtleInvisible();
         }
     }
     public void setOrientation(double angle, int index){
         scene.getTurtleDisplay().getTurtleImage().get(index).rotateTurtle(angle);
     }
-    public void resetToHome(){
-        scene.getTurtleDisplay().getTurtleImage().get(0).drawTurtle(0, 0);
+    public void resetToHome(int index){
+        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(0, 0);
     }
     public void clear(){
         //scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
@@ -105,7 +119,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             try {
                 myController.enterAction(scene.getCommandBar().getText());
             } catch (Exception e) {
-                handleError("Not valid text");
+                handleError("Parser error");
             }
             if(!scene.getCommandBar().getText().equals("")) {
                 updateHistory(scene.getCommandBar().getText());
@@ -118,11 +132,14 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getCommandBar().setActions();
     }
 
-
 	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
         scene.getHelpTabs().getCurrState().clear();
+        int size1 = myTurtleViewCollection.size();
+        int size2 = scene.getTurtleDisplay().getTurtleImage().size();
+        addMoreTurtles(size1, size2);
         int ind = -1;
         System.out.println(myTurtleViewCollection.size());
+        System.out.println(scene.getTurtleDisplay().getTurtleImage().size());
 	    for(TurtleView t : myTurtleViewCollection){
             setVisible(t.isRevealBoolean(), ++ind);
 			setOrientation (t.getAngleNow(), ind);
@@ -150,7 +167,13 @@ public class DisplayUpdater implements ViewToModelInterface{
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }
     }
-	
+	private void addMoreTurtles(int size1, int size2){
+        for(int i = 0; i < size1-size2; i++){
+            TurtleImage t = new TurtleImage();
+            scene.getTurtleDisplay().getTurtleImage().add(t);
+            scene.getTurtleDisplay().getView().getChildren().add(t.getView());
+        }
+    }
 	private void changeDisplay(){
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();

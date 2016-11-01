@@ -41,6 +41,7 @@ public class Handlers {
         addLoadAction(updater, myController);
         addDisplayOptions();
     }
+
     private void addSettingTools(Controller myController){
         scene.getSettingTools().setBackgroundAction((event) ->{
             Color c = scene.getSettingTools().getBackgroundColorPicker().getValue();
@@ -128,7 +129,7 @@ public class Handlers {
         });
     }
     private void debuggerAction(Controller myController){
-        scene.getDebugger().setUndoAction((event) -> {
+        /*scene.getDebugger().setUndoAction((event) -> {
             String str =  "fd 50";
             try {
                 myController.enterAction(str);
@@ -136,7 +137,7 @@ public class Handlers {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        });
+        });*/
     }
     private void addLoadAction(DisplayUpdater updater, Controller myController){
         scene.getFileControl().setLoadAction((event)->{
