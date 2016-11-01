@@ -2,12 +2,17 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import ViewLogic.DisplayUpdater;
+import model.commands.BlankNode;
 import model.commands.Command;
 import model.exceptions.CommandDoesNotExistException;
+import model.parser.ExpressionTreeBuilder;
 import screens.MainMenu;
 
+/**
+ * @author austingartside
+ * 
+ */
 public class CommandController {
 	
 	private Map<String, Double> variables;
@@ -24,10 +29,19 @@ public class CommandController {
 		myController = control;
 	}
 	
+	/**
+	 * @param command
+	 * @return true if a command is executing (false if being defined)
+	 */
 	public boolean isExecuting(String command){
 		return executeCommand.get(command);
 	}
 	
+	/**
+	 * @param command
+	 * @param count
+	 * keeps track of the number of parameters for a command with a given name
+	 */
 	public void addNumParam(String command, int count){
 		numParameters.put(command, count);
 	}
@@ -36,22 +50,33 @@ public class CommandController {
 		return numParameters.get(command);
 	}
 	
+	/**
+	 * @param command
+	 * @param value
+	 * true if command is executing, false otherwise
+	 */
 	public void changeExecutingValue(String command, boolean value){
 		executeCommand.put(command, value);
 	}
 	
+	/**
+	 * @param name
+	 * @param value
+	 * keep track of user defined variables and their values
+	 */
 	public void addVariable(String name, double value){
 		variables.put(name, value);
 	}
 	
 	public double getVariableValue(String variableName){
-	    if(!variables.containsKey(variableName)){
-			//myExceptionManager.addError(NO_VARIABLE);
-			//System.out.println("Ya Done Goofed");
-		}
 		return variables.get(variableName);
 	}
 	
+	/**
+	 * @param key
+	 * @param value
+	 * keep track of user defined commands and their associated nodes
+	 */
 	public void addCommand(String key, Command value){
 		commands.put(key, value);
 	}
@@ -60,10 +85,14 @@ public class CommandController {
 	    return commands;
     }
 	
+	/**
+	 * @param command
+	 * @throws CommandDoesNotExistException
+	 * makes sure that a command exists before using it or adds it if it does not exist
+	 */
 	public void checkForCommand(String command) throws CommandDoesNotExistException{
 	    try{
             if(!commands.containsKey(command)){
-                //control.getTurtle().setErrorState(3);
                 throw new CommandDoesNotExistException(command + " has not been defined ");
             }
         }
@@ -78,5 +107,27 @@ public class CommandController {
 	
 	public Map<String,Double> getVariables(){
 		return variables;
+	}
+	
+	/**
+	 * @return
+	 * @throws Exception
+	 * Get the expression tree based on the current userInput
+	 */
+	public Command getTree() throws Exception{
+		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
+		return (BlankNode) myExpressionTree.makeTree(myController);
+	}
+	
+	public void executeTree(Command head) throws NullPointerException{
+		try {
+            for (Command currentCommand : head.getChildren()) {
+                currentCommand.execute(myController);
+            }
+        }
+        catch(NullPointerException n){
+        	new DisplayUpdater(MainMenu.slogoScene, null).handleError("Error while executing");
+        }
+		
 	}
 }

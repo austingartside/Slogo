@@ -1,8 +1,5 @@
 package model.commands;
-/**
- * @author austingartside
- * 
- */
+
 import ViewLogic.DisplayUpdater;
 import model.Controller;
 import model.exceptions.MissingListStartException;
@@ -12,6 +9,10 @@ import model.parser.ListOfCommands;
 import model.parser.ProgramParser;
 import screens.MainMenu;
 
+/**
+ * @author austingartside
+ * 
+ */
 public abstract class ControlCommand extends Command{
 
 	private static String VARIABLE = "Variable";
@@ -23,6 +24,16 @@ public abstract class ControlCommand extends Command{
 		super(command);
 	}
 	
+	/**
+	 * @param commandList
+	 * @param nodeMaker
+	 * @param parent
+	 * @param control
+	 * @param originalCommand
+	 * @throws Exception
+	 * For commands with brackets, goes through the commands in between start and end brackets and adds children
+	 * of the given parent. In case of parsing through a command and it's variables, counts the number fo variables
+	 */
 	public void moveThroughList(ListOfCommands commandList, CommandFactory nodeMaker, Command parent,
 			Controller control, String originalCommand) throws Exception {
 		ProgramParser translator = control.getParser();
@@ -40,7 +51,6 @@ public abstract class ControlCommand extends Command{
 			}
 		}
 		if(translator.getSymbol(originalCommand).equals(COMMAND)){
-			//control.addNumParam(originalCommand, count);
 			control.getCommandController().addNumParam(originalCommand, count);
 		}
 		commandList.updateLocation();

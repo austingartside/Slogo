@@ -1,10 +1,6 @@
 package model.commands;
 
-import java.util.List;
-import java.util.Map;
-
 import model.Controller;
-import model.Turtle;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
@@ -14,20 +10,12 @@ public class BackwardNode extends OneArgumentCommand{
 	
 	public BackwardNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-		//myVal = "Backward";
-		//commandList.updateLocation();	
-		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 	
-//	public void printName(){
-//		System.out.println(myVal);
-//	}
-
 	@Override
 	public double execute(Controller control) {
-		//printName();
 		double something = this.executeChild(FIRSTENTRY,control);
-		double fake = control.getTurtleControl().getTurtle().move(MINUS*something);
+		double pseudoVar = control.getTurtleControl().getTurtle().move(MINUS*something);
 		return something;
 	}
 

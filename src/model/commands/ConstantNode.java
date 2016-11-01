@@ -1,13 +1,13 @@
 package model.commands;
-/**
- * @author austingartside
- * 
- */
-import java.util.Map;
 
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
+
+/**
+ * @author austingartside
+ * 
+ */
 
 public class ConstantNode extends TurtleCommand{
 

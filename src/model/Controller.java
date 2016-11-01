@@ -26,7 +26,6 @@ public class Controller {
 	private SLogoScene myActionScene;
 	private ProgramParser parser;
 	private DisplaySpecs myDisplaySpecs;
-	//private CommandSaver commandsToSave;
 	
 	private CommandSaveManager saveManager;
 	private CommandController myCommandController;
@@ -84,28 +83,7 @@ public class Controller {
 	public String getUserCommand(){
 		return userCommand;
 	}
-	
-	//I may have misunderstood how the tree takes in the input.
-	public Command getTree() throws Exception{
-		ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
-		return (BlankNode) myExpressionTree.makeTree(this);
-	}
-	
-	public void executeTree(Command head) throws NullPointerException{
-		//ExpressionTreeBuilder myExpressionTree=new ExpressionTreeBuilder();
-		//BlankNode head = (BlankNode) myExpressionTree.makeTree();
-		//System.out.println(head.getChildren().size());
-		try {
-            for (Command currentCommand : head.getChildren()) {
-                currentCommand.execute(this);
-                System.out.println();
-            }
-        }
-        catch(NullPointerException n){
-            new DisplayUpdater(MainMenu.slogoScene, null).handleError("Error parsing command");
-        }
 		
-	}	
 	public void addHistory(String command){
 		history.add(command);
 	}
@@ -115,8 +93,8 @@ public class Controller {
 
 	public void enterAction(String command) throws Exception {
 		userCommand = command;
-		Command head=this.getTree();
-		this.executeTree(head);
+		Command head = myCommandController.getTree();
+		myCommandController.executeTree(head);
 		saveManager.saveCommands();
 		history.add(userCommand);
 	}

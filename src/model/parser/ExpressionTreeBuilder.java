@@ -1,10 +1,7 @@
 package model.parser;
-import java.util.*;
-
 import model.Controller;
 import model.commands.BlankNode;
 import model.commands.Command;
-import model.commands.TurtleCommand;
 /**
  * @author austingartside
  * 

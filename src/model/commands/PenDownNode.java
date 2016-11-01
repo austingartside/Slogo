@@ -8,7 +8,6 @@ public class PenDownNode extends NoArgumentCommand{
 
 	public PenDownNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-//		commandList.updateLocation();
 	}
 
 	@Override
