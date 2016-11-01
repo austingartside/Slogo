@@ -4,15 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-//import java.nio.charset.Charset;
-//import java.nio.file.Files;
-//import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import javafx.scene.shape.Path;
 import model.CommandSaveManager;
 import model.Controller;
 
@@ -46,16 +40,19 @@ public class CommandSaver {
 		commandsWithBrackets.put(USER_INSTRUCTION, 2);
 	}
 	
-	//private void saveCommands(ListOfCommands commandList, Controller control) throws Exception{
+	/**
+	 * @param commandList
+	 * @param manager
+	 * @throws Exception
+	 * Extract text for user defined commands from user input (uses addBody to extract everything after "to")
+	 */
 	private void saveCommands(ListOfCommands commandList, CommandSaveManager manager) throws Exception{
 		String fullCommand = "";
-		//ProgramParser translator = control.getParser();
 		ProgramParser translator = manager.getParser();
 		while(commandList.getRow()<commandList.getNumRows()){
 			if(commandList.isValidLine()){
 				if(translator.getSymbol(commandList.getCommand()).equals(USER_INSTRUCTION)){
 					fullCommand+=TO+" ";
-					//addBody(fullCommand, commandList, control);
 					addBody(fullCommand, commandList, manager);
 					fullCommand = "";
 				}
@@ -64,7 +61,6 @@ public class CommandSaver {
 		}
 	}
 	
-	//private void addBody(String fullCommand, ListOfCommands commandList, Controller control) throws Exception{
 	private void addBody(String fullCommand, ListOfCommands commandList, CommandSaveManager manager) throws Exception{
 		int count = 0;
 		boolean isName = true;
@@ -76,8 +72,6 @@ public class CommandSaver {
 				isName = false;
 			}
 			fullCommand+=commandList.getCommand()+" ";
-			//if(commandsWithBrackets.containsKey(control.getParser().getSymbol(commandList.getCommand()))){
-			//	count-=commandsWithBrackets.get(control.getParser().getSymbol(commandList.getCommand()));
 			if(commandsWithBrackets.containsKey(manager.getParser().getSymbol(commandList.getCommand()))){
 				count-=commandsWithBrackets.get(manager.getParser().getSymbol(commandList.getCommand()));
 			}
@@ -85,39 +79,52 @@ public class CommandSaver {
 				count++;
 			}
 		}
-		//control.addCommandToSave(commandName, fullCommand);
 		manager.addCommandToSave(commandName, fullCommand);
 	}
 	
+	/**
+	 * @param control
+	 * Create text definition of variable based on variable name and value
+	 */
 	private void saveVariables(Controller control){
-		for(String variable: control.getVariables().keySet()){
-			//control.addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
-			control.getSaveManager().addCommandToSave(variable, CREATE_VARIABLE + variable + " " + control.getVariableValue(variable) + " ");
+		for(String variable: control.getCommandController().getVariables().keySet()){
+			control.getSaveManager().addCommandToSave(variable, CREATE_VARIABLE + variable + " "
+			+ control.getCommandController().getVariableValue(variable) + " ");
 		}
 	}
 	
-	//public void saveAll(ListOfCommands commandList, Controller control) throws Exception{
+	/**
+	 * @param commandList
+	 * @param manager
+	 * @throws Exception
+	 * Call saveCommands and saveVariables to create list of String definitions for variables and user defined commands
+	 */
 	public void saveAll(ListOfCommands commandList, CommandSaveManager manager) throws Exception{
 		commandList.goToStart();
-		//saveCommands(commandList, control);
 		saveCommands(commandList, manager);
-		//saveVariables(control);
 		saveVariables(manager.getController());
 	}
 	
-	//public void saveToFile(Controller control, String fileName) throws IOException{
+	/**
+	 * @param manager
+	 * @param fileName
+	 * @throws IOException
+	 * save existing user-defined commands and variables to a txt file in your project folder
+	 */
 	public void saveToFile(CommandSaveManager manager, String fileName) throws IOException{
 		FileWriter writer = new FileWriter(fileName+".txt"); 
-		//for(String command: control.getCommandsInOrder()) {
 		for(String command: manager.getCommandsInOrder()) {
-		  //writer.write(control.getCommandToSave(command));
 			writer.write(manager.getCommandToSave(command));
 		}
 		writer.close();
 	}
 	
-	//can change String fileName t0 just be a file
-    //public String readFileToString (String filename) throws FileNotFoundException {
+	/**
+	 * @param file
+	 * @return
+	 * @throws FileNotFoundException
+	 * Load text from saved text file containing saved commands and variables
+	 */
 	public String readFileToString (File file) throws FileNotFoundException {
         final String END_OF_FILE = "\\z";
         Scanner input = new Scanner(file);
@@ -126,19 +133,4 @@ public class CommandSaver {
         input.close();
         return result;
     }
-	
-//	public static void main(String[] args) throws Exception{
-//		CommandSaver austin = new CommandSaver();
-//		Controller control = new Controller();
-//		control.addVariable(":size", 100);
-//		control.addVariable(":poop", 50);
-//		String command = "TO square [ ] [ ifelse 4 [ FD :size RT 90 ] [ fd 50 ] ] TO triangle [ :size ] [ REPEAT 3 [ FD :size RT 120 ] ]"
-//				+ " TO house [ ] [ SET :size 100 square FD :size RT 60 triangle 80 FD :size ]";
-//		InputReader temp = new InputReader(command);
-//		ListOfCommands commandList = new ListOfCommands(temp.getInputtedCommands(), 0, 0);
-//		austin.saveCommands(commandList, control);
-//		austin.saveVariables(control);
-//		//austin.printCommands();
-//		austin.saveToFile(control);
-//	}
 }

@@ -7,6 +7,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TurtleDisplay {
 
     public enum LineType{
@@ -15,7 +18,7 @@ public class TurtleDisplay {
     public enum PenStatus{
         PENDOWN, PENUP
     }
-    private TurtleImage turtleImage;
+    private ArrayList<TurtleImage> turtleImage;
     private CanvasGenerator backgroundCanvas;
     private CanvasGenerator lineCanvas;
     private StackPane stackPane;
@@ -25,20 +28,31 @@ public class TurtleDisplay {
     private double dashes;
     private PenStatus status;
     
-    public TurtleDisplay(){
-        stackPane = new StackPane();
-        backgroundCanvas = new CanvasGenerator();
-        lineCanvas = new CanvasGenerator();
-        turtleImage = new TurtleImage();
-        backgroundCanvas.fillCanvas(Color.BLUE);
-        penColor = Color.BLACK;
+    public TurtleDisplay(int numTurtles){
         status = PenStatus.PENDOWN;
         thickness = 1.0;
         dashes = 0;
-        
-        stackPane.getChildren().addAll(backgroundCanvas.getView(),lineCanvas.getView(),turtleImage.getView());
+        penColor = Color.BLACK;
+        stackPane = new StackPane();
+        backgroundCanvas = new CanvasGenerator();
+        lineCanvas = new CanvasGenerator();
+        turtleImage = new ArrayList<>();
+        initTurtles(numTurtles);
+        backgroundCanvas.fillCanvas(Color.BLUE);
+        stackPane.getChildren().addAll(backgroundCanvas.getView(),lineCanvas.getView());
+        addTurtles();
     }
-    
+    private void initTurtles(int num){
+        for(int i = 0; i < num; i++){
+            turtleImage.add(new TurtleImage());
+        }
+    }
+    private void addTurtles(){
+        for (TurtleImage aTurtleImage : turtleImage) {
+            stackPane.getChildren().add(aTurtleImage.getView());
+        }
+    }
+
     public void changeBackgroundColor(Color color){
         backgroundCanvas.changeBackgroundColor(color);
     }
@@ -62,6 +76,10 @@ public class TurtleDisplay {
     public void setDash(LineType line){
         dashes = (line == LineType.SOLID) ? 0 : NUM_DASH;
     }
+    public void addTurtle(TurtleImage image){
+        turtleImage.add(image);
+    }
+
     public void setThickness(double v){
         thickness = v;
     }
@@ -77,10 +95,10 @@ public class TurtleDisplay {
     public void clear(){
         lineCanvas.clear();
     }
-    public Node getView(){
+    public StackPane getView(){
         return stackPane;
     }
-    public TurtleImage getTurtleImage(){
+    public List<TurtleImage> getTurtleImage(){
         return turtleImage;
     }
     private double canvasLineX(double x){

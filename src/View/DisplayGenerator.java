@@ -41,10 +41,10 @@ public class DisplayGenerator {
     public GridPane setScene(SLogoScene scene) {
         addListViews(scene.getHelpTabs());
         addCommandInput(scene.getCommandBar());
+        //addTurtleDisplay(scene.getTurtleDisplay());
         addTurtleDisplay(scene.getTurtleDisplay());
         addHelpTools(scene.getHelpTools());
         addToolBar(scene.getSettingTools());
-        
         return gridPane;
     }
 

@@ -3,13 +3,15 @@ package model.commands;
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
-
+/**
+ * @author austingartside
+ * 
+ */
 public abstract class NoArgumentCommand extends Command{
 
 	public NoArgumentCommand(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList.getCommand());
-		commandList.updateLocation();
-		
+		commandList.updateLocation();	
 	}
 
 	public abstract double execute(Controller control);

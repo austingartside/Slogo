@@ -8,12 +8,11 @@ public class PenDownNode extends NoArgumentCommand{
 
 	public PenDownNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-//		commandList.updateLocation();
 	}
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().penDown();
+		return control.getTurtleControl().getTurtle().penDown();
 	}
 
 }

@@ -8,14 +8,12 @@ public class LeftNode extends OneArgumentCommand{
 
 	public LeftNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-		//commandList.updateLocation();
-		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
 	}
 
 	@Override
 	public double execute(Controller control) {
 		double turn = this.executeChild(FIRSTENTRY,control);
-		double fake = control.getTurtle().changeOrientation(MINUS*turn);
+		double fake = control.getTurtleControl().getTurtle().changeOrientation(MINUS*turn);
 		return turn;
 	}
 

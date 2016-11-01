@@ -1,6 +1,7 @@
 package ViewLogic;
 
 import View.TurtleDisplay;
+import View.TurtleImage;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.event.EventHandler;
@@ -26,11 +27,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.sql.Driver;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.scene.*;
 
@@ -59,7 +58,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         String im = scene.getWorkspaceParser().getImage();
         scene.getTurtleDisplay().changeBackgroundColor(bg);
         scene.getTurtleDisplay().setPenColor(pen);
-        scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(im);
+        scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(im);
         scene.getHelpTools().getDisplayOptions().setColors(scene.getWorkspaceParser().getColorList());
         scene.getHelpTools().getDisplayOptions().setImages(scene.getWorkspaceParser().getImageList());
         scene.getSettingTools().getLanguageChooser().setLanguage(scene.getWorkspaceParser().getLanguage());
@@ -78,7 +77,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getCommandBar().setText(str);
     }
     public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y){
-        scene.getTurtleDisplay().getTurtleImage().drawTurtle(x, y);
+
+        scene.getTurtleDisplay().getTurtleImage().get(0).drawTurtle(x, y);
         if(penDown==1){
             scene.getTurtleDisplay().drawLine(xPrev, yPrev, x, y);
         }
@@ -100,17 +100,17 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     public void setVisible(double d){
         if(d==1){
-            scene.getTurtleDisplay().getTurtleImage().makeTurtleVisible();
+            scene.getTurtleDisplay().getTurtleImage().get(0).makeTurtleVisible();
         }
         else{
-            scene.getTurtleDisplay().getTurtleImage().makeTurtleInvisible();
+            scene.getTurtleDisplay().getTurtleImage().get(0).makeTurtleInvisible();
         }
     }
     public void setOrientation(double angle){
-        scene.getTurtleDisplay().getTurtleImage().rotateTurtle(angle);
+        scene.getTurtleDisplay().getTurtleImage().get(0).rotateTurtle(angle);
     }
     public void resetToHome(){
-        scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
+        scene.getTurtleDisplay().getTurtleImage().get(0).drawTurtle(0, 0);
     }
     public void clear(){
         //scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
@@ -124,13 +124,16 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
+
                                 try {
                                         myController.enterAction(scene.getCommandBar().getText());
                                 } catch (Exception e) {
                                         handleError("Not valid text");
                                 }
+
             if(!scene.getCommandBar().getText().equals("")) {
                 updateHistory(scene.getCommandBar().getText());
+
             }
             addVariables();
             addUserCommands();
@@ -159,7 +162,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File imageFile = chooser.showOpenDialog(mainStage);
-            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage("file:" + imageFile.toString());
+            scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage("file:" + imageFile.toString());
             
             myController.getDisplaySpecs().setShapeIndex(scene.getHelpTools().getDisplayOptions().getImageIndex("file:"+imageFile.toString()));
         });
@@ -186,7 +189,15 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getHelpTabs().setCurrStateAction(m -> {
 
         });
-
+        scene.getHelpTools().getDebugger().setUndoAction((event) -> {
+            String str =  "fd 50";
+            try {
+                myController.enterAction(str);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
         scene.getSettingTools().setPenAction((event) ->{
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
             scene.getTurtleDisplay().setPenColor(c);
@@ -263,12 +274,14 @@ public class DisplayUpdater implements ViewToModelInterface{
 	}
 	private void addUserCommands(){
 	    	scene.getHelpTabs().getCurrComm().clear();
-            Map<String, Command> commands = myController.getCommands();
+            //Map<String, Command> commands = myController.getCommands();
+	    	Map<String, Command> commands = myController.getCommandController().getCommands();
             commands.keySet().forEach(this::updateCurrCommands);
         }
 	private void addVariables(){
 	    scene.getHelpTabs().getCurrVar().clear();
-	    Map<String, Double> vars = myController.getVariables();
+	    //Map<String, Double> vars = myController.getVariables();
+	    Map<String, Double> vars = myController.getCommandController().getVariables();
 	    for(String str : vars.keySet()){
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }
@@ -280,7 +293,7 @@ public class DisplayUpdater implements ViewToModelInterface{
 	    double image = myController.getDisplaySpecs().getShapeIndex();
 	    scene.getTurtleDisplay().changeBackgroundColor(scene.getHelpTools().getDisplayOptions().getColor(background));
             scene.getTurtleDisplay().setPenColor(scene.getHelpTools().getDisplayOptions().getColor(pen));
-            scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
+            scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
 	}
 	
 	private void loadFile(File f){

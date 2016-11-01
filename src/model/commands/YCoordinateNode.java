@@ -10,12 +10,11 @@ public class YCoordinateNode extends NoArgumentCommand{
 
 	public YCoordinateNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-		//commandList.updateLocation();
 	}
 
 	@Override
 	public double execute(Controller control) {
-		return control.getTurtle().getNewPositionY();
+		return control.getTurtleControl().getTurtle().getNewPositionY();
 	}
 
 }

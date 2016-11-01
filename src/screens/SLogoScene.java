@@ -13,6 +13,7 @@ import View.HelpTools;
 import View.SettingTools;
 import View.TurtleDisplay;
 import View.WorkspaceParser;
+import View.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
@@ -29,6 +30,7 @@ public class SLogoScene extends ActionScene{
     private SettingTools settingTools;
     private HelpTools helpTools;
     private WorkspaceParser workspaceParser;
+    private Debugger debugger;
 
     public SLogoScene(Scene scene, ResourceBundle resource){
         super(scene, resource, SIZE_Y, SIZE_X);
@@ -48,8 +50,8 @@ public class SLogoScene extends ActionScene{
         commandBar = new CommandBar();
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
-        turtleDisplay = new TurtleDisplay();
-        //control.setUp();
+        turtleDisplay = new TurtleDisplay(1);
+        helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         setScene();
     }
     

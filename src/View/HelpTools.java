@@ -10,6 +10,7 @@ public class HelpTools {
     private DisplayOptions displayOptions;
     private ToolBar toolBar;
     private WorkspaceSaver workspaceSaver;
+    public Debugger debugger;
     
     public HelpTools(){
         toolBar = new ToolBar();
@@ -17,7 +18,8 @@ public class HelpTools {
         fileControl = new FileControl();
         displayOptions = new DisplayOptions();
         workspaceSaver = new WorkspaceSaver();
-        toolBar.getItems().addAll(helpButton.getView(),fileControl.getView(),displayOptions.getView(),workspaceSaver.getView());
+        debugger = new Debugger();
+        toolBar.getItems().addAll(helpButton.getView(),fileControl.getView(),displayOptions.getView(),workspaceSaver.getView(),debugger.getView());
     }
     
     public Node getView(){
@@ -36,5 +38,8 @@ public class HelpTools {
     }
     public WorkspaceSaver getWorkspaceSaver(){
         return workspaceSaver;
+    }
+    public Debugger getDebugger(){
+        return debugger;
     }
 }

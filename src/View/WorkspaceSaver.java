@@ -40,7 +40,7 @@ public class WorkspaceSaver {
             writer.println(loadedFile);
             writer.println(colorToString(scene.getTurtleDisplay().getBackgroundCanvas().getCanvasColor()));
             writer.println(colorToString(scene.getTurtleDisplay().getPenColor()));
-            writer.println(scene.getTurtleDisplay().getTurtleImage().getString());
+            writer.println(scene.getTurtleDisplay().getTurtleImage().get(0).getString());
             writer.close();
         }
         catch (FileNotFoundException | UnsupportedEncodingException e) {

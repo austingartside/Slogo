@@ -1,9 +1,6 @@
 package model.commands;
 
-import java.util.Map;
-
 import model.Controller;
-import model.parser.ListOfCommands;
 
 public abstract class TurtleCommand extends Command {
 	

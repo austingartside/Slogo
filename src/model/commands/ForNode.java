@@ -1,11 +1,13 @@
 package model.commands;
+
+import model.Controller;
+import model.parser.CommandFactory;
+import model.parser.ListOfCommands;
+
 /**
  * @author austingartside
  * 
  */
-import model.Controller;
-import model.parser.CommandFactory;
-import model.parser.ListOfCommands;
 
 public class ForNode extends ControlCommand{
 
@@ -18,8 +20,7 @@ public class ForNode extends ControlCommand{
 		commandList.updateLocation();
 		isVariable(commandList.getCommand(), control);
 		variableName = commandList.getCommand();
-		control.addVariable(variableName, 0);
-		//this.addChild((Command) nodeMaker.getCommand(commandList, control));
+		control.getCommandController().addVariable(variableName, 0);
 		moveThroughList(commandList, nodeMaker, this, control, this.getName());
 		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control, this.getName());		
@@ -35,7 +36,7 @@ public class ForNode extends ControlCommand{
 			for(int i = 3; i<this.getNumChildren(); i++){
 				lastVal = executeChild(i, control);
 			}
-			control.addVariable(variableName, varToIncrement);
+			control.getCommandController().addVariable(variableName, varToIncrement);
 		}
 		return lastVal;
 	}

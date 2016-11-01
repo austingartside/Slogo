@@ -8,12 +8,11 @@ public class HeadingNode extends NoArgumentCommand{
 
 	public HeadingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-		//commandList.updateLocation();
 	}
 
 	@Override
 	public double execute(Controller control) {
-		return 0;// TODO Auto-generated method stub
+		return control.getTurtleControl().getTurtle().getAngle();
 		
 	}
 
