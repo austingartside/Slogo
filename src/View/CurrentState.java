@@ -10,18 +10,13 @@ import javafx.scene.paint.Color;
  * Created by billxiong24 on 10/29/16.
  * tracks current state of turtles and related states
  */
-public class CurrentState{
+public class CurrentState extends CurrentInfo{
     private final String XPOS = "X POSITION: ";
     private final String YPOS = "Y POSITION: ";
     private final String PENDOWN = "PEN DOWN: ";
     private final String PENCOLOR = "PEN COLOR: ";
     private final String BACKGROUND = "BACKGROUND: ";
     private final String HEADING = "HEADING: ";
-    private ListView<String> currState;
-
-    public CurrentState(){
-        currState = new ListView<String>();
-    }
     public void addCurrState(double id, double x, double y, double penDown, Color color, double heading){
         addItem("" + id);
         addItem(XPOS + x);
@@ -31,24 +26,22 @@ public class CurrentState{
         addItem(HEADING + heading);
     }
     public void addItem(String s){
-        currState.getItems().add(s);
+        getCurrInfo().getItems().add(s);
     }
 
     public Node getView(){
-        return currState;
+        return getCurrInfo();
     }
 
     public void setOnAction(EventHandler<MouseEvent> a){
-        currState.setOnMouseClicked(a);
+        getCurrInfo().setOnMouseClicked(a);
     }
 
     public String getVariable(){
-        return currState.getSelectionModel().getSelectedItem();
+        return getCurrInfo().getSelectionModel().getSelectedItem();
     }
 
     public void clear(){
-        currState.getItems().clear();
+        getCurrInfo().getItems().clear();
     }
-
-
 }
