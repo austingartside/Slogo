@@ -54,13 +54,19 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     
     private void workspaceSetup(){
-        scene.getTurtleDisplay().changeBackgroundColor(scene.getWorkspaceParser().getBackgroundColor());
-        scene.getTurtleDisplay().setPenColor(scene.getWorkspaceParser().getPenColor());
-        scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(scene.getWorkspaceParser().getImage());
+        Color bg = scene.getWorkspaceParser().getBackgroundColor();
+        Color pen = scene.getWorkspaceParser().getPenColor();
+        String im = scene.getWorkspaceParser().getImage();
+        scene.getTurtleDisplay().changeBackgroundColor(bg);
+        scene.getTurtleDisplay().setPenColor(pen);
+        scene.getTurtleDisplay().getTurtleImage().changeTurtleImage(im);
         scene.getHelpTools().getDisplayOptions().setColors(scene.getWorkspaceParser().getColorList());
         scene.getHelpTools().getDisplayOptions().setImages(scene.getWorkspaceParser().getImageList());
         scene.getSettingTools().getLanguageChooser().setLanguage(scene.getWorkspaceParser().getLanguage());
         loadFile(scene.getWorkspaceParser().getFiletoLoad());
+        myController.getDisplaySpecs().setBackgroundIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(bg));
+        myController.getDisplaySpecs().setPenColorIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(pen));
+        myController.getDisplaySpecs().setShapeIndex(scene.getHelpTools().getDisplayOptions().getImageIndex(im));
     }
     
     public void setUp() throws Exception{
