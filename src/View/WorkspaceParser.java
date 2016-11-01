@@ -14,7 +14,7 @@ public class WorkspaceParser {
     private File file;
     private List<Color> colorList;
     private List<String> imageList;
-    private File filetoLoad;
+    private String filetoLoad;
     private Color backgroundColor;
     private Color penColor;
     private String language;
@@ -39,7 +39,7 @@ public class WorkspaceParser {
         return imageList;
     }
     
-    public File getFiletoLoad(){
+    public String getFiletoLoad(){
         return filetoLoad;
     }
     
@@ -89,7 +89,7 @@ public class WorkspaceParser {
     }
 
     private void makeFiletoLoad (String nextLine) {
-        filetoLoad = new File(nextLine.trim());
+        filetoLoad = nextLine.trim();
     }
 
     private void makeImageList (String nextLine) {

@@ -1,7 +1,7 @@
-000000 0000FF FF0000 FFFF00 008000 FF00FF FFC0CB FFA500 800080 FFFFFF E64D4D 8099FF 
-file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Turtle.png file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Harambe.jpg file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/beachball.jpeg file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/michael%20scott.png file:/Users/GCosta14/Pictures/brusie.jpg 
+000000 0000FF FF0000 FFFF00 008000 FF00FF FFC0CB FFA500 800080 FFFFFF 
+file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Turtle.png file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Harambe.jpg file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/beachball.jpeg file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/michael%20scott.png 
 English
-
-8099FF
-E64D4D
-file:/Users/GCosta14/Pictures/brusie.jpg
+/Users/GCosta14/Documents/workspaceNeon/slogo_team01/g.txt
+0000FF
+000000
+file:/Users/GCosta14/Documents/workspaceNeon/slogo_team01/src/resources.view/Turtle.png

@@ -47,7 +47,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene = s;
         loadedFile = "";
         myController = control;
-        if(!(scene.getWorkspaceParser() == null)){
+        if(scene.getWorkspaceParser() != null){
             workspaceSetup();
         }
     }
@@ -63,14 +63,19 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getHelpTools().getDisplayOptions().setImages(scene.getWorkspaceParser().getImageList());
         scene.getSettingTools().getLanguageChooser().setLanguage(scene.getWorkspaceParser().getLanguage());
         loadFile(scene.getWorkspaceParser().getFiletoLoad());
-        myController.getDisplaySpecs().setBackgroundIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(bg));
-        myController.getDisplaySpecs().setPenColorIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(pen));
-        myController.getDisplaySpecs().setShapeIndex(scene.getHelpTools().getDisplayOptions().getImageIndex(im));
     }
     
     public void setUp() throws Exception{
         addHandlers();
         addTextHandler();
+        if(scene.getWorkspaceParser()!= null){
+            Color bg = scene.getWorkspaceParser().getBackgroundColor();
+            Color pen = scene.getWorkspaceParser().getPenColor();
+            String im = scene.getWorkspaceParser().getImage();
+            myController.getDisplaySpecs().setBackgroundIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(bg));
+            myController.getDisplaySpecs().setPenColorIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(pen));
+            myController.getDisplaySpecs().setShapeIndex(scene.getHelpTools().getDisplayOptions().getImageIndex(im));
+        }
     }
 
     public void setText(String str){
@@ -219,7 +224,9 @@ public class DisplayUpdater implements ViewToModelInterface{
                     try {
                         //myController.callSaveFile(text.getText());
                     	myController.getSaveManager().callSaveFile(text.getText());
-                    	loadedFile = text.getText();
+                    	String path = System.getProperty("user.dir");
+                    	System.out.println(path);
+                    	loadedFile = path + "/" + text.getText() + ".txt";
                         dialog.close();
                     }
                     catch (IOException e) {
@@ -245,7 +252,8 @@ public class DisplayUpdater implements ViewToModelInterface{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File loadFile = chooser.showOpenDialog(mainStage);
-            loadFile(loadFile);
+            loadFile(loadFile.toString());
+            System.out.println(loadFile.toString());
         });
         
         scene.getHelpTools().getDisplayOptions().setOptionAction((event)->{
@@ -296,10 +304,10 @@ public class DisplayUpdater implements ViewToModelInterface{
             scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
 	}
 	
-	private void loadFile(File f){
-	    loadedFile = "file:" + f.toString();
+	private void loadFile(String f){
+	    loadedFile = f;
             try {
-                myController.enterAction(myController.getSaveManager().readFile(f));
+                myController.enterAction(myController.getSaveManager().readFile(new File(f)));
             }
             catch (Exception e) {
                 handleError("Could not parse that file");
