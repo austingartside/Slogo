@@ -100,7 +100,7 @@ public class DisplayOptions {
     }
     
     private void setColors(){
-        colors = new ArrayList<Color>();
+        colors = new ArrayList<>();
         colors.add(Color.BLACK);
         colors.add(Color.BLUE);
         colors.add(Color.RED);
@@ -115,7 +115,7 @@ public class DisplayOptions {
     
     private void setImages(){
         String path = System.getProperty("user.dir")+"/src/resources.view/";
-        images = new ArrayList<String>();
+        images = new ArrayList<>();
         images.add(new File(path+"Turtle.png").toURI().toString());
         images.add(new File(path+"Harambe.jpg").toURI().toString());
         images.add(new File(path+"beachball.jpeg").toURI().toString());
