@@ -1,12 +1,13 @@
 package model.commands;
-/**
- * @author austingartside
- * 
- */
 
 import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
+
+/**
+ * @author austingartside
+ * 
+ */
 
 public class DoTimesNode extends ControlCommand{
 
@@ -33,7 +34,6 @@ public class DoTimesNode extends ControlCommand{
 		double lastVal = 0;
 		for(double i = 1; i<=limit; i++){
 			if(i>=1){
-				//control.addVariable(varName, i);
 				control.getCommandController().addVariable(varName, i);
 			}
 			for(int j = 1; j<this.getNumChildren(); j++){

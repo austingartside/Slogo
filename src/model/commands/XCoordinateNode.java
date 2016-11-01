@@ -9,7 +9,6 @@ public class XCoordinateNode extends NoArgumentCommand{
 
 	public XCoordinateNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-		//commandList.updateLocation();
 	}
 
 	@Override

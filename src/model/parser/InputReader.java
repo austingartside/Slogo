@@ -24,6 +24,10 @@ public class InputReader {
     	return textInput;
     }
     
+    /**
+     * @param input
+     * Take in a string input and put it in a List of Lists (each row is a line in the original input)
+     */
     private void convertInputToList(String input){
     	textInput = new ArrayList<List<String>>();
     	String[] lineSeparatedText = input.split("\n");

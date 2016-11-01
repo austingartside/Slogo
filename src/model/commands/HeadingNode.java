@@ -8,7 +8,6 @@ public class HeadingNode extends NoArgumentCommand{
 
 	public HeadingNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
 		super(commandList, nodeMaker, control);
-		//commandList.updateLocation();
 	}
 
 	@Override
