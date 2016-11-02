@@ -2,18 +2,8 @@ package screens;
 
 import java.io.File;
 import java.util.ResourceBundle;
-import View.CanvasGenerator;
-import View.CommandBar;
-import View.DisplayGenerator;
-import View.DisplayOptions;
-import View.FileControl;
-import View.HelpButton;
-import View.HelpTabs;
-import View.HelpTools;
-import View.SettingTools;
-import View.TurtleDisplay;
-import View.WorkspaceParser;
 import View.*;
+import ViewLogic.WorkspaceParser;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
@@ -51,6 +41,7 @@ public class SLogoScene extends ActionScene{
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
         turtleDisplay = new TurtleDisplay(1);
+        helpTools.getDebugger().push(turtleDisplay);
         helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         setScene();
     }

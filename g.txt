@@ -1,1 +1,1 @@
-make :g 5.0 make :s 100.0 make :g 5.0 
+make :s 100.0 make :g 5.0 
