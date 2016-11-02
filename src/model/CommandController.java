@@ -125,7 +125,6 @@ public class CommandController {
                 currentCommand.execute(myController);
                 //Thread.sleep(1000);
             }
-            myController.doneWithCommand();
         }
         catch(NullPointerException n){
         	new DisplayUpdater(MainMenu.slogoScene, null).handleError("Error while executing");

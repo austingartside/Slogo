@@ -61,8 +61,6 @@ public class Turtle {
 	 * Used for FORWARD,BACK
 	 */
 	public double move(double vector){
-		System.out.print("Vector:");
-		System.out.println(vector);
 		double xmove=vector*(Math.sin(Math.toRadians(angleNow)));
 		double ymove=-1*vector*(Math.cos(Math.toRadians(angleNow)));
 		newXpos=oldXpos+xmove;
@@ -79,7 +77,6 @@ public class Turtle {
 		double angle;
 		double currentAngle=angleNow;
 		angle=Math.toDegrees(Math.atan(x/y));
-		System.out.println(angle);
 		//orientQuadrant(0,angle,currentAngle);
 		//This is garbage. Fix later. Enum?
 		if(x>0){
@@ -103,9 +100,6 @@ public class Turtle {
 	
 	public double orientQuadrant(double quadrant,double angle, double currentAngle){
 		double newAngle=quadrant+angle;
-		System.out.println(quadrant);
-		System.out.println(angle);
-		System.out.println(newAngle);
 		setOrientation(newAngle);
 		return Math.abs(currentAngle-newAngle);
 	}
