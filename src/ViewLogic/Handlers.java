@@ -1,6 +1,7 @@
 package ViewLogic;
 
 import View.TurtleDisplay;
+import View.TurtleImage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -84,6 +85,11 @@ public class Handlers {
         scene.getSettingTools().setLanguageAction((event) -> {
             scene.getSettingTools().getLanguageChooser().setLanguage();
             myController.getParser().changeLanguage(updater);
+        });
+        scene.getSettingTools().setTurtleSpeedAction((event) -> {
+            for(TurtleImage t : scene.getTurtleDisplay().getTurtleImage()){
+                t.setMilliseconds(scene.getSettingTools().getTurtleSpeed().getSpeed());
+            }
         });
         scene.getHelpTabs().setCommHistAction(m -> {
             String command = scene.getHelpTabs().getCommHist().getCommand();

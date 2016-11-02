@@ -140,16 +140,22 @@ public class DisplayUpdater implements ViewToModelInterface{
             addVariables();
             addUserCommands();
             setText("");
+            scene.getHelpTools().getDebugger().push(scene.getTurtleDisplay());
         });
         
         scene.getCommandBar().setActions();
     }
 
 
-	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
+    public void moveTurtle(){
+        for(TurtleImage t : scene.getTurtleDisplay().getTurtleImage()){
+            t.animate();
+        }
+    }
+	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) { 
         scene.getHelpTabs().getCurrState().clear();
         int ind = -1;
-        System.out.println(myTurtleViewCollection.size());
+        //System.out.println(myTurtleViewCollection.size());
 	    for(TurtleView t : myTurtleViewCollection){
             setVisible(t.isRevealBoolean(), ++ind);
 			setOrientation (t.getAngleNow(), ind);
