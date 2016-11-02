@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class TurtleController {
-	private Collection<Turtle> myTurtleCollection;
+	private ArrayList<Turtle> myTurtleCollection;
 	private Collection<TurtleView> myTurtleViewCollection;
 	private TurtleFactory myTurtleFactory;
 	private TurtleArmy myTurtleArmy;
@@ -44,7 +44,7 @@ public class TurtleController {
 	}
 	
 	public void setTurtleArmy(){
-		Collection<Turtle> tempCollection=new ArrayList<Turtle>();
+		ArrayList<Turtle> tempCollection=new ArrayList<Turtle>();
 		Iterator<Double> tempIterator= myAskList.iterator();
     	while(tempIterator.hasNext()){
     		Double i=tempIterator.next();

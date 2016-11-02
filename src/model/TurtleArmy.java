@@ -1,10 +1,12 @@
 package model;
 import java.util.Collection;
+import java.util.List;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 public class TurtleArmy {
-	private Collection<Turtle> myTurtleCollection;
-	public TurtleArmy(Collection<Turtle> turtleCollection){
+	private List<Turtle> myTurtleCollection;
+	public TurtleArmy(List<Turtle> turtleCollection){
 		myTurtleCollection=turtleCollection;
 	} 
 	
@@ -186,5 +188,14 @@ public class TurtleArmy {
 		}
 		return val;
 	}
+	public List<Turtle> getCollection() {
+		return myTurtleCollection;
+	}
+	public void moveToEnd(Turtle turtle) {
+		myTurtleCollection.remove(turtle);
+		myTurtleCollection.add(turtle);
+	}
+	
+	
 	
 }
