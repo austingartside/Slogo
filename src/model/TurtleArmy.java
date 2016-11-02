@@ -189,5 +189,14 @@ public class TurtleArmy {
 		}
 		return val;
 	}
+	
+	public double getID(){
+		double val = 0;
+		for(Turtle t : myTurtleCollection){
+			val=t.getID();
+		}
+		return val;
+	}
+	
 
 }

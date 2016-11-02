@@ -22,7 +22,21 @@ public class AskWithNode extends ControlCommand{
 	@Override
 	public double execute(Controller control) {
 		//child 0 is the expression, so execute that expression for each turtle i guess?
-		return 0;
+		double turtleNum = 0;
+		Command currentTurtle = this.getChild(0);
+		int i = 0;
+		while(!(currentTurtle instanceof BlankNode)){
+			turtleNum = this.executeChild(i, control);
+			control.getTurtleControl().askListUpdate(turtleNum);
+			i++;
+			currentTurtle = this.getChild(i);
+		}
+		control.getTurtleControl().setTurtleArmy();
+		int commandBeginning = i+1;
+		for(int j = commandBeginning; j<this.getNumChildren(); j++){
+			this.executeChild(j,control);
+		}
+		return turtleNum;
 	}
 
 }

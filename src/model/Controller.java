@@ -98,13 +98,11 @@ public class Controller {
 		history.add(userCommand);
 	}
 	
-	public void UpdateView() {
+	public void updateView() {
 		Collection<TurtleView> myTurtleViewCollection=myTurtleController.updateTurtleViewCollection();
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
-		//myDisplayUpdater.addTurtle();
 		myTurtleController.resetClearScreens();
 		myDisplayUpdater.updateScreen(myTurtleViewCollection,myDisplaySpecs);
-		
 	}
 	
 	public TurtleController getTurtleControl(){

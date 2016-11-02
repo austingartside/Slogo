@@ -38,7 +38,7 @@ public class Turtle {
 		oldYpos=0.0;
 		newXpos=0.0;
 		newYpos=0.0;
-		myController.UpdateView();
+		myController.updateView();
 	}
 	
 	public void setImage(String pngfile) {
@@ -66,7 +66,7 @@ public class Turtle {
 		double ymove=-1*vector*(Math.cos(Math.toRadians(angleNow)));
 		newXpos=oldXpos+xmove;
 		newYpos=oldYpos+ymove;
-		myController.UpdateView(); //Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
+		myController.updateView(); //Give to controller then package up into Turtle View which is just a list of sttributes, the send to View.
 		oldXpos=newXpos;
 		oldYpos=newYpos;
 		return vector;
@@ -120,7 +120,7 @@ public class Turtle {
 		//image.setY(y);
 		newXpos=x;
 		newYpos=-1*y;
-		myController.UpdateView();
+		myController.updateView();
 		return Math.sqrt(Math.pow(newXpos-oldXpos, SQUARED)+(Math.pow(newYpos-oldYpos,SQUARED)));
 	}
 	
@@ -160,7 +160,7 @@ public class Turtle {
 	public double changeOrientation(double angle){
 		//image.setRotate(angle);
 		angleNow=angleNow+angle;
-		myController.UpdateView();
+		myController.updateView();
 		return angle;
 	}
 	
@@ -173,7 +173,7 @@ public class Turtle {
 	public double setOrientation(double angle){
 		//image.setRotate(360-angleNow);
 		angleNow=angle;
-		myController.UpdateView();
+		myController.updateView();
 		//return angleNow;
 		//image.setRotate(angle);
 		return angle;
@@ -190,7 +190,7 @@ public class Turtle {
 		reset();
 		setOrientation(ZERO);
 		clearScreen=ONE;
-		myController.UpdateView();
+		myController.updateView();
 		return dist;
 	}
 	
@@ -200,7 +200,7 @@ public class Turtle {
 	 */
 	public double showTurtle(){
 		revealBoolean=ONE;
-		myController.UpdateView();
+		myController.updateView();
 		return ONE;
 	}
 	
@@ -210,7 +210,7 @@ public class Turtle {
 	 */
 	public double hideTurtle(){
 		revealBoolean=ZERO;
-		myController.UpdateView();
+		myController.updateView();
 		return ZERO;
 	}
 	
@@ -220,7 +220,7 @@ public class Turtle {
 	 */
 	public double penUp(){
 		penBoolean=ZERO;
-		myController.UpdateView();
+		myController.updateView();
 		return ZERO;
 	}
 	
@@ -230,7 +230,7 @@ public class Turtle {
 	 */
 	public double penDown(){
 		penBoolean=ONE;
-		myController.UpdateView();
+		myController.updateView();
 		return ONE;
 	}
 	
@@ -254,6 +254,9 @@ public class Turtle {
 	}
 	public boolean checkID(double i) {
 		return(myID==i);
+	}
+	public double getID() {
+		return myID;
 	}
 
 }
