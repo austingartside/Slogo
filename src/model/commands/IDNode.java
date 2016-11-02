@@ -12,7 +12,7 @@ public class IDNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return 0;
+		return control.getTurtleControl().getTurtle().getID();
 	}
 
 }

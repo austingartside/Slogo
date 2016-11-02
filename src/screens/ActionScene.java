@@ -20,13 +20,6 @@ public abstract class ActionScene {
     public Scene getScene(){
         return myScene;
     }
-    public Group getRoot(){
-        return myRoot;
-    }
-    
-    public void setRoot(Group r){
-        myRoot = r;
-    }
     
     public void showError (String message) {
         Alert alert = new Alert(AlertType.ERROR);

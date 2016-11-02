@@ -3,15 +3,11 @@ package View;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,7 +21,7 @@ public class DisplayOptions implements Placeable{
     private List<Color> colors;
     private VBox vbColors;
     private VBox vbImages;
-    
+    private final int SPACING = 10;
     public DisplayOptions(){
         options = new Button("Display Options");
         options.setMaxWidth(Double.MAX_VALUE);
@@ -136,7 +132,7 @@ public class DisplayOptions implements Placeable{
         for(int i = 0; i< colors.size(); i++){
             setupColor(i);
         }
-        vbColors.setSpacing(10);
+        vbColors.setSpacing(SPACING);
     }
     
     private void showImages(){
@@ -144,7 +140,7 @@ public class DisplayOptions implements Placeable{
         for(int i = 0; i< images.size(); i++){
             setupImage(i);
         }
-        vbImages.setSpacing(10);
+        vbImages.setSpacing(SPACING);
     }
     
     private void setupImage(int i){
@@ -156,7 +152,7 @@ public class DisplayOptions implements Placeable{
         im.setSmooth(true);
         im.setCache(true);
         hb.getChildren().addAll(new Label(Double.toString(i)),im);
-        hb.setSpacing(10);
+        hb.setSpacing(SPACING);
         vbImages.getChildren().add(hb);
     }
     
@@ -165,7 +161,7 @@ public class DisplayOptions implements Placeable{
         Rectangle r = new Rectangle(0,0,40,40);
         r.setFill(colors.get(i));
         hb.getChildren().addAll(new Label(Double.toString(i)),r);
-        hb.setSpacing(10);
+        hb.setSpacing(SPACING);
         vbColors.getChildren().add(hb);
     }
 }

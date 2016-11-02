@@ -12,7 +12,7 @@ public class TurtlesNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return 0;
+		return (double) control.getTurtleControl().getTurtleList().size();
 	}
 
 }

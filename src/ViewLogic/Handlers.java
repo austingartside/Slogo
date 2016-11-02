@@ -31,14 +31,13 @@ public class Handlers {
     }
     public void addHandlers(DisplayUpdater updater, Controller myController){
         addSettingTools(myController);
-        addPenStatusChanger(myController);
-        addLineChanger(myController);
+        addPenStatusChanger();
+        addLineChanger();
         addImageChanger(myController);
         addHelpTabs(updater, myController);
         addSaveAction(updater, myController);
         addPenAction(myController);
         addFileAction();
-        debuggerAction(myController);
         addLoadAction(updater, myController);
         addDisplayOptions();
     }
@@ -48,16 +47,15 @@ public class Handlers {
             Color c = scene.getSettingTools().getBackgroundColorPicker().getValue();
             scene.getTurtleDisplay().changeBackgroundColor(c);
             myController.getDisplaySpecs().setBackgroundIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(c));
-            //myController.getDisplaySpecs().setBackgroundIndex();//What do I set it to if it doesn't exist
         });
     }
-    private void addPenStatusChanger(Controller myController){
+    private void addPenStatusChanger(){
         scene.getSettingTools().setPenStatusAction((event) ->{
             TurtleDisplay.PenStatus penChoice = (TurtleDisplay.PenStatus) scene.getSettingTools().getPenStatusChoice();
             scene.getTurtleDisplay().setPenStatus(penChoice);
         });
     }
-    private void addLineChanger(Controller myController){
+    private void addLineChanger(){
         scene.getSettingTools().setLineChangerAction((event) ->{
             TurtleDisplay.LineType lineChoice = (TurtleDisplay.LineType) scene.getSettingTools().getLineChoice();
             scene.getTurtleDisplay().setDash(lineChoice);
@@ -107,7 +105,6 @@ public class Handlers {
             text.setOnKeyPressed((key) -> {
                 if(key.getCode().equals(KeyCode.ENTER)){
                     try {
-                        //myController.callSaveFile(text.getText());
                         myController.getSaveManager().callSaveFile(text.getText());
                         dialog.close();
                     }
@@ -134,26 +131,12 @@ public class Handlers {
             stage.show();
         });
     }
-    private void debuggerAction(Controller myController){
-        /*scene.getHelpTools().getDebugger().setUndoAction((event) -> {
->>>>>>> master
-            String str =  "fd 50";
-            try {
-                myController.enterAction(str);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });*/
-    }
     private void addLoadAction(DisplayUpdater updater, Controller myController){
         scene.getHelpTools().getFileControl().setLoadAction((event)->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File loadFile = chooser.showOpenDialog(mainStage);
             try {
-                //myController.enterAction(myController.readFile(loadFile.toString()));
-                //myController.enterAction(myController.getSaveManager().readFile(loadFile.toString()));
                 myController.enterAction(myController.getSaveManager().readFile(loadFile));
             }
             catch (Exception e) {

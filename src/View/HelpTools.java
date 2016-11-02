@@ -34,12 +34,6 @@ public class HelpTools implements Placeable{
     public DisplayOptions getDisplayOptions(){
         return displayOptions;
     }
-    public HelpButton getHelpButton(){
-        return helpButton;
-    }
-    public WorkspaceSaver getWorkspaceSaver(){
-        return workspaceSaver;
-    }
     public Debugger getDebugger(){
         return debugger;
     }

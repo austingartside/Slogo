@@ -14,12 +14,7 @@ public class HelpButton implements Placeable{
     
     public HelpButton(){
         help = new Button("Help");
-        help.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(final ActionEvent ae){
-                displayHelp();
-            }
-        });
+        help.setOnAction(ae -> displayHelp());
         help.setMaxWidth(Double.MAX_VALUE);
     }
     

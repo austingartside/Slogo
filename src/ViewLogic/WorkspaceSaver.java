@@ -26,10 +26,6 @@ public class WorkspaceSaver {
         return save;
     }
     
-    public void setSaveAction(EventHandler<ActionEvent> a){
-        save.setOnAction(a);
-    }
-    
     public void saveWorkspace(String fileName,SLogoScene scene, String loadedFile){
         myScene = scene;
         try {
