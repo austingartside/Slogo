@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-public class HelpButton {
+public class HelpButton implements Placeable{
     
     private Button help;
     
