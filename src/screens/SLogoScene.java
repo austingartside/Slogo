@@ -44,7 +44,7 @@ public class SLogoScene extends ActionScene{
         helpButton = new HelpButton();
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
-        turtleDisplay = new TurtleDisplay(2);
+        turtleDisplay = new TurtleDisplay(1);
         helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         //control.setUp();
         setScene();

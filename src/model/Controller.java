@@ -101,6 +101,7 @@ public class Controller {
 	public void UpdateView() {
 		Collection<TurtleView> myTurtleViewCollection=myTurtleController.updateTurtleViewCollection();
 		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
+		//myDisplayUpdater.addTurtle();
 		myTurtleController.resetClearScreens();
 		myDisplayUpdater.updateScreen(myTurtleViewCollection,myDisplaySpecs);
 		
