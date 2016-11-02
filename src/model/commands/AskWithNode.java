@@ -21,7 +21,6 @@ public class AskWithNode extends AskCommand{
 		Command conditional = this.getChild(0);
 		double lastval=0;
 		List<Turtle> TurtleCollection= control.getTurtleControl().getTurtle().getCollection();
-		System.out.println("length is " + TurtleCollection.size());
 		int temp=TurtleCollection.size();
 		for (int i = 0; i<temp;i++){
 			Turtle tempTurtle= TurtleCollection.get(0);
@@ -36,7 +35,7 @@ public class AskWithNode extends AskCommand{
 		for(int j=2;j<this.getNumChildren();j++){
 			lastval=this.executeChild(j, control);
 		}
-
+		control.getTurtleControl().resetArmy();
 		return lastval;
 	}
 
