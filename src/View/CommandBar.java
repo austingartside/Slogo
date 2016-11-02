@@ -9,7 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class CommandBar implements Actionable{
+public class CommandBar implements Actionable,Placeable{
     
     private Button enter;
     private Button clear;

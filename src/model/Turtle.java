@@ -18,6 +18,7 @@ public class Turtle {
 	private double clearScreen=ZERO; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private ImageView image;
 	private double angleNow;
+	private double angleChange;
 	private Controller myController;
 	private int errorState;
 	private double myID;
@@ -159,6 +160,7 @@ public class Turtle {
 	 */
 	public double changeOrientation(double angle){
 		//image.setRotate(angle);
+	        angleChange = angle;
 		angleNow=angleNow+angle;
 		myController.UpdateView();
 		return angle;
@@ -237,6 +239,10 @@ public class Turtle {
 	public double getAngle(){
 		return angleNow;
 	}
+        public double getAngleChange(){
+            return angleChange;
+        }
+	
 	
 	public double isRevealBoolean() {
 		return revealBoolean;
@@ -255,5 +261,7 @@ public class Turtle {
 	public boolean checkID(double i) {
 		return(myID==i);
 	}
-
+        public void setAngleChange(){
+            angleChange=ZERO;
+        }
 }
