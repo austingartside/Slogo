@@ -120,7 +120,9 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(0,0,0, 0);
     }
     public void clear(){
-        //scene.getTurtleDisplay().getTurtleImage().getTurtleImage().drawTurtle(0,0,0, 0);
+        for(TurtleImage t : scene.getTurtleDisplay().getTurtleImage()){
+            t.drawTurtle(0,0,0, 0);
+        }
         scene.getTurtleDisplay().clear();
     }
     public void changeBackgroundColor(Color color) {
