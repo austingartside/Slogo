@@ -13,7 +13,6 @@ public class LanguageChooser implements Placeable{
     
     public LanguageChooser(){
         language = DEFAULT;
-        //lang = new ComboBox<String>();
         lang = new ComboBox<>();
         lang.setPromptText(DEFAULT);
         setupLangs();

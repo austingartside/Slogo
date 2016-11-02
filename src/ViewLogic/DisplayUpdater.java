@@ -176,18 +176,9 @@ public class DisplayUpdater implements ViewToModelInterface{
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }
     }
-//    private void updateTurtles(TurtleView t, int ind){
-//        setVisible(t.isRevealBoolean(), ind);
-//        setOrientation (t.getAngleNow(), ind);
-//        setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
-//        if (t.isClearScreen()==1){
-//            clear();
-//        }
-//        Color c = scene.getSettingTools().getPenColorPicker().getValue();
-//        updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
-//    }
 	private void addMoreTurtles(int size1, int size2){
         for(int i = 0; i < size1-size2; i++){
+            //TurtleImage t = new TurtleAnimation();
             TurtleImage t = new TurtleImage();
             scene.getTurtleDisplay().getTurtleImage().add(t);
             scene.getTurtleDisplay().getView().getChildren().add(t.getView());
