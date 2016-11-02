@@ -10,7 +10,7 @@ public class TurtleView {
 	private double newYpos;
 	private double revealBoolean;
 	private double penBoolean;
-	private double clearScreen; ////TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
+	private double clearScreen; //TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private double angleNow;
 	private int errorState;
 	private double angleChange;

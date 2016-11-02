@@ -34,13 +34,13 @@ public class DisplayOptions implements Placeable{
         setScreen();
     }
     
-    public DisplayOptions(List<String> ims,List<Color> cols){
-        options = new Button("Display Options");
-        options.setMaxWidth(Double.MAX_VALUE);
-        colors = cols;
-        images = ims;
-        setScreen();
-    }
+//    public DisplayOptions(List<String> ims,List<Color> cols){
+//        options = new Button("Display Options");
+//        options.setMaxWidth(Double.MAX_VALUE);
+//        colors = cols;
+//        images = ims;
+//        setScreen();
+//    }
     
     public Node getView(){
         return options;
