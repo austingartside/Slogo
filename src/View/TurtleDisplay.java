@@ -1,11 +1,8 @@
 package View;
 
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +86,6 @@ public class TurtleDisplay implements Placeable{
     }
     public CanvasGenerator getBackgroundCanvas(){
         return backgroundCanvas;
-    }
-    public CanvasGenerator getLineCanvas(){
-        return lineCanvas;
     }
     public void clear(){
         lineCanvas.clear();

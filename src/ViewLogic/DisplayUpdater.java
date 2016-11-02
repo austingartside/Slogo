@@ -1,14 +1,9 @@
 package ViewLogic;
 
-import View.TurtleAnimation;
 import View.TurtleImage;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
@@ -27,8 +22,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     private final double PEN_THICKNESS_SCALE = 4;
     private SLogoScene scene;
     private Controller myController;
-    private String loadedFile;
-
+    String loadedFile;
     private void addUndo(){
         scene.getHelpTools().getDebugger().setUndoAction((event) ->{
             TurtleImage a = new TurtleImage();
@@ -40,8 +34,8 @@ public class DisplayUpdater implements ViewToModelInterface{
         });
     }
     public DisplayUpdater(SLogoScene s, Controller control){
-        scene = s;
         loadedFile = "";
+        scene = s;
         myController = control;
         if(scene.getWorkspaceParser() != null){
             workspaceSetup();
@@ -79,7 +73,6 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
 
     public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y, int index){
-        //System.out.printf("%d %d %d %d ",xPrev,yPrev,x,y);
         if(xPrev-x!= 0 || yPrev-y != 0){
             scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(xPrev,yPrev,x, y);
             if(penDown==1){
@@ -116,27 +109,18 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void setOrientation(double angle, int index){
         scene.getTurtleDisplay().getTurtleImage().get(index).rotateTurtle(angle);
     }
-    public void resetToHome(int index){
-        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(0,0,0, 0);
-    }
     public void clear(){
         for(TurtleImage t : scene.getTurtleDisplay().getTurtleImage()){
             t.drawTurtle(0,0,0, 0);
         }
         scene.getTurtleDisplay().clear();
     }
-    public void changeBackgroundColor(Color color) {
-        scene.getTurtleDisplay().changeBackgroundColor(color);
-    }
-    public void changePenThickness(double thickness){
-        scene.getTurtleDisplay().setThickness(thickness);
-    }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
             try {
                 myController.enterAction(scene.getCommandBar().getText());
             } catch (Exception e) {
-                handleError("Parser error");
+                handleError("Parser error, please check your syntax");
             }
             if(!scene.getCommandBar().getText().equals("")) {
                 updateHistory(scene.getCommandBar().getText());
@@ -144,9 +128,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             addVariables();
             addUserCommands();
             setText("");
-            scene.getHelpTools().getDebugger().push(scene.getTurtleDisplay());
         });
-        
         scene.getCommandBar().setActions();
     }
 
@@ -157,17 +139,14 @@ public class DisplayUpdater implements ViewToModelInterface{
         addMoreTurtles(size1, size2);
         int ind = -1;
         updateTurtles(myTurtleViewCollection, ind);
-		///TODO: Use changes to displayspecs.
 	}
 	public void addUserCommands(){
 	    	scene.getHelpTabs().getCurrComm().clear();
-            //Map<String, Command> commands = myController.getCommands();
 	    	Map<String, Command> commands = myController.getCommandController().getCommands();
             commands.keySet().forEach(this::updateCurrCommands);
         }
 	public void addVariables(){
 	    scene.getHelpTabs().getCurrVar().clear();
-	    //Map<String, Double> vars = myController.getVariables();
 	    Map<String, Double> vars = myController.getCommandController().getVariables();
 	    for(String str : vars.keySet()){
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
@@ -186,15 +165,16 @@ public class DisplayUpdater implements ViewToModelInterface{
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
 	    double penSize = myController.getDisplaySpecs().getPenSizeIndex();
-            scene.getTurtleDisplay().setThickness(penSize * PEN_THICKNESS_SCALE);
-            scene.getTurtleDisplay().changeBackgroundColor(scene.getHelpTools().getDisplayOptions().getColor(background));
-            scene.getTurtleDisplay().setPenColor(scene.getHelpTools().getDisplayOptions().getColor(pen));
-            scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
-
+	    exec(background, pen, image, penSize);
 	}
+	private void exec(double background, double pen, double image, double penSize){
+        scene.getTurtleDisplay().setThickness(penSize * PEN_THICKNESS_SCALE);
+        scene.getTurtleDisplay().changeBackgroundColor(scene.getHelpTools().getDisplayOptions().getColor(background));
+        scene.getTurtleDisplay().setPenColor(scene.getHelpTools().getDisplayOptions().getColor(pen));
+        scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
+    }
     private void updateTurtles(Collection<TurtleView> myTurtleViewCollection, int ind){
         for(TurtleView t : myTurtleViewCollection){
-            //System.out.println(scene.getTurtleDisplay().getTurtleImage().get(++ind).getTurtle().isVisible());
             setOrientation (t.getAngleNow(), ++ind);
             setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
             setVisible(t.isRevealBoolean(), ind);
@@ -208,29 +188,16 @@ public class DisplayUpdater implements ViewToModelInterface{
         }
     }
 
-	private void loadFile(String f){
-	    loadedFile = f;
-            try {
-                myController.enterAction(myController.getSaveManager().readFile(new File(f)));
-            }
-            catch (Exception e) {
-                handleError("Could not parse that file");
-            }
-            addUserCommands();
-            addVariables();
-	}
-	
-	private void saveFile(TextField text,Stage dialog){
-            text.setPromptText("File Name");
-            VBox vb = new VBox();
-            vb.getChildren().addAll(new Label("Name your file"),text);
-            vb.setAlignment(Pos.CENTER);
-            vb.setSpacing(10);
-            vb.setPadding(new Insets(10,10,10,10));
-            Scene dialogScene = new Scene(vb, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
-	}
+	private void loadFile(String f) {
+        loadedFile = f;
+        try {
+            myController.enterAction(myController.getSaveManager().readFile(new File(f)));
+        } catch (Exception e) {
+            handleError("Could not parse that file");
+        }
+        addUserCommands();
+        addVariables();
+    }
 	
 	public void handleError(String error){
         Stage stage = new Stage();

@@ -35,8 +35,6 @@ public class DisplayGenerator {
 
     /**
      * This method adds all necessary components to the front end.
-     * TODO add a turtle image here. Will do this once Gunhan/Austin makes getter for image.
-     * @throws Exception 
      */
     public GridPane setScene(SLogoScene scene) {
         addListViews(scene.getHelpTabs());
@@ -69,10 +67,7 @@ public class DisplayGenerator {
         ht.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
         gridPane.add(ht.getView(), 12, 1, 8, 19);
     }
-    
     private void addHelpTools(HelpTools helpTools){
         gridPane.add(helpTools.getView(), 12, 0, 8, 1);
     }
-    //all the event handlers for comboboxes
-
 }

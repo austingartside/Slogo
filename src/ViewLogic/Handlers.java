@@ -38,7 +38,6 @@ public class Handlers {
         addSaveAction(updater, myController);
         addPenAction(myController);
         addFileAction();
-        debuggerAction(myController);
         addLoadAction(updater, myController);
         addDisplayOptions();
     }
@@ -48,7 +47,6 @@ public class Handlers {
             Color c = scene.getSettingTools().getBackgroundColorPicker().getValue();
             scene.getTurtleDisplay().changeBackgroundColor(c);
             myController.getDisplaySpecs().setBackgroundIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(c));
-            //myController.getDisplaySpecs().setBackgroundIndex();//What do I set it to if it doesn't exist
         });
     }
     private void addPenStatusChanger(){
@@ -107,7 +105,6 @@ public class Handlers {
             text.setOnKeyPressed((key) -> {
                 if(key.getCode().equals(KeyCode.ENTER)){
                     try {
-                        //myController.callSaveFile(text.getText());
                         myController.getSaveManager().callSaveFile(text.getText());
                         dialog.close();
                     }
@@ -134,17 +131,12 @@ public class Handlers {
             stage.show();
         });
     }
-    private void debuggerAction(Controller myController){
-
-    }
     private void addLoadAction(DisplayUpdater updater, Controller myController){
         scene.getHelpTools().getFileControl().setLoadAction((event)->{
             FileChooser chooser = new FileChooser();
             Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             File loadFile = chooser.showOpenDialog(mainStage);
             try {
-                //myController.enterAction(myController.readFile(loadFile.toString()));
-                //myController.enterAction(myController.getSaveManager().readFile(loadFile.toString()));
                 myController.enterAction(myController.getSaveManager().readFile(loadFile));
             }
             catch (Exception e) {

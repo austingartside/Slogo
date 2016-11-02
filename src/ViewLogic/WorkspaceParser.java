@@ -8,6 +8,7 @@ import java.util.Scanner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import screens.MainMenu;
 
 public class WorkspaceParser {
     
@@ -19,6 +20,7 @@ public class WorkspaceParser {
     private Color penColor;
     private String language;
     private String image;
+    private final int COLOR = 16;
     
     public WorkspaceParser(File f){
         file = f;
@@ -26,8 +28,7 @@ public class WorkspaceParser {
             parse();
         }
         catch (FileNotFoundException e) {
-            //CHANGE LATER
-            System.out.println("FILE WAS NOT FOUND");
+            new DisplayUpdater(MainMenu.slogoScene, null).handleError("FILE NOT FOUND");
         }
     }
     
@@ -93,7 +94,7 @@ public class WorkspaceParser {
     }
 
     private void makeImageList (String nextLine) {
-        imageList = new ArrayList<String>();
+        imageList = new ArrayList<>();
         for(String image: nextLine.split(" ")){
             imageList.add(image);
         }
@@ -101,16 +102,16 @@ public class WorkspaceParser {
     }
 
     private void makeColorList (String nextLine) {
-        colorList = new ArrayList<Color>();
+        colorList = new ArrayList<>();
         for(String color: nextLine.split(" ")){
             colorList.add(makeColor(color));
         }
     }
     
     private Color makeColor(String colorString){
-        int red = Integer.parseInt(colorString.substring(0,2), 16);
-        int green = Integer.parseInt(colorString.substring(2,4), 16);
-        int blue = Integer.parseInt(colorString.substring(4,6), 16);
+        int red = Integer.parseInt(colorString.substring(0,2), COLOR);
+        int green = Integer.parseInt(colorString.substring(2,4), COLOR);
+        int blue = Integer.parseInt(colorString.substring(4,6), COLOR);
         return Color.rgb(red, green, blue);
     }
 }

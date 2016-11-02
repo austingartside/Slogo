@@ -13,7 +13,7 @@ public class FileControl implements Placeable{
     private Button load;
     private Button workspace;
     private HBox fileControl;
-    
+    private final int SPACING = 10;
     public FileControl(){
         
         save = new Button("Save");
@@ -22,7 +22,7 @@ public class FileControl implements Placeable{
         fileControl = new HBox();
         
         fileControl.getChildren().addAll(save,load, workspace);
-        fileControl.setSpacing(10);
+        fileControl.setSpacing(SPACING);
     }
     
     public Node getView(){

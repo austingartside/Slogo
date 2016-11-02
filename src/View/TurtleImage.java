@@ -6,9 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class TurtleImage implements Placeable{
-
-    public static final int ADJUST = 150;
-    
     private ImageView turtle;
     private Image turtleIm;
     private String turtleString;
@@ -64,21 +61,12 @@ public class TurtleImage implements Placeable{
     public void makeTurtleVisible(){
         turtle.setVisible(true);
     }
-    public Image getTurtleIm(){
-        return turtleIm;
-    }
     public ImageView getTurtle(){
         return turtle;
     }
     public Image getTurtleImage(){
         return turtleIm;
     }
-    /*private double canvasX(double x){
-        return CanvasGenerator.CANVAS_X/2 + x;
-    }
-    private double canvasY(double y){
-        return CanvasGenerator.CANVAS_Y/2 + ADJUST + y;
-    }*/
     private void centerImage(ImageView turtle) {
         turtle.setX(turtle.getFitWidth() / 2);
         turtle.setY(turtle.getFitHeight() / 2);

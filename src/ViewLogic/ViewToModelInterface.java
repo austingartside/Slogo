@@ -36,12 +36,6 @@ public interface ViewToModelInterface {
 
     public void updateCurrCommands (String object);
 
-	
-	/** 
-	 * move the turtle back to it's starting position
-	 */
-	public void resetToHome(int index);
-	
 	/** 
 	 * Clear the screen of any drawings or actions used so far.
 	 * Uses reset in addition to wiping out everything
@@ -53,14 +47,9 @@ public interface ViewToModelInterface {
      * @return the language of the commands
      */
 
-    public void addTurtle();
     public String getLanguage();
 
 	//To be completed, other methods that might update the screen in some way shape or form.
     public void updateCurrVariables (String object);
-
-    public void changeBackgroundColor(Color color);
-
-    public void changePenThickness(double thickness);
     // To be completed, other methods that might update the screen in some way shape or form.
 }

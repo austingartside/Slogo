@@ -20,7 +20,7 @@ public class Debugger {
         undo = new Button("Undo");
         debugger = new HBox();
         debugger.getChildren().addAll(undo);
-        displayStack = new Stack<TurtleDisplay>();
+        displayStack = new Stack<>();
     }
     public void setUndoAction(EventHandler<ActionEvent> a){
         undo.setOnAction(a);
