@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class DisplayOptions {
+public class DisplayOptions implements Placeable{
     
     private Button options;
     private List<String> images;

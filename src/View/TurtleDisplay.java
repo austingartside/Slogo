@@ -10,7 +10,7 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurtleDisplay {
+public class TurtleDisplay implements Placeable{
 
     public enum LineType{
         DASH, DOTTED, SOLID
@@ -44,7 +44,7 @@ public class TurtleDisplay {
     }
     private void initTurtles(int num){
         for(int i = 0; i < num; i++){
-            turtleImage.add(new TurtleImage());
+            turtleImage.add(new TurtleAnimation());
         }
     }
     private void addTurtles(){

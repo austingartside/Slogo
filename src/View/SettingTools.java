@@ -16,18 +16,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class SettingTools {
+public class SettingTools implements Placeable {
     private ToolBar toolBar;
     private ColorPicker penColorPicker;
     private ColorPicker backgroundColorPicker;
     private LanguageChooser languageChooser;
     private Button imageChanger;
+    private TurtleSpeed turtleSpeed;
     private ComboBox<Enum> lineChanger;
     private ComboBox<Enum> penStatus;
     
     public SettingTools(){
         languageChooser = new LanguageChooser();
         penColorPicker = new ColorPicker();
+        turtleSpeed = new TurtleSpeed();
         backgroundColorPicker = new ColorPicker();
         imageChanger = new Button("Change Image");
         lineChanger = new ComboBox<>();
@@ -43,6 +45,7 @@ public class SettingTools {
         toolBar.getItems().add(addButtonToBar(imageChanger));
         toolBar.getItems().add(addButtonToBar(lineChanger));
         toolBar.getItems().add(addButtonToBar(penStatus));
+        toolBar.getItems().add(addButtonToBar((ComboBox<String>)turtleSpeed.getView()));
     }
 
     public void setBackgroundAction(EventHandler<ActionEvent> a){
@@ -55,6 +58,10 @@ public class SettingTools {
     
     public void setLanguageAction(EventHandler<ActionEvent> a){
         ComboBox<String> comboBox = (ComboBox<String>)languageChooser.getView();
+        comboBox.setOnAction(a);
+    }
+    public void setTurtleSpeedAction(EventHandler<ActionEvent> a){
+        ComboBox<String> comboBox = (ComboBox<String>)turtleSpeed.getView();
         comboBox.setOnAction(a);
     }
 
@@ -76,6 +83,9 @@ public class SettingTools {
     
     public ColorPicker getBackgroundColorPicker(){
         return backgroundColorPicker;
+    }
+    public TurtleSpeed getTurtleSpeed(){
+        return turtleSpeed;
     }
     
     public ColorPicker getPenColorPicker(){

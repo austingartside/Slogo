@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class TurtleImage {
+public class TurtleImage implements Placeable{
 
     public static final int ADJUST = 150;
     
@@ -23,7 +23,6 @@ public class TurtleImage {
     
     public void changeTurtleImage(String pic){
         turtleString = pic;
-        System.out.println(turtleString);
         turtleIm = new Image(turtleString);
         turtle.setImage(turtleIm);
         turtle.setFitWidth(40);
@@ -68,6 +67,9 @@ public class TurtleImage {
     public ImageView getTurtle(){
         return turtle;
     }
+    public Image getTurtleImage(){
+        return turtleIm;
+    }
     /*private double canvasX(double x){
         return CanvasGenerator.CANVAS_X/2 + x;
     }
@@ -80,5 +82,12 @@ public class TurtleImage {
     }
     public Node getView(){
         return turtle;
+    }
+
+    public void setMilliseconds (int speed) {
+        //nothing
+    }
+    public void animate () {
+        //nothing
     }
 }

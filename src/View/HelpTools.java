@@ -1,9 +1,10 @@
 package View;
 
+import ViewLogic.WorkspaceSaver;
 import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
 
-public class HelpTools {
+public class HelpTools implements Placeable{
     
     private HelpButton helpButton;
     private FileControl fileControl;
