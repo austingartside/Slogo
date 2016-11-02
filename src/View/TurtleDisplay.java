@@ -44,7 +44,7 @@ public class TurtleDisplay implements Placeable{
     }
     private void initTurtles(int num){
         for(int i = 0; i < num; i++){
-            turtleImage.add(new TurtleAnimation());
+            turtleImage.add(new TurtleImage());
         }
     }
     private void addTurtles(){
