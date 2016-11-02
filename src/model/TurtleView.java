@@ -63,9 +63,4 @@ public class TurtleView {
 	public double getAngleNow() {
 		return angleNow;
 	}
-	
-        public double getAngleChange() {
-            return angleChange;
-        }	
-
 }

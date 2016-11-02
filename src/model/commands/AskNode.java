@@ -18,7 +18,6 @@ public class AskNode extends AskCommand{
 		while(!(currentTurtle instanceof BlankNode)){
 			turtleNum = this.executeChild(i, control);
 			control.getTurtleControl().askListUpdate(turtleNum);
-			//somehow store the turtleNum so that you can only execute commands for this turtle
 			i++;
 			currentTurtle = this.getChild(i);
 		}
@@ -27,6 +26,7 @@ public class AskNode extends AskCommand{
 		for(int j = commandBeginning; j<this.getNumChildren(); j++){
 			this.executeChild(j,control);
 		}
+		control.getTurtleControl().resetArmy();
 		return turtleNum;
 	}
 }

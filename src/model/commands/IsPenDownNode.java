@@ -12,7 +12,7 @@ public class IsPenDownNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		return 0;//
+		return control.getTurtleControl().getTurtle().isPenBoolean();
 	}
 
 }

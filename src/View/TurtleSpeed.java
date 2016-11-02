@@ -16,8 +16,8 @@ public class TurtleSpeed implements Placeable{
     
     public TurtleSpeed(){
         currSpeed = DEFAULT;
-        speed = new HashMap<String,Integer>();
-        turtleSpeed = new ComboBox<String>();
+        speed = new HashMap<>();
+        turtleSpeed = new ComboBox<>();
         turtleSpeed.setPromptText(DEFAULT);
         setupSpeeds();
     }
@@ -29,10 +29,6 @@ public class TurtleSpeed implements Placeable{
             speed.put(s, 1+i*1000);
             i++;
         }
-    }
-    
-    public String getSelectedItem(){
-        return currSpeed;
     }
     
     public Node getView(){

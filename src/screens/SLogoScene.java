@@ -20,7 +20,6 @@ public class SLogoScene extends ActionScene{
     private SettingTools settingTools;
     private HelpTools helpTools;
     private WorkspaceParser workspaceParser;
-    private Debugger debugger;
 
     public SLogoScene(Scene scene, ResourceBundle resource){
         super(scene, resource, SIZE_Y, SIZE_X);
@@ -35,7 +34,6 @@ public class SLogoScene extends ActionScene{
     }
     
     private void init(){
-        //Controller control=new Controller();
         helpTools = new HelpTools();
         commandBar = new CommandBar();
         helpTabs = new HelpTabs();

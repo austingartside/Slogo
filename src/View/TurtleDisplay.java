@@ -1,11 +1,8 @@
 package View;
 
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +21,8 @@ public class TurtleDisplay implements Placeable{
     private StackPane stackPane;
     private Color penColor;
     private double thickness;
-    private final double NUM_DASH = 5.0;
+    private final double NUM_DASH = 7.0;
+    private final double NUM_DOT = 3.0;
     private double dashes;
     private PenStatus status;
     
@@ -45,6 +43,7 @@ public class TurtleDisplay implements Placeable{
     private void initTurtles(int num){
         for(int i = 0; i < num; i++){
             turtleImage.add(new TurtleImage());
+            //turtleImage.add(new TurtleAnimation());
         }
     }
     private void addTurtles(){
@@ -74,7 +73,7 @@ public class TurtleDisplay implements Placeable{
         this.status = status;
     }
     public void setDash(LineType line){
-        dashes = (line == LineType.SOLID) ? 0 : NUM_DASH;
+        dashes = (line == LineType.SOLID) ? 0 : ((line == LineType.DASH) ? NUM_DASH : NUM_DOT);
     }
     public void addTurtle(TurtleImage image){
         turtleImage.add(image);
@@ -88,9 +87,6 @@ public class TurtleDisplay implements Placeable{
     }
     public CanvasGenerator getBackgroundCanvas(){
         return backgroundCanvas;
-    }
-    public CanvasGenerator getLineCanvas(){
-        return lineCanvas;
     }
     public void clear(){
         lineCanvas.clear();

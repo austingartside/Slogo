@@ -44,25 +44,25 @@ public class DisplaySpecs {
 
 	public double setBackgroundIndex(double myBackgroundIndex) {
 		this.myBackgroundIndex = myBackgroundIndex;
-		myController.UpdateView();
+		myController.updateView();
 		return myBackgroundIndex;
 	}
 
 	public double setPenColorIndex(double myPenColorIndex) {
 		this.myPenColorIndex = myPenColorIndex;
-		myController.UpdateView();
+		myController.updateView();
 		return myPenColorIndex;
 	}
 
 	public double setPenSizeIndex(double myPenSizeIndex) {
 		this.myPenSizeIndex = myPenSizeIndex;
-		myController.UpdateView();
+		myController.updateView();
 		return myPenSizeIndex;
 	}
 
 	public double setShapeIndex(double myShapeIndex) {
 		this.myShapeIndex = myShapeIndex;
-		myController.UpdateView();
+		myController.updateView();
 		return myShapeIndex;
 	}
 
