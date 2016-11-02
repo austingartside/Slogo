@@ -15,24 +15,27 @@ import javafx.util.Duration;
 public class TurtleAnimation extends TurtleImage {
     private int milliseconds;
     private SequentialTransition a;
+    private boolean isVis;
     
-    TurtleAnimation(){
+    public TurtleAnimation(){
         milliseconds = 1000;
         a = new SequentialTransition(getTurtle());
+        isVis = true;
     }
     @Override
-    public void drawTurtle(double x, double y) {
-        System.out.println("HELLO");
+    public void drawTurtle(double xPrev,double yPrev,double x, double y) {
         getTurtle().setImage(getTurtleImage());
         Path path = new Path();
-        path.getElements().addAll(new MoveTo(getTurtle().getTranslateX()+getTurtle().getFitWidth(), getTurtle().getTranslateY()+getTurtle().getFitHeight()), new LineTo(x+getTurtle().getFitWidth(),y+getTurtle().getFitHeight()));
+        path.getElements().addAll(new MoveTo(xPrev+getTurtle().getFitWidth(),yPrev+getTurtle().getFitHeight()), new LineTo(x+getTurtle().getFitWidth(),y+getTurtle().getFitHeight()));
         PathTransition pt = new PathTransition(Duration.millis(milliseconds), path, getTurtle());
-        a.getChildren().add(pt);
+        a = new SequentialTransition(getTurtle(),pt);
+        a.play();
+        getTurtle().setTranslateX(x);//canvasX(x)
+        getTurtle().setTranslateY(y);//canvasY(y)
         if(x < CanvasGenerator.CANVAS_X/2 && x > -CanvasGenerator.CANVAS_X / 2 && y < CanvasGenerator.CANVAS_Y/2 && y > -CanvasGenerator.CANVAS_Y/2) {
-            getTurtle().setImage(getTurtleImage());
+            getTurtle().setVisible(true);
         }else{
-            getTurtle().setImage(null);
-            System.out.println("Made it?");
+            getTurtle().setVisible(false);
         }
     }
     
@@ -40,23 +43,30 @@ public class TurtleAnimation extends TurtleImage {
     public void rotateTurtle(double angle){
         RotateTransition rt = new RotateTransition(Duration.millis(milliseconds));
         rt.setByAngle(angle-getTurtle().getRotate());
-        a.getChildren().add(rt);
+        a = new SequentialTransition(getTurtle(), rt);
+        a.play();
     }
     
     @Override
     public void makeTurtleInvisible(){
-        FadeTransition ft = new FadeTransition(Duration.millis(milliseconds));
-        ft.setFromValue(1.0);
-        ft.setToValue(0.0);
-        a.getChildren().add(ft);
+        if(isVis){
+            FadeTransition ft = new FadeTransition(Duration.millis(milliseconds));
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+            a = new SequentialTransition(getTurtle(),ft);
+            a.play();
+        }
     }
     
     @Override
     public void makeTurtleVisible(){
-        FadeTransition ft = new FadeTransition(Duration.millis(milliseconds));
-        ft.setFromValue(0.0);
-        ft.setToValue(1.0);
-        a.getChildren().add(ft);
+        if(!isVis){
+            FadeTransition ft = new FadeTransition(Duration.millis(milliseconds));
+            ft.setFromValue(0.0);
+            ft.setToValue(1.0);
+            a = new SequentialTransition(getTurtle(),ft);
+            a.play();
+        }
     }
     
     @Override
@@ -64,9 +74,4 @@ public class TurtleAnimation extends TurtleImage {
         milliseconds = ms;
     }
     
-    @Override
-    public void animate(){
-        a.play();
-        a = new SequentialTransition(getTurtle());
-    }
 }

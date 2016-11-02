@@ -101,9 +101,5 @@ public class Controller {
 	public DisplaySpecs getDisplaySpecs() {
 		return myDisplaySpecs;
 	}
-	
-	public void doneWithCommand(){
-	    du.moveTurtle();
-	}
 
 }
