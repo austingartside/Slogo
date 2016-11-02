@@ -1,48 +1,43 @@
 package ViewLogic;
 
-import View.TurtleDisplay;
 import View.TurtleImage;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
-import model.Turtle;
 import model.TurtleView;
 import model.commands.Command;
-import screens.MainMenu;
 import screens.SLogoScene;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.Driver;
 import java.util.*;
-
-import javafx.scene.*;
-
 /**
  * Created by Bill Xiong on 10/19/16.
  *
  */
 public class DisplayUpdater implements ViewToModelInterface{
-    private SLogoScene scene;
 
+    private final double PEN_THICKNESS_SCALE = 4;
+    private SLogoScene scene;
     private Controller myController;
     private String loadedFile;
-    
+
+    private void addUndo(){
+        scene.getHelpTools().getDebugger().setUndoAction((event) ->{
+            TurtleImage a = new TurtleImage();
+            scene.getTurtleDisplay().getTurtleImage().add(a);
+            a.drawTurtle(0, 0);
+            scene.getTurtleDisplay().getView().getChildren().add(a.getView());
+            myController.getTurtleControl().updateTurtleViewCollection();
+
+        });
+    }
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
         loadedFile = "";
@@ -66,6 +61,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     
     public void setUp() throws Exception{
+        addUndo();
         new Handlers(scene).addHandlers(this, myController);
         addTextHandler();
         if(scene.getWorkspaceParser()!= null){
@@ -82,7 +78,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getCommandBar().setText(str);
     }
     public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y, int index){
-        scene.getTurtleDisplay().getTurtleImage().get(0).drawTurtle(x, y);
+        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(x, y);
         if(penDown==1){
             scene.getTurtleDisplay().drawLine(xPrev, yPrev, x, y);
         }
@@ -102,19 +98,22 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void updateCurrState(double id, double x, double y, double penDown, Color color, double heading){
         scene.getHelpTabs().getCurrState().addCurrState(id, x, y, penDown, color, heading);
     }
+    public void addTurtle(){
+        scene.getTurtleDisplay().addTurtle(new TurtleImage());
+    }
     public void setVisible(double d, int index){
         if(d==1){
-            scene.getTurtleDisplay().getTurtleImage().get(0).makeTurtleVisible();
+            scene.getTurtleDisplay().getTurtleImage().get(index).makeTurtleVisible();
         }
         else{
-            scene.getTurtleDisplay().getTurtleImage().get(0).makeTurtleInvisible();
+            scene.getTurtleDisplay().getTurtleImage().get(index).makeTurtleInvisible();
         }
     }
     public void setOrientation(double angle, int index){
         scene.getTurtleDisplay().getTurtleImage().get(index).rotateTurtle(angle);
     }
-    public void resetToHome(){
-        scene.getTurtleDisplay().getTurtleImage().get(0).drawTurtle(0, 0);
+    public void resetToHome(int index){
+        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(0, 0);
     }
     public void clear(){
         //scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
@@ -128,11 +127,10 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
-
             try {
                 myController.enterAction(scene.getCommandBar().getText());
             } catch (Exception e) {
-                handleError("Not valid text");
+                handleError("Parser error");
             }
             if(!scene.getCommandBar().getText().equals("")) {
                 updateHistory(scene.getCommandBar().getText());
@@ -154,17 +152,14 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
 	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) { 
         scene.getHelpTabs().getCurrState().clear();
+        int size1 = myTurtleViewCollection.size();
+        int size2 = scene.getTurtleDisplay().getTurtleImage().size();
+        addMoreTurtles(size1, size2);
         int ind = -1;
-        //System.out.println(myTurtleViewCollection.size());
+        System.out.println(myTurtleViewCollection.size());
+        System.out.println(scene.getTurtleDisplay().getTurtleImage().size());
 	    for(TurtleView t : myTurtleViewCollection){
-            setVisible(t.isRevealBoolean(), ++ind);
-			setOrientation (t.getAngleNow(), ind);
-			setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
-			if (t.isClearScreen()==1){
-				clear();
-			}
-			Color c = scene.getSettingTools().getPenColorPicker().getValue();
-            updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
+           updateTurtles(t, ++ind);
 		}
 	    changeDisplay();
 		///TODO: Use changes to displayspecs.
@@ -183,12 +178,30 @@ public class DisplayUpdater implements ViewToModelInterface{
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }
     }
-	
+    private void updateTurtles(TurtleView t, int ind){
+        setVisible(t.isRevealBoolean(), ind);
+        setOrientation (t.getAngleNow(), ind);
+        setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
+        if (t.isClearScreen()==1){
+            clear();
+        }
+        Color c = scene.getSettingTools().getPenColorPicker().getValue();
+        updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
+    }
+	private void addMoreTurtles(int size1, int size2){
+        for(int i = 0; i < size1-size2; i++){
+            TurtleImage t = new TurtleImage();
+            scene.getTurtleDisplay().getTurtleImage().add(t);
+            scene.getTurtleDisplay().getView().getChildren().add(t.getView());
+        }
+    }
 	private void changeDisplay(){
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
-	    scene.getTurtleDisplay().changeBackgroundColor(scene.getHelpTools().getDisplayOptions().getColor(background));
+	    double penSize = myController.getDisplaySpecs().getPenSizeIndex();
+            scene.getTurtleDisplay().setThickness(penSize * PEN_THICKNESS_SCALE);
+            scene.getTurtleDisplay().changeBackgroundColor(scene.getHelpTools().getDisplayOptions().getColor(background));
             scene.getTurtleDisplay().setPenColor(scene.getHelpTools().getDisplayOptions().getColor(pen));
             scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
 	}
