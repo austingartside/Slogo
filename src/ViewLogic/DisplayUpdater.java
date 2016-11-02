@@ -1,45 +1,25 @@
 package ViewLogic;
 
-import View.TurtleDisplay;
 import View.TurtleImage;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
-import model.Turtle;
 import model.TurtleView;
 import model.commands.Command;
-import screens.MainMenu;
 import screens.SLogoScene;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.Driver;
 import java.util.*;
-
-import javafx.scene.*;
-
 /**
  * Created by Bill Xiong on 10/19/16.
  *
  */
 public class DisplayUpdater implements ViewToModelInterface{
-    private SLogoScene scene;
 
+    private final double PEN_THICKNESS_SCALE = 4;
+    private SLogoScene scene;
     private Controller myController;
 
     private void addUndo(){
@@ -115,7 +95,6 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     private void addTextHandler(){
         scene.getCommandBar().setEnterAction(actionEvent -> {
-
             try {
                 myController.enterAction(scene.getCommandBar().getText());
             } catch (Exception e) {
@@ -141,14 +120,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         System.out.println(myTurtleViewCollection.size());
         System.out.println(scene.getTurtleDisplay().getTurtleImage().size());
 	    for(TurtleView t : myTurtleViewCollection){
-            setVisible(t.isRevealBoolean(), ++ind);
-			setOrientation (t.getAngleNow(), ind);
-			setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
-			if (t.isClearScreen()==1){
-				clear();
-			}
-			Color c = scene.getSettingTools().getPenColorPicker().getValue();
-            updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
+           updateTurtles(t, ++ind);
 		}
 	    changeDisplay();
 		///TODO: Use changes to displayspecs.
@@ -167,6 +139,16 @@ public class DisplayUpdater implements ViewToModelInterface{
                 updateCurrVariables(str.substring(1) + ": " + vars.get(str));
 	    }
     }
+    private void updateTurtles(TurtleView t, int ind){
+        setVisible(t.isRevealBoolean(), ind);
+        setOrientation (t.getAngleNow(), ind);
+        setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
+        if (t.isClearScreen()==1){
+            clear();
+        }
+        Color c = scene.getSettingTools().getPenColorPicker().getValue();
+        updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
+    }
 	private void addMoreTurtles(int size1, int size2){
         for(int i = 0; i < size1-size2; i++){
             TurtleImage t = new TurtleImage();
@@ -178,6 +160,8 @@ public class DisplayUpdater implements ViewToModelInterface{
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
+        double penSize = myController.getDisplaySpecs().getPenSizeIndex();
+        scene.getTurtleDisplay().setThickness(penSize * PEN_THICKNESS_SCALE);
 	    scene.getTurtleDisplay().changeBackgroundColor(scene.getDisplayOptions().getColor(background));
         scene.getTurtleDisplay().setPenColor(scene.getDisplayOptions().getColor(pen));
         scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getDisplayOptions().getImage(image));
