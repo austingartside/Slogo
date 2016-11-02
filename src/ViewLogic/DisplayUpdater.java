@@ -1,5 +1,6 @@
 package ViewLogic;
 
+import View.TurtleAnimation;
 import View.TurtleImage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,7 +33,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getHelpTools().getDebugger().setUndoAction((event) ->{
             TurtleImage a = new TurtleImage();
             scene.getTurtleDisplay().getTurtleImage().add(a);
-            a.drawTurtle(0, 0);
+            a.drawTurtle(0,0,0, 0);
             scene.getTurtleDisplay().getView().getChildren().add(a.getView());
             myController.getTurtleControl().updateTurtleViewCollection();
 
@@ -78,9 +79,12 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
 
     public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y, int index){
-        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(x, y);
-        if(penDown==1){
-            scene.getTurtleDisplay().drawLine(xPrev, yPrev, x, y);
+        //System.out.printf("%d %d %d %d ",xPrev,yPrev,x,y);
+        if(xPrev-x!= 0 || yPrev-y != 0){
+            scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(xPrev,yPrev,x, y);
+            if(penDown==1){
+                scene.getTurtleDisplay().drawLine(xPrev, yPrev, x, y);
+            }
         }
     }
     public String getLanguage(){
@@ -113,10 +117,10 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getTurtleDisplay().getTurtleImage().get(index).rotateTurtle(angle);
     }
     public void resetToHome(int index){
-        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(0, 0);
+        scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(0,0,0, 0);
     }
     public void clear(){
-        //scene.getTurtleDisplay().getTurtleImage().drawTurtle(0, 0);
+        //scene.getTurtleDisplay().getTurtleImage().getTurtleImage().drawTurtle(0,0,0, 0);
         scene.getTurtleDisplay().clear();
     }
     public void changeBackgroundColor(Color color) {
@@ -144,21 +148,12 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getCommandBar().setActions();
     }
 
-
-    public void moveTurtle(){
-        for(TurtleImage t : scene.getTurtleDisplay().getTurtleImage()){
-            t.animate();
-        }
-    }
 	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) { 
         scene.getHelpTabs().getCurrState().clear();
         int size1 = myTurtleViewCollection.size();
         int size2 = scene.getTurtleDisplay().getTurtleImage().size();
         addMoreTurtles(size1, size2);
         int ind = -1;
-        updateTurtles(myTurtleViewCollection, ind);
-        System.out.println(myTurtleViewCollection.size());
-        System.out.println(scene.getTurtleDisplay().getTurtleImage().size());
         updateTurtles(myTurtleViewCollection, ind);
 		///TODO: Use changes to displayspecs.
 	}
@@ -195,11 +190,10 @@ public class DisplayUpdater implements ViewToModelInterface{
             scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
 
 	}
-	private void updateTurtles(Collection<TurtleView> myTurtleViewCollection, int ind){
+    private void updateTurtles(Collection<TurtleView> myTurtleViewCollection, int ind){
         for(TurtleView t : myTurtleViewCollection){
-
-            System.out.println(scene.getTurtleDisplay().getTurtleImage().get(++ind).getTurtle().isVisible());
-            setOrientation (t.getAngleNow(), ind);
+            //System.out.println(scene.getTurtleDisplay().getTurtleImage().get(++ind).getTurtle().isVisible());
+            setOrientation (t.getAngleNow(), ++ind);
             setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
             setVisible(t.isRevealBoolean(), ind);
 
@@ -211,7 +205,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             changeDisplay(ind);
         }
     }
-	
+
 	private void loadFile(String f){
 	    loadedFile = f;
             try {

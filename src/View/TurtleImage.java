@@ -33,7 +33,7 @@ public class TurtleImage implements Placeable{
         turtle.setSmooth(true);
         turtle.setCache(true);
     }
-    public void drawTurtle(double x, double y){
+    public void drawTurtle(double xPrev,double yPrev,double x, double y){
         turtle.setImage(turtleIm);
         turtle.setTranslateX(x);//canvasX(x)
         turtle.setTranslateY(y);//canvasY(y)
@@ -88,9 +88,6 @@ public class TurtleImage implements Placeable{
     }
 
     public void setMilliseconds (int speed) {
-        //nothing
-    }
-    public void animate () {
         //nothing
     }
 }
