@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 
 public class TurtleArmy {
 	private Collection<Turtle> myTurtleCollection;
-	
 	public TurtleArmy(Collection<Turtle> turtleCollection){
 		myTurtleCollection=turtleCollection;
 	} 
@@ -17,8 +16,6 @@ public class TurtleArmy {
 			t.reset();
 		}
 	}
-	
-	//
 	public void getErrorState(){
 		for(Turtle t : myTurtleCollection){
 			t.getErrorState();

@@ -45,6 +45,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void setText(String str){
         scene.getCommandBar().setText(str);
     }
+
     public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y, int index){
         scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(x, y);
         if(penDown==1){
@@ -117,12 +118,10 @@ public class DisplayUpdater implements ViewToModelInterface{
         int size2 = scene.getTurtleDisplay().getTurtleImage().size();
         addMoreTurtles(size1, size2);
         int ind = -1;
+        updateTurtles(myTurtleViewCollection, ind);
         System.out.println(myTurtleViewCollection.size());
         System.out.println(scene.getTurtleDisplay().getTurtleImage().size());
-	    for(TurtleView t : myTurtleViewCollection){
-           updateTurtles(t, ++ind);
-		}
-	    changeDisplay();
+        updateTurtles(myTurtleViewCollection, ind);
 		///TODO: Use changes to displayspecs.
 	}
 	public void addUserCommands(){
@@ -156,7 +155,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             scene.getTurtleDisplay().getView().getChildren().add(t.getView());
         }
     }
-	private void changeDisplay(){
+	private void changeDisplay(int index){
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
@@ -164,8 +163,24 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getTurtleDisplay().setThickness(penSize * PEN_THICKNESS_SCALE);
 	    scene.getTurtleDisplay().changeBackgroundColor(scene.getDisplayOptions().getColor(background));
         scene.getTurtleDisplay().setPenColor(scene.getDisplayOptions().getColor(pen));
-        scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getDisplayOptions().getImage(image));
+        scene.getTurtleDisplay().getTurtleImage().get(index).changeTurtleImage(scene.getDisplayOptions().getImage(image));
 	}
+	private void updateTurtles(Collection<TurtleView> myTurtleViewCollection, int ind){
+        for(TurtleView t : myTurtleViewCollection){
+
+            System.out.println(scene.getTurtleDisplay().getTurtleImage().get(++ind).getTurtle().isVisible());
+            setOrientation (t.getAngleNow(), ind);
+            setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
+            setVisible(t.isRevealBoolean(), ind);
+
+            if (t.isClearScreen()== 1){
+                clear();
+            }
+            Color c = scene.getSettingTools().getPenColorPicker().getValue();
+            updateCurrState(ind, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
+            changeDisplay(ind);
+        }
+    }
 	
 	
 	public void handleError(String error){
