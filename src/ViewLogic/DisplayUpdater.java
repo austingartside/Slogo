@@ -59,8 +59,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene.getSettingTools().getLanguageChooser().setLanguage(scene.getWorkspaceParser().getLanguage());
         loadFile(scene.getWorkspaceParser().getFiletoLoad());
     }
-    
-    public void setUp() throws Exception{
+    public void setUp(){
         addUndo();
         new Handlers(scene).addHandlers(this, myController);
         addTextHandler();

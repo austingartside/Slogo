@@ -8,13 +8,10 @@ import model.parser.ListOfCommands;
  * 
  */
 
-public class IfNode extends ControlCommand{
+public class IfNode extends ConditionalCommand{
 	
 	public IfNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		checkForListStart(commandList, control);
+		super(commandList, nodeMaker, control);
 		moveThroughList(commandList, nodeMaker, this, control, this.getName());
 	}
 
