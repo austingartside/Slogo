@@ -1,9 +1,11 @@
 package View;
 
 import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -27,9 +29,10 @@ public class TurtleAnimation extends TurtleImage {
         PathTransition pt = new PathTransition(Duration.millis(milliseconds), path, getTurtle());
         a.getChildren().add(pt);
         if(x < CanvasGenerator.CANVAS_X/2 && x > -CanvasGenerator.CANVAS_X / 2 && y < CanvasGenerator.CANVAS_Y/2 && y > -CanvasGenerator.CANVAS_Y/2) {
-            makeTurtleVisible();
+            getTurtle().setImage(getTurtleImage());
         }else{
-            makeTurtleInvisible();
+            getTurtle().setImage(null);
+            System.out.println("Made it?");
         }
     }
     
@@ -38,6 +41,22 @@ public class TurtleAnimation extends TurtleImage {
         RotateTransition rt = new RotateTransition(Duration.millis(milliseconds));
         rt.setByAngle(angle-getTurtle().getRotate());
         a.getChildren().add(rt);
+    }
+    
+    @Override
+    public void makeTurtleInvisible(){
+        FadeTransition ft = new FadeTransition(Duration.millis(milliseconds));
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        a.getChildren().add(ft);
+    }
+    
+    @Override
+    public void makeTurtleVisible(){
+        FadeTransition ft = new FadeTransition(Duration.millis(milliseconds));
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        a.getChildren().add(ft);
     }
     
     @Override
