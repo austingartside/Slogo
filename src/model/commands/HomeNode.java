@@ -12,7 +12,9 @@ public class HomeNode extends NoArgumentCommand{
 
 	@Override
 	public double execute(Controller control) {
-		double dist=Math.sqrt(Math.pow(control.getTurtleControl().getTurtle().getNewPositionX(), SQUARED)+(Math.pow(control.getTurtleControl().getTurtle().getNewPositionY(),SQUARED)));
+		double newPosx= control.getTurtleControl().getTurtle().getNewPositionX();
+		double newPosy= control.getTurtleControl().getTurtle().getNewPositionY();
+		double dist=Math.sqrt(Math.pow(newPosx, SQUARED)+(Math.pow(newPosy,SQUARED)));
 		control.getTurtleControl().getTurtle().reset();
 		control.getTurtleControl().getTurtle().setOrientation(ZERO);
 		return dist;

@@ -12,6 +12,7 @@ public class TurtleController {
 	private Collection<Double> myTurtleIDs;
 	private Collection<Double> myAskList;
 	private Controller myController;
+	private static double ONE=1.0; 
 	
 	public TurtleController(Controller controller) {
 		myTurtleFactory=new TurtleFactory();
@@ -44,7 +45,6 @@ public class TurtleController {
 	
 	public void setTurtleArmy(){
 		Collection<Turtle> tempCollection=new ArrayList<Turtle>();
-		
 		Iterator<Double> tempIterator= myAskList.iterator();
     	while(tempIterator.hasNext()){
     		Double i=tempIterator.next();
@@ -58,7 +58,6 @@ public class TurtleController {
 		myAskList.clear();
 	}
 	
-////Im not sure how to get the implemented Turtle executes to affect the Turtle built here. Do we pass in the Turtle as a object or use these getters and setters or another way?
 	public TurtleArmy getTurtle(){
 		return myTurtleArmy;
 	}
@@ -69,14 +68,23 @@ public class TurtleController {
 		for(Turtle t: myTurtleCollection){
 			TurtleView turtleView= new TurtleView(t);
 			myTurtleViewCollection.add(turtleView);
-
 		}
 		return myTurtleViewCollection;
+	}
+	
+	public void refresh(){
+		myTurtleCollection.clear();
+		myTurtleIDs.clear();
+		makeTurtle(ONE);
 	}
 	
 	public void resetClearScreens() {
 		for(Turtle t: myTurtleCollection){
 			t.setClearScreenOff();
 		}
+	}
+
+	public void resetArmy() {
+		myTurtleArmy=new TurtleArmy(myTurtleCollection);
 	}
 }

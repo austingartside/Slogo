@@ -1,10 +1,7 @@
 package model;
-
 import java.util.Collection;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 public class TurtleArmy {
 	private Collection<Turtle> myTurtleCollection;
 	public TurtleArmy(Collection<Turtle> turtleCollection){
@@ -27,7 +24,6 @@ public class TurtleArmy {
 			//t.setErrorState();
 		}
 	}
-
 	public double move(double vector){
 		double val = 0;
 		for(Turtle t : myTurtleCollection){
@@ -43,7 +39,6 @@ public class TurtleArmy {
 		}
 		return val;
 	}
-
 	public double setPosition(double x, double y){
 		double val = 0;
 		for(Turtle t : myTurtleCollection){
@@ -83,7 +78,6 @@ public class TurtleArmy {
 		}
 		return val;
 	}
-
 	public double changeOrientation(double angle){
 		double val = 0;
 		for(Turtle t : myTurtleCollection){
@@ -163,7 +157,6 @@ public class TurtleArmy {
 		}
 		return val;
 	}
-
 	public double isPenBoolean() {
 		double val = 0;
 		for(Turtle t : myTurtleCollection){
@@ -171,7 +164,6 @@ public class TurtleArmy {
 		}
 		return val;
 	}
-
 	public double isClearScreen() {
 		double val = 0;
 		for(Turtle t : myTurtleCollection){
@@ -186,6 +178,13 @@ public class TurtleArmy {
 		}
 		return val;
 	}
-	
 
+	public double getID() {
+		double val = 0;
+		for(Turtle t : myTurtleCollection){
+			val=t.getID();
+		}
+		return val;
+	}
+	
 }
