@@ -56,7 +56,7 @@ public class DisplayUpdater implements ViewToModelInterface{
         scene = s;
         myController = control;
     }
-    public void setUp() throws Exception{
+    public void setUp(){
         addUndo();
         new Handlers(scene).addHandlers(this, myController);
         addTextHandler();

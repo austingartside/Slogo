@@ -7,13 +7,10 @@ import model.parser.ListOfCommands;
  * @author austingartside
  * 
  */
-public class IfElseNode extends ControlCommand{
+public class IfElseNode extends ConditionalCommand{
 	
 	public IfElseNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		this.addChild((Command) nodeMaker.getCommand(commandList, control));
-		checkForListStart(commandList, control);
+		super(commandList, nodeMaker, control);
 		BlankNode trueStatements = new BlankNode(commandList, nodeMaker, control);
 		BlankNode falseStatements = new BlankNode(commandList, nodeMaker, control);
 		this.addChild(trueStatements);

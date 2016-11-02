@@ -67,13 +67,11 @@ public class Controller {
 		//View set up
 		myActionScene=actionScene;
 		DisplayUpdater du = new DisplayUpdater(myActionScene,this);
-        try {
+        //try {
             du.setUp();
-        }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        //}
+            //du.handleError("set up error");
+        //}
         stage.setScene(myActionScene.getScene());
 		
         //Model set Up

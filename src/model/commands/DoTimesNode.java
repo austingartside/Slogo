@@ -9,23 +9,18 @@ import model.parser.ListOfCommands;
  * 
  */
 
-public class DoTimesNode extends ControlCommand{
+public class DoTimesNode extends LoopCommand{
 
 	private String varName;
 	
 	public DoTimesNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		checkForListStart(commandList, control);
-		commandList.updateLocation();
-		isVariable(commandList.getCommand(), control);
+		super(commandList, nodeMaker, control);
 		varName = commandList.getCommand();
 		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));
 		commandList.updateLocation();
 		checkForListStart(commandList, control);
 		moveThroughList(commandList, nodeMaker, this, control, this.getName());
-		
 	}
 	
 	@Override
