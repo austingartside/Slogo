@@ -12,6 +12,8 @@ public class TurtleImage implements Placeable{
     private ImageView turtle;
     private Image turtleIm;
     private String turtleString;
+    private final int FIT_WIDTH = 40;
+    private final int FIT_HEIGHT = 40;
     
     public TurtleImage(){
         String path = System.getProperty("user.dir");
@@ -25,13 +27,13 @@ public class TurtleImage implements Placeable{
         turtleString = pic;
         turtleIm = new Image(turtleString);
         turtle.setImage(turtleIm);
-        turtle.setFitWidth(40);
-        turtle.setFitHeight(40);
+        turtle.setFitWidth(FIT_WIDTH);
+        turtle.setFitHeight(FIT_HEIGHT);
         turtle.setPreserveRatio(true);
         turtle.setSmooth(true);
         turtle.setCache(true);
     }
-    public void drawTurtle(double x, double y){
+    public void drawTurtle(double xPrev,double yPrev,double x, double y){
         turtle.setImage(turtleIm);
         turtle.setTranslateX(x);//canvasX(x)
         turtle.setTranslateY(y);//canvasY(y)
@@ -45,10 +47,8 @@ public class TurtleImage implements Placeable{
         return turtleString;
     }
     private void addImage(ImageView turtle){
-        turtle.setFitWidth(40);
-        turtle.setFitHeight(40);
-        //turtle.setTranslateX(CanvasGenerator.CANVAS_X/2 - turtle.getFitWidth()/2);
-        //turtle.setTranslateY(CanvasGenerator.CANVAS_Y/2 + ADJUST - turtle.getFitHeight()/2);
+        turtle.setFitWidth(FIT_WIDTH);
+        turtle.setFitHeight(FIT_HEIGHT);
         centerImage(turtle);
         turtle.setPreserveRatio(true);
         turtle.setSmooth(true);
@@ -88,9 +88,6 @@ public class TurtleImage implements Placeable{
     }
 
     public void setMilliseconds (int speed) {
-        //nothing
-    }
-    public void animate () {
         //nothing
     }
 }

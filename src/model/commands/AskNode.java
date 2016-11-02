@@ -4,16 +4,10 @@ import model.Controller;
 import model.parser.CommandFactory;
 import model.parser.ListOfCommands;
 
-public class AskNode extends ControlCommand{
+public class AskNode extends AskCommand{
 
 	public AskNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control, this.getName());
-		this.addChild(new BlankNode(commandList, nodeMaker, control));
-		checkForListStart(commandList, control);
-		moveThroughList(commandList, nodeMaker, this, control, this.getName());
+		super(commandList, nodeMaker, control);
 	}
 
 	@Override

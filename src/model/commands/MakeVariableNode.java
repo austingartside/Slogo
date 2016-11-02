@@ -17,7 +17,9 @@ public class MakeVariableNode extends ControlCommand{
 		super(commandList.getCommand());
 		commandList.updateLocation();
 		isVariable(commandList.getCommand(), control);
-		control.getCommandController().addVariable(commandList.getCommand(), 0);
+		if(!control.getCommandController().getVariables().containsKey(commandList.getCommand())){
+			control.getCommandController().addVariable(commandList.getCommand(), 0);
+		}
 		variableName = commandList.getCommand();
 		commandList.updateLocation();
 		this.addChild((Command) nodeMaker.getCommand(commandList, control));

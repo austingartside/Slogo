@@ -9,16 +9,12 @@ import model.parser.ListOfCommands;
  * 
  */
 
-public class ForNode extends ControlCommand{
+public class ForNode extends LoopCommand{
 
 	private String variableName;
 	
 	public ForNode(ListOfCommands commandList, CommandFactory nodeMaker, Controller control) throws Exception {
-		super(commandList.getCommand());
-		commandList.updateLocation();
-		checkForListStart(commandList, control);
-		commandList.updateLocation();
-		isVariable(commandList.getCommand(), control);
+		super(commandList, nodeMaker, control);
 		variableName = commandList.getCommand();
 		control.getCommandController().addVariable(variableName, 0);
 		moveThroughList(commandList, nodeMaker, this, control, this.getName());

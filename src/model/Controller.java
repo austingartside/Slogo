@@ -62,13 +62,11 @@ public class Controller {
 		//View set up
 		myActionScene=actionScene;
 		du = new DisplayUpdater(myActionScene,this);
-        try {
+        //try {
             du.setUp();
-        }
-        catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        //}
+            //du.handleError("set up error");
+        //}
         stage.setScene(myActionScene.getScene());
 		
         //Model set Up
@@ -99,10 +97,6 @@ public class Controller {
 
 	public DisplaySpecs getDisplaySpecs() {
 		return myDisplaySpecs;
-	}
-	
-	public void doneWithCommand(){
-	    du.moveTurtle();
 	}
 
 }
