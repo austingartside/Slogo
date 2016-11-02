@@ -68,6 +68,7 @@ public class TurtleController {
 		for(Turtle t: myTurtleCollection){
 			TurtleView turtleView= new TurtleView(t);
 			myTurtleViewCollection.add(turtleView);
+
 		}
 		return myTurtleViewCollection;
 	}

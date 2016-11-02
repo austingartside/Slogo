@@ -40,7 +40,7 @@ public interface ViewToModelInterface {
 	/** 
 	 * move the turtle back to it's starting position
 	 */
-	public void resetToHome();
+	public void resetToHome(int index);
 	
 	/** 
 	 * Clear the screen of any drawings or actions used so far.
@@ -53,6 +53,7 @@ public interface ViewToModelInterface {
      * @return the language of the commands
      */
 
+    public void addTurtle();
     public String getLanguage();
 
 	//To be completed, other methods that might update the screen in some way shape or form.
