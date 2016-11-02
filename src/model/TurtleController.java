@@ -44,7 +44,6 @@ public class TurtleController {
 	
 	public void setTurtleArmy(){
 		Collection<Turtle> tempCollection=new ArrayList<Turtle>();
-		
 		Iterator<Double> tempIterator= myAskList.iterator();
     	while(tempIterator.hasNext()){
     		Double i=tempIterator.next();
