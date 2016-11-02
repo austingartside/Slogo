@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  * Created by Bill Xiong on 10/19/16.
  * Generates Canvas and all operations related to canvas
  */
-public class CanvasGenerator {
+public class CanvasGenerator implements Placeable {
     public static final int CANVAS_X = 600;
     public static final int CANVAS_Y = 400;
     private Canvas canvas;
@@ -31,6 +31,9 @@ public class CanvasGenerator {
     public void changeBackgroundColor(Color color){
         gc.setFill(color);
         gc.fillRect(0, 0, CANVAS_X, CANVAS_Y);
+    }
+    public Color getCanvasColor(){
+        return (Color) gc.getFill();
     }
     public void clear(){
         gc.clearRect(0, 0, CANVAS_X, CANVAS_Y);

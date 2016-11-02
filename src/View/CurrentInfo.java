@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
  * Created by billxiong24 on 11/1/16.
  * Super abstract class for CommandHistory, CurrentCommands, CurrentVariables, and CurrentState.
  */
-public abstract class CurrentInfo {
+public abstract class CurrentInfo implements Placeable{
     private ListView<String> currInfo;
 
     public CurrentInfo(){
