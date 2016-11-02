@@ -8,7 +8,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
 
-public class HelpTabs {
+public class HelpTabs implements Placeable{
 
     private CommandHistory commandHistory;
     private CurrentCommands currCommands;

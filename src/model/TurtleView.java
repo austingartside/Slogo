@@ -13,6 +13,7 @@ public class TurtleView {
 	private double clearScreen; //TODO: WORK WITH THIS TO DIFFER HOME AND CLEARSCREEN
 	private double angleNow;
 	private int errorState;
+	private double angleChange;
 	
 	public TurtleView(Turtle turtle){
 		oldXpos=turtle.getOldPositionX();
@@ -24,6 +25,7 @@ public class TurtleView {
 		clearScreen=turtle.isClearScreen(); 
 		angleNow=turtle.getAngle();
 		errorState = turtle.getErrorState();
+		angleChange = turtle.getAngleChange();
 	}
 	
 	public int getErrorState(){
@@ -61,5 +63,9 @@ public class TurtleView {
 	public double getAngleNow() {
 		return angleNow;
 	}
+	
+        public double getAngleChange() {
+            return angleChange;
+        }	
 
 }

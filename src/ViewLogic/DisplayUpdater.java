@@ -1,9 +1,13 @@
 package ViewLogic;
 
 import View.TurtleImage;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
@@ -11,6 +15,7 @@ import model.TurtleView;
 import model.commands.Command;
 import screens.SLogoScene;
 import javafx.stage.Stage;
+import java.io.File;
 import java.util.*;
 /**
  * Created by Bill Xiong on 10/19/16.
@@ -21,9 +26,10 @@ public class DisplayUpdater implements ViewToModelInterface{
     private final double PEN_THICKNESS_SCALE = 4;
     private SLogoScene scene;
     private Controller myController;
+    private String loadedFile;
 
     private void addUndo(){
-        scene.getDebugger().setUndoAction((event) ->{
+        scene.getHelpTools().getDebugger().setUndoAction((event) ->{
             TurtleImage a = new TurtleImage();
             scene.getTurtleDisplay().getTurtleImage().add(a);
             a.drawTurtle(0, 0);
@@ -34,12 +40,38 @@ public class DisplayUpdater implements ViewToModelInterface{
     }
     public DisplayUpdater(SLogoScene s, Controller control){
         scene = s;
+        loadedFile = "";
         myController = control;
+        if(scene.getWorkspaceParser() != null){
+            workspaceSetup();
+        }
     }
+    
+    private void workspaceSetup(){
+        Color bg = scene.getWorkspaceParser().getBackgroundColor();
+        Color pen = scene.getWorkspaceParser().getPenColor();
+        String im = scene.getWorkspaceParser().getImage();
+        scene.getTurtleDisplay().changeBackgroundColor(bg);
+        scene.getTurtleDisplay().setPenColor(pen);
+        scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(im);
+        scene.getHelpTools().getDisplayOptions().setColors(scene.getWorkspaceParser().getColorList());
+        scene.getHelpTools().getDisplayOptions().setImages(scene.getWorkspaceParser().getImageList());
+        scene.getSettingTools().getLanguageChooser().setLanguage(scene.getWorkspaceParser().getLanguage());
+        loadFile(scene.getWorkspaceParser().getFiletoLoad());
+    }
+    
     public void setUp() throws Exception{
         addUndo();
         new Handlers(scene).addHandlers(this, myController);
         addTextHandler();
+        if(scene.getWorkspaceParser()!= null){
+            Color bg = scene.getWorkspaceParser().getBackgroundColor();
+            Color pen = scene.getWorkspaceParser().getPenColor();
+            String im = scene.getWorkspaceParser().getImage();
+            myController.getDisplaySpecs().setBackgroundIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(bg));
+            myController.getDisplaySpecs().setPenColorIndex(scene.getHelpTools().getDisplayOptions().getColorIndex(pen));
+            myController.getDisplaySpecs().setShapeIndex(scene.getHelpTools().getDisplayOptions().getImageIndex(im));
+        }
     }
 
     public void setText(String str){
@@ -107,12 +139,19 @@ public class DisplayUpdater implements ViewToModelInterface{
             addVariables();
             addUserCommands();
             setText("");
+            scene.getHelpTools().getDebugger().push(scene.getTurtleDisplay());
         });
         
         scene.getCommandBar().setActions();
     }
 
-	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) {
+
+    public void moveTurtle(){
+        for(TurtleImage t : scene.getTurtleDisplay().getTurtleImage()){
+            t.animate();
+        }
+    }
+	public void updateScreen(Collection<TurtleView> myTurtleViewCollection, DisplaySpecs displaySpecs) { 
         scene.getHelpTabs().getCurrState().clear();
         int size1 = myTurtleViewCollection.size();
         int size2 = scene.getTurtleDisplay().getTurtleImage().size();
@@ -159,11 +198,12 @@ public class DisplayUpdater implements ViewToModelInterface{
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
-        double penSize = myController.getDisplaySpecs().getPenSizeIndex();
-        scene.getTurtleDisplay().setThickness(penSize * PEN_THICKNESS_SCALE);
-	    scene.getTurtleDisplay().changeBackgroundColor(scene.getDisplayOptions().getColor(background));
-        scene.getTurtleDisplay().setPenColor(scene.getDisplayOptions().getColor(pen));
-        scene.getTurtleDisplay().getTurtleImage().get(index).changeTurtleImage(scene.getDisplayOptions().getImage(image));
+	    double penSize = myController.getDisplaySpecs().getPenSizeIndex();
+            scene.getTurtleDisplay().setThickness(penSize * PEN_THICKNESS_SCALE);
+            scene.getTurtleDisplay().changeBackgroundColor(scene.getHelpTools().getDisplayOptions().getColor(background));
+            scene.getTurtleDisplay().setPenColor(scene.getHelpTools().getDisplayOptions().getColor(pen));
+            scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getHelpTools().getDisplayOptions().getImage(image));
+
 	}
 	private void updateTurtles(Collection<TurtleView> myTurtleViewCollection, int ind){
         for(TurtleView t : myTurtleViewCollection){
@@ -182,6 +222,29 @@ public class DisplayUpdater implements ViewToModelInterface{
         }
     }
 	
+	private void loadFile(String f){
+	    loadedFile = f;
+            try {
+                myController.enterAction(myController.getSaveManager().readFile(new File(f)));
+            }
+            catch (Exception e) {
+                handleError("Could not parse that file");
+            }
+            addUserCommands();
+            addVariables();
+	}
+	
+	private void saveFile(TextField text,Stage dialog){
+            text.setPromptText("File Name");
+            VBox vb = new VBox();
+            vb.getChildren().addAll(new Label("Name your file"),text);
+            vb.setAlignment(Pos.CENTER);
+            vb.setSpacing(10);
+            vb.setPadding(new Insets(10,10,10,10));
+            Scene dialogScene = new Scene(vb, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+	}
 	
 	public void handleError(String error){
         Stage stage = new Stage();

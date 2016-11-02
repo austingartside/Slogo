@@ -2,6 +2,7 @@ package View;
 
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -9,7 +10,7 @@ import javafx.scene.shape.Line;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurtleDisplay {
+public class TurtleDisplay implements Placeable{
 
     public enum LineType{
         DASH, DOTTED, SOLID
@@ -26,6 +27,7 @@ public class TurtleDisplay {
     private final double NUM_DASH = 5.0;
     private double dashes;
     private PenStatus status;
+    
     public TurtleDisplay(int numTurtles){
         status = PenStatus.PENDOWN;
         thickness = 1.0;
@@ -42,7 +44,7 @@ public class TurtleDisplay {
     }
     private void initTurtles(int num){
         for(int i = 0; i < num; i++){
-            turtleImage.add(new TurtleImage());
+            turtleImage.add(new TurtleAnimation());
         }
     }
     private void addTurtles(){
@@ -53,6 +55,10 @@ public class TurtleDisplay {
 
     public void changeBackgroundColor(Color color){
         backgroundCanvas.changeBackgroundColor(color);
+    }
+    
+    public Color getPenColor(){
+        return penColor;
     }
    
     public void drawLine(double xPrev, double yPrev, double x, double y){

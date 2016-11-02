@@ -2,17 +2,8 @@ package screens;
 
 import java.io.File;
 import java.util.ResourceBundle;
-import View.CanvasGenerator;
-import View.CommandBar;
-import View.DisplayGenerator;
-import View.DisplayOptions;
-import View.FileControl;
-import View.HelpButton;
-import View.HelpTabs;
-import View.SettingTools;
-import View.TurtleDisplay;
-import View.WorkspaceParser;
 import View.*;
+import ViewLogic.WorkspaceParser;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
@@ -27,38 +18,32 @@ public class SLogoScene extends ActionScene{
     private CommandBar commandBar;
     private HelpTabs helpTabs;
     private SettingTools settingTools;
-    private HelpButton helpButton;
-    private FileControl fileControl;
-    private DisplayOptions displayOptions;
+    private HelpTools helpTools;
     private WorkspaceParser workspaceParser;
     private Debugger debugger;
 
     public SLogoScene(Scene scene, ResourceBundle resource){
         super(scene, resource, SIZE_Y, SIZE_X);
-        
-        //Controller control=new Controller();
-        displayOptions = new DisplayOptions();
-        debugger = new Debugger();
-        fileControl = new FileControl();
-        commandBar = new CommandBar();
-        helpButton = new HelpButton();
-        helpTabs = new HelpTabs();
-        settingTools = new SettingTools();
-        turtleDisplay = new TurtleDisplay(1);
-        helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
-        //control.setUp();
-        setScene();
+        workspaceParser = null;
+        init();
     }
 
     public SLogoScene(Scene scene, ResourceBundle resource,File file){
         super(scene, resource, SIZE_Y, SIZE_X);
-        displayOptions = new DisplayOptions(file);
-        fileControl = new FileControl();
+        workspaceParser = new WorkspaceParser(file);
+        init();
+    }
+    
+    private void init(){
+        //Controller control=new Controller();
+        helpTools = new HelpTools();
         commandBar = new CommandBar();
-        helpButton = new HelpButton();
         helpTabs = new HelpTabs();
         settingTools = new SettingTools();
         turtleDisplay = new TurtleDisplay(1);
+        helpTools.getDebugger().push(turtleDisplay);
+        helpTabs.getCurrState().addCurrState(0, 0, 0, 0, CanvasGenerator.DEFAULT, 0);
+        setScene();
     }
     
     public void setScene(){
@@ -66,9 +51,6 @@ public class SLogoScene extends ActionScene{
         dg.setGridPane(COLUMNS);
         gridPane = dg.setScene(this);
         myScene = new Scene(gridPane, SIZE_X,SIZE_Y);
-    }
-    public Debugger getDebugger(){
-        return debugger;
     }
     public CommandBar getCommandBar(){
         return commandBar;
@@ -79,17 +61,14 @@ public class SLogoScene extends ActionScene{
     public SettingTools getSettingTools(){
         return settingTools;
     }
-    public HelpButton getHelpButton(){
-        return helpButton;
-    }
     public HelpTabs getHelpTabs(){
         return helpTabs;
     }
-    public FileControl getFileControl(){
-        return fileControl;
+    public WorkspaceParser getWorkspaceParser(){
+        return workspaceParser;
     }
-    public DisplayOptions getDisplayOptions(){
-        return displayOptions;
+    public HelpTools getHelpTools(){
+        return helpTools;
     }
     
 }

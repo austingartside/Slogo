@@ -24,6 +24,7 @@ public class Controller {
 	private CommandSaveManager saveManager;
 	private CommandController myCommandController;
 	private TurtleController myTurtleController;
+	private DisplayUpdater du;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -60,7 +61,7 @@ public class Controller {
 	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
 		//View set up
 		myActionScene=actionScene;
-		DisplayUpdater du = new DisplayUpdater(myActionScene,this);
+		du = new DisplayUpdater(myActionScene,this);
         try {
             du.setUp();
         }
@@ -88,10 +89,8 @@ public class Controller {
 	
 	public void UpdateView() {
 		Collection<TurtleView> myTurtleViewCollection=myTurtleController.updateTurtleViewCollection();
-		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
-		//myDisplayUpdater.addTurtle();
 		myTurtleController.resetClearScreens();
-		myDisplayUpdater.updateScreen(myTurtleViewCollection,myDisplaySpecs);
+		du.updateScreen(myTurtleViewCollection,myDisplaySpecs);
 		
 	}
 	
@@ -101,6 +100,10 @@ public class Controller {
 
 	public DisplaySpecs getDisplaySpecs() {
 		return myDisplaySpecs;
+	}
+	
+	public void doneWithCommand(){
+	    du.moveTurtle();
 	}
 
 }

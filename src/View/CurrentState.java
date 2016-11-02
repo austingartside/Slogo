@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  * Created by billxiong24 on 10/29/16.
  * tracks current state of turtles and related states
  */
-public class CurrentState extends CurrentInfo{
+public class CurrentState extends CurrentInfo implements Placeable{
     private final String XPOS = "X POSITION: ";
     private final String YPOS = "Y POSITION: ";
     private final String PENDOWN = "PEN DOWN: ";
