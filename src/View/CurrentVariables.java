@@ -5,11 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
-public class CurrentVariables {
+public class CurrentVariables implements Placeable{
     
     private ListView<String> currVar;
     
-    public CurrentVariables(){
+    public CurrentVariables() {
         currVar = new ListView<String>();
     }
     

@@ -7,17 +7,12 @@ import java.util.ResourceBundle;
 
 import ViewLogic.DisplayUpdater;
 import javafx.stage.Stage;
-import model.commands.BlankNode;
 import model.commands.Command;
-import model.parser.ExpressionTreeBuilder;
 import model.parser.ProgramParser;
-import screens.MainMenu;
 import screens.SLogoScene;
 
 public class Controller {
 
-	public static final int WIDTH = 1000;
-    public static final int HEIGHT  = 600;
     public static final double ONE=1;
 	
 	private List<String> history;
@@ -29,6 +24,7 @@ public class Controller {
 	private CommandSaveManager saveManager;
 	private CommandController myCommandController;
 	private TurtleController myTurtleController;
+	private DisplayUpdater du;
 	/*private static final Controller INSTANCE=new Controller();
 	
 	private Controller(){
@@ -43,7 +39,7 @@ public class Controller {
 	
 	public Controller(){
 		myDisplaySpecs=new DisplaySpecs(this);
-		history = new ArrayList<String>();
+		history = new ArrayList<>();
 		parser = new ProgramParser();
 		saveManager = new CommandSaveManager(this);
 		myCommandController = new CommandController(this);
@@ -65,7 +61,7 @@ public class Controller {
 	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
 		//View set up
 		myActionScene=actionScene;
-		DisplayUpdater du = new DisplayUpdater(myActionScene,this);
+		du = new DisplayUpdater(myActionScene,this);
         try {
             du.setUp();
         }
@@ -82,13 +78,6 @@ public class Controller {
 	public String getUserCommand(){
 		return userCommand;
 	}
-		
-	public void addHistory(String command){
-		history.add(command);
-	}
-	public List<String> getHistory(){
-		return history;
-	}
 
 	public void enterAction(String command) throws Exception {
 		userCommand = command;
@@ -100,9 +89,8 @@ public class Controller {
 	
 	public void updateView() {
 		Collection<TurtleView> myTurtleViewCollection=myTurtleController.updateTurtleViewCollection();
-		DisplayUpdater myDisplayUpdater= new DisplayUpdater(myActionScene, this);
 		myTurtleController.resetClearScreens();
-		myDisplayUpdater.updateScreen(myTurtleViewCollection,myDisplaySpecs);
+		du.updateScreen(myTurtleViewCollection,myDisplaySpecs);
 	}
 	
 	public TurtleController getTurtleControl(){
@@ -111,6 +99,10 @@ public class Controller {
 
 	public DisplaySpecs getDisplaySpecs() {
 		return myDisplaySpecs;
+	}
+	
+	public void doneWithCommand(){
+	    du.moveTurtle();
 	}
 
 }
