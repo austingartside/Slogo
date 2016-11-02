@@ -39,7 +39,7 @@ public class DisplayOptions {
         setImages();
         setScreen();
     }
-    
+
     public Node getView(){
         return options;
     }

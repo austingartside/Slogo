@@ -15,7 +15,6 @@ public class CurrentState extends CurrentInfo{
     private final String YPOS = "Y POSITION: ";
     private final String PENDOWN = "PEN DOWN: ";
     private final String PENCOLOR = "PEN COLOR: ";
-    private final String BACKGROUND = "BACKGROUND: ";
     private final String HEADING = "HEADING: ";
     public void addCurrState(double id, double x, double y, double penDown, Color color, double heading){
         addItem("" + id);
@@ -35,10 +34,6 @@ public class CurrentState extends CurrentInfo{
 
     public void setOnAction(EventHandler<MouseEvent> a){
         getCurrInfo().setOnMouseClicked(a);
-    }
-
-    public String getVariable(){
-        return getCurrInfo().getSelectionModel().getSelectedItem();
     }
 
     public void clear(){
