@@ -24,7 +24,8 @@ public class TurtleDisplay implements Placeable{
     private StackPane stackPane;
     private Color penColor;
     private double thickness;
-    private final double NUM_DASH = 5.0;
+    private final double NUM_DASH = 7.0;
+    private final double NUM_DOT = 3.0;
     private double dashes;
     private PenStatus status;
     
@@ -74,7 +75,7 @@ public class TurtleDisplay implements Placeable{
         this.status = status;
     }
     public void setDash(LineType line){
-        dashes = (line == LineType.SOLID) ? 0 : NUM_DASH;
+        dashes = (line == LineType.SOLID) ? 0 : ((line == LineType.DASH) ? NUM_DASH : NUM_DOT);
     }
     public void addTurtle(TurtleImage image){
         turtleImage.add(image);
