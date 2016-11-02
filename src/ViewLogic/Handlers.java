@@ -31,8 +31,8 @@ public class Handlers {
     }
     public void addHandlers(DisplayUpdater updater, Controller myController){
         addSettingTools(myController);
-        addPenStatusChanger(myController);
-        addLineChanger(myController);
+        addPenStatusChanger();
+        addLineChanger();
         addImageChanger(myController);
         addHelpTabs(updater, myController);
         addSaveAction(updater, myController);
@@ -51,13 +51,13 @@ public class Handlers {
             //myController.getDisplaySpecs().setBackgroundIndex();//What do I set it to if it doesn't exist
         });
     }
-    private void addPenStatusChanger(Controller myController){
+    private void addPenStatusChanger(){
         scene.getSettingTools().setPenStatusAction((event) ->{
             TurtleDisplay.PenStatus penChoice = (TurtleDisplay.PenStatus) scene.getSettingTools().getPenStatusChoice();
             scene.getTurtleDisplay().setPenStatus(penChoice);
         });
     }
-    private void addLineChanger(Controller myController){
+    private void addLineChanger(){
         scene.getSettingTools().setLineChangerAction((event) ->{
             TurtleDisplay.LineType lineChoice = (TurtleDisplay.LineType) scene.getSettingTools().getLineChoice();
             scene.getTurtleDisplay().setDash(lineChoice);
@@ -135,16 +135,7 @@ public class Handlers {
         });
     }
     private void debuggerAction(Controller myController){
-        /*scene.getHelpTools().getDebugger().setUndoAction((event) -> {
->>>>>>> master
-            String str =  "fd 50";
-            try {
-                myController.enterAction(str);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });*/
+
     }
     private void addLoadAction(DisplayUpdater updater, Controller myController){
         scene.getHelpTools().getFileControl().setLoadAction((event)->{

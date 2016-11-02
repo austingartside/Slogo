@@ -185,7 +185,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             scene.getTurtleDisplay().getView().getChildren().add(t.getView());
         }
     }
-	private void changeDisplay(int index){
+	private void changeDisplay(){
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
@@ -209,7 +209,7 @@ public class DisplayUpdater implements ViewToModelInterface{
             }
             Color c = scene.getSettingTools().getPenColorPicker().getValue();
             updateCurrState(ind, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
-            changeDisplay(ind);
+            changeDisplay();
         }
     }
 	
