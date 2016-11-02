@@ -32,6 +32,7 @@ public class AskNode extends ControlCommand{
 		for(int j = commandBeginning; j<this.getNumChildren(); j++){
 			this.executeChild(j,control);
 		}
+		control.getTurtleControl().resetArmy();
 		return turtleNum;
 	}
 }

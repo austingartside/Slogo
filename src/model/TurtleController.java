@@ -83,4 +83,8 @@ public class TurtleController {
 			t.setClearScreenOff();
 		}
 	}
+
+	public void resetArmy() {
+		myTurtleArmy=new TurtleArmy(myTurtleCollection);
+	}
 }
