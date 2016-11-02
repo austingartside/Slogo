@@ -65,6 +65,9 @@ public class TurtleImage {
     public void makeTurtleVisible(){
         turtle.setVisible(true);
     }
+    public Image getTurtleIm(){
+        return turtleIm;
+    }
     public ImageView getTurtle(){
         return turtle;
     }

@@ -1,34 +1,16 @@
 package ViewLogic;
 
-import View.TurtleDisplay;
 import View.TurtleImage;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Controller;
 import model.DisplaySpecs;
-import model.Turtle;
 import model.TurtleView;
 import model.commands.Command;
-import screens.MainMenu;
 import screens.SLogoScene;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.Driver;
 import java.util.*;
 
 import javafx.scene.*;
@@ -65,6 +47,7 @@ public class DisplayUpdater implements ViewToModelInterface{
     public void setText(String str){
         scene.getCommandBar().setText(str);
     }
+
     public void setCoordinate(double penDown, double xPrev, double yPrev, double x, double y, int index){
         scene.getTurtleDisplay().getTurtleImage().get(index).drawTurtle(x, y);
         if(penDown==1){
@@ -138,19 +121,10 @@ public class DisplayUpdater implements ViewToModelInterface{
         int size2 = scene.getTurtleDisplay().getTurtleImage().size();
         addMoreTurtles(size1, size2);
         int ind = -1;
+        updateTurtles(myTurtleViewCollection, ind);
         System.out.println(myTurtleViewCollection.size());
         System.out.println(scene.getTurtleDisplay().getTurtleImage().size());
-	    for(TurtleView t : myTurtleViewCollection){
-            setVisible(t.isRevealBoolean(), ++ind);
-			setOrientation (t.getAngleNow(), ind);
-			setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
-			if (t.isClearScreen()==1){
-				clear();
-			}
-			Color c = scene.getSettingTools().getPenColorPicker().getValue();
-            updateCurrState(0, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
-		}
-	    changeDisplay();
+        updateTurtles(myTurtleViewCollection, ind);
 		///TODO: Use changes to displayspecs.
 	}
 	public void addUserCommands(){
@@ -174,14 +148,30 @@ public class DisplayUpdater implements ViewToModelInterface{
             scene.getTurtleDisplay().getView().getChildren().add(t.getView());
         }
     }
-	private void changeDisplay(){
+	private void changeDisplay(int index){
 	    double background = myController.getDisplaySpecs().getBackgroundIndex();
 	    double pen = myController.getDisplaySpecs().getPenColorIndex();
 	    double image = myController.getDisplaySpecs().getShapeIndex();
 	    scene.getTurtleDisplay().changeBackgroundColor(scene.getDisplayOptions().getColor(background));
         scene.getTurtleDisplay().setPenColor(scene.getDisplayOptions().getColor(pen));
-        scene.getTurtleDisplay().getTurtleImage().get(0).changeTurtleImage(scene.getDisplayOptions().getImage(image));
+        scene.getTurtleDisplay().getTurtleImage().get(index).changeTurtleImage(scene.getDisplayOptions().getImage(image));
 	}
+	private void updateTurtles(Collection<TurtleView> myTurtleViewCollection, int ind){
+        for(TurtleView t : myTurtleViewCollection){
+
+            System.out.println(scene.getTurtleDisplay().getTurtleImage().get(++ind).getTurtle().isVisible());
+            setOrientation (t.getAngleNow(), ind);
+            setCoordinate (t.isPenBoolean(), t.getOldXpos() , t.getOldYpos(), t.getNewXpos(), t.getNewYpos(), ind);
+            setVisible(t.isRevealBoolean(), ind);
+
+            if (t.isClearScreen()== 1){
+                clear();
+            }
+            Color c = scene.getSettingTools().getPenColorPicker().getValue();
+            updateCurrState(ind, t.getNewXpos(), t.getOldXpos(), t.isPenBoolean(), c, t.getAngleNow());
+            changeDisplay(ind);
+        }
+    }
 	
 	
 	public void handleError(String error){
