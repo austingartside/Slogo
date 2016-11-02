@@ -61,7 +61,7 @@ public class Controller {
 	public void setUp(Stage stage,ResourceBundle resources, SLogoScene actionScene){
 		//View set up
 		myActionScene=actionScene;
-		DisplayUpdater du = new DisplayUpdater(myActionScene,this);
+		du = new DisplayUpdater(myActionScene,this);
         //try {
             du.setUp();
         //}
